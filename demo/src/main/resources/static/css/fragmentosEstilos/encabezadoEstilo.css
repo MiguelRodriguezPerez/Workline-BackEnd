@@ -1,0 +1,93 @@
+body{
+    margin: 0px;
+}
+
+#desplegable{
+    display: none;
+}
+
+header > nav{
+    background-color: #333;
+    display: grid;
+    grid-template-columns: 33% 33% 34%;
+    padding: 15px 18px;
+}
+
+
+header > nav section{
+    margin-top: 15px;
+}
+
+#pestayas a{
+    color:white;
+    text-decoration: none;
+    font-size: 25px;
+
+    margin: 0px 15px;
+}
+
+#perfil{
+    display: grid;
+    grid-template-columns: 70% 21%;
+    justify-items: end;
+    align-items: center;
+}
+
+#perfil a{
+    color:white;
+    text-decoration: none;
+    font-size: 20px;
+
+}
+/*Tablet*/
+@media screen and (max-width:1200px) {
+    header > nav{
+        grid-template-columns: 20% 50% 30%;
+    }
+
+    #pestayas{
+        display: grid;
+        grid-template-columns: 33% 33% 33%;
+        justify-content: center;
+    }
+
+    #pestayas a{
+        font-size: 25px;
+    }
+
+    #perfil{
+        display: grid;
+        grid-template-columns: 45% 55%;
+    }
+
+    #perfil a{
+        text-align: center;
+    }
+}
+
+/* Teléfono */
+@media screen and (max-width:700px) {
+    #pestayas,#perfil{
+        display: none;
+    }
+
+    header > nav{
+        grid-template-columns: 20% 80%;
+    }
+
+    #desplegable{
+        display: inline-block;
+        padding: 15px;
+        margin-left: auto;
+        border: 0px;
+
+        background-color: #333;
+        color: white;
+        font-size: 18px;
+    }
+
+    #desplegable *{
+        border-top: solid 1px white;
+    }
+
+}

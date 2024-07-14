@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workline | Inicio</title>
+    <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
+    <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
+    <link rel="stylesheet" href="/css/paginas/inicioEstilo.css">
+</head>
+<body>
+    <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
+    <section id="anuncio">
+        <img src="/images/inicio/cartoon.png" alt="">
+        <div>
+            <h2>
+                Tu futuro <br> comienza hoy
+            </h2>
+                <p>
+                    Cada día en Workline las empresas publican miles de empleos disponibles 
+                    que son una nueva oportunidad para crecer profesionalmente.
+                </p>
+                <p>
+                    Comienza una nueva etapa en tu vida a través de nuestras
+                    ofertas de trabajo.  
+                </p>
+                <button>Encuentra empleo</button>
+        </div>
+        <div>
+
+        </div>
+    </section>
+    <section id="opciones">
+        <div>
+            <h3>Encuentra tu próximo trabajo</h3>
+            <p>
+                Descubre tu trabajo ideal en Workline
+                con nuestro buscador de trabajo.
+            </p>
+            <button>
+            Buscar ofertas
+            </button>
+        </div>
+        <span>
+
+        </span>
+        <div>
+            <h3>Contrata empleados</h3>
+            <p>
+                Encuentra talento entre nuestros usuarios
+                publicando tus ofertas 
+            </p>
+            <button>
+                Publicar una oferta
+            </button>
+        </div>
+    </section>
+    <footer th:insert="~{/fragmentos/pie :: nav}"></footer>
+</body>
+</html>

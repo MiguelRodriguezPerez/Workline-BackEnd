@@ -1,0 +1,195 @@
+body > *{
+    overflow: hidden;
+}
+
+#anuncio img{
+    display: none;
+}
+
+#anuncio{
+    display: grid;
+    grid-template-columns: 650px 650px;
+    overflow: hidden;
+    justify-content: center;
+
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+
+#anuncio h2{
+    font-size: 80px;
+    font-weight: normal;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#anuncio p{
+    font-size: 25px;
+    padding-right: 100px;
+    line-height: 1.1;
+}
+
+#anuncio button{
+    height: 50px;
+    width: 400px;
+
+    align-self: center;
+    margin-bottom: 30px;   
+    padding: 10px 15px;
+
+    font-size: 20px;
+
+    background-color: white;
+    border: solid 0.7px black;
+}
+
+#anuncio div:last-child{
+    background-image: url("/images/inicio/cartoon.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#opciones{
+    display: grid;
+    grid-template-columns: 600px 50px 600px;
+    justify-content: center;
+    margin-top: 0px;
+    background-color: #d9d8d5;
+
+    padding: 40px 0px;
+}
+
+#opciones > div{
+    display: grid;
+    justify-content: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+#opciones > div:first-child{
+    background-color: #1ba2ba;
+}
+
+#opciones > div:last-child{
+    background-color: rgb(2, 155, 2);
+}
+
+#opciones h3{
+    text-align: center;
+    font-weight: normal;
+    font-size: 35px;
+
+    margin:25px 0px 10px;
+
+}
+
+#opciones p{
+    text-align: center;
+    margin-left: 80px;
+    margin-right: 80px;
+    margin-bottom: 12px;
+    margin-top: 10px;
+    font-size: 23px;
+    line-height: 1.3;
+}
+
+#opciones button{
+    margin: 20px auto;
+    padding: 15px 30px;
+
+    background-color: inherit;
+    border: solid 1px white;
+
+    color:white;
+    font-size: 20px;
+}
+
+@media screen and (max-width:1200px) {
+
+    #anuncio img{
+        display: block;
+        margin: auto auto;
+        width: 700px;
+    }
+    
+    #anuncio{
+        grid-template-columns: 90%;
+        margin-top: 0px;
+    }
+
+    #anuncio div > *{
+        margin-left: 50px;
+    }
+
+    #anuncio h2{
+        margin-top: -20px;
+        font-size: 65px;
+    }
+
+    #anuncio p{
+        padding-right: 35px;
+        margin-top: 0px;
+        margin-bottom: 15px;
+
+        font-size: 28px;
+    }
+
+    #anuncio button{
+        margin-top: 5px;
+        width: 200px;
+    }
+
+    #opciones{
+        grid-template-columns: 37% 4% 37%;
+    }
+
+    #opciones h3{
+        margin: 25px 5px;
+        font-size: 38px;
+    }
+
+    #opciones p{
+        margin: 0px 15px;
+        text-align: center;
+        font-size: 25px;
+    }
+}
+
+@media screen and (max-width:700px) {
+
+    #anuncio img{
+        width: 390px;
+        margin-left: -10px;
+        /* background-image: url("/images/inicio/cartoonTelefono.png"); */
+    }
+
+    #anuncio > div > *{
+        margin-left: 30px;
+    }
+
+    #anuncio h2{
+        line-height: 1;
+        font-size: 55px;
+    }
+
+    #opciones{
+        grid-template-columns: 90%;
+    }
+    
+    #opciones span{
+        display: none;
+    }
+
+    #opciones div:first-child{
+        margin-bottom: 20px;
+    }
+
+    #opciones h3{
+        padding:0px 15px;
+    }
+
+    #opciones p{
+        padding: 0px 10px;
+    }
+}
