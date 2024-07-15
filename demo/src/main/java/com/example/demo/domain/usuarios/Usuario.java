@@ -1,4 +1,4 @@
-package com.example.demo.domain.userRelated;
+package com.example.demo.domain.usuarios;
 
 import org.springframework.lang.Nullable;
 
@@ -41,7 +41,7 @@ public class Usuario {
     @Email(message = "Por favor, proporciona un correo electrónico válido")
     private String email;
 
-    @Nullable
+    @NotNull
     private String ciudad;
     
     @Pattern(regexp = "\\d{9}", message = "El número de teléfono debe tener nueve dígitos")

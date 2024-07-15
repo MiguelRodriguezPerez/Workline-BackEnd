@@ -2,8 +2,8 @@ package com.example.demo.services.usuarios;
 
 import java.util.List;
 
-import com.example.demo.domain.Oferta;
-import com.example.demo.domain.userRelated.Contrata;
+import com.example.demo.domain.ofertas.Oferta;
+import com.example.demo.domain.usuarios.Contrata;
 
 public interface ContrataService {
     

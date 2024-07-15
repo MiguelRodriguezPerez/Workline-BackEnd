@@ -1,4 +1,4 @@
-package com.example.demo.domain.userRelated;
+package com.example.demo.domain.usuarios;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 

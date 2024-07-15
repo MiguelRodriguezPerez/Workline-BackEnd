@@ -8,8 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.domain.Oferta;
-import com.example.demo.domain.userRelated.Contrata;
+import com.example.demo.domain.ofertas.Oferta;
+import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.repositories.ContrataRepository;
 
 @Service

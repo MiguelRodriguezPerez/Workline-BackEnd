@@ -1,4 +1,4 @@
-package com.example.demo.domain.userRelated;
+package com.example.demo.domain.usuarios;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;

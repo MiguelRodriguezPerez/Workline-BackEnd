@@ -2,7 +2,7 @@ package com.example.demo.services.usuarios;
 
 import java.util.List;
 
-import com.example.demo.domain.userRelated.Admin;
+import com.example.demo.domain.usuarios.Admin;
 
 public interface AdminService {
     Admin guardar(Admin admin);

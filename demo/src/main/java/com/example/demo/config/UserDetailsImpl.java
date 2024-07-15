@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.domain.userRelated.Usuario;
+import com.example.demo.domain.usuarios.Usuario;
 import com.example.demo.repositories.UsuarioRepository;
 
 

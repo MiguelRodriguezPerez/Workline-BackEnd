@@ -2,7 +2,7 @@ package com.example.demo.services.usuarios;
 
 import java.util.List;
 
-import com.example.demo.domain.userRelated.Busca;
+import com.example.demo.domain.usuarios.Busca;
 
 public interface BuscaService {
     

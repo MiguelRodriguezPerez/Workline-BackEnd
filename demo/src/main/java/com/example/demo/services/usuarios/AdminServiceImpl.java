@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.domain.userRelated.Admin;
+import com.example.demo.domain.usuarios.Admin;
 import com.example.demo.repositories.AdminRepository;
 
 @Service
