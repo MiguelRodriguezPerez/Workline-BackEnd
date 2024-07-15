@@ -3,24 +3,23 @@ package com.example.demo.services.ofertas;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.repositories.OfertaRepository;
 
+@Service
 public class OfertaServiceImpl implements OfertaService{
 
     @Autowired
     OfertaRepository repo;
-
-    @Autowired
-    BusquedaOfertaService busquedaOfertaService;
 
     @Override
     public Oferta guardarOferta(Oferta oferta) {
@@ -41,6 +40,7 @@ public class OfertaServiceImpl implements OfertaService{
     public List<Oferta> obtenerTodos() {
         ArrayList<Oferta> resultado = (ArrayList<Oferta>)repo.findAll();
         Collections.sort(resultado,(f1,f2) -> f1.getFechaPublicacion().compareTo(f2.getFechaPublicacion()));
+        return resultado;
     }
 
     @Override
@@ -91,22 +91,34 @@ public class OfertaServiceImpl implements OfertaService{
             }
         }
 
-        TreeMap<Long,Oferta> resultado = new TreeMap<>();
-        for(Oferta oferta: listaResultado){
-            resultado.put(oferta.getId(), oferta);
-        }
+        Collections.sort(listaResultado,(f1,f2) -> f1.getFechaPublicacion().compareTo(f2.getFechaPublicacion()));
         
-        return resultado;
+        return listaResultado;
     }
 
     private final Integer ofertasPorPagina = 10;
 
     @Override
-    public TreeMap<Long, Oferta> obtenerPagina(Integer numeroPag, BusquedaOferta busquedaOferta) {
+    public List<Oferta> obtenerPagina(Integer numeroPag, BusquedaOferta busquedaOferta) {
         Pageable paginable = PageRequest.of(numeroPag,ofertasPorPagina);
+        
 
         if(busquedaOferta == null){
-            Page
+            Page<Oferta> resultado = repo.findAll(paginable);
+            return resultado.getContent();
+        }
+        else{
+            List<Oferta> listaOfertas = obtenerResultados(busquedaOferta);
+            if(listaOfertas.isEmpty()) return null;
+
+            int primeraOferta = (int) paginable.getOffset();
+            int ultimaOferta = Math.min(primeraOferta + paginable.getPageSize(),listaOfertas.size());
+
+            Page<Oferta> resultado = new PageImpl<>(listaOfertas.subList(primeraOferta, ultimaOferta),paginable,listaOfertas.size());
+
+            // if(resultado.hasContent()) 
+            return resultado.getContent();
+
         }
     }
 
@@ -117,15 +129,32 @@ public class OfertaServiceImpl implements OfertaService{
     }
 
     @Override
-    public int existeAnteriorPagina(Integer paginaElecta, BusquedaOferta busquedaOferta) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'existeAnteriorPagina'");
+    public int existeAnteriorPagina(Integer paginaElecta) {
+        if(paginaElecta>0){
+            paginaElecta--;
+            return paginaElecta;
+        }
+        else return paginaElecta;
     }
 
     @Override
     public int obtenerNumeroPaginas(BusquedaOferta busquedaOferta) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obtenerNumeroPaginas'");
+        if(busquedaOferta == null){
+            Pageable paginable = PageRequest.of(0,ofertasPorPagina);
+            Page<Oferta> resultado = repo.findAll(paginable);
+
+            return resultado.getTotalPages();
+        }
+
+        Pageable paginable = PageRequest.of(0,ofertasPorPagina);
+        List<Oferta> listaOfertas = obtenerResultados(busquedaOferta);
+
+        int primeraOferta = (int) paginable.getOffset();
+        int ultimaOferta = Math.min(primeraOferta + paginable.getPageSize(),listaOfertas.size());
+
+        Page<Oferta> resultado = new PageImpl<>(listaOfertas.subList(primeraOferta, ultimaOferta),paginable,listaOfertas.size());
+
+        return resultado.getTotalPages();
     }
 
     @Override
@@ -133,7 +162,6 @@ public class OfertaServiceImpl implements OfertaService{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'cambiarPropiedadOfertas'");
     }
-
     
     
 }
