@@ -1,5 +1,6 @@
 package com.example.demo.services.ofertas;
 
+import java.util.List;
 import java.util.TreeMap;
 
 import com.example.demo.domain.ofertas.BusquedaOferta;
@@ -10,11 +11,12 @@ public interface OfertaService {
     Oferta guardarOferta(Oferta oferta);
     void borrarOferta(Long id);
     Oferta obtenerPorId(Long id);
-    TreeMap<Long,Oferta> obtenerTodos();
-    TreeMap<Long,Oferta> obtenerResultados(BusquedaOferta busquedaOferta);
-    TreeMap<Long,Oferta> obtenerPagina(Integer paginaElecta, BusquedaOferta busquedaOferta);
+    List<Oferta> obtenerTodos();
+    List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta);
+    List<Oferta> obtenerPagina(Integer paginaElecta, BusquedaOferta busquedaOferta);
     int existeSiguientePagina(Integer paginaElecta, BusquedaOferta busquedaOferta);
     int existeAnteriorPagina(Integer paginaElecta, BusquedaOferta busquedaOferta);
     int obtenerNumeroPaginas(BusquedaOferta busquedaOferta);
     void cambiarPropiedadOfertas();
+    boolean coincidenEstudios(Oferta oferta, BusquedaOferta busquedaOferta);
 }

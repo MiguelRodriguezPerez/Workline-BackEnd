@@ -22,7 +22,7 @@ public class BusquedaOferta {
     @Nullable
     private List<String> requisitos;
     @Nullable
-    private Double minSalarioB;
+    private Double salarioAnual;
     @Nullable
     private String modalidadB;
     

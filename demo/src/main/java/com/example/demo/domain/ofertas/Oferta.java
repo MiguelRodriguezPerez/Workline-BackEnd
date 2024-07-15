@@ -27,7 +27,7 @@ import lombok.ToString;
 @Data
 @Entity
 @Table(name="ofertas")
-public class Oferta {
+public class Oferta implements Comparable<Oferta>{
     
     @GeneratedValue
     @Id
@@ -85,6 +85,13 @@ public class Oferta {
         this.nombreEmpresa = nombreEmpresa;
         this.fechaPublicacion = fechaPublicacion;
         this.contrata = contrata;
+    }
+
+    @Override
+    public int compareTo(Oferta o1) {
+        if(o1.getFechaPublicacion().isAfter(this.fechaPublicacion)) return 1;
+        else if(o1.getFechaPublicacion() == this.fechaPublicacion) return 0;
+        else return -1;
     }
 
     // @ManyToMany(mappedBy = "listaOfertas")

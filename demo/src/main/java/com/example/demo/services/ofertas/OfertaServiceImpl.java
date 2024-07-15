@@ -1,9 +1,14 @@
 package com.example.demo.services.ofertas;
 
-import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.domain.ofertas.Oferta;
@@ -13,6 +18,9 @@ public class OfertaServiceImpl implements OfertaService{
 
     @Autowired
     OfertaRepository repo;
+
+    @Autowired
+    BusquedaOfertaService busquedaOfertaService;
 
     @Override
     public Oferta guardarOferta(Oferta oferta) {
@@ -30,25 +38,76 @@ public class OfertaServiceImpl implements OfertaService{
     }
 
     @Override
-    public TreeMap<Long, Oferta> obtenerTodos() {
-        TreeMap<Long,Oferta> resultado = new TreeMap<>();
-        Comparator<Oferta> comparator = (o1,o2) -> o1.getFechaPublicacion().compareTo(o2.getFechaPublicacion());
+    public List<Oferta> obtenerTodos() {
+        ArrayList<Oferta> resultado = (ArrayList<Oferta>)repo.findAll();
+        Collections.sort(resultado,(f1,f2) -> f1.getFechaPublicacion().compareTo(f2.getFechaPublicacion()));
+    }
 
-        for(Oferta oferta: repo.findAll()){
-            resultado.put(oferta.getId(),oferta);
+    @Override
+    public boolean coincidenEstudios(Oferta oferta, BusquedaOferta busquedaOferta) {
+       for(String requisito: oferta.getRequisitos()){
+            if(!busquedaOferta.getRequisitos().contains(requisito)) return false;
+       }
+       return true;
+    }
+
+    @Override
+    public List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta) {
+        ArrayList<Oferta> listaResultado = new ArrayList<>();
+
+        listaResultado.removeIf(o -> 
+        busquedaOferta.getPuestoB() != null
+        && !busquedaOferta.getPuestoB().equals("")
+        && !o.getPuesto().equals(busquedaOferta.getPuestoB()));
+
+        listaResultado.removeIf(o -> 
+        busquedaOferta.getSectorB() != null
+        && !busquedaOferta.getSectorB().equals("placeholder")
+        && !busquedaOferta.getSectorB().equals("")
+        && !o.getSector().equals(busquedaOferta.getSectorB()));
+
+        listaResultado.removeIf(o -> 
+        busquedaOferta.getTipoContratoB() != null 
+        && busquedaOferta.getTipoContratoB().equals("")
+        && !o.getModalidadTrabajo().toString().equalsIgnoreCase(busquedaOferta.getTipoContratoB()));//PELIGRO COMPARANDO ENUMS
+
+        listaResultado.removeIf(o -> 
+        busquedaOferta.getCiudadB() != null 
+        && busquedaOferta.getCiudadB().equals("")
+        && !o.getCiudad().equals(busquedaOferta.getCiudadB()));
+
+        listaResultado.removeIf(o -> 
+        o.getSalarioAnual() != null
+        && o.getSalarioAnual() < busquedaOferta.getSalarioAnual());
+
+        listaResultado.removeIf(o -> 
+        busquedaOferta.getModalidadB()!= null
+        && !o.getModalidadTrabajo().toString().equalsIgnoreCase(busquedaOferta.getModalidadB()));//PELIGRO COMPARANDO ENUMS
+
+        //Comprobar si los estudios requeridos coinciden
+        if(!busquedaOferta.getRequisitos().isEmpty() || busquedaOferta.getRequisitos() != null){
+            for(Oferta oferta: listaResultado){//Sospechoso de fallar
+                if(!coincidenEstudios(oferta, busquedaOferta))listaResultado.remove(oferta);
+            }
         }
+
+        TreeMap<Long,Oferta> resultado = new TreeMap<>();
+        for(Oferta oferta: listaResultado){
+            resultado.put(oferta.getId(), oferta);
+        }
+        
+        return resultado;
     }
 
-    @Override
-    public TreeMap<Long, Oferta> obtenerResultados(BusquedaOferta busquedaOferta) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obtenerResultados'");
-    }
+    private final Integer ofertasPorPagina = 10;
 
     @Override
-    public TreeMap<Long, Oferta> obtenerPagina(Integer paginaElecta, BusquedaOferta busquedaOferta) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obtenerPagina'");
+    public TreeMap<Long, Oferta> obtenerPagina(Integer numeroPag, BusquedaOferta busquedaOferta) {
+        Pageable paginable = PageRequest.of(numeroPag,ofertasPorPagina);
+
+        if(busquedaOferta == null){
+            Page
+        }
     }
 
     @Override
@@ -74,5 +133,7 @@ public class OfertaServiceImpl implements OfertaService{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'cambiarPropiedadOfertas'");
     }
+
+    
     
 }
