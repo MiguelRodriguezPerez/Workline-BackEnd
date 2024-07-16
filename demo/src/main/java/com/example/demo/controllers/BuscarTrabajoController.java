@@ -9,14 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.services.ofertas.OfertaService;
 
 @Controller
+@RequestMapping("/ofertasDeTrabajo")
 public class BuscarTrabajoController {
 
     @Autowired
     OfertaService ofertaService;
     
-    @GetMapping("/ofertasDeTrabajo")
+    @GetMapping("/")
     public String getOfferJobsPage(Model model){
         model.addAttribute("listaOfertas", ofertaService.obtenerPagina(0, null));
-        return "buscarTrabajo/listaOfertas";
+        return "buscarTrabajo/indexBuscarTrabajo";
     }
 }

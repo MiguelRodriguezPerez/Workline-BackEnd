@@ -36,7 +36,7 @@ public class SecurityConfig {
         .requestMatchers("/find/subirCandidato/id").hasRole("BUSCA")
         .requestMatchers("/hire/**").hasAnyRole("CONTRATA")
         .requestMatchers("/userSettings/**").authenticated()
-        .requestMatchers("/","/find/**","/aboutUs","/nuevoUsuario/**","/existe/**").permitAll()
+        .requestMatchers("/","/ofertasDeTrabajo/**","/nuevoUsuario/**","/existe/**").permitAll()
         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
         .anyRequest().authenticated())
         .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer

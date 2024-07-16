@@ -24,7 +24,7 @@
                     Comienza una nueva etapa en tu vida a través de nuestras
                     ofertas de trabajo.  
                 </p>
-                <button>Encuentra empleo</button>
+                <a th:href="@{/ofertasDeTrabajo/}">Encuentra empleo</a>
         </div>
         <div>
 
@@ -37,9 +37,9 @@
                 Descubre tu trabajo ideal en Workline
                 con nuestro buscador de trabajo.
             </p>
-            <button>
+            <a>
             Buscar ofertas
-            </button>
+            </a>
         </div>
         <span>
 
@@ -50,9 +50,9 @@
                 Encuentra talento entre nuestros usuarios
                 publicando tus ofertas 
             </p>
-            <button>
+            <a>
                 Publicar una oferta
-            </button>
+            </a>
         </div>
     </section>
     <footer th:insert="~{/fragmentos/pie :: nav}"></footer>

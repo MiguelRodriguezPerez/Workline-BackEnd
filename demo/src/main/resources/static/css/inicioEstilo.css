@@ -12,8 +12,9 @@ body > *{
     overflow: hidden;
     justify-content: center;
 
-    margin-top: 0px;
-    margin-bottom: 0px;
+    padding: 0px 0px 30px;
+    margin-bottom: 20px;
+    margin-top: 15px;
 }
 
 
@@ -22,6 +23,8 @@ body > *{
     font-weight: normal;
     margin-top: 30px;
     margin-bottom: 30px;
+
+    line-height: 1;
 }
 
 #anuncio p{
@@ -30,19 +33,19 @@ body > *{
     line-height: 1.1;
 }
 
-#anuncio button{
-    height: 50px;
-    width: 400px;
-
-    align-self: center;
-    margin-bottom: 30px;   
-    padding: 10px 15px;
-
-    font-size: 20px;
-
-    background-color: white;
-    border: solid 0.7px black;
+#anuncio p:last-of-type{
+    margin-bottom: 35px;
 }
+
+#anuncio a{
+    font-size: 21px;
+    text-decoration: none;
+    color: black;
+
+    border: solid 0.7px black;
+    padding: 10px 20px;
+}
+
 
 #anuncio div:last-child{
     background-image: url("/images/inicio/cartoon.png");
@@ -94,15 +97,15 @@ body > *{
     line-height: 1.3;
 }
 
-#opciones button{
+#opciones a{
     margin: 20px auto;
-    padding: 15px 30px;
+    padding: 12px 27px;
 
     background-color: inherit;
     border: solid 1px white;
 
     color:white;
-    font-size: 20px;
+    font-size: 23px;
 }
 
 @media screen and (max-width:1200px) {
@@ -145,14 +148,18 @@ body > *{
     }
 
     #opciones h3{
-        margin: 25px 5px;
-        font-size: 38px;
+        margin: 20px 15px;
+        font-size: 32px;
     }
 
     #opciones p{
-        margin: 0px 15px;
+        margin: 0px 18px;
         text-align: center;
-        font-size: 25px;
+        font-size: 23px;
+    }
+
+    #opciones a{
+        font-size: 22px;
     }
 }
 
@@ -174,7 +181,7 @@ body > *{
     }
 
     #opciones{
-        grid-template-columns: 90%;
+        grid-template-columns: 80%;
     }
     
     #opciones span{

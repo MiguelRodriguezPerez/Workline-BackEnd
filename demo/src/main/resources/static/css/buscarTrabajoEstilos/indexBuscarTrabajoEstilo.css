@@ -1,0 +1,42 @@
+#origenOfertas{
+    display: grid;
+    grid-template-columns: 30% 70%;
+    /* Cambiar por pixeles */
+}
+
+#origenOfertas >*{
+    border: solid 1px black;
+}
+
+#origenOfertas form{
+    display: grid;
+    grid-template-columns: 75%;
+    justify-content: center;
+
+    margin: 50px 100px 0px 50px;
+    padding-top: 20px;
+
+    background-color: rgb(148, 147, 147);
+    /* box-shadow: 0 0 11px rgba(0, 0, 0, 0.5); */
+}
+
+#origenOfertas form label{
+    color: white;
+    font-size: 25px;
+    margin-bottom: 4px;  
+}
+
+#origenOfertas form input{
+    margin-bottom: 10px;
+    height: 28px;
+}
+
+#origenOfertas form select{
+    height: 35px;
+
+    margin-bottom: 10px;
+}
+
+#orgienOfertas form:last-child{
+
+}
