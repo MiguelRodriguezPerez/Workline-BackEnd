@@ -6,10 +6,60 @@
     <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
     <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
     <link rel="stylesheet" href="/css/buscarTrabajoEstilos/indexBuscarTrabajoEstilo.css">
+    <link rel="stylesheet" href="/css/buscarTrabajoEstilos/menuLateral.css">
+    <script src="/js/buscarTrabajo/indexBuscarTrabajo.js" defer></script>
     <title>Workline | Ofertas</title>
 </head>
 <body>
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
+
+    <aside id="mySidenav" class="sidenav">
+        <a class="closebtn" onclick="closeNav()">&times;</a>
+        <form action="#" method="post">
+                <!-- Si busquedaOfertaId no es igual a null significa que a esta vista ya le llego
+                un busquedaOferta y por tanto tiene un id. Al declarar el th:field=*{id} permite
+                editar la misma busquedaOferta porque el mismo método que guarda una nueva busquedaOferta
+                también sirve para actualizarlo si se le pasa un id ya existente -->
+                <input  hidden>
+                
+                <label for="">Puesto</label>
+                <input type="text">
+
+                <label for="">Tipo Contrato</label>
+                <select id="elegirSector">
+                    <option value="" selected>Selecciona una opción</option>
+                    <option  ></option>
+                </select>
+
+                <label>Sector laboral</label>
+                <select name="" id="" >
+                    <option value="placeholder">Selecciona una opción</option>
+                    <option ></option>
+                </select>
+
+                <label for="">Ciudad</label>
+                <input type="text" placeholder="Elige ciudad">
+
+                <label>Estudios requeridos</label>
+                <select name="" id="">
+                    <option value="" selected>Selecciona una opción</option>
+                    <option ></option>
+                </select>
+
+                <label for="">Salario minímo</label>
+                <input type="text" >
+                
+                <label for="">Modalidad</label>
+                <select name="" id="" >
+                    <option value="" selected>Selecciona una opción</option>
+                    <option ></option>
+                </select>
+
+                <input type="submit" id="ejecutarBusqueda" value="Buscar ofertas">
+            </form>
+        </aside>
+    </aside>
+    <div id="buttonNav" onclick="openNav()">Filtrar Ofertas</div>
     <section id="origenOfertas">
         <aside>
             <form action="#" method="post"
