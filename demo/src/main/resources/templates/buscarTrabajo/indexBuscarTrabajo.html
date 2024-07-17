@@ -14,7 +14,7 @@
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
 
     <aside id="mySidenav" class="sidenav">
-        <a class="closebtn" onclick="closeNav()">&times;</a>
+        <a id="closebtn" onclick="closeNav()">&times;</a>
         <form action="#" method="post">
                 <!-- Si busquedaOfertaId no es igual a null significa que a esta vista ya le llego
                 un busquedaOferta y por tanto tiene un id. Al declarar el th:field=*{id} permite
@@ -37,6 +37,12 @@
                     <option ></option>
                 </select>
 
+                <label for="">Modalidad</label>
+                <select name="" id="" >
+                    <option value="" selected>Selecciona una opción</option>
+                    <option ></option>
+                </select>
+
                 <label for="">Ciudad</label>
                 <input type="text" placeholder="Elige ciudad">
 
@@ -49,17 +55,13 @@
                 <label for="">Salario minímo</label>
                 <input type="text" >
                 
-                <label for="">Modalidad</label>
-                <select name="" id="" >
-                    <option value="" selected>Selecciona una opción</option>
-                    <option ></option>
-                </select>
+                
 
                 <input type="submit" id="ejecutarBusqueda" value="Buscar ofertas">
             </form>
         </aside>
     </aside>
-    <div id="buttonNav" onclick="openNav()">Filtrar Ofertas</div>
+    <div id="buttonNav">Filtrar Ofertas</div>
     <section id="origenOfertas">
         <aside>
             <form action="#" method="post"
@@ -119,7 +121,7 @@
                     </section>
                     <section>
                         <p>15000</p>
-                        <p>modalidad trabajo</p>
+                        <p>Presencial</p>
                         <p>tipo contrato</p>       
                         <p>fecha publicación</p>
                     </section>

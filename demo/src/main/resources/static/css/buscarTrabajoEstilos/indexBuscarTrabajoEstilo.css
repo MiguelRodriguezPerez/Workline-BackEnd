@@ -19,7 +19,7 @@
     grid-template-columns: 75%;
     justify-content: center;
 
-    width: 400px;
+    width: 80%;
     margin: 40px auto;
     padding-top: 20px;
     padding-bottom: 16px;
@@ -67,12 +67,12 @@
 #listaOfertas{
     display: grid;
     grid-template-columns: 100%;
-    
+    justify-content: center;
 }
 
 .oferta{
-    width: 900px;
-    margin: auto auto;
+    margin: auto auto 25px;
+    width: 80%;
     padding: 5px 25px;
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
@@ -116,10 +116,11 @@
     border-left: solid 1px black;
     border-right: solid 1px black;
     text-align: center;
+
 }
 
 .oferta > section:nth-child(3) p:nth-child(3){
-    margin-left: 12px;
+    padding-left: 12px;
 }
 
 .oferta > section:nth-child(3) p{
@@ -130,13 +131,48 @@
     justify-self: end;
 }
 
-@media screen and (max-width:1200px) {
+@media screen and (max-width:1400px) {
     
     #origenOfertas > aside{
         display: none;
     }
 
+    #origenOfertas{
+        grid-template-columns: 95%;
+        justify-content: center;
+    }
+
+    #origenOfertas > div{
+        padding-right: 0px;
+    }
+
     #mySideNav,#buttonNav{
         display: block;
+    }
+
+    .oferta > section:nth-child(3){
+        grid-template-columns: 11% 17% 48% 25%;
+    }
+}
+
+@media screen and (max-width:700px) {
+
+    .oferta > section:nth-child(3){
+        grid-template-columns: 21% 59% 20%;
+    }
+
+    .oferta > section:nth-child(3) > p:nth-child(1){
+        /* justify-self: end;
+        padding-right: 10px; */
+        border-right: solid 1px black;
+    }
+
+    .oferta > section:nth-child(3) > p:nth-child(2){
+        display: none;
+    }
+
+    .oferta > section:nth-child(3) > p:nth-child(3){
+        margin-left: 0px;
+        padding-left: 20px;
     }
 }

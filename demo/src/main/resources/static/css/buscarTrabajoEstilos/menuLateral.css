@@ -1,65 +1,35 @@
-/* The side navigation menu */
-.sidenav {
-    height: 100%; /* 100% Full-height */
-    width: 0; /* 0 width - change this with JavaScript */
+#mySidenav {
+    height: 100%; 
+    width: 0; 
     position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
+    z-index: 1; 
+    top: 0; 
     left: 0;
     background-color: #111; /* Black*/
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 60px; /* Place content 60px from the top */
-    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-  }
-  
-  /* The navigation menu links */
-  .sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-  }
-  
-  /* When you mouse over the navigation links, change their color */
-  .sidenav a:hover {
-    color: #f1f1f1;
+    overflow-x: hidden; 
+    padding-top: 60px; 
+    transition: 0.8s; 
   }
   
   /* Position and style the close button (top right corner) */
-  .sidenav .closebtn {
+#closebtn {
     position: absolute;
     top: 0;
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
-  }
-  
-  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
-  #main {
-    transition: margin-left .5s;
-    padding: 20px;
-  }
-  
-  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-  @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
-  }
-
-  /*Estilos formulario*/
-
-  a.closebtn{
     color: white;
   }
+  
+
+  /*Estilos formulario*/
 
   #mySidenav{
     background-color: rgb(155, 154, 154);
   }
 
-  #mySidenav > *{
-    margin-left: 18px;
+  #mySidenav form > *{
+    margin-left: 30px;
   }
 
   #mySidenav label{
@@ -68,8 +38,12 @@
 
     margin-bottom: 5px;
     margin-top: 15px;
+  }
 
-    display: block;
+  #mySidenav form{
+    display: grid;
+    grid-template-columns: 100%;
+    justify-content: center;
   }
 
   #mySidenav form input{
@@ -83,12 +57,13 @@
   }
 
   #mySidenav form select{
-    width: 73%;
+    width: 71%;
     height: 35px;
     border: 0px;
   }
 
-  #ejecutarBusquedaSideNav{
-    margin-top: 15px;
-    height: 40px !important;
+  @media screen and (max-width:700px) {
+    #mySidenav form > *{
+      margin-left: 35px;
+    }
   }
