@@ -9,7 +9,6 @@
 #origenOfertas{
     display: grid;
     grid-template-columns: 28% 72%;
-    /* Cambiar por pixeles */
     background-color: #F5F5F5;
     padding-top: 10px;
 }
@@ -107,9 +106,13 @@
 
 .oferta > section:nth-child(3){
     display: grid;
-    grid-template-columns: 7% 12% 61% 20%;
+    grid-template-columns: 8% 11% 60% 20%;
     padding-top: 15px;
     padding-bottom: 15px;
+}
+
+.oferta > section:nth-child(3) p:nth-child(1){
+    margin-right: 15px;
 }
 
 .oferta > section:nth-child(3) p:nth-child(2){
@@ -131,7 +134,32 @@
     justify-self: end;
 }
 
-@media screen and (max-width:1400px) {
+#botonesPaginas{
+    display: grid;
+    grid-template-columns:48% 4% 48%;
+    background-color: #F5F5F5;
+    margin-bottom: 40px;
+    margin-top: 30px;
+}
+
+#botonesPaginas div:first-child{
+    justify-self: end;
+}
+
+#botonesPaginas span{
+    justify-content: center;
+}
+
+#botonesPaginas a{
+    padding: 10px 25px;
+    background-color: #1eb56c;
+    color: white;
+    text-decoration: none;
+    font-size: 23px;
+}
+
+
+@media screen and (max-width:1500px) {
     
     #origenOfertas > aside{
         display: none;

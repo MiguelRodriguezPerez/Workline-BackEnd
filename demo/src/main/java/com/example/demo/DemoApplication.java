@@ -25,13 +25,12 @@ public class DemoApplication {
 	CommandLineRunner initData(ContrataService contrataService, OfertaService ofertaService){
 		return args ->{
 
-			// ofertaService.guardarOferta(new Oferta("Camarero", "Hosteleria", "Servir copas", "Jaen", null, 15000d, TipoContrato.TEMPORAL, (byte)12, ModalidadTrabajo.PRESENCIAL,
-			// LocalDate.of(2008,10,10), contrataService.obtenerTodos().get(0)));
+			contrataService.guardarContrata(new Contrata("laura","laura@gmail.com","Jaen","625557811","1234"));
 
-			// ofertaService.guardarOferta(new Oferta("Camarero", "Hosteleria", "Servir copas", "Jaen", null, 15000d, TipoContrato.TEMPORAL, (byte)12, ModalidadTrabajo.PRESENCIAL, LocalDate.of(2008,10,10), contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Cocinero", "Hosteleria", "Preparar alimentos", "Jaen", null, 15000d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.HIBRIDO, LocalDate.of(2008,10,10), contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Recepcionista", "Hosteleria", "Atender a los clientes", "Jaen", null, 15000d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.TELETRABAJO, LocalDate.of(2008,10,10), contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Mantenimiento", "Hosteleria", "Reparaciones generales", "Jaen", null, 15000d, TipoContrato.DISCONTINUO, (byte)12, ModalidadTrabajo.PRESENCIAL, LocalDate.of(2008,10,10), contrataService.obtenerTodos().get(0)));
+			ofertaService.guardarOferta(new Oferta("Camarero", "Hosteleria", "Servir copas", "Jaen", null, 15000d, TipoContrato.TEMPORAL, (byte)12, ModalidadTrabajo.PRESENCIAL, LocalDate.of(2008,10,10), contrataService.obtenerTodos().get(0)));
+			ofertaService.guardarOferta(new Oferta("Cocinero", "Hosteleria", "Preparar alimentos", "Jaen", null, 15000d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.HIBRIDO, LocalDate.of(2008,10,10), contrataService.obtenerTodos().get(0)));
+			ofertaService.guardarOferta(new Oferta("Recepcionista", "Hosteleria", "Atender a los clientes", "Jaen", null, 15000d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.TELETRABAJO, LocalDate.of(2008,10,10), contrataService.obtenerTodos().get(0)));
+			ofertaService.guardarOferta(new Oferta("Mantenimiento", "Hosteleria", "Reparaciones generales", "Jaen", null, 15000d, TipoContrato.DISCONTINUO, (byte)12, ModalidadTrabajo.PRESENCIAL, LocalDate.of(2008,10,10), contrataService.obtenerTodos().get(0)));
 			ofertaService.guardarOferta(new Oferta("Animador", "Hosteleria", "Organizar actividades", "Jaen", null, 15000d, TipoContrato.TEMPORAL, (byte)12, ModalidadTrabajo.HIBRIDO, LocalDate.of(2008,10,10), contrataService.obtenerTodos().get(0)));
 			ofertaService.guardarOferta(new Oferta("Limpieza", "Hosteleria", "Limpieza de habitaciones", "Jaen", null, 15000d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.TELETRABAJO, LocalDate.of(2008,10,10), contrataService.obtenerTodos().get(0)));
 			ofertaService.guardarOferta(new Oferta("Portero", "Hosteleria", "Vigilar entrada", "Jaen", null, 15000d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.PRESENCIAL, LocalDate.of(2008,10,10), contrataService.obtenerTodos().get(0)));
