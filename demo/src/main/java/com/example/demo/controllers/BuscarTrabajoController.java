@@ -18,6 +18,7 @@ public class BuscarTrabajoController {
     @GetMapping("/")
     public String getOfferJobsPage(Model model){
         model.addAttribute("listaOfertas", ofertaService.obtenerPagina(0, null));
+        
         return "buscarTrabajo/indexBuscarTrabajo";
     }
 }

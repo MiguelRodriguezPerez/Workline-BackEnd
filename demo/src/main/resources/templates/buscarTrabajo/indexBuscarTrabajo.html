@@ -111,23 +111,28 @@
         <div>
             <h2>Número Ofertas</h2>
             <section id="listaOfertas">
-                <div class="oferta">
+                <div class="oferta" th:if="${listaOfertas != null}"
+                th:each="oferta:${listaOfertas}" th:id="${oferta.id}">
                     <section>
-                        <h4>Puesto</h4>
-                        <p>Ciudad</p>
+                        <h4 th:text="${oferta.puesto}"></h4>
+                        <p th:text="${oferta.ciudad}"></p>
                     </section>
                     <section>
-                        <p>Nombre Empresa</p>
+                        <p th:text="${oferta.nombreEmpresa}"></p>
                     </section>
                     <section>
-                        <p>15000</p>
-                        <p>Presencial</p>
-                        <p>tipo contrato</p>       
-                        <p>fecha publicación</p>
+                        <p th:text="${oferta.salarioAnual}"></p>
+                        <p th:text="${oferta.parsearModalidadTrabajo()}">Presencial</p>
+                        <p th:text="${oferta.parsearTipoContrato()}"></p>       
+                        <p th:text="${oferta.parsearFecha()}"></p>
                     </section>
                 </div>
             </section>
         </div>
+    </section>
+    <section id="botonesPaginas">
+        <a href="">Anterior Página</a>
+        <a href="">Siguiente Página</a>
     </section>
     <footer th:insert="~{/fragmentos/pie :: nav}"></footer>
 </body>

@@ -1,6 +1,7 @@
 package com.example.demo.domain.ofertas;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.example.demo.domain.usuarios.Contrata;
@@ -72,7 +73,7 @@ public class Oferta implements Comparable<Oferta>{
     public Oferta(@NotNull @Size(max = 30) String puesto, @NotNull String sector, String descripcion,
             @NotNull String ciudad, @Size(max = 10) List<String> requisitos, Double salarioAnual,
             @NotNull TipoContrato tipoContrato, @NotNull Byte horas, @NotNull ModalidadTrabajo modalidadTrabajo,
-            String nombreEmpresa, LocalDate fechaPublicacion, Contrata contrata) {
+            LocalDate fechaPublicacion, Contrata contrata) {
         this.puesto = puesto;
         this.sector = sector;
         this.descripcion = descripcion;
@@ -82,7 +83,7 @@ public class Oferta implements Comparable<Oferta>{
         this.tipoContrato = tipoContrato;
         this.horas = horas;
         this.modalidadTrabajo = modalidadTrabajo;
-        this.nombreEmpresa = nombreEmpresa;
+        this.nombreEmpresa = contrata.getNombre();
         this.fechaPublicacion = fechaPublicacion;
         this.contrata = contrata;
     }
@@ -92,6 +93,28 @@ public class Oferta implements Comparable<Oferta>{
         if(o1.getFechaPublicacion().isAfter(this.fechaPublicacion)) return 1;
         else if(o1.getFechaPublicacion() == this.fechaPublicacion) return 0;
         else return -1;
+    }
+
+    public String convertirMayus(String s){
+        s = s.toLowerCase();
+        s = Character.toString(s.charAt(0)).toUpperCase() + s.substring(1);
+        return s;
+    }
+
+    public String parsearTipoContrato(){
+        return convertirMayus(this.tipoContrato.toString());
+    }
+
+    public String parsearModalidadTrabajo(){
+        return convertirMayus(this.modalidadTrabajo.toString());
+    }
+
+    public String parsearFecha(){
+        LocalDate l = this.fechaPublicacion;
+        String resultado = DateTimeFormatter.ofPattern("dd-MM-yyyy").format(l).toString();
+        resultado = resultado.replace('-', '/');
+        
+        return resultado;
     }
 
     // @ManyToMany(mappedBy = "listaOfertas")
