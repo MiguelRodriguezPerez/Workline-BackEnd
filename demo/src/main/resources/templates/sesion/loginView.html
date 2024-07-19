@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div th:if="${param.error}">Credenciales incorrectas</div>
+    <div th:if="${param.logout}">Te has desconectado</div>
+    <div id="contenedor">
+        <img src="/images/index/logo3.png" alt="" id="logo">
+        <div>
+            <form th:action="@{/login}" method="post">
+                <div class="filaSesion">
+                    <img src="/images/index/user2icon.png" alt=""><input type="text" name="username" placeholder="Nombre de usuario">
+                </div>
+                <div class="filaSesion">
+                    <img src="/images/index/password.png" alt=""><input type="password" name="password" placeholder="Contraseña"> 
+                </div>
+                <a th:href="@{/nuevoUsuario/}" id="redirigir">¿No tiene cuenta? Cree una</a><br><br>
+                <div class="loginButton">
+                    <input type="submit" value="Entrar">
+                </div>
+            </form><br>
+            <span th:if="${error}" th:text="${error}" style="color: red;"></span>
+            <div id="atras">
+                <a th:href="@{/}">Volver atrás</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

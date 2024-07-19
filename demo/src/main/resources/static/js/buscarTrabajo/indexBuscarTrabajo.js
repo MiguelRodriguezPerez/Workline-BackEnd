@@ -1,19 +1,22 @@
 "use strict"
 
-/* Set the width of the side navigation to 250px */
-function openNav() {
-    if(window.innerWidth > 700) document.getElementById("mySidenav").style.width = "300px";
-    else document.getElementById("mySidenav").style.width = "100%";
+document.getElementById('siguientePag').addEventListener('click',()=>{
+
+    const url = window.location.href.toString();
     
-  }
-  
-/* Set the width of the side navigation to 0 */
-function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
+    if(/^http:\/\/localhost:9001\/ofertasDeTrabajo\/\d$/.test(window.location.href)){
+
+        let numPag = parseInt(url.substring(url.length - 2, url.length - 1));
+
+        const siguientePag = existeSiguientePag(null,numPag);
+        
+        if(siguientePag) window.location = url.replace(url.substring(url.length - 2, url.length - 1), numPag + 1);
+    }
+});
+
+async function existeSiguientePag(busqueda,pag){
+    console.log('aaaaaaaaaaaaaa');
+    const resultado = await fetch('/solicitudOfertas/existeSiguientePag/' + busqueda + '/' + pag);
+    console.log(resultado);
+    return resultado;
 }
-
-document.getElementById('buttonNav').addEventListener('click',openNav);
-
-document.addEventListener('click',(e)=>{
-  if(e.layerX > 300) closeNav();
-})

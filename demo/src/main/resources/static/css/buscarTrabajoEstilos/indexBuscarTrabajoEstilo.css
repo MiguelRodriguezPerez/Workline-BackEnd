@@ -136,7 +136,7 @@
 
 #botonesPaginas{
     display: grid;
-    grid-template-columns:48% 4% 48%;
+    grid-template-columns:49% 2% 49%;
     background-color: #F5F5F5;
     margin-bottom: 40px;
     margin-top: 30px;
@@ -151,8 +151,9 @@
 }
 
 #botonesPaginas a{
-    padding: 10px 25px;
+    padding: 12px 25px;
     background-color: #1eb56c;
+    border-radius: 5px;
     color: white;
     text-decoration: none;
     font-size: 23px;
@@ -202,5 +203,27 @@
     .oferta > section:nth-child(3) > p:nth-child(3){
         margin-left: 0px;
         padding-left: 20px;
+    }
+
+    #botonesPaginas{
+        grid-template-columns: 48% 48%;
+        justify-content: center;
+    }
+
+    #botonesPaginas div:first-child{
+        margin-right: 5px;
+    }
+
+    #botonesPaginas div:last-child{
+        margin-left: 5px;
+    }
+
+    #botonesPaginas span{
+        display: none;
+    }
+
+    #botonesPaginas a{
+        padding: 12px 14px;
+        font-size: 19px;
     }
 }

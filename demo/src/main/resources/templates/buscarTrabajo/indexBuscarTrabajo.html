@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
     <link rel="stylesheet" href="/css/buscarTrabajoEstilos/indexBuscarTrabajoEstilo.css">
     <link rel="stylesheet" href="/css/buscarTrabajoEstilos/menuLateral.css">
+    <script src="/js/buscarTrabajo/menuLateral.js" defer></script>
     <script src="/js/buscarTrabajo/indexBuscarTrabajo.js" defer></script>
     <title>Workline | Ofertas</title>
 </head>
@@ -14,7 +15,7 @@
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
 
     <aside id="mySidenav" class="sidenav">
-        <a id="closebtn" onclick="closeNav()">&times;</a>
+        <a id="closebtn">&times;</a>
         <form action="#" method="post">
                 <!-- Si busquedaOfertaId no es igual a null significa que a esta vista ya le llego
                 un busquedaOferta y por tanto tiene un id. Al declarar el th:field=*{id} permite
@@ -131,7 +132,7 @@
             <section id="botonesPaginas">
                 <div><a href="">🡐  Anterior Página</a></div>
                 <span></span>
-                <div><a href="">Siguiente Página  🡒</a> </div>
+                <div><button id="siguientePag">Siguiente Página  🡒</button></div>
             </section>
         </div>
     </section>

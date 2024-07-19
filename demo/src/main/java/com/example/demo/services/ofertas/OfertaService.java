@@ -15,7 +15,7 @@ public interface OfertaService {
     List<Oferta> obtenerTodos();
     List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta);
     List<Oferta> obtenerPagina(Integer paginaElecta, BusquedaOferta busquedaOferta);
-    int existeSiguientePagina(Integer paginaElecta, BusquedaOferta busquedaOferta);
+    boolean existeSiguientePagina(Integer paginaElecta, BusquedaOferta busquedaOferta);
     int existeAnteriorPagina(Integer paginaElecta);
     int obtenerNumeroPaginas(BusquedaOferta busquedaOferta);
     void cambiarPropiedadOfertas();

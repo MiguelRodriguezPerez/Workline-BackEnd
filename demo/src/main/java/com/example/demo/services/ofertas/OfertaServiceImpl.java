@@ -123,9 +123,9 @@ public class OfertaServiceImpl implements OfertaService{
     }
 
     @Override
-    public int existeSiguientePagina(Integer paginaElecta, BusquedaOferta busquedaOferta) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'existeSiguientePagina'");
+    public boolean existeSiguientePagina(Integer paginaElecta, BusquedaOferta busquedaOferta) {
+        if(obtenerNumeroPaginas(busquedaOferta) > paginaElecta) return true;
+        else return false;
     }
 
     @Override
