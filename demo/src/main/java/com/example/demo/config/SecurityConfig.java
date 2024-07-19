@@ -32,11 +32,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.headers(headersConfigurer ->  headersConfigurer.frameOptions(frameOptions -> frameOptions.sameOrigin()));
         http.authorizeHttpRequests(auth->auth
-        .requestMatchers("/admin/**").hasRole("ADMIN")
-        .requestMatchers("/find/subirCandidato/id").hasRole("BUSCA")
-        .requestMatchers("/hire/**").hasAnyRole("CONTRATA")
-        .requestMatchers("/userSettings/**").authenticated()
-        .requestMatchers("/","/ofertasDeTrabajo/**","/solicitudOfertas/**","/nuevoUsuario/**","/existe/**").permitAll()
+        .requestMatchers("/","/ofertasDeTrabajo/**","/solicitudOfertas/**").permitAll()
         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
         .anyRequest().authenticated())
         .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer

@@ -1,22 +1,47 @@
 "use strict"
 
-document.getElementById('siguientePag').addEventListener('click',()=>{
+document.getElementById('siguientePag').addEventListener('click',async ()=>{
 
     const url = window.location.href.toString();
     
-    if(/^http:\/\/localhost:9001\/ofertasDeTrabajo\/\d$/.test(window.location.href)){
+    if(url.match(/\/ofertasDeTrabajo\/\d$/)){
 
-        let numPag = parseInt(url.substring(url.length - 2, url.length - 1));
+        let numPag = parseInt(url.substring(url.length - 1, url.length));
+        console.log(numPag);
 
-        const siguientePag = existeSiguientePag(null,numPag);
+        const siguientePag = await existeSiguientePag(null,numPag);
+        console.log(siguientePag);
         
-        if(siguientePag) window.location = url.replace(url.substring(url.length - 2, url.length - 1), numPag + 1);
+        if(siguientePag === true){
+            numPag++;
+            window.location = '/ofertasDeTrabajo/' + numPag;
+        } 
+        
     }
 });
 
 async function existeSiguientePag(busqueda,pag){
-    console.log('aaaaaaaaaaaaaa');
-    const resultado = await fetch('/solicitudOfertas/existeSiguientePag/' + busqueda + '/' + pag);
+    const respuesta = await fetch('/solicitudOfertas/existeSiguientePagina/' + busqueda + '/' + pag);
+    if (!respuesta.ok) {
+        console.error("Ha ocurrido un error en el resultado de la api");
+        return false;
+    }
+    const resultado = await respuesta.json(); 
     console.log(resultado);
-    return resultado;
+    return resultado; 
 }
+
+document.getElementById('anteriorPag').addEventListener('click',()=>{
+
+    let url = window.location.href.toString();
+    url = url.substring(21,url.length);
+    let numPag = parseInt(url.substring(url.length - 1, url.length));
+    console.log(numPag)
+
+    if(numPag > 0){
+        numPag--;
+        url = url.substring(0,url.length - 1);
+        console.log(url);
+        window.location.href = url + numPag;
+    }
+});

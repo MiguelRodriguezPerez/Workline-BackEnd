@@ -122,7 +122,7 @@
                         <p th:text="${oferta.nombreEmpresa}"></p>
                     </section>
                     <section>
-                        <p th:text="${oferta.salarioAnual}"></p>
+                        <p th:text="${oferta.salarioAnual.intValue()} + ' €'"></p>
                         <p th:text="${oferta.parsearModalidadTrabajo()}">Presencial</p>
                         <p th:text="${oferta.parsearTipoContrato()}"></p>       
                         <p th:text="${oferta.parsearFecha()}"></p>
@@ -130,7 +130,7 @@
                 </div>
             </section>
             <section id="botonesPaginas">
-                <div><a href="">🡐  Anterior Página</a></div>
+                <div><button id="anteriorPag">🡐  Anterior Página</button></div>
                 <span></span>
                 <div><button id="siguientePag">Siguiente Página  🡒</button></div>
             </section>

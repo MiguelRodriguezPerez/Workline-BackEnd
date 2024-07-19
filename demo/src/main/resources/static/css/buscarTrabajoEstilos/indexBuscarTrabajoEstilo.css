@@ -150,13 +150,14 @@
     justify-content: center;
 }
 
-#botonesPaginas a{
+#botonesPaginas button{
     padding: 12px 25px;
     background-color: #1eb56c;
     border-radius: 5px;
     color: white;
     text-decoration: none;
-    font-size: 23px;
+    font-size: 18px;
+    border: 0px;
 }
 
 
@@ -191,8 +192,6 @@
     }
 
     .oferta > section:nth-child(3) > p:nth-child(1){
-        /* justify-self: end;
-        padding-right: 10px; */
         border-right: solid 1px black;
     }
 
@@ -222,8 +221,8 @@
         display: none;
     }
 
-    #botonesPaginas a{
+    #botonesPaginas button{
         padding: 12px 14px;
-        font-size: 19px;
+        font-size: 15px;
     }
 }

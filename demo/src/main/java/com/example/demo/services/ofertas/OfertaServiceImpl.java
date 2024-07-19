@@ -124,7 +124,7 @@ public class OfertaServiceImpl implements OfertaService{
 
     @Override
     public boolean existeSiguientePagina(Integer paginaElecta, BusquedaOferta busquedaOferta) {
-        if(obtenerNumeroPaginas(busquedaOferta) > paginaElecta) return true;
+        if(obtenerNumeroPaginas(busquedaOferta) -1 > paginaElecta) return true;
         else return false;
     }
 

@@ -8,7 +8,6 @@ public interface AdminService {
     Admin guardar(Admin admin);
     Admin guardarSinEncriptar(Admin admin);
     void borrar(Long id);
-    Admin editar(Admin admin);
     List <Admin> obtenerTodos();
     Admin obtenerPorId(Long id);
     Admin obtenerPorNombre(String nombre);

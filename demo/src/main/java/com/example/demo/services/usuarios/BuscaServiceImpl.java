@@ -22,7 +22,7 @@ public class BuscaServiceImpl implements BuscaService{
 
     @Override
     public Busca guardar(Busca busca) {
-        passwordEncoder.encode(busca.getPassword());
+        busca.setPassword(passwordEncoder.encode(busca.getPassword()));
         return repo.save(busca);
     }
 

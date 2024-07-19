@@ -3,10 +3,13 @@ package com.example.demo.services.usuarios;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.usuarios.Admin;
+import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.repositories.AdminRepository;
 
 @Service
@@ -20,56 +23,45 @@ public class AdminServiceImpl implements AdminService{
 
     @Override
     public Admin guardar(Admin admin) {
-       passwordEncoder.encode(admin.getPassword());
+       admin.setPassword(passwordEncoder.encode(admin.getPassword()));
        return repo.save(admin);
     }
 
     @Override
     public Admin guardarSinEncriptar(Admin admin) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'guardarSinEncriptar'");
+        return repo.save(admin);
     }
 
     @Override
     public void borrar(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'borrar'");
-    }
-
-    @Override
-    public Admin editar(Admin admin) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'editar'");
+        repo.deleteById(id);
     }
 
     @Override
     public List<Admin> obtenerTodos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obtenerTodos'");
+        return repo.findAll();
     }
 
     @Override
     public Admin obtenerPorId(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obtenerPorId'");
+        return repo.findById(id).orElse(null);
     }
 
     @Override
     public Admin obtenerPorNombre(String nombre) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obtenerPorNombre'");
+        return repo.findByNombre(nombre);
     }
 
     @Override
     public String obtenerNombre() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obtenerNombre'");
+        return obtenerAdminConectado().getNombre();
     }
 
     @Override
     public Admin obtenerAdminConectado() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obtenerAdminConectado'");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Admin admin = obtenerPorNombre(auth.getName());
+        return admin;
     }
     
 }
