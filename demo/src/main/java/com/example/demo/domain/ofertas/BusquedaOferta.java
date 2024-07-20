@@ -6,9 +6,15 @@ import org.springframework.lang.Nullable;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
+@Setter
+@ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class BusquedaOferta {
     
     @Nullable
@@ -25,5 +31,16 @@ public class BusquedaOferta {
     private Double salarioAnual;
     @Nullable
     private String modalidadB;
+
+    public boolean estaVacio(){
+        if(!puestoB.isEmpty()) return false;
+        if(!sectorB.equals("placeholder")) return false;
+        if(!tipoContratoB.isEmpty()) return false;
+        if(!ciudadB.isEmpty()) return false;
+        if(requisitos != null) return false;
+        if(salarioAnual != null) return false;
+        if(!modalidadB.isEmpty()) return false;
+        return true;
+    }
     
 }

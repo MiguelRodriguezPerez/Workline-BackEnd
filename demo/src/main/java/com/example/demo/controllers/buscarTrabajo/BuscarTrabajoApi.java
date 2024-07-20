@@ -19,6 +19,7 @@ public class BuscarTrabajoApi {
     
     @GetMapping("/existeSiguientePagina/{busqueda}/{pag}")
     public ResponseEntity<Boolean> isNextPage(@PathVariable String busqueda,@PathVariable Integer pag){
+        
         boolean haySiguientePag = ofertaService.existeSiguientePagina(pag, null);
         return new ResponseEntity<>(haySiguientePag, HttpStatus.OK);
     }

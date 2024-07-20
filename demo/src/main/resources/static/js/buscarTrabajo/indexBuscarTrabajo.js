@@ -5,9 +5,7 @@ document.getElementById('siguientePag').addEventListener('click',async ()=>{
     const url = window.location.href.toString();
     
     if(url.match(/\/ofertasDeTrabajo\/\d$/)){
-
         let numPag = parseInt(url.substring(url.length - 1, url.length));
-        console.log(numPag);
 
         const siguientePag = await existeSiguientePag(null,numPag);
         console.log(siguientePag);
@@ -16,7 +14,16 @@ document.getElementById('siguientePag').addEventListener('click',async ()=>{
             numPag++;
             window.location = '/ofertasDeTrabajo/' + numPag;
         } 
-        
+    }
+    else{
+        let numPag = parseInt(url.substring(url.length - 1, url.length));
+
+        const siguientePag = await existeSiguientePag(window.location.href,numPag);
+
+        if(siguientePag === true){
+            numPag++;
+            window.location = '/ofertasDeTrabajo/' + numPag;
+        } 
     }
 });
 
@@ -30,6 +37,7 @@ async function existeSiguientePag(busqueda,pag){
     console.log(resultado);
     return resultado; 
 }
+
 
 document.getElementById('anteriorPag').addEventListener('click',()=>{
 

@@ -16,36 +16,27 @@
 
     <aside id="mySidenav" class="sidenav">
         <a id="closebtn">&times;</a>
-        <form action="#" method="post">
-                <!-- Si busquedaOfertaId no es igual a null significa que a esta vista ya le llego
-                un busquedaOferta y por tanto tiene un id. Al declarar el th:field=*{id} permite
-                editar la misma busquedaOferta porque el mismo método que guarda una nueva busquedaOferta
-                también sirve para actualizarlo si se le pasa un id ya existente -->
-                <input  hidden>
-                
+        <form action="#" method="get"
+                th:object="${busquedaOferta}"
+                th:action="@{/ofertasDeTrabajo/resultadosBusqueda/0}">
+
                 <label for="">Puesto</label>
-                <input type="text">
+                <input type="text" th:field="*{puestoB}">
 
                 <label for="">Tipo Contrato</label>
-                <select id="elegirSector">
-                    <option value="" selected>Selecciona una opción</option>
-                    <option  ></option>
+                <select th:field="*{tipoContratoB}" >
+                    <option selected value="">Selecciona una opción</option>
+                    <option th:text="${contrato}" th:value="${contrato}" th:each="contrato:${tiposContrato}"></option>
                 </select>
 
                 <label>Sector laboral</label>
-                <select name="" id="" >
+                <select name="" id="" th:field="*{sectorB}">
                     <option value="placeholder">Selecciona una opción</option>
-                    <option ></option>
-                </select>
-
-                <label for="">Modalidad</label>
-                <select name="" id="" >
-                    <option value="" selected>Selecciona una opción</option>
-                    <option ></option>
+                    <option value="" th:value="${sector}" th:text="${sector}" th:each="sector:${listaSectores}"></option>
                 </select>
 
                 <label for="">Ciudad</label>
-                <input type="text" placeholder="Elige ciudad">
+                <input type="text" placeholder="Elige ciudad" th:field="*{ciudadB}">
 
                 <label>Estudios requeridos</label>
                 <select name="" id="">
@@ -54,9 +45,13 @@
                 </select>
 
                 <label for="">Salario minímo</label>
-                <input type="text" >
+                <input type="text" th:field="*{salarioAnual}">
                 
-                
+                <label for="">Modalidad</label>
+                <select name="" id="" th:field="*{modalidadB}">
+                    <option value="" selected>Selecciona una opción</option>
+                    <option th:text="${modalidad}" th:value="${modalidad}" th:each="modalidad:${tiposModalidad}"></option>
+                </select>
 
                 <input type="submit" id="ejecutarBusqueda" value="Buscar ofertas">
             </form>
@@ -65,31 +60,27 @@
     <div id="buttonNav">Filtrar Ofertas</div>
     <section id="origenOfertas">
         <aside>
-            <form action="#" method="post"
-            >
-                <!-- Si busquedaOfertaId no es igual a null significa que a esta vista ya le llego
-                un busquedaOferta y por tanto tiene un id. Al declarar el th:field=*{id} permite
-                editar la misma busquedaOferta porque el mismo método que guarda una nueva busquedaOferta
-                también sirve para actualizarlo si se le pasa un id ya existente -->
-                <input  hidden>
-                
+            <form action="#" method="get"
+                th:object="${busquedaOferta}"
+                th:action="@{/ofertasDeTrabajo/resultadosBusqueda/0}">
+
                 <label for="">Puesto</label>
-                <input type="text">
+                <input type="text" th:field="*{puestoB}">
 
                 <label for="">Tipo Contrato</label>
-                <select id="elegirSector">
+                <select th:field="*{tipoContratoB}">
                     <option value="" selected>Selecciona una opción</option>
-                    <option  ></option>
+                    <option th:value="${tipoContrato}" th:text="${tipoContrato}" th:each="tipoContrato:${tiposContrato}"></option>
                 </select>
 
                 <label>Sector laboral</label>
-                <select name="" id="" >
+                <select name="" id="" th:field="*{sectorB}">
                     <option value="placeholder">Selecciona una opción</option>
-                    <option ></option>
+                    <option th:value="${sector}" th:text="${sector}" th:each="sector:${listaSectores}"></option>
                 </select>
 
                 <label for="">Ciudad</label>
-                <input type="text" placeholder="Elige ciudad">
+                <input type="text" placeholder="Elige ciudad" th:field="*{ciudadB}">
 
                 <label>Estudios requeridos</label>
                 <select name="" id="">
@@ -98,18 +89,19 @@
                 </select>
 
                 <label for="">Salario minímo</label>
-                <input type="text" >
+                <input type="text" th:field="*{salarioAnual}">
                 
                 <label for="">Modalidad</label>
-                <select name="" id="" >
+                <select name="" id="" th:field="*{modalidadB}">
                     <option value="" selected>Selecciona una opción</option>
-                    <option ></option>
+                    <option th:value="${modalidad}" th:text="${modalidad}" th:each="modalidad:${tiposModalidad}"></option>
                 </select>
 
                 <input type="submit" id="ejecutarBusqueda" value="Buscar ofertas">
             </form>
         </aside>
         <div>
+            <a href="">Borrar Filtros</a>
             <h2>Número Ofertas</h2>
             <section id="listaOfertas">
                 <div class="oferta" th:if="${listaOfertas != null}"

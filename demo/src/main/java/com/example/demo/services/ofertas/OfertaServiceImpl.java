@@ -21,6 +21,9 @@ public class OfertaServiceImpl implements OfertaService{
     @Autowired
     OfertaRepository repo;
 
+    @Autowired
+    BusquedaOfertaService busquedaOfertaService;
+
     @Override
     public Oferta guardarOferta(Oferta oferta) {
         return repo.save(oferta);
@@ -53,43 +56,59 @@ public class OfertaServiceImpl implements OfertaService{
 
     @Override
     public List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta) {
-        ArrayList<Oferta> listaResultado = new ArrayList<>();
+        ArrayList<Oferta> listaResultado = new ArrayList<>(repo.findAll());
+        System.out.println(listaResultado);
+        System.out.println(busquedaOferta + "AAAAAAAAAAAAAAAAAAAAAAAA");
 
         listaResultado.removeIf(o -> 
         busquedaOferta.getPuestoB() != null
         && !busquedaOferta.getPuestoB().equals("")
         && !o.getPuesto().equals(busquedaOferta.getPuestoB()));
+        System.out.println(listaResultado + "primerFiltro");
+        System.out.println();
 
         listaResultado.removeIf(o -> 
         busquedaOferta.getSectorB() != null
         && !busquedaOferta.getSectorB().equals("placeholder")
         && !busquedaOferta.getSectorB().equals("")
         && !o.getSector().equals(busquedaOferta.getSectorB()));
+        System.out.println(listaResultado + "segundoFiltro");
+        System.out.println();
 
         listaResultado.removeIf(o -> 
-        busquedaOferta.getTipoContratoB() != null 
-        && busquedaOferta.getTipoContratoB().equals("")
-        && !o.getModalidadTrabajo().toString().equalsIgnoreCase(busquedaOferta.getTipoContratoB()));//PELIGRO COMPARANDO ENUMS
+        !busquedaOferta.getTipoContratoB().isEmpty()
+        && !o.getTipoContrato().toString().toUpperCase().equals(busquedaOferta.getTipoContratoB().toUpperCase()));//PELIGRO COMPARANDO ENUMS
+        System.out.println(listaResultado + "TercerFiltro");
+        System.out.println(busquedaOferta.getTipoContratoB().toString());
 
         listaResultado.removeIf(o -> 
-        busquedaOferta.getCiudadB() != null 
-        && busquedaOferta.getCiudadB().equals("")
+        !busquedaOferta.getCiudadB().isEmpty() 
         && !o.getCiudad().equals(busquedaOferta.getCiudadB()));
+        System.out.println(listaResultado + "cuartoFiltro");
+        System.out.println();
+
+        if(busquedaOferta.getSalarioAnual() != null){
+            listaResultado.removeIf(o -> 
+            o.getSalarioAnual() < busquedaOferta.getSalarioAnual());
+        }
+       
+        System.out.println(listaResultado + "quintoFiltro");
+        System.out.println();
 
         listaResultado.removeIf(o -> 
-        o.getSalarioAnual() != null
-        && o.getSalarioAnual() < busquedaOferta.getSalarioAnual());
-
-        listaResultado.removeIf(o -> 
-        busquedaOferta.getModalidadB()!= null
+        !busquedaOferta.getModalidadB().isEmpty()
         && !o.getModalidadTrabajo().toString().equalsIgnoreCase(busquedaOferta.getModalidadB()));//PELIGRO COMPARANDO ENUMS
+        System.out.println(listaResultado + "sextoFiltro");
+        System.out.println();
 
         //Comprobar si los estudios requeridos coinciden
-        if(!busquedaOferta.getRequisitos().isEmpty() || busquedaOferta.getRequisitos() != null){
+        if(busquedaOferta.getRequisitos() != null){
             for(Oferta oferta: listaResultado){//Sospechoso de fallar
                 if(!coincidenEstudios(oferta, busquedaOferta))listaResultado.remove(oferta);
             }
         }
+        System.out.println(listaResultado + "septimoFiltro");
+        System.out.println();
 
         Collections.sort(listaResultado,(f1,f2) -> f1.getFechaPublicacion().compareTo(f2.getFechaPublicacion()));
         
@@ -122,10 +141,17 @@ public class OfertaServiceImpl implements OfertaService{
         }
     }
 
+
     @Override
-    public boolean existeSiguientePagina(Integer paginaElecta, BusquedaOferta busquedaOferta) {
-        if(obtenerNumeroPaginas(busquedaOferta) -1 > paginaElecta) return true;
-        else return false;
+    public boolean existeSiguientePagina(Integer paginaElecta, String busquedaOferta) {
+        if(busquedaOferta == null){
+            if(obtenerNumeroPaginas(null) -1 > paginaElecta) return true;
+            else return false;
+        }
+        else{
+            busquedaOfertaService.obtenerBusquedaDesdeUrl(busquedaOferta);
+            return false;
+        }
     }
 
     @Override
