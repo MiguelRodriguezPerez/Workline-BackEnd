@@ -28,6 +28,15 @@
     /* box-shadow: 0 0 11px rgba(0, 0, 0, 0.5); */
 }
 
+#origenOfertas form a{
+    justify-self: end;
+    text-decoration: none;
+    color:white;
+    font-size:20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
 #origenOfertas form label{
     color: white;
     font-size: 25px;
@@ -50,6 +59,7 @@
     margin: 10px 50px;
     height: 40px !important;
     font-size: 17px !important;
+    cursor: pointer;
 }
 
 #origenOfertas > div{
@@ -76,6 +86,7 @@
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .oferta p{

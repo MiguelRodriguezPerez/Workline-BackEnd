@@ -37,7 +37,7 @@ public class BuscarTrabajoController {
     public String showResults(BusquedaOferta busquedaOferta, @PathVariable Integer numPag, Model model){
         if(busquedaOferta.estaVacio()) return "redirect:/ofertasDeTrabajo/0";
         
-        model.addAttribute("busquedaOferta", new BusquedaOferta());
+        model.addAttribute("busquedaOferta", busquedaOferta);
         model.addAttribute("listaSectores", LeerCSV.procesarCSV("/csv/listaSectores.csv"));
         model.addAttribute("tiposContrato", TipoContrato.values());
         model.addAttribute("tiposModalidad", ModalidadTrabajo.values());
@@ -45,6 +45,14 @@ public class BuscarTrabajoController {
         model.addAttribute("listaOfertas", ofertaService.obtenerPagina(numPag, busquedaOferta));
         
         return "buscarTrabajo/indexBuscarTrabajo";
-
     }
+
+    @GetMapping("/verOferta/{id}")
+    public String showDetallesOferta(@PathVariable Long id,Model model){
+        model.addAttribute("oferta", ofertaService.obtenerPorId(id));
+
+        return "buscarTrabajo/detallesOferta";
+    }
+
+
 }

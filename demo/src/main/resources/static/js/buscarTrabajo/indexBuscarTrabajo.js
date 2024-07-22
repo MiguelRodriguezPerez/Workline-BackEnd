@@ -7,7 +7,7 @@ document.getElementById('siguientePag').addEventListener('click',async ()=>{
     if(url.match(/\/ofertasDeTrabajo\/\d$/)){
         let numPag = parseInt(url.substring(url.length - 1, url.length));
 
-        const siguientePag = await existeSiguientePag(null,numPag);
+        const siguientePag = await existeSiguientePaginaSinCriterios(numPag);
         console.log(siguientePag);
         
         if(siguientePag === true){
@@ -16,19 +16,31 @@ document.getElementById('siguientePag').addEventListener('click',async ()=>{
         } 
     }
     else{
-        let numPag = parseInt(url.substring(url.length - 1, url.length));
+        const parametros = new URLSearchParams(window.location.search);
+        let parametrosConsulta = {};
+        let numPag = window.location.pathname.toString().substring(window.location.pathname.toString().length - 1,
+    );
 
-        const siguientePag = await existeSiguientePag(window.location.href,numPag);
+        parametros.forEach((valor, clave) => {
+            if (valor && valor !== 'placeholder') {
+                parametrosConsulta[clave] = valor;
+            }
+        });
+
+        parametrosConsulta['pagina'] = numPag;
+        console.log(window.location.pathname.toString().substring(window.location.pathname.toString().length - 1,
+        ))
+        console.log(parametrosConsulta)
+        const siguientePag = await existeSiguientePagConCriterios(parametrosConsulta);
 
         if(siguientePag === true){
-            numPag++;
-            window.location = '/ofertasDeTrabajo/' + numPag;
+            alert('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
         } 
     }
 });
 
-async function existeSiguientePag(busqueda,pag){
-    const respuesta = await fetch('/solicitudOfertas/existeSiguientePagina/' + busqueda + '/' + pag);
+async function existeSiguientePaginaSinCriterios(pag){
+    const respuesta = await fetch('/solicitudOfertas/existeSiguientePaginaSinCriterios/' + pag);
     if (!respuesta.ok) {
         console.error("Ha ocurrido un error en el resultado de la api");
         return false;
@@ -36,6 +48,33 @@ async function existeSiguientePag(busqueda,pag){
     const resultado = await respuesta.json(); 
     console.log(resultado);
     return resultado; 
+}
+
+
+async function existeSiguientePagConCriterios(busqueda){
+    // const respuesta = await fetch('/solicitudOfertas/existeSiguientePagina/' + busqueda + '/' + pag);
+    // if (!respuesta.ok) {
+    //     console.error("Ha ocurrido un error en el resultado de la api");
+    //     return false;
+    // }
+    // const resultado = await respuesta.json(); 
+    // console.log(resultado);
+    // return resultado; 
+    busqueda = JSON.stringify(busqueda);
+    
+    const respuesta = await fetch('http://localhost:9001/solicitudOfertas/existeSiguientePagina',{
+        method: 'POST',
+        headers: {
+            'Content-Type':'application/json'
+        },
+        body:busqueda
+    });
+
+    if(!respuesta.ok){ throw new Error('Error en la api ' + respuesta.status)}
+
+    const resultado = await respuesta.json();
+    return resultado;
+    
 }
 
 
@@ -53,3 +92,10 @@ document.getElementById('anteriorPag').addEventListener('click',()=>{
         window.location.href = url + numPag;
     }
 });
+
+const ofertas = document.getElementsByClassName('oferta');
+for(const oferta of ofertas){
+    oferta.addEventListener('click',()=>{
+        window.location = '/ofertasDeTrabajo/verOferta/' + oferta.id;
+    })
+}

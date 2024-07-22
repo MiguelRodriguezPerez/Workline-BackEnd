@@ -46,6 +46,18 @@
     justify-content: center;
   }
 
+  #mySidenav form a{
+    justify-self: end;
+    text-decoration: none;
+    color:white;
+    font-size: 19px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+    margin-right: 55px;
+    cursor: pointer;
+  }
+
+
   #mySidenav form input{
     margin-bottom: 10px;
 

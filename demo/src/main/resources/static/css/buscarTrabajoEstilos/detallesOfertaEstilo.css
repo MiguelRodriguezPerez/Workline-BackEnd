@@ -1,0 +1,142 @@
+body{
+    background-color: #F5F5F5;
+}
+
+
+#contenedorDetalles{
+    width: 70%;
+    /* border: solid 1px black; */
+    margin: 0px auto;
+    padding: 30px 0px;
+}
+
+#contenedorDetallesTelefono{
+    display: none;
+}
+
+.nube{
+    border-radius: 8px;
+    background-color: white;
+    padding:5px 24px;
+}
+
+#primeraSeccion{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+#primeraSeccion h3{
+    font-weight: normal;
+    font-size: 33px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+#primeraSeccion p:first-of-type{
+    justify-self: end;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+#primeraSeccion p:last-of-type{
+    font-size: 21px;
+    margin-top: 10px;
+}
+
+#contenidoOferta{
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+
+
+#contenidoOferta > div:nth-child(2) {
+   grid-row: span 2; /* Asegura que el segundo div ocupe la primera columna */
+   margin-left: 8px;
+}
+
+#contenidoOferta > div:last-child{
+    margin-top: 8px;
+}
+
+#contenidoOferta > div:first-child h3{
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-size: 25px;
+    font-weight: normal;
+}
+
+#contenidoOferta > div:first-child ul{
+    padding-left: 20px;
+    margin-top: 0px;
+}
+
+#contenidoOferta > div:first-child p{
+    margin: 5px;
+    font-size: 18px;
+}
+
+#contenidoOferta > div:nth-child(2) h3{
+    font-size: 28px;
+    font-weight: normal;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+#contenidoOferta > div:nth-child(2) p{
+    font-size: 18px;
+}
+
+#contenidoOferta > div:nth-child(3) h3{
+    font-size: 28px;
+    font-weight: normal;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+@media screen and (max-width:700px) {
+    #contenedorDetalles{
+        display: none;
+    }
+
+    #contenedorDetallesTelefono{
+        display: block;
+        width: 80%;
+        /* border: solid 1px black; */
+        margin: 0px auto;
+        padding: 30px 0px;
+    }
+
+    #contenedorDetallesTelefono div:nth-child(2){
+        margin-top: 10px;
+    }
+
+    #contenedorDetallesTelefono div:nth-child(2) h3{
+        font-weight: normal;
+        font-size: 20px;
+        margin-top: 10px;
+    }
+
+    .nube{
+        padding: 5px 12px;
+    }
+
+    #contenidoOferta{
+        grid-template-columns: 50% 50%;
+    }
+
+    #contenidoOferta div:first-child p{
+        margin-left: 0px;
+    }
+
+    #contenidoOferta div:last-child{
+        margin-top: 0px;
+    }
+
+    #contenidoOferta h3{
+        margin-top: 6px !important;
+        font-size: 24px !important;
+    }
+
+    
+}

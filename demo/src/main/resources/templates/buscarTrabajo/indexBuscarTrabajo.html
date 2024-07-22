@@ -20,6 +20,8 @@
                 th:object="${busquedaOferta}"
                 th:action="@{/ofertasDeTrabajo/resultadosBusqueda/0}">
 
+                <a th:href="@{/ofertasDeTrabajo/0}">Borrar Filtros</a>
+
                 <label for="">Puesto</label>
                 <input type="text" th:field="*{puestoB}">
 
@@ -63,6 +65,7 @@
             <form action="#" method="get"
                 th:object="${busquedaOferta}"
                 th:action="@{/ofertasDeTrabajo/resultadosBusqueda/0}">
+                <a th:href="@{/ofertasDeTrabajo/0}">Borrar Filtros</a>
 
                 <label for="">Puesto</label>
                 <input type="text" th:field="*{puestoB}">
@@ -101,7 +104,6 @@
             </form>
         </aside>
         <div>
-            <a href="">Borrar Filtros</a>
             <h2>Número Ofertas</h2>
             <section id="listaOfertas">
                 <div class="oferta" th:if="${listaOfertas != null}"

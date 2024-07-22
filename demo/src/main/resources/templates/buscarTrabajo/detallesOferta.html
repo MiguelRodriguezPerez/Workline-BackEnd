@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
+    <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
+    <link rel="stylesheet" href="/css/buscarTrabajoEstilos/detallesOfertaEstilo.css">
+</head>
+<body>
+    <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
+    <!-- <p th:text="${oferta.puesto}"></p>
+    <p th:text="${oferta.parsearFecha()}"></p>
+    <p th:text="${oferta.nombreEmpresa}"></p> -->
+    <!-- <h4>Datos de la oferta</h4>
+    <p th:text="${oferta.salarioAnual}"></p>
+    <p th:text="${oferta.ciudad}"></p>
+    <p th:text="${oferta.tipoContrato}"></p>
+    <p th:text="${oferta.horas}"></p>
+    <p th:text="${oferta.modalidadTrabajo}"></p> -->
+    <body>
+        <div id="contenedorDetalles">
+            <div class="nube" id="primeraSeccion">
+                <h3 th:text="${oferta.puesto}"></h3>
+                <p th:text="${oferta.parsearFecha()}"></p>
+                <p th:text="${oferta.nombreEmpresa}"></p>
+            </div>
+            <div id="contenidoOferta">
+                <div class="nube">
+                    <h3>Características</h3>
+                    <ul>
+                        <li><p th:text="${oferta.salarioAnual}"></p></li>
+                        <li><p th:text="${oferta.ciudad}"></p></li>
+                        <li><p th:text="${oferta.tipoContrato}"></p></li>
+                        <li><p th:text="${oferta.horas}"></p></li>
+                        <li><p th:text="${oferta.modalidadTrabajo}"></p></li>
+                    </ul>
+                </div>
+                <div class="nube">
+                    <h3>Descripción</h3>
+                    <p th:text="${oferta.descripcion}"></p>
+                </div>
+                <div class="nube">
+                    <h3>Requisitos</h3>
+                </div>
+            </div>
+        </div>
+        <div id="contenedorDetallesTelefono">
+            <div class="nube" id="primeraSeccion">
+                <h3 th:text="${oferta.puesto}"></h3>
+                <p th:text="${oferta.parsearFecha()}"></p>
+                <p th:text="${oferta.nombreEmpresa}"></p>
+            </div>
+            <div class="nube">
+                <h3>Descripción</h3>
+                <p th:text="${oferta.descripcion}"></p>
+            </div>
+            <div id="contenidoOferta">
+                <div class="nube">
+                    <h3>Características</h3>
+                    <ul>
+                        <li><p th:text="${oferta.salarioAnual}"></p></li>
+                        <li><p th:text="${oferta.ciudad}"></p></li>
+                        <li><p th:text="${oferta.tipoContrato}"></p></li>
+                        <li><p th:text="${oferta.horas}"></p></li>
+                        <li><p th:text="${oferta.modalidadTrabajo}"></p></li>
+                    </ul>
+                </div>
+                <div class="nube">
+                    <h3>Requisitos</h3>
+                </div>
+            </div>
+        </div>
+    </body>
+    <footer th:insert="~{/fragmentos/pie :: nav}"></footer>
+</body>
+</html>
