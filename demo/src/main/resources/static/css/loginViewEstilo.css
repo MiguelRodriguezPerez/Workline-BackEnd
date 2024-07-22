@@ -1,0 +1,105 @@
+body{
+    margin: 0px;
+}
+
+#primerContenedor{
+    width: 100vw;
+    height: 100vh;
+    background-color: #F5F5F5;
+    margin: 0px;
+
+    display: grid;
+    grid-template-columns: 20%;
+    justify-content: center;
+    align-items: center;
+}
+
+#primerContenedor > div {
+    background-color: white;
+    display: grid;
+    grid-template-columns: 100%;
+    justify-content: center;
+    padding: 15px 10px;
+}
+
+h2{
+    text-align: center;
+    margin: 0px auto 15px;
+    font-weight: normal;
+    margin-bottom: 15px;
+    width: 50%;
+    font-size: 35px;
+}
+
+form{
+    margin: 0px auto;
+    width: 80%;
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+form img, form input{
+    margin-bottom: 15px;
+    align-self: center;
+}
+
+form img{
+    justify-self: end;
+    margin-right: 15px;
+}
+
+form input{
+    height: 30px;
+    border:0px;
+    border-bottom: solid 1px black;
+}
+
+form input:last-of-type{
+    background-color: #F5F5F5;
+    color: black;
+    border-bottom: 0px;
+    width: 50%;
+    justify-self: end;
+}
+
+#primerContenedor p{
+    text-align: center;
+    margin: 10px 10px;
+    font-size: 18px;
+}
+
+#primerContenedor > div > p > a{
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    color:#0097b2;
+}
+
+#primerContenedor > div > a:last-of-type{
+    text-align: right;
+    text-decoration: none;
+    margin:10px 15px 10px 0px;
+
+    font-size: 18px;
+    color: black;
+}
+
+@media screen and (max-width:1200px) {
+    #primerContenedor{
+        grid-template-columns: 50%;
+    }
+}
+
+@media screen and (max-width:700px) {
+    #primerContenedor{
+        grid-template-columns: 70%;
+    }
+
+    form input:last-of-type{
+        width: 80%;
+    }
+
+    #primerContenedor > div > a:last-of-type{
+        margin-right: 30px;
+    }
+}
