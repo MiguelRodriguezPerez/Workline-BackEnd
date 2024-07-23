@@ -3,13 +3,17 @@ body{
     width: 100vw;
     height: 100vh;
     display: grid;
-    grid-template-columns: 45%;
+    grid-template-columns: 40%;
     justify-content: center;
     align-items: center;
+    background-color: #F5F5F5;
 }
 
 #contenedorPadre{
-    border: solid 1px black;
+    background-color: white;
+    display: grid;
+    grid-template-columns: 100%;
+    justify-content: center;
 }
 
 #contenedorPadre h2, #contenedorPadre h3{
@@ -28,30 +32,88 @@ body{
 }
 
 #primerFormulario{
-    margin: 0px auto 10px;
-    width: 70%;
+    margin: 10px auto 10px;
+    width: 75%;
     display: grid;
-    justify-content: center;
-    grid-template-columns: 45% 5% 45%;
+    grid-template-columns: 50% 50%;
 }
 
-#primerFormulario span{
-    border: solid 1px black;
-    margin: 0px 50%;
+#primerFormulario > div:nth-child(3){
+    justify-self: end;
+    
 }
 
-#primerFormulario div:last-of-type{
-    margin-left: auto;
+#primerFormulario > div:last-of-type{
+    grid-column:  1/3;
+    justify-self: center;
+    margin-top: 30px;
+}
+
+#primerFormulario > div:last-of-type input{
+    padding: 10px;
+    border: 0px;
 }
 
 #primerFormulario label{
     margin-bottom: 5px;
     font-size: 23px;
+    display: block;
 }
+
 
 #primerFormulario input{
     border: 0px;
     border-bottom: solid 1px black;
     font-size: 20px;
     margin-bottom: 20px;
+}
+
+#primerFormulario select{
+    margin-top: 8px;
+    border: 0px;
+    border-bottom: solid 1px black;
+    font-size: 18px;
+}
+
+@media screen and (max-width:1200px) {
+    body{
+        grid-template-columns: 80%;
+    }
+
+    #primerFormulario{
+        width: 80%;
+    }
+
+    #primerFormulario input{
+        width: 80%;
+    }
+
+    #primerFormulario > div:last-of-type > input{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:700px) {
+
+    #contenedorPadre h2{
+        font-size: 27px;
+    }
+    
+    #contenedorPadre h3{
+        font-size: 22px;
+    }
+
+    #primerFormulario{
+        grid-template-columns: 100%;
+        justify-content: center;
+    }
+
+    #primerFormulario > div > *{
+        width: 100%;
+    }
+
+    #primerFormulario > div:last-of-type{
+        grid-column: initial;
+        width: 100%;
+    }
 }

@@ -19,14 +19,25 @@
 
                 <label for="">Email</label>
                 <input type="text" th:field="*{email}">
+
+                <label for="">Contraseña</label>
+                <input type="text" th:field="*{password}">
             </div>
-            <span></span>
             <div>
                 <label for="">Ciudad en la que vives</label>
                 <input type="text" th:field="*{ciudad}">
   
-                <label for="">Teléfono (Opcional)</label>
+                <label for="">Teléfono</label>
                 <input type="text" th:field="*{telefono}">
+
+                <label for="">¿Buscas trabajo o empleados?</label>
+                <select name="" id="" th:field="*{rol}">
+                    <option th:value="${CONTRATA}">Contratar Personas</option>
+                    <option th:value="${BUSCA}">Encontrar Trabajo</option>
+                </select>
+            </div>
+            <div>
+                <input type="submit" value="Crear cuenta">
             </div>
             
         </form>
