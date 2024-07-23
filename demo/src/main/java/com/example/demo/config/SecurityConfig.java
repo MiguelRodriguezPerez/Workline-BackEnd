@@ -32,14 +32,14 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.headers(headersConfigurer ->  headersConfigurer.frameOptions(frameOptions -> frameOptions.sameOrigin()));
         http.authorizeHttpRequests(auth->auth
-        .requestMatchers("/","/ofertasDeTrabajo/**","/solicitudOfertas/**").permitAll()
+        .requestMatchers("/","/ofertasDeTrabajo/**","/solicitudOfertas/**","/nuevoUsuario/**").permitAll()
         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
         .anyRequest().authenticated())
         .formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
             .loginPage("/sesion/signin")
             .loginProcessingUrl("/login")
             .failureUrl("/sesion/signin")
-            .defaultSuccessUrl("/",true).permitAll())
+            .defaultSuccessUrl("/",false).permitAll())
         .logout(logout -> logout.logoutSuccessUrl("/").permitAll());
 
         http.exceptionHandling(exceptions -> exceptions.accessDeniedPage("/sesion/error"));

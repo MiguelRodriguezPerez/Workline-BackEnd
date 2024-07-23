@@ -60,6 +60,7 @@ form input:last-of-type{
     border-bottom: 0px;
     width: 50%;
     justify-self: end;
+    cursor: pointer;
 }
 
 #primerContenedor p{

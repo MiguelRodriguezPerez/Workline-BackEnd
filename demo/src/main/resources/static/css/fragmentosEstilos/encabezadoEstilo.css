@@ -27,17 +27,32 @@ header > nav section{
 }
 
 #perfil{
+    justify-items: start;
     display: grid;
-    grid-template-columns: 70% 21%;
-    justify-items: end;
+    grid-template-columns: auto 15% 15%;
+    justify-items: start;
     align-items: center;
+}
+
+#perfil img{
+    justify-self: end;
+    cursor: pointer;
+    margin-right: 10px;
 }
 
 #perfil a{
     color:white;
     text-decoration: none;
     font-size: 20px;
+    justify-self: start;
+    margin-left: 30%;
+}
 
+#perfil input{
+    color:white;
+    background-color: inherit;
+    border: none;
+    font-size: 18px;
 }
 /*Tablet*/
 @media screen and (max-width:1200px) {
@@ -57,7 +72,7 @@ header > nav section{
 
     #perfil{
         display: grid;
-        grid-template-columns: 45% 55%;
+        grid-template-columns: 40% 30% 30%;
     }
 
     #perfil a{

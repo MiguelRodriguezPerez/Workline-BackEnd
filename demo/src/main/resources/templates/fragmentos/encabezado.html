@@ -1,19 +1,19 @@
 <nav id="cabecera">
     <img src="/images/fragmentos/Wk.png" alt="logo.png" id="logo">
     <section id="pestayas">
-        <a href="">Inicio</a>
+        <a th:href="@{/}">Inicio</a>
         <a th:href="@{/ofertasDeTrabajo/0}">Ofertas</a>
         <!-- th:if user.getRol('CONTRATA') -->
         <a href="">Contratar</a>
     </section>
     <section id="perfil">
         <img src="/images/fragmentos/pfp.png" alt="pfp.png" id="pfp">
-        <!-- th:if !user.isLogged() -->
-        <a href="">Iniciar Sesión</a>
-        <!-- th:if user.isLogged() -->
-        <!-- <a href="">Nombre Usuario</a>
-        th:if user.isLogged() 
-        <a href="">Cerrar Sesión</a> -->  
+        <a th:if="${currentUserName == null}" th:href="@{/sesion/signin}">Iniciar Sesión</a>
+        <a th:href="@{/userSettings/datos}" th:text="${currentUserName}"></a>
+        <form th:if="${currentUserName != null}" th:action="@{/logout}" method="post">
+            
+            <input type="submit" value="Logout" />
+        </form>
     </section>
     <select name="" id="desplegable">
         <option value="" data-icon="/images/encabezado/barras.png">Mi perfil</option>
