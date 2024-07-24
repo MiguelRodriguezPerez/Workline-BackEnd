@@ -13,6 +13,7 @@ public interface BuscaService {
     List <Busca> obtenerTodos();
     Busca obtenerPorId(Long id);
     Busca obtenerPorNombre(String nombre);
+    boolean esNombreRepetido(String nombre);
     String obtenerNombre();
     Busca obtenerBuscaConectado();
     boolean estaSuscritoOferta(Long id);

@@ -52,6 +52,12 @@ public class BuscaServiceImpl implements BuscaService{
     }
 
     @Override
+    public boolean esNombreRepetido(String nombre){
+        if(obtenerPorNombre(nombre) != null) return true;
+        else return false;
+    }
+
+    @Override
     public String obtenerNombre() {
        return obtenerBuscaConectado().getNombre();
     }

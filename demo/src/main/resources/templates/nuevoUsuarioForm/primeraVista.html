@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workline | Nuevo Usuario</title>
     <link rel="stylesheet" href="/css/nuevoUsuarioEstilos/primeraVistaEstilo.css">
+    <script src="/js/nuevoUsuario/primeraVista.js" defer></script>
 </head>
 <body>
     <div id="contenedorPadre">
@@ -15,29 +16,41 @@
             th:action="@{/nuevoUsuario/procesarUsuario}">
             <div>
                 <label for="">Nombre de usuario</label>
-                <input type="text" th:field="*{nombre}">
+                <input type="text" th:field="*{nombre}" id="nombreUsuario" maxlength="25">
+                <p hidden class="mensajeError" id="err1">El nombre de usuario tiene más de 25 carácteres</p>
+                <p hidden class="mensajeError" id="err2">Ya existe un usuario con este nombre</p>
 
                 <label for="">Email</label>
-                <input type="text" th:field="*{email}">
+                <input type="text" th:field="*{email}" id="email" maxlength="35">
+                <p hidden class="mensajeError" id="err4">El email tiene más de 35 carácteres</p>
+                <p hidden class="mensajeError" id="err5">No has introducido un email válido</p>
 
                 <label for="">Contraseña</label>
-                <input type="text" th:field="*{password}">
+                <input type="text" th:field="*{password}" id="password" maxlength="30">
+                <p hidden class="mensajeError" id="err6">La contraseña debe tener entre 14 y 30 carácteres</p>
+                <p hidden class="mensajeError" id="err7">La contaseña debe combinar mayúsculas, minúsculas
+                y carácteres especiales</p>
+
             </div>
+            <!-- <p hidden class="mensajeError" id=""></p> -->
             <div>
                 <label for="">Ciudad en la que vives</label>
                 <input type="text" th:field="*{ciudad}">
   
-                <label for="">Teléfono</label>
-                <input type="text" th:field="*{telefono}">
+                <label for="">Teléfono (escribelo sin espacios)</label>
+                <input type="text" th:field="*{telefono}" id="telefono" maxlength="9">
+                <p hidden class="mensajeError" id="err8">El teléfono debe tener formato español</p>
 
                 <label for="">¿Buscas trabajo o empleados?</label>
-                <select name="" id="" th:field="*{rol}">
+                <select name="" id="rol" th:field="*{rol}">
+                    <option value="Selecciona una opcion" selected>Selecciona una opcion...</option>
                     <option th:value="${CONTRATA}">Contratar Personas</option>
                     <option th:value="${BUSCA}">Encontrar Trabajo</option>
                 </select>
+                <p hidden class="mensajeError" id="err9">Selecciona una de las dos opciones</p>
             </div>
             <div>
-                <input type="submit" value="Crear cuenta">
+                <input type="submit" value="Crear cuenta" id="crearNuevoUsuario">
             </div>
             
         </form>

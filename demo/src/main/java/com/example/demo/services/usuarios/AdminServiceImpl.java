@@ -53,6 +53,12 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
+    public boolean esNombreRepetido(String nombre){
+        if(obtenerPorNombre(nombre) != null) return true;
+        else return false;
+    }
+
+    @Override
     public String obtenerNombre() {
         return obtenerAdminConectado().getNombre();
     }

@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.domain.NuevoUsuario;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.repositories.ContrataRepository;
@@ -23,13 +24,18 @@ public class ContrataServiceImpl implements ContrataService{
 
     @Override
     public Contrata guardarContrata(Contrata contrata) {
-        passwordEncoder.encode(contrata.getPassword());
+        contrata.setPassword(passwordEncoder.encode(contrata.getPassword()));
         return repo.save(contrata);
     }
 
     @Override
     public Contrata guardarContrataSinEncriptar(Contrata contrata) {
         return repo.save(contrata);
+    }
+
+    @Override
+    public Contrata guardarContrataDesdeNuevoUsuario(NuevoUsuario nuevoUsuario) {
+        return null;
     }
 
     @Override
@@ -50,6 +56,12 @@ public class ContrataServiceImpl implements ContrataService{
     @Override
     public Contrata obtenerPorNombre(String nombre) {
        return repo.findByNombre(nombre);
+    }
+    
+    @Override
+    public boolean esNombreRepetido(String nombre){
+        if(obtenerPorNombre(nombre) != null) return true;
+        else return false;
     }
 
     @Override

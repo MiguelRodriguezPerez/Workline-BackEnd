@@ -11,6 +11,7 @@ public interface AdminService {
     List <Admin> obtenerTodos();
     Admin obtenerPorId(Long id);
     Admin obtenerPorNombre(String nombre);
+    boolean esNombreRepetido(String nombre);
     String obtenerNombre();
     Admin obtenerAdminConectado();
 }
