@@ -52,10 +52,13 @@ body{
 #primerFormulario > div:last-of-type input{
     padding: 10px;
     border: 0px;
+    cursor: pointer;
+    font-size: 16px;
 }
 
 #primerFormulario label{
     margin-bottom: 5px;
+    margin-top: 10px;
     font-size: 23px;
     display: block;
 }
@@ -65,14 +68,30 @@ body{
     border: 0px;
     border-bottom: solid 1px black;
     font-size: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 #primerFormulario select{
     margin-top: 8px;
+    margin-bottom: 5px;
     border: 0px;
     border-bottom: solid 1px black;
     font-size: 18px;
+}
+
+.mensajeError{
+    margin-top: 0px;
+    color: rgb(244, 54, 54);
+    font-size: 18px;
+    padding-right: 10px;
+}
+
+.inputError{
+    border-bottom: solid 1px rgb(244, 54, 54) !important;
+}
+
+#err6{
+    margin-bottom: 5px;
 }
 
 @media screen and (max-width:1200px) {
@@ -115,5 +134,9 @@ body{
     #primerFormulario > div:last-of-type{
         grid-column: initial;
         width: 100%;
+    }
+
+    .mensajeError{
+        padding-right: 0px;
     }
 }

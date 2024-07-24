@@ -54,8 +54,8 @@ public class Usuario {
     private String telefono;
 
     @NotNull
-    @Size(min = 1, max = 30, message = "El password debe tener como minímo 14 carácteres y como máximo 30")
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\w\\s]).*$", message = "La contraseña debe combinar mayúsculas, minúsculas y caracteres especiales")
+    // @Size(min = 14, max = 30, message = "El password debe tener como minímo 14 carácteres y como máximo 30")
+    // @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\w\\s]).*$", message = "La contraseña debe combinar mayúsculas, minúsculas y caracteres especiales")
     private String password;
 
     @NotNull

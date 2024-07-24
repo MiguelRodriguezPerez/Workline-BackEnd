@@ -49,6 +49,10 @@ header > nav section{
 }
 
 #perfil input{
+    cursor: pointer;
+}
+
+#perfil input{
     color:white;
     background-color: inherit;
     border: none;

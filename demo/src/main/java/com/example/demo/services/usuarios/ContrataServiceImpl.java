@@ -35,7 +35,11 @@ public class ContrataServiceImpl implements ContrataService{
 
     @Override
     public Contrata guardarContrataDesdeNuevoUsuario(NuevoUsuario nuevoUsuario) {
-        return null;
+        Contrata contrata = new Contrata(nuevoUsuario.getNombre(), nuevoUsuario.getEmail()
+        , nuevoUsuario.getCiudad(), nuevoUsuario.getTelefono(), nuevoUsuario.getPassword());
+        contrata.setPassword(passwordEncoder.encode(contrata.getPassword()));
+
+        return repo.save(contrata);
     }
 
     @Override

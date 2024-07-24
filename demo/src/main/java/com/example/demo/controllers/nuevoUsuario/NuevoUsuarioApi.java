@@ -17,8 +17,9 @@ public class NuevoUsuarioApi {
     @Autowired
     UsuarioService usuarioService;
     
-    @GetMapping("/esRepetido/{usuario}")
+    @GetMapping("/esRepetido/{nombre}")
     public ResponseEntity<Boolean> isUsernameRepeated(@PathVariable String nombre){
-       return new ResponseEntity<>(usuarioService.esNombreRepetido(nombre),HttpStatus.OK);
+        boolean esRepetido = usuarioService.esNombreRepetido(nombre);
+        return new ResponseEntity<>(esRepetido,HttpStatus.OK);
     }
 }
