@@ -1,0 +1,85 @@
+body{
+    background-color: #F5F5F5;
+}
+
+h1{
+    text-align: center;
+    font-weight: normal;
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+h2{
+    text-align: center;
+    font-weight: normal;
+    font-size: 30px;
+    margin: 20px auto 65px;
+    padding-bottom: 15px;
+
+    width: 79%;
+    border-bottom: solid 1px green;
+}
+
+#contenedorOfertas{
+    width: 80%;
+    margin: 0px auto;
+
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    justify-content: center;
+}
+
+#contenedorOfertas > div:first-child{
+    grid-column: 1/5;
+    margin-bottom: 25px;
+    justify-self: end;
+}
+
+#contenedorOfertas > div:first-child > a{
+    text-decoration: none;
+
+    margin-left: 10px;
+    margin-right: 15px;
+    
+    padding: 10px 15px;
+
+    font-size: 20px;
+    color: white;
+    background-color: green;
+}
+
+.oferta{
+    background-color: white;
+    border-radius: 8px;
+    margin: 15px;
+    cursor: pointer;
+}
+
+.oferta h4{
+    margin: 10px 0px 0px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+
+    font-weight: normal;
+    font-size: 25px;
+
+    border-bottom: solid 1px black;
+}
+
+.oferta > section{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.oferta li{
+    list-style: url("/images/linea.png");
+}
+
+.oferta ul{
+    padding-left: 20px;
+    margin-top: 0px;
+    margin-left: 17px;
+
+    font-size: 20px;
+}
+

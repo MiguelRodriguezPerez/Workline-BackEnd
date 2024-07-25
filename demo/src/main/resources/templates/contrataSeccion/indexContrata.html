@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workline | Tus ofertas</title>
+    <script src="/js/encabezado.js" defer></script>
+    <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
+    <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
+    <link rel="stylesheet" href="/css/seccionContrataEstilos/indexContrataEstilo.css">
+</head>
+<body>
+    <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
+    <h1>Tus ofertas</h1>
+    <h2 th:text="${numOfertas} + ' ofertas publicadas'"></h2>
+    
+    <div id="contenedorOfertas">
+        <div>
+            <a href="">Nueva oferta</a>
+        </div>
+        
+        <div th:each="oferta:${listaOfertas}" class="oferta">
+            <h4 th:text="${oferta.puesto}"></h4>
+            <section>
+                <ul>
+                    <li><p th:text="${oferta.salarioAnual.intValue()} + ' €'"></p></li>
+                    <li><p th:text="${oferta.parsearModalidadTrabajo()}">Presencial</p></li>
+                    <li><p th:text="${oferta.parsearTipoContrato()}"></p></li>
+                </ul>
+                <ul>
+                    <li><p th:text="${oferta.ciudad}"></p></li>
+                    <li><p th:text="${oferta.parsearFecha()}"></p></li>
+                </ul>
+            </section>
+        </div>
+    </div>
+    <footer th:insert="~{/fragmentos/pie :: nav}"></footer>
+</body>
+</html>

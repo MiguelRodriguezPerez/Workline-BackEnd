@@ -19,8 +19,8 @@ public interface ContrataService {
     String obtenerNombre();
     Contrata obtenerContrataConectado();
     List<Oferta> obtenerPaginaOfertasPublicadas(Integer paginaElecta);
-    int siguientePaginaOfertasPublicadas(Integer pagina);
-    int anteriorPaginaOfertasPublicadas(Integer pagina);
+    int existeSiguientePagina(Integer pagina);
+    int existeAnteriorPagina(Integer pagina);
     int obtenerNumeroPaginasOfertasPublicadas();
     
 }

@@ -3,6 +3,10 @@ package com.example.demo.services.usuarios;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -80,28 +84,44 @@ public class ContrataServiceImpl implements ContrataService{
         return contrata;
     }
 
+    private final int ofertasPorPagina = 8;
+
     @Override
     public List<Oferta> obtenerPaginaOfertasPublicadas(Integer paginaElecta) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obtenerPaginaOfertasPublicadas'");
+        Pageable paginable = PageRequest.of(paginaElecta,ofertasPorPagina);
+        List<Oferta> listaOfertas = obtenerContrataConectado().getListaOfertas();
+        int inicio = (int) paginable.getOffset();
+        int fin = Math.min(inicio + paginable.getPageSize(),listaOfertas.size());
+
+        Page<Oferta> resultado = new PageImpl<>(listaOfertas.subList(inicio, fin), paginable, listaOfertas.size());
+
+        return resultado.getContent();
     }
 
     @Override
-    public int siguientePaginaOfertasPublicadas(Integer pagina) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'siguientePaginaOfertasPublicadas'");
+    public int existeSiguientePagina(Integer paginaElecta) {
+        if(paginaElecta <= obtenerNumeroPaginasOfertasPublicadas() + 1){
+            paginaElecta++;
+            return paginaElecta;
+        }
+        else return paginaElecta;
     }
 
     @Override
-    public int anteriorPaginaOfertasPublicadas(Integer pagina) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'anteriorPaginaOfertasPublicadas'");
+    public int existeAnteriorPagina(Integer paginaElecta) {
+        if(paginaElecta > 0){
+            paginaElecta--;
+            return paginaElecta;
+        }
+        else return paginaElecta;
     }
 
     @Override
     public int obtenerNumeroPaginasOfertasPublicadas() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obtenerNumeroPaginasOfertasPublicadas'");
+        Pageable paginable = PageRequest.of(0,ofertasPorPagina);
+        Page<Oferta> resultado = new PageImpl<>(obtenerContrataConectado().getListaOfertas(), paginable, ofertasPorPagina);
+        
+        return resultado.getTotalPages();
     }
 
 

@@ -18,6 +18,23 @@ header > nav section{
     margin-top: 15px;
 }
 
+#pestayas{
+    display: grid;
+    grid-template-columns: 20% 20% 20%;
+}
+
+#pestayas a:first-child{
+    justify-self: end;
+}
+
+#pestayas a:nth-child(2){
+    justify-self: center;
+}
+
+#pestayas a:nth-child(3){
+    justify-self: end;
+}
+
 #pestayas a{
     color:white;
     text-decoration: none;
@@ -65,7 +82,7 @@ header > nav section{
     }
 
     #pestayas{
-        display: grid;
+        
         grid-template-columns: 33% 33% 33%;
         justify-content: center;
     }
