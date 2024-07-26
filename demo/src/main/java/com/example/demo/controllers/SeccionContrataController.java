@@ -5,9 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.domain.ofertas.ModalidadTrabajo;
+import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.ofertas.TipoContrato;
 import com.example.demo.services.ofertas.OfertaService;
 import com.example.demo.services.usuarios.ContrataService;
@@ -52,6 +54,13 @@ public class SeccionContrataController {
         model.addAttribute("modalidadesTrabajo", ModalidadTrabajo.values());
 
         return "contrataSeccion/detallesOferta";
+    }
+
+    @PostMapping("/pagina/{numPag}/detallesOferta/{ofertaId}/editarOferta")
+    public String updateOferta(@PathVariable Long numPag, @PathVariable Long ofertaId, Oferta oferta){
+        ofertaService.guardarOferta(oferta);
+
+        return "redirect:/seccionContrata/pagina/" + numPag + "/detallesOferta/" + ofertaId;
     }
     
 }

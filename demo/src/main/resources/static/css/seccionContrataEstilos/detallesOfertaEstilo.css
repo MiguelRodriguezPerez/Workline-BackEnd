@@ -1,24 +1,86 @@
+body{
+    background-color: #F5F5F5;
+}
+
 #contenedorDetalles{
-    width: 85%;
-    margin: 15px auto;
-    border: solid 1px black;
+    width: 70%;
+    margin: 40px auto;
 }
 
 #contenedorDetalles > a:first-child{
     text-decoration: none;
     color: black;
     font-size: 21px;
+    margin-left: 8.5%;
 }
 
+#contenedorDetalles > button:first-of-type{
+    float: right;
+
+    background-color: #F5F5F5;
+    text-decoration: none;
+    color: black;
+    font-size: 21px;
+    cursor: pointer;
+
+    border: 0px;
+    margin-right: 8%;
+}
+
+
 #contenedorDetalles form{
-    border: solid 1px red;
-    width: 90%;
-    margin: 15px auto;
+    background-color: white;
+    width: 80%;
+    margin: 30px auto;
+    padding: 20px;
 
     display: grid;
     grid-template-columns: 50% 50%;
 }
 
-#contenedorDetalles form input{
+#contenedorDetalles form > div > label, #contenedorDetalles form > div > input,
+#contenedorDetalles form > div > textarea{
     display: block;
+} 
+
+#contenedorDetalles form label{
+    margin-bottom: 5px;
+    font-size: 23px;
+}
+
+#contenedorDetalles form textarea{
+    border: solid 1px black;
+    resize: none;
+}
+
+#contenedorDetalles form input, #contenedorDetalles form select{
+    font-size: 18px;
+    border: 0px;
+    border-bottom: solid 1px black;
+    margin-bottom: 30px;
+    color: black;
+}
+
+#subirCambios{
+    visibility: hidden;
+
+    background-color: green;
+    color: white !important;
+
+    padding:10px 15px;
+    margin:20px 0px;
+    border: 0px;
+    cursor: pointer;
+}
+
+p.mensajeError{
+    margin-top: 0px;
+    color: rgb(244, 54, 54);
+    font-size: 18px;
+    padding-right: 10px;
+    display: none;
+}
+
+.inputError{
+    border-bottom: solid 1px rgb(244, 54, 54) !important;
 }

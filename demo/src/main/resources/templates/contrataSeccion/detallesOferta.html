@@ -8,15 +8,17 @@
     <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
     <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
     <link rel="stylesheet" href="/css/seccionContrataEstilos/detallesOfertaEstilo.css">
+    <script src="/js/contratar/detallesOferta.js" defer></script>
 </head>
 <body>
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
     <body>  
         <div id="contenedorDetalles">
             <a th:href="@{/seccionContrata/pagina/{numPag}(numPag=${numPag})}">Volver atrás</a>
-            <form action="" method="post" id="formularioEdición"
+            <button id="editar">Editar Oferta</button>
+            <form action="" method="post" id="formularioEdicion"
                 th:object="${ofertaSeleccionada}"
-                th:action="@{/seccionContrata/pagina/{numPag}/detallesOferta/{ofertaId}/editarOferta(numPag=${numPag}),(ofertaId=${ofertaId})}">
+                th:action="@{/seccionContrata/pagina/{numPag}/detallesOferta/{ofertaId}/editarOferta(numPag=${numPag}, ofertaId=${ofertaId})}">
 
                 <span hidden th:field="*{id}"></span>
                 <span hidden th:field="*{requisitos}"></span>
@@ -24,19 +26,39 @@
                 <span hidden th:field="*{fechaPublicacion}"></span>
 
                 <div>
+                    <label for="puesto">Puesto</label>
                     <input readonly type="text" th:field="*{puesto}" id="puesto">
+                    <p class="mensajeError" id="err1">El puesto no puede tener más de 30 carácteres ni estar vacío</p>
+                    
+                    <label for="sector">Sector</label>
                     <input readonly type="text" th:field="*{sector}" id="sector">
-                    <input readonly type="textarea" th:field="*{descripcion}" id="descripcion">
+                    
+                    <label for="modalidad">Modalidad de Trabajo</label>
                     <select disabled name="" id="modalidad" th:field="*{modalidadTrabajo}">
                         <option th:value="${mt}" th:text="${mt}" th:each="mt:${modalidadesTrabajo}"></option>
                     </select>
+
+                    <label for="descripcion">Descripción</label>
+                    <textarea rows="5" cols="50" readonly th:field="*{descripcion}" id="descripcion"></textarea>
+                    <p class="mensajeError" id="err2">La descripción no puede tener más de 50 carácteres</p>
                 </div>
                 <div>
+                    <label for="salarioAnual">Salario Anual</label>
                     <input readonly type="text" th:field="*{salarioAnual}" id="salarioAnual">
+                    
+                    <label for="tipoContrato">Tipo de Contrato</label>
                     <select disabled name="" id="tipoContrato" th:field="*{tipoContrato}">
                         <option th:value="${tc}" th:text="${tc}" th:each="tc:${tiposContrato}"></option>
                     </select>
-                    <input type="text" th:field="*{horas}" id="horas">
+                    
+                    <label for="horas">Horas</label>
+                    <input readonly type="text" th:field="*{horas}" id="horas">
+
+                    <label for="ciudad">Ciudad</label>
+                    <input readonly type="text" th:field="*{ciudad}" id="ciudad">
+                    <p class="mensajeError" id="err3">La ciudad no puede ser nula</p>
+
+                    <input type="submit" id="subirCambios" value="Subir cambios">
                 </div>
             </form>
         </div>
