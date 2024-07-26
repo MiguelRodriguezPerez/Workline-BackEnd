@@ -28,8 +28,8 @@ public class BuscarTrabajoApi {
     }
     
     @PostMapping("/existeSiguientePaginaConCriterios")
-    public ResponseEntity<Boolean> isNextPage(@RequestBody Map<String,Object> lista){
-        System.out.println(lista);
+    public ResponseEntity<Boolean> isNextPage(@RequestBody Map<String,Object> busqueda){
+        System.out.println(busqueda);
         return new ResponseEntity<>(true, HttpStatus.OK);
         // boolean haySiguientePag = ofertaService.existeSiguientePagina(pag, null);
         // return new ResponseEntity<>(haySiguientePag, HttpStatus.OK);

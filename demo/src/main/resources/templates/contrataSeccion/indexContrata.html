@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
     <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
     <link rel="stylesheet" href="/css/seccionContrataEstilos/indexContrataEstilo.css">
+    <script src="/js/contratar/indexContrata.js" defer></script>
 </head>
 <body>
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
@@ -19,7 +20,7 @@
             <a href="">Nueva oferta</a>
         </div>
         
-        <div th:each="oferta:${listaOfertas}" class="oferta">
+        <div th:each="oferta:${listaOfertas}" class="oferta" th:id="${oferta.id}">
             <h4 th:text="${oferta.puesto}"></h4>
             <section>
                 <ul>
@@ -34,6 +35,11 @@
             </section>
         </div>
     </div>
+    <section id="botonesPaginas">
+        <div><a id="anteriorPagContrata" th:href="@{/seccionContrata/anteriorPag/{numPag}(numPag=${numPag})}">🡐  Anterior Página</a></div>
+        <span></span>
+        <div><a id="siguientePagContrata" th:href="@{/seccionContrata/siguientePag/{numPag}(numPag=${numPag})}">Siguiente Página  🡒</a></div>
+    </section>
     <footer th:insert="~{/fragmentos/pie :: nav}"></footer>
 </body>
 </html>

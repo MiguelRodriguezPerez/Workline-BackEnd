@@ -42,6 +42,7 @@ public class Oferta implements Comparable<Oferta>{
     private String sector;
 
     @Nullable
+    @Size(max = 80)
     private String descripcion;
 
     @NotNull
@@ -73,7 +74,7 @@ public class Oferta implements Comparable<Oferta>{
     public Oferta(@NotNull @Size(max = 30) String puesto, @NotNull String sector, String descripcion,
             @NotNull String ciudad, @Size(max = 10) List<String> requisitos, Double salarioAnual,
             @NotNull TipoContrato tipoContrato, @NotNull Byte horas, @NotNull ModalidadTrabajo modalidadTrabajo,
-            LocalDate fechaPublicacion, Contrata contrata) {
+            Contrata contrata) {
         this.puesto = puesto;
         this.sector = sector;
         this.descripcion = descripcion;
@@ -84,7 +85,7 @@ public class Oferta implements Comparable<Oferta>{
         this.horas = horas;
         this.modalidadTrabajo = modalidadTrabajo;
         this.nombreEmpresa = contrata.getNombre();
-        this.fechaPublicacion = fechaPublicacion;
+        this.fechaPublicacion = LocalDate.now();
         this.contrata = contrata;
     }
 

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workline | Detalles Oferta</title>
+    <script src="/js/encabezado.js" defer></script>
+    <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
+    <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
+    <link rel="stylesheet" href="/css/seccionContrataEstilos/detallesOfertaEstilo.css">
+</head>
+<body>
+    <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
+    <body>  
+        <div id="contenedorDetalles">
+            <a th:href="@{/seccionContrata/pagina/{numPag}(numPag=${numPag})}">Volver atrás</a>
+            <form action="" method="post" id="formularioEdición"
+                th:object="${ofertaSeleccionada}"
+                th:action="@{/seccionContrata/pagina/{numPag}/detallesOferta/{ofertaId}/editarOferta(numPag=${numPag}),(ofertaId=${ofertaId})}">
+
+                <span hidden th:field="*{id}"></span>
+                <span hidden th:field="*{requisitos}"></span>
+                <span hidden th:field="*{nombreEmpresa}"></span>
+                <span hidden th:field="*{fechaPublicacion}"></span>
+
+                <div>
+                    <input readonly type="text" th:field="*{puesto}" id="puesto">
+                    <input readonly type="text" th:field="*{sector}" id="sector">
+                    <input readonly type="textarea" th:field="*{descripcion}" id="descripcion">
+                    <select disabled name="" id="modalidad" th:field="*{modalidadTrabajo}">
+                        <option th:value="${mt}" th:text="${mt}" th:each="mt:${modalidadesTrabajo}"></option>
+                    </select>
+                </div>
+                <div>
+                    <input readonly type="text" th:field="*{salarioAnual}" id="salarioAnual">
+                    <select disabled name="" id="tipoContrato" th:field="*{tipoContrato}">
+                        <option th:value="${tc}" th:text="${tc}" th:each="tc:${tiposContrato}"></option>
+                    </select>
+                    <input type="text" th:field="*{horas}" id="horas">
+                </div>
+            </form>
+        </div>
+    </body>
+    <footer th:insert="~{/fragmentos/pie :: nav}"></footer>
+</body>
+</html>

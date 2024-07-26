@@ -100,7 +100,7 @@ public class ContrataServiceImpl implements ContrataService{
 
     @Override
     public int existeSiguientePagina(Integer paginaElecta) {
-        if(paginaElecta <= obtenerNumeroPaginasOfertasPublicadas() + 1){
+        if(paginaElecta < obtenerNumeroPaginasOfertasPublicadas() + 1){
             paginaElecta++;
             return paginaElecta;
         }

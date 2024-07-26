@@ -1,0 +1,24 @@
+#contenedorDetalles{
+    width: 85%;
+    margin: 15px auto;
+    border: solid 1px black;
+}
+
+#contenedorDetalles > a:first-child{
+    text-decoration: none;
+    color: black;
+    font-size: 21px;
+}
+
+#contenedorDetalles form{
+    border: solid 1px red;
+    width: 90%;
+    margin: 15px auto;
+
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+#contenedorDetalles form input{
+    display: block;
+}
