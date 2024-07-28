@@ -17,7 +17,7 @@
     
     <div id="contenedorOfertas">
         <div>
-            <a href="">Nueva oferta</a>
+            <a th:href="@{/seccionContrata/pagina/{numPag}/nuevaOferta(numPag=${numPag})}">Nueva oferta</a>
         </div>
         
         <div th:each="oferta:${listaOfertas}" class="oferta" th:id="${oferta.id}">

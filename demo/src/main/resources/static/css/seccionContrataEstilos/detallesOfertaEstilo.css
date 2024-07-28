@@ -32,7 +32,7 @@ body{
     background-color: white;
     width: 80%;
     margin: 30px auto;
-    padding: 20px;
+    padding: 30px;
 
     display: grid;
     grid-template-columns: 50% 50%;
@@ -46,11 +46,16 @@ body{
 #contenedorDetalles form label{
     margin-bottom: 5px;
     font-size: 23px;
+    width: 60%;
 }
 
 #contenedorDetalles form textarea{
+    width: 70%;
+    height: 90px;
     border: solid 1px black;
     resize: none;
+    font-size: 15px;
+    margin-bottom: 30px
 }
 
 #contenedorDetalles form input, #contenedorDetalles form select{
@@ -59,16 +64,18 @@ body{
     border-bottom: solid 1px black;
     margin-bottom: 30px;
     color: black;
+    width: 60%;
 }
 
-#subirCambios{
-    visibility: hidden;
+#contenedorDetalles form input#subirCambios{
+    display: none;
+    width: 35%;
 
     background-color: green;
     color: white !important;
 
     padding:10px 15px;
-    margin:20px 0px;
+    margin:20px 0px 0px;
     border: 0px;
     cursor: pointer;
 }
@@ -81,6 +88,38 @@ p.mensajeError{
     display: none;
 }
 
+.descripcionError{
+    border: solid 1px red;
+}
+
 .inputError{
     border-bottom: solid 1px rgb(244, 54, 54) !important;
+}
+
+@media screen and (max-width:1200px) {
+    #contenedorDetalles{
+        width: 90%;
+    }
+
+    #contenedorDetalles form input, #contenedorDetalles form select{
+        width: 75%;
+    }
+
+    #contenedorDetalles form textarea{
+        width: 85%;
+    }
+
+    #contenedorDetalles form input#subirCambios{
+        width: 60%;
+    }
+}
+
+@media screen and (max-width:700px) {
+    #contenedorDetalles form{
+        grid-template-columns: 100%;
+    }
+
+    #descripcion{
+        margin-bottom: 80px;
+    }
 }

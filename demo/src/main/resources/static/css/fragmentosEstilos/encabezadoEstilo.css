@@ -32,7 +32,7 @@ header > nav section{
 }
 
 #pestayas a:nth-child(3){
-    justify-self: end;
+    justify-self: start;
 }
 
 #pestayas a{

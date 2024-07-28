@@ -58,9 +58,32 @@ public class SeccionContrataController {
 
     @PostMapping("/pagina/{numPag}/detallesOferta/{ofertaId}/editarOferta")
     public String updateOferta(@PathVariable Long numPag, @PathVariable Long ofertaId, Oferta oferta){
+        oferta.setRequisitos(null);
         ofertaService.guardarOferta(oferta);
 
         return "redirect:/seccionContrata/pagina/" + numPag + "/detallesOferta/" + ofertaId;
+    }
+
+    @GetMapping("/pagina/{numPag}/nuevaOferta")
+    public String showCreateNewOfferPage(@PathVariable Long numPag, Model model){
+        model.addAttribute("nuevaOferta", new Oferta());
+        model.addAttribute("numPag", numPag);
+
+        model.addAttribute("tiposContrato", TipoContrato.values());
+        model.addAttribute("modalidadesTrabajo", ModalidadTrabajo.values());
+
+        return "contrataSeccion/nuevaOferta";
+    }
+
+    @PostMapping("/pagina/{numPag}/detallesOferta/{ofertaId}/crearNuevaOferta")
+    public String showCreateNewOffer(@PathVariable Long numPag, Oferta oferta){
+        oferta.setContrata(contrataService.obtenerContrataConectado());
+        oferta.setRequisitos(null);
+        System.out.println(oferta + "AAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        ofertaService.guardarOferta(oferta);
+        contrataService.obtenerContrataConectado().getListaOfertas().add(oferta);
+
+        return "redirect:/seccionContrata/pagina/" + numPag;
     }
     
 }
