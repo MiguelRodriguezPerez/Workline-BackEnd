@@ -2,13 +2,15 @@ package com.example.demo.services.usuarios;
 
 import java.util.List;
 
-import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.domain.NuevoUsuario;
+import com.example.demo.domain.usuarios.buscaData.Busca;
 
 public interface BuscaService {
     
     Busca guardar(Busca busca);
     // Busca guardarFromUsuario(Usuario usuario);
     Busca guardarSinEncriptar(Busca busca);
+    Busca convertirNuevoUsuario(NuevoUsuario nuevoUsuario);
     void borrar(Long id);
     List <Busca> obtenerTodos();
     Busca obtenerPorId(Long id);

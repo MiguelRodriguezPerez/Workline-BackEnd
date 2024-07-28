@@ -71,24 +71,6 @@ public class Oferta implements Comparable<Oferta>{
     @JoinColumn(name = "contrata_id")//Sospechoso de fallar
     private Contrata contrata;
 
-    public Oferta(@NotNull @Size(max = 30) String puesto, @NotNull String sector, String descripcion,
-            @NotNull String ciudad, @Size(max = 10) List<String> requisitos, Double salarioAnual,
-            @NotNull TipoContrato tipoContrato, @NotNull Byte horas, @NotNull ModalidadTrabajo modalidadTrabajo,
-            Contrata contrata) {
-        this.puesto = puesto;
-        this.sector = sector;
-        this.descripcion = descripcion;
-        this.ciudad = ciudad;
-        this.requisitos = requisitos;
-        this.salarioAnual = salarioAnual;
-        this.tipoContrato = tipoContrato;
-        this.horas = horas;
-        this.modalidadTrabajo = modalidadTrabajo;
-        this.nombreEmpresa = contrata.getNombre();
-        this.fechaPublicacion = LocalDate.now();
-        this.contrata = contrata;
-    }
-
     @Override
     public int compareTo(Oferta o1) {
         if(o1.getFechaPublicacion().isAfter(this.fechaPublicacion)) return 1;

@@ -1,5 +1,6 @@
 package com.example.demo.services.ofertas;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.domain.ofertas.Oferta;
+import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.repositories.OfertaRepository;
+import com.example.demo.services.usuarios.ContrataService;
 
 @Service
 public class OfertaServiceImpl implements OfertaService{
@@ -22,11 +25,32 @@ public class OfertaServiceImpl implements OfertaService{
     OfertaRepository repo;
 
     @Autowired
+    ContrataService contrataService;
+
+    @Autowired
     BusquedaOfertaService busquedaOfertaService;
 
     @Override
     public Oferta guardarOferta(Oferta oferta) {
         return repo.save(oferta);
+    }
+
+    @Override
+    public Oferta guardarOfertaFromContrata(Oferta oferta){
+        Contrata contrataConectado = contrataService.obtenerContrataConectado();
+        oferta.setRequisitos(null);
+        oferta.setNombreEmpresa(contrataConectado.getNombre());
+        oferta.setContrata(contrataConectado);
+
+        /*Como este método sirve para guardar nuevas ofertas, pero también sirve
+        para editar las ofertas, se comprueba si la fecha es nula para evitar que en caso
+        de que se edite una oferta la fecha no cambie*/
+        if(oferta.getFechaPublicacion() == null) oferta.setFechaPublicacion(LocalDate.now());
+
+        this.guardarOferta(oferta);
+        contrataConectado.getListaOfertas().add(oferta);
+
+        return oferta;
     }
 
     @Override

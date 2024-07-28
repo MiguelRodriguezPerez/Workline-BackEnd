@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.usuarios.Admin;
-import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.domain.usuarios.buscaData.Busca;
 import com.example.demo.repositories.AdminRepository;
 
 @Service

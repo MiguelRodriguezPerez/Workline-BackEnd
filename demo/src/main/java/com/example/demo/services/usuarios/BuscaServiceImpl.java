@@ -8,7 +8,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.domain.NuevoUsuario;
+import com.example.demo.domain.usuarios.Rol;
+import com.example.demo.domain.usuarios.buscaData.Busca;
 import com.example.demo.repositories.BuscaRepository;
 
 @Service
@@ -73,6 +75,19 @@ public class BuscaServiceImpl implements BuscaService{
     public boolean estaSuscritoOferta(Long id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'estaSuscritoOferta'");
+    }
+
+    @Override
+    public Busca convertirNuevoUsuario(NuevoUsuario nuevoUsuario) {
+        Busca busca = new Busca();
+        busca.setNombre(nuevoUsuario.getNombre());
+        busca.setEmail(nuevoUsuario.getEmail());
+        busca.setCiudad(nuevoUsuario.getCiudad());
+        busca.setPassword(nuevoUsuario.getPassword());
+        busca.setTelefono(nuevoUsuario.getTelefono());
+        busca.setRol(Rol.BUSCA);
+        
+        return busca;
     }
     
 

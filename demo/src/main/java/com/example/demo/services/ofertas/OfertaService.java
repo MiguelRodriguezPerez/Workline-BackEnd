@@ -8,6 +8,7 @@ import com.example.demo.domain.ofertas.Oferta;
 public interface OfertaService {
     
     Oferta guardarOferta(Oferta oferta);
+    Oferta guardarOfertaFromContrata(Oferta oferta);
     void borrarOferta(Long id);
     Oferta obtenerPorId(Long id);
     List<Oferta> obtenerTodos();
