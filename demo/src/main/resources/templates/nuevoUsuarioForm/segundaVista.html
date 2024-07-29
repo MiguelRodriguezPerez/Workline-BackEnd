@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/js/nuevoUsuario/segundaVista.js" defer></script>
+    <!-- <link rel="stylesheet" href="/css/usuarios/formularioNuevoBusca.css"> -->
+</head>
+<body>
+    <h1>Bienvenido <h1 th:text="${nombreBusca}"></h1></h1>
+    <h2>Cuentanos un poco sobre ti</h2>
+
+    <div id="contenedorPadre">
+        <div class="formularioContenedor">
+
+            <h3>¿Que conocimientos tienes?</h3>
+    
+            <form action="#" method="post" id="formNuevoBuscaConocimiento"
+            th:action="@{/nuevoUsuario/formularioNuevoBusca/nuevoConocimiento/{idBusca}(idBusca=${idBusca})}"
+            th:object="${nuevoConocimiento}">
+                <input type="text" th:field="*{id}" hidden>
+    
+                <label for="">Titulo</label>
+                <input type="text" th:field="*{titulo}" id="tituloForm" maxlength="40">
+                <span id="tituloFallo" class="mensajeError" hidden> El título no puede tener más de 40 carácteres y no puede ser nulo</span>
+    
+                <label for="">Centro Educativo</label>
+                <input type="text" th:field="*{centroEducativo}" id="centroForm" maxlength="40">
+                <span id="centroFallo" class="mensajeError" hidden> El centro educativo no puede tener más de 40 carácteres y no puede ser nulo</span>
+    
+                <label for="">Inicio Período Conocimiento</label>
+                <input type="date" th:field="*{inicioPeriodoConocimiento}" id="fechaInicioForm">
+                <span id="fechaInicioConocimientoFallo" class="mensajeError" hidden> La fecha debe estar en formato dd-mm-yyyy y no puede ser nulo</span>
+                <span id="fechaFinConocimientoFalloDos" class="mensajeError" hidden> La fecha de inicio no puede ser superior a la final</span>
+    
+                <label for="">Fin Período Conocimiento</label>
+                <input type="date" th:field="*{finPeriodoConocimiento}" id="fechaFinForm">
+                <span id="fechaFinConocimientoFallo" class="mensajeError" hidden> La fecha debe estar en formato dd-mm-yyyy y no puede ser nulo</span>
+            
+                <input type="submit" value="Subir" id="subirConocimiento" class="subirEntidad">
+            </form>
+    
+            <p th:if="${#lists.isEmpty(listaConocimientos)}" class="sinEntidad">No has registrado ningún conocimiento</p>
+            <table th:unless="${#lists.isEmpty(listaConocimientos)}">
+                <tr class="primeraFila">
+                    <td>Titulo</td>
+                    <td>Centro Educativo</td>
+                    <td>Inicio estudios</td>
+                    <td>Fin estudios</td>
+                </tr>
+                <tr th:each="conocimiento:${listaConocimientos}">
+                    <td th:text="${conocimiento.id}" hidden></td>
+                    <td th:text="${conocimiento.titulo}">Licenciado en Derecho Universitario</td>
+                    <td th:text="${conocimiento.centroEducativo}">Universidad de La Coruña</td>
+                    <td th:text="${conocimiento.inicioPeriodoConocimiento}">17/10/1999</td>
+                    <td th:text="${conocimiento.finPeriodoConocimiento}">18/10/1999</td>
+                    <td><a class="borrarEntidad" th:href="@{/nuevoUsuario/formularioNuevoBusca/borrarNuevoConocimiento/{idConcimiento}/{idBusca}(idConcimiento=${conocimiento.id}, idBusca=${idBusca})}">Borrar</a></td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="formularioContenedor">
+            <h3>¿Que experiencias laborales tienes?</h3>
+            <form action="#" method="post" id="formNuevoBuscaExperiencia"
+                th:action="@{/nuevoUsuario/formularioNuevoBusca/nuevaExperiencia/{idBusca}(idBusca=${idBusca})}"
+                th:object="${nuevaExperiencia}">
+                <input type="text" th:field="*{id}" hidden>
+    
+                <label for="">Puesto</label>
+                <input type="text" th:field="*{puesto}" id="puestoForm">
+                <span id="puestoError" class="mensajeError" hidden>El puesto no puede tener más de 30 carácteres ni ser nulo</span>
+    
+                <label for="">Empresa</label>
+                <input type="text" th:field="*{empresa}" id="empresaForm">
+                <span id="empresaError" class="mensajeError" hidden>La empresa no puede tener más de 30 carácteres ni ser nulo</span>
+    
+                <label for="">Inicio experiencia</label>
+                <input type="date" th:field="*{inicioExperiencia}" id="inicioExperienciaForm">
+                <span id="inicioExperienciaError" class="mensajeError" hidden>La fecha debe estar en formato dd/mm/yyyy y no puede ser nula</span>
+                <span id="falloFechasExperiencia" class="mensajeError" hidden>La fecha de inicio no puede ser superior a la del fin</span>
+    
+                <label for="">Fin experiencia</label>
+                <input type="date" th:field="*{finExperiencia}" class="mensajeError" id="finExperienciaForm">
+                <span id="finExperienciaError" class="mensajeError" hidden>La fecha debe estar en formato dd/mm/yyyy y no puede ser nula</span>
+    
+                <input type="submit" value="Subir" id="subirExperiencia" class="subirEntidad">
+            </form>
+            <p th:if="${#lists.isEmpty(listaExperiencias)}" class="sinEntidad">No has registrado ninguna experiencia</p>
+            <table th:unless="${#lists.isEmpty(listaExperiencias)}">
+                <tr class="primeraFila">
+                    <td>Puesto</td>
+                    <td>Empresa</td>
+                    <td>Inicio <br> experiencia</td>
+                    <td>Fin <br> experiencia</td>
+                </tr>
+                <tr th:each="experiencia:${listaExperiencias}">
+                    <td th:text="${experiencia.id}" hidden></td>
+                    <td th:text="${experiencia.puesto}">Abogado <br> </td>
+                    <td th:text="${experiencia.empresa}">Soluciones Fiscales S.L</td>
+                    <td th:text="${experiencia.inicioExperiencia}">17/10/1999</td>
+                    <td th:text="${experiencia.finExperiencia}"></td>
+                    <td><a class="borrarEntidad" th:href="@{/nuevoUsuario/formularioNuevoBusca/borrarNuevaExperiencia/{idExperiencia}/{idBusca}(idExperiencia=${experiencia.id}, idBusca=${idBusca})}">Borrar</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <section>
+        <a id="terminar" th:href="@{/nuevoUsuario/terminarCreacionUsuario/{idBusca}(idBusca=${idBusca})}"> Terminar</a>
+    </section>
+    
+</body>
+</html>

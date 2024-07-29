@@ -8,9 +8,8 @@ import com.example.demo.domain.usuarios.buscaData.Busca;
 public interface BuscaService {
     
     Busca guardar(Busca busca);
-    // Busca guardarFromUsuario(Usuario usuario);
     Busca guardarSinEncriptar(Busca busca);
-    Busca convertirNuevoUsuario(NuevoUsuario nuevoUsuario);
+    Busca guardarBuscaDesdeNuevoUsuario(NuevoUsuario nuevoUsuario);
     void borrar(Long id);
     List <Busca> obtenerTodos();
     Busca obtenerPorId(Long id);

@@ -55,7 +55,7 @@ public class BuscaServiceImpl implements BuscaService{
 
     @Override
     public boolean esNombreRepetido(String nombre){
-        if(obtenerPorNombre(nombre) != null) return true;
+        if(this.obtenerPorNombre(nombre) != null) return true;
         else return false;
     }
 
@@ -78,16 +78,13 @@ public class BuscaServiceImpl implements BuscaService{
     }
 
     @Override
-    public Busca convertirNuevoUsuario(NuevoUsuario nuevoUsuario) {
-        Busca busca = new Busca();
-        busca.setNombre(nuevoUsuario.getNombre());
-        busca.setEmail(nuevoUsuario.getEmail());
-        busca.setCiudad(nuevoUsuario.getCiudad());
-        busca.setPassword(nuevoUsuario.getPassword());
-        busca.setTelefono(nuevoUsuario.getTelefono());
-        busca.setRol(Rol.BUSCA);
+    public Busca guardarBuscaDesdeNuevoUsuario(NuevoUsuario nuevoUsuario) {
+        Busca busca = new Busca(nuevoUsuario.getNombre(), nuevoUsuario.getEmail(), nuevoUsuario.getCiudad(), nuevoUsuario.getTelefono(), nuevoUsuario.getPassword());
+        Busca busca2 = this.guardar(busca);
+
+        System.out.println(busca2 + "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
         
-        return busca;
+        return busca2;
     }
     
 
