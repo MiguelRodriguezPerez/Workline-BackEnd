@@ -57,6 +57,16 @@ public class NuevoUsuarioController {
         model.addAttribute("nuevoConocimiento", new Conocimiento());
         model.addAttribute("nuevaExperiencia", new Experiencia());
 
+        model.addAttribute("nombreBusca", buscaService.obtenerPorId(id).getNombre());
+        model.addAttribute("idBusca", id);
+
         return "nuevoUsuarioForm/segundaVista";
+    }
+
+    @PostMapping("/segundaVista/subirConocimiento/{id}")
+    public String updateNewUserConocimientos(@PathVariable Long id, Conocimiento conocimiento){
+        Busca busca = buscaService.obtenerPorId(id);
+        
+        cono
     }
 }

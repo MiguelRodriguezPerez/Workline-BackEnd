@@ -1,56 +1,115 @@
 "use strict"
 
-document.getElementById('subirConocimiento').addEventListener('click',validarConocimiento);
+document.getElementById('subirConocimiento').addEventListener('click',(e) =>{
+    e.preventDefault();
+    if(validarConocimiento()) document.getElementById('formNuevoBuscaConocimiento').submit();
+});
+
+
+document.getElementById('subirExperiencia').addEventListener('click',validarExperiencia);
 
 function validarConocimiento(e){
     let esValido = true;
 
     e.preventDefault();
-    //Array: ???,"",Titulo,Centro,Fecha Inicio,Fecha fin
-    const inputsFormulario = Array.from(document.querySelectorAll('#formNuevoBuscaConocimiento input'));
-    inputsFormulario.splice(0,2);
-    console.log(inputsFormulario);
+    
+    const inputsConocimiento = Array.from(document.getElementsByClassName('conocimientoInput'));
+    console.log(inputsConocimiento);
 
-    const fallosFormulario = document.querySelectorAll('#formNuevoBuscaConocimiento .mensajeError');
-    console.log(fallosFormulario);
-    const valoresInput = [];
+    const fallosConocimiento = document.querySelectorAll('#formNuevoBuscaConocimiento .mensajeError');
+    console.log(fallosConocimiento);
+    const valoresConocimiento = [];
 
-    for(const i of inputsFormulario){
-        valoresInput.push(i.value);
+    for(const e of fallosConocimiento){
+        e.setAttribute('hidden','');
+        e.classList.remove('inputError');
     }
 
-    console.log(valoresInput);
+    //Array: Titulo,Centro,Fecha Inicio,Fecha fin
+    for(const i of inputsConocimiento){
+        valoresConocimiento.push(i.value);
+    }
 
-    if(!validar40caracteresYVacio(valoresInput[0])){
-            fallosFormulario[0].removeAttribute('hidden');
+    console.log(valoresConocimiento);
 
-            // document.getElementById('tituloForm').className='mensajeErrorConocimiento';
+    if(!validar40caracteresYVacio(valoresConocimiento[0])){
+            inputsConocimiento[0].classList.add('inputError');
+            fallosConocimiento[0].removeAttribute('hidden');
             esValido = false;
     }
 
-    if(!validar40caracteresYVacio(valoresInput[1])){
-        fallosFormulario[1].removeAttribute('hidden');
-        // document.getElementById('centroForm').className='mensajeErrorConocimiento';
+    if(!validar40caracteresYVacio(valoresConocimiento[1])){
+        inputsConocimiento[1].classList.add('inputError');
+        fallosConocimiento[1].removeAttribute('hidden');
         esValido = false;
     }
 
-    if(!validarFecha(valoresInput[2])){
-            fallosFormulario[2].removeAttribute('hidden');
-            // document.getElementById('fechaInicioForm').className='mensajeErrorConocimiento';
-            esValido = false;
+    if(!validarFecha(valoresConocimiento[2])){
+        inputsConocimiento[2].classList.add('inputError');
+        fallosConocimiento[2].removeAttribute('hidden');
+        esValido = false;
     }
 
-    if(!validarFecha(valoresInput[3])){
-        fallosFormulario[3].removeAttribute('hidden');
-            // document.getElementById('fechaInicioForm').className='mensajeErrorConocimiento';
-            esValido = false;
+    if(!validarFecha(valoresConocimiento[3])){
+        inputsConocimiento[3].classList.add('inputError');
+        fallosConocimiento[3].removeAttribute('hidden');
+        esValido = false;
     }
 
-    if(!fechasCoherentes(valoresInput[2],valoresInput[3])){
+    if(!fechasCoherentes(valoresConocimiento[2],valoresConocimiento[3])){
+        inputsConocimiento[2].classList.add('inputError');
+        inputsConocimiento[3].classList.add('inputError');
         esValido = false;
     }
 
     return esValido;
+}
+
+function validarExperiencia(e){
+    e.preventDefault();
+    let resultado = true;
+    const inputsExperiencia = Array.from(document.getElementsByClassName('experienciaInput'));
+    const fallosExperiencia = document.querySelectorAll('#formNuevoBuscaExperiencia .mensajeError');
+    const valoresExperiencia = [];
+
+    for(const e of fallosExperiencia){
+        e.setAttribute('hidden','');
+        e.classList.remove('inputError');
+    }
+
+    //Array: Puesto,Empresa,Fecha Inicio, Fecha fin
+    for(const i of inputsExperiencia){
+        valoresExperiencia.push(i.value);
+    }
+
+    if(!validar40caracteresYVacio(valoresExperiencia[0])){
+        inputsExperiencia[0].classList.add('inputError');
+        fallosExperiencia[0].removeAttribute('hidden');
+        resultado = false;
+    }
+    if(!validar40caracteresYVacio(valoresExperiencia[1])){
+        inputsExperiencia[1].classList.add('inputError');
+        fallosExperiencia[1].removeAttribute('hidden');
+        resultado = false;
+    }
+    if(!validarFecha(valoresExperiencia[2])){
+        inputsExperiencia[2].classList.add('inputError');
+        fallosExperiencia[2].removeAttribute('hidden');
+        resultado = false;
+    }
+    if(!validarFecha(valoresExperiencia[3])){
+        inputsExperiencia[3].classList.add('inputError');
+        fallosExperiencia[3].removeAttribute('hidden');
+        resultado = false;
+    }
+    if(!fechasCoherentes(valoresExperiencia[3],valoresExperiencia[4])){
+        inputsExperiencia[3].classList.add('inputError');
+        inputsExperiencia[4].classList.add('inputError');
+        resultado = false;
+    } 
+
+    return resultado;
+
 }
 
 function validar40caracteresYVacio(texto){
@@ -70,11 +129,6 @@ function fechasCoherentes(texto1, texto2){
     const fechaInicio = new Date(texto1);
     const fechaFin = new Date(texto2);
 
-    if(fechaFin<fechaInicio){
-        fallosFormulario[5].removeAttribute('hidden');
-        // document.getElementById('fechaInicioForm').className='mensajeErrorConocimiento';
-        // document.getElementById('fechaFinForm').className='mensajeErrorConocimiento';
-        return false;
-    }
+    if(fechaFin<fechaInicio) return false;
     else return true;
 }

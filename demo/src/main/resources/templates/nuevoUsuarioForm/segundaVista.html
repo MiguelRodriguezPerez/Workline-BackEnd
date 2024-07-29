@@ -5,37 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="/js/nuevoUsuario/segundaVista.js" defer></script>
-    <!-- <link rel="stylesheet" href="/css/usuarios/formularioNuevoBusca.css"> -->
+    <link rel="stylesheet" href="/css/nuevoUsuarioEstilos/segundaVistaEstilo.css">
 </head>
 <body>
+    
     <h1>Bienvenido <h1 th:text="${nombreBusca}"></h1></h1>
     <h2>Cuentanos un poco sobre ti</h2>
-
     <div id="contenedorPadre">
+        
         <div class="formularioContenedor">
 
             <h3>¿Que conocimientos tienes?</h3>
     
             <form action="#" method="post" id="formNuevoBuscaConocimiento"
-            th:action="@{/nuevoUsuario/formularioNuevoBusca/nuevoConocimiento/{idBusca}(idBusca=${idBusca})}"
+            th:action="@{/nuevoUsuario/segundaVista/subirConocimiento/{idBusca}(idBusca=${idBusca})}"
             th:object="${nuevoConocimiento}">
                 <input type="text" th:field="*{id}" hidden>
     
                 <label for="">Titulo</label>
-                <input type="text" th:field="*{titulo}" id="tituloForm" maxlength="40">
+                <input type="text" th:field="*{titulo}" class="conocimientoInput" maxlength="40">
                 <span id="tituloFallo" class="mensajeError" hidden> El título no puede tener más de 40 carácteres y no puede ser nulo</span>
     
                 <label for="">Centro Educativo</label>
-                <input type="text" th:field="*{centroEducativo}" id="centroForm" maxlength="40">
+                <input type="text" th:field="*{centroEducativo}" class="conocimientoInput" maxlength="40">
                 <span id="centroFallo" class="mensajeError" hidden> El centro educativo no puede tener más de 40 carácteres y no puede ser nulo</span>
     
-                <label for="">Inicio Período Conocimiento</label>
-                <input type="date" th:field="*{inicioPeriodoConocimiento}" id="fechaInicioForm">
+                <label for="">Inicio Estudios</label>
+                <input type="date" th:field="*{inicioPeriodoConocimiento}" class="conocimientoInput">
                 <span id="fechaInicioConocimientoFallo" class="mensajeError" hidden> La fecha debe estar en formato dd-mm-yyyy y no puede ser nulo</span>
                 <span id="fechaFinConocimientoFalloDos" class="mensajeError" hidden> La fecha de inicio no puede ser superior a la final</span>
     
-                <label for="">Fin Período Conocimiento</label>
-                <input type="date" th:field="*{finPeriodoConocimiento}" id="fechaFinForm">
+                <label for="">Fin Estudios</label>
+                <input type="date" th:field="*{finPeriodoConocimiento}" class="conocimientoInput">
                 <span id="fechaFinConocimientoFallo" class="mensajeError" hidden> La fecha debe estar en formato dd-mm-yyyy y no puede ser nulo</span>
             
                 <input type="submit" value="Subir" id="subirConocimiento" class="subirEntidad">
@@ -68,20 +69,20 @@
                 <input type="text" th:field="*{id}" hidden>
     
                 <label for="">Puesto</label>
-                <input type="text" th:field="*{puesto}" id="puestoForm">
-                <span id="puestoError" class="mensajeError" hidden>El puesto no puede tener más de 30 carácteres ni ser nulo</span>
+                <input type="text" th:field="*{puesto}" class="experienciaInput" maxlength="40">
+                <span id="puestoError" class="mensajeError" hidden>El puesto no puede tener más de 40 carácteres ni ser nulo</span>
     
                 <label for="">Empresa</label>
-                <input type="text" th:field="*{empresa}" id="empresaForm">
-                <span id="empresaError" class="mensajeError" hidden>La empresa no puede tener más de 30 carácteres ni ser nulo</span>
+                <input type="text" th:field="*{empresa}" class="experienciaInput" maxlength="40">
+                <span id="empresaError" class="mensajeError" hidden>La empresa no puede tener más de 40 carácteres ni ser nulo</span>
     
                 <label for="">Inicio experiencia</label>
-                <input type="date" th:field="*{inicioExperiencia}" id="inicioExperienciaForm">
+                <input type="date" th:field="*{inicioExperiencia}" class="experienciaInput" >
                 <span id="inicioExperienciaError" class="mensajeError" hidden>La fecha debe estar en formato dd/mm/yyyy y no puede ser nula</span>
                 <span id="falloFechasExperiencia" class="mensajeError" hidden>La fecha de inicio no puede ser superior a la del fin</span>
     
                 <label for="">Fin experiencia</label>
-                <input type="date" th:field="*{finExperiencia}" class="mensajeError" id="finExperienciaForm">
+                <input type="date" th:field="*{finExperiencia}" class="experienciaInput" >
                 <span id="finExperienciaError" class="mensajeError" hidden>La fecha debe estar en formato dd/mm/yyyy y no puede ser nula</span>
     
                 <input type="submit" value="Subir" id="subirExperiencia" class="subirEntidad">

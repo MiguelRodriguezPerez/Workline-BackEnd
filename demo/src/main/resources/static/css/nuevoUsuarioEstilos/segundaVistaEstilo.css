@@ -1,0 +1,60 @@
+body{
+    background-color: #F5F5F5;
+}
+
+body h1, body h2, body h3{
+    text-align: center;
+}
+
+
+#contenedorPadre{
+    margin: 0px auto;
+    width: 50%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    background-color: white;
+}
+
+#contenedorPadre > .formularioContenedor > h3{
+    font-weight: normal;
+    font-size: 25px;
+}
+
+#contenedorPadre > .formularioContenedor > form{
+    display: grid;
+    grid-template-columns: 70%;
+    justify-content: center;
+}
+
+.formularioContenedor > form > label{
+    font-size: 23px;
+    margin-top: 10px;
+}
+
+.formularioContenedor input{
+    border: 0px;
+    border-bottom: solid 1px black;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.formularioContenedor > form > input.subirEntidad{
+    font-size: 15px;
+    margin-top: 20px;
+    padding: 10px 15px;
+    border: 0px;
+
+    width: 50%;
+    justify-self: center;
+    cursor: pointer;
+}
+
+.mensajeError{
+    color: red;
+    font-size: 15px;
+}
+
+.formularioContenedor .inputError{
+    border-bottom: solid 1px red ;
+}
+
