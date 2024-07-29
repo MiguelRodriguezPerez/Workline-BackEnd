@@ -9,8 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.NuevoUsuario;
+import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Rol;
-import com.example.demo.domain.usuarios.buscaData.Busca;
 import com.example.demo.repositories.BuscaRepository;
 
 @Service

@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.demo.domain.Conocimiento;
+import com.example.demo.domain.Experiencia;
 import com.example.demo.domain.NuevoUsuario;
+import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Rol;
-import com.example.demo.domain.usuarios.buscaData.Busca;
-import com.example.demo.domain.usuarios.buscaData.Conocimiento;
-import com.example.demo.domain.usuarios.buscaData.Experiencia;
+import com.example.demo.services.ConocimientoService;
+import com.example.demo.services.ExperienciaService;
 import com.example.demo.services.usuarios.BuscaService;
 import com.example.demo.services.usuarios.ContrataService;
 
@@ -26,6 +28,12 @@ public class NuevoUsuarioController {
 
     @Autowired
     BuscaService buscaService;
+
+    @Autowired
+    ConocimientoService conocimientoService;
+
+    @Autowired
+    ExperienciaService experienciaService;
     
     @GetMapping("/")
     public String getNewUserForm(Model model){
@@ -58,7 +66,10 @@ public class NuevoUsuarioController {
         model.addAttribute("nuevaExperiencia", new Experiencia());
 
         model.addAttribute("nombreBusca", buscaService.obtenerPorId(id).getNombre());
-        model.addAttribute("idBusca", id);
+        // model.addAttribute("idBusca", id);
+
+        model.addAttribute("listaConocimientos", buscaService.obtenerPorId(id).getListaConocimientos());
+        model.addAttribute("listaExperiencias", buscaService.obtenerPorId(id).getListaExperiencias());
 
         return "nuevoUsuarioForm/segundaVista";
     }
@@ -67,6 +78,23 @@ public class NuevoUsuarioController {
     public String updateNewUserConocimientos(@PathVariable Long id, Conocimiento conocimiento){
         Busca busca = buscaService.obtenerPorId(id);
         
-        cono
+        conocimiento.setBusca(busca);//Discutible
+        conocimientoService.guardarConocimiento(conocimiento);
+        busca.getListaConocimientos().add(conocimiento);
+        buscaService.guardar(busca);
+
+        return "redirect:/nuevoUsuario/segundaVista/" + id;
+    }
+
+    @PostMapping("/segundaVista/subirExperiencia/{id}")
+    public String updateNewUserExperiencia(@PathVariable Long id, Experiencia experiencia){
+        Busca busca = buscaService.obtenerPorId(id);
+
+        experiencia.setBusca(busca);
+        experienciaService.guardarExperiencia(experiencia);
+        busca.getListaExperiencias().add(experiencia);
+        buscaService.guardar(busca);
+
+        return "redirect:/nuevoUsuario/segundaVista/" + id;
     }
 }

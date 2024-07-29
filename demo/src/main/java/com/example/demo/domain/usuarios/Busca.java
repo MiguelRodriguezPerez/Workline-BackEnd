@@ -1,9 +1,9 @@
-package com.example.demo.domain.usuarios.buscaData;
+package com.example.demo.domain.usuarios;
 
 import java.util.Set;
 
-import com.example.demo.domain.usuarios.Rol;
-import com.example.demo.domain.usuarios.Usuario;
+import com.example.demo.domain.Conocimiento;
+import com.example.demo.domain.Experiencia;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;

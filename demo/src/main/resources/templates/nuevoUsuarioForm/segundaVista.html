@@ -9,7 +9,7 @@
 </head>
 <body>
     
-    <h1>Bienvenido <h1 th:text="${nombreBusca}"></h1></h1>
+    <h1>Bienvenido <h1 th:text="${nuevoBusca.getNombre()}"></h1></h1>
     <h2>Cuentanos un poco sobre ti</h2>
     <div id="contenedorPadre">
         
@@ -18,7 +18,7 @@
             <h3>¿Que conocimientos tienes?</h3>
     
             <form action="#" method="post" id="formNuevoBuscaConocimiento"
-            th:action="@{/nuevoUsuario/segundaVista/subirConocimiento/{idBusca}(idBusca=${idBusca})}"
+            th:action="@{/nuevoUsuario/segundaVista/subirConocimiento/{idBusca}(idBusca=${nuevoBusca.getId()})}"
             th:object="${nuevoConocimiento}">
                 <input type="text" th:field="*{id}" hidden>
     
@@ -33,22 +33,23 @@
                 <label for="">Inicio Estudios</label>
                 <input type="date" th:field="*{inicioPeriodoConocimiento}" class="conocimientoInput">
                 <span id="fechaInicioConocimientoFallo" class="mensajeError" hidden> La fecha debe estar en formato dd-mm-yyyy y no puede ser nulo</span>
-                <span id="fechaFinConocimientoFalloDos" class="mensajeError" hidden> La fecha de inicio no puede ser superior a la final</span>
+                
     
                 <label for="">Fin Estudios</label>
                 <input type="date" th:field="*{finPeriodoConocimiento}" class="conocimientoInput">
                 <span id="fechaFinConocimientoFallo" class="mensajeError" hidden> La fecha debe estar en formato dd-mm-yyyy y no puede ser nulo</span>
+                <span id="fechaFinConocimientoFalloDos" class="mensajeError" hidden> La fecha de inicio no puede ser superior a la final</span>
             
                 <input type="submit" value="Subir" id="subirConocimiento" class="subirEntidad">
             </form>
     
             <p th:if="${#lists.isEmpty(listaConocimientos)}" class="sinEntidad">No has registrado ningún conocimiento</p>
             <table th:unless="${#lists.isEmpty(listaConocimientos)}">
-                <tr class="primeraFila">
-                    <td>Titulo</td>
-                    <td>Centro Educativo</td>
-                    <td>Inicio estudios</td>
-                    <td>Fin estudios</td>
+                <tr>
+                    <th>Titulo</th>
+                    <th>Centro Educativo</th>
+                    <th>Inicio estudios</th>
+                    <th>Fin estudios</th>
                 </tr>
                 <tr th:each="conocimiento:${listaConocimientos}">
                     <td th:text="${conocimiento.id}" hidden></td>
@@ -64,7 +65,7 @@
         <div class="formularioContenedor">
             <h3>¿Que experiencias laborales tienes?</h3>
             <form action="#" method="post" id="formNuevoBuscaExperiencia"
-                th:action="@{/nuevoUsuario/formularioNuevoBusca/nuevaExperiencia/{idBusca}(idBusca=${idBusca})}"
+                th:action="@{/nuevoUsuario/segundaVista/subirExperiencia/{idBusca}(idBusca=${nuevoBusca.getId()})}"
                 th:object="${nuevaExperiencia}">
                 <input type="text" th:field="*{id}" hidden>
     
@@ -79,21 +80,22 @@
                 <label for="">Inicio experiencia</label>
                 <input type="date" th:field="*{inicioExperiencia}" class="experienciaInput" >
                 <span id="inicioExperienciaError" class="mensajeError" hidden>La fecha debe estar en formato dd/mm/yyyy y no puede ser nula</span>
-                <span id="falloFechasExperiencia" class="mensajeError" hidden>La fecha de inicio no puede ser superior a la del fin</span>
+                
     
                 <label for="">Fin experiencia</label>
                 <input type="date" th:field="*{finExperiencia}" class="experienciaInput" >
                 <span id="finExperienciaError" class="mensajeError" hidden>La fecha debe estar en formato dd/mm/yyyy y no puede ser nula</span>
+                <span id="falloFechasExperiencia" class="mensajeError" hidden>La fecha de inicio no puede ser superior a la del fin</span>
     
                 <input type="submit" value="Subir" id="subirExperiencia" class="subirEntidad">
             </form>
             <p th:if="${#lists.isEmpty(listaExperiencias)}" class="sinEntidad">No has registrado ninguna experiencia</p>
             <table th:unless="${#lists.isEmpty(listaExperiencias)}">
-                <tr class="primeraFila">
-                    <td>Puesto</td>
-                    <td>Empresa</td>
-                    <td>Inicio <br> experiencia</td>
-                    <td>Fin <br> experiencia</td>
+                <tr>
+                    <th>Puesto</th>
+                    <th>Empresa</th>
+                    <th>Inicio experiencia</th>
+                    <th>Fin experiencia</th>
                 </tr>
                 <tr th:each="experiencia:${listaExperiencias}">
                     <td th:text="${experiencia.id}" hidden></td>

@@ -1,7 +1,8 @@
-package com.example.demo.domain.usuarios.buscaData;
+package com.example.demo.domain;
 
 import java.time.LocalDate;
 
+import com.example.demo.domain.usuarios.Busca;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
@@ -37,8 +38,6 @@ public class Experiencia {
     private LocalDate inicioExperiencia; 
     @NotNull 
     private LocalDate finExperiencia;
-
-    private String nombreBusca;
 
     @ManyToOne
     @JoinColumn(name = "busca_id")

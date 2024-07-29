@@ -6,13 +6,11 @@ document.getElementById('subirConocimiento').addEventListener('click',(e) =>{
 });
 
 
-document.getElementById('subirExperiencia').addEventListener('click',validarExperiencia);
 
-function validarConocimiento(e){
+
+function validarConocimiento(){
     let esValido = true;
 
-    e.preventDefault();
-    
     const inputsConocimiento = Array.from(document.getElementsByClassName('conocimientoInput'));
     console.log(inputsConocimiento);
 
@@ -59,18 +57,26 @@ function validarConocimiento(e){
     if(!fechasCoherentes(valoresConocimiento[2],valoresConocimiento[3])){
         inputsConocimiento[2].classList.add('inputError');
         inputsConocimiento[3].classList.add('inputError');
+        fallosConocimiento[3].removeAttribute('hidden');
         esValido = false;
     }
 
     return esValido;
 }
 
-function validarExperiencia(e){
+document.getElementById('subirExperiencia').addEventListener('click',(e) =>{
     e.preventDefault();
+    if(validarExperiencia()) document.getElementById('formNuevoBuscaExperiencia').submit();
+});
+
+
+function validarExperiencia(){
+
     let resultado = true;
     const inputsExperiencia = Array.from(document.getElementsByClassName('experienciaInput'));
     const fallosExperiencia = document.querySelectorAll('#formNuevoBuscaExperiencia .mensajeError');
     const valoresExperiencia = [];
+    console.log(fallosExperiencia)
 
     for(const e of fallosExperiencia){
         e.setAttribute('hidden','');
@@ -102,9 +108,10 @@ function validarExperiencia(e){
         fallosExperiencia[3].removeAttribute('hidden');
         resultado = false;
     }
-    if(!fechasCoherentes(valoresExperiencia[3],valoresExperiencia[4])){
+    if(!fechasCoherentes(valoresExperiencia[2],valoresExperiencia[3])){
+        inputsExperiencia[2].classList.add('inputError');
         inputsExperiencia[3].classList.add('inputError');
-        inputsExperiencia[4].classList.add('inputError');
+        fallosExperiencia[4].removeAttribute('hidden');
         resultado = false;
     } 
 
@@ -125,10 +132,10 @@ function validarFecha(texto){
     else return true;
 }
 
-function fechasCoherentes(texto1, texto2){
-    const fechaInicio = new Date(texto1);
-    const fechaFin = new Date(texto2);
+function fechasCoherentes(fInicio, fFin){
+    const fechaInicio = new Date(fInicio);
+    const fechaFin = new Date(fFin);
 
-    if(fechaFin<fechaInicio) return false;
+    if(fechaFin < fechaInicio) return false;
     else return true;
 }

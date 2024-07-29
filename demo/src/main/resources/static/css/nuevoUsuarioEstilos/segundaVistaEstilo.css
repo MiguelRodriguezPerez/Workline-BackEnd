@@ -9,7 +9,7 @@ body h1, body h2, body h3{
 
 #contenedorPadre{
     margin: 0px auto;
-    width: 50%;
+    width: 64%;
     display: grid;
     grid-template-columns: 50% 50%;
     background-color: white;
@@ -57,4 +57,28 @@ body h1, body h2, body h3{
 .formularioContenedor .inputError{
     border-bottom: solid 1px red ;
 }
+
+.formularioContenedor > table{
+    margin: 15px auto;
+}
+
+.formularioContenedor > table th{
+    font-size: 21px;
+    font-weight: normal;
+    text-align: start;
+}
+
+.formularioContenedor > table td{
+    font-size: 19px;
+}
+
+.formularioContenedor > table th,
+.formularioContenedor > table td{
+    padding:0px 6px;
+}
+
+.formularioContenedor > table tr{
+    border: solid 1px black;
+}
+
 
