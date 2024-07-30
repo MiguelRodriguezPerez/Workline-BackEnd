@@ -42,10 +42,10 @@ public class UsuarioService {
         else return false;
     }
 
-    public Usuario obtenerUsuarioPorNombre(String nombre){
-        if(contrataService.obtenerPorNombre(nombre) != null) return contrataService.obtenerPorNombre(nombre);
-        if(buscaService.obtenerPorNombre(nombre) != null) return buscaService.obtenerPorNombre(nombre);
-        if(adminService.obtenerPorNombre(nombre) != null) return adminService.obtenerPorNombre(nombre);
+    public Usuario obtenerUsuarioConectado(){
+        if(contrataService.obtenerContrataConectado() != null) return contrataService.obtenerContrataConectado();
+        if(buscaService.obtenerBuscaConectado() != null) return buscaService.obtenerBuscaConectado();
+        if(adminService.obtenerAdminConectado() != null) return adminService.obtenerAdminConectado();
         return null;
     }
 }

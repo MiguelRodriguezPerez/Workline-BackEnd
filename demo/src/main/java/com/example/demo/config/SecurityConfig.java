@@ -33,6 +33,7 @@ public class SecurityConfig {
         http.headers(headersConfigurer ->  headersConfigurer.frameOptions(frameOptions -> frameOptions.sameOrigin()));
         http.authorizeHttpRequests(auth->auth
         .requestMatchers("/seccionContrata/**").hasRole("CONTRATA")
+        .requestMatchers("/miPerfil/**").authenticated()
         .requestMatchers("/","/ofertasDeTrabajo/**","/solicitudOfertas/**","/nuevoUsuario/**","/nuevoUsuarioCreacion/**").permitAll()
         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
         .anyRequest().authenticated())

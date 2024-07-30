@@ -9,7 +9,7 @@
     <section id="perfil">
         <img src="/images/fragmentos/pfp.png" alt="pfp.png" id="pfp">
         <a th:if="${currentUserName == null}" th:href="@{/sesion/signin}">Iniciar Sesión</a>
-        <a th:href="@{/userSettings/datos}" th:text="${currentUserName}"></a>
+        <a th:if="${currentUserName != null}"  th:href="@{/miPerfil/}" th:text="${currentUserName}"></a>
         <form th:if="${currentUserName != null}" th:action="@{/logout}" method="post">
             
             <input type="submit" value="Logout" />
