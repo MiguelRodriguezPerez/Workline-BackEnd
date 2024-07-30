@@ -12,7 +12,7 @@ import com.example.demo.domain.usuarios.Busca;
 public interface ExperienciaService  {
     Experiencia guardarExperiencia(Experiencia ex);
     void guardarListaExperiencias(Busca busca,Set<Experiencia> experiencias);
-    Experiencia obtenerExperienciaPorId(Long id);
+    Experiencia obtenerPorId(Long id);
     void borrarExperiencia(Long id);
     List<Experiencia> obtenerTodos();
     Set<Experiencia> obtenerTodosSet();

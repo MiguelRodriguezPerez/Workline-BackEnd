@@ -7,25 +7,62 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.domain.usuarios.Usuario;
-import com.example.demo.repositories.UsuarioRepository;
-
-
+import com.example.demo.domain.usuarios.Admin;
+import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.domain.usuarios.Contrata;
+import com.example.demo.repositories.AdminRepository;
+import com.example.demo.repositories.BuscaRepository;
+import com.example.demo.repositories.ContrataRepository;
 
 @Component
 public class UserDetailsImpl implements UserDetailsService {
     
     @Autowired
-    UsuarioRepository usuarioRepository;
+    AdminRepository adminRepository;
+    @Autowired
+    BuscaRepository buscaRepository;
+    @Autowired
+    ContrataRepository contrataRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepository.findByNombre(username);
-        if(usuario == null) throw new UsernameNotFoundException("Usuario no encontrado");
-        return User
-        .withUsername(username)
-        .roles(usuario.getRol().toString())
-        .password(usuario.getPassword())
-        .build();
+
+        if(adminRepository.findByNombre(username) != null){
+            Admin admin = adminRepository.findByNombre(username);
+            return User
+            .withUsername(username)
+            .roles(admin.getRol().toString())
+            .password(admin.getPassword())
+            .build();
+        }
+        else if(buscaRepository.findByNombre(username) != null){
+            Busca busca = buscaRepository.findByNombre(username);
+            return User
+            .withUsername(username)
+            .roles(busca.getRol().toString())
+            .password(busca.getPassword())
+            .build();
+        }
+        else if(contrataRepository.findByNombre(username) != null){
+            Contrata contrata = contrataRepository.findByNombre(username);
+            return User
+            .withUsername(username)
+            .roles(contrata.getRol().toString())
+            .password(contrata.getPassword())
+            .build();
+        }
+        else throw new UsernameNotFoundException("Usuario no encontrado");
+
     }
-}
+
+
+
+        // Usuario usuario = usuarioRepository.findByNombre(username);
+        // if(usuario == null) throw new UsernameNotFoundException("Usuario no encontrado");
+        // return User
+        // .withUsername(username)
+        // .roles(usuario.getRol().toString())
+        // .password(usuario.getPassword())
+        // .build();
+    }
+

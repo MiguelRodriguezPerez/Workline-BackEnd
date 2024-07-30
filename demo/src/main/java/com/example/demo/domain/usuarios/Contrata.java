@@ -9,10 +9,8 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -21,8 +19,8 @@ import lombok.ToString;
 @ToString(exclude = "listaOfertas")
 @NoArgsConstructor
 // @AllArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorValue("Contrata")
+@Table(name="Contrata")
+// @DiscriminatorValue("Contrata")
 @Entity
 public class Contrata extends Usuario{
 

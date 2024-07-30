@@ -32,17 +32,14 @@ public class ExperienciaServiceImpl implements ExperienciaService{
         buscaService.guardarSinEncriptar(busca);
 
         for(Experiencia exp: experiencias){
-
             exp.setBusca(busca);
-            exp.setNombreBusca(busca.getNombre());
             guardarExperiencia(exp);
-
         }
 
     }
 
     @Override
-    public Experiencia obtenerExperienciaPorId(Long id) {
+    public Experiencia obtenerPorId(Long id) {
         return experienciaRepository.findById(id).orElse(null);
     }
 

@@ -8,8 +8,10 @@
     <link rel="stylesheet" href="/css/nuevoUsuarioEstilos/segundaVistaEstilo.css">
 </head>
 <body>
+    <section>
+        <h1>Bienvenido </h1><h1 th:text="${nuevoBusca.getNombre()}"></h1>
+    </section>
     
-    <h1>Bienvenido <h1 th:text="${nuevoBusca.getNombre()}"></h1></h1>
     <h2>Cuentanos un poco sobre ti</h2>
     <div id="contenedorPadre">
         
@@ -48,16 +50,18 @@
                 <tr>
                     <th>Titulo</th>
                     <th>Centro Educativo</th>
-                    <th>Inicio estudios</th>
-                    <th>Fin estudios</th>
+                    <!-- <th>Inicio estudios</th>
+                    <th>Fin estudios</th> -->
                 </tr>
                 <tr th:each="conocimiento:${listaConocimientos}">
                     <td th:text="${conocimiento.id}" hidden></td>
-                    <td th:text="${conocimiento.titulo}">Licenciado en Derecho Universitario</td>
-                    <td th:text="${conocimiento.centroEducativo}">Universidad de La Coruña</td>
-                    <td th:text="${conocimiento.inicioPeriodoConocimiento}">17/10/1999</td>
-                    <td th:text="${conocimiento.finPeriodoConocimiento}">18/10/1999</td>
-                    <td><a class="borrarEntidad" th:href="@{/nuevoUsuario/formularioNuevoBusca/borrarNuevoConocimiento/{idConcimiento}/{idBusca}(idConcimiento=${conocimiento.id}, idBusca=${idBusca})}">Borrar</a></td>
+                    <td th:text="${conocimiento.titulo}"></td>
+                    <td th:text="${conocimiento.centroEducativo}"></td>
+                    <!-- <td th:text="${conocimiento.inicioPeriodoConocimiento}"></td>
+                    <td th:text="${conocimiento.finPeriodoConocimiento}"></td> -->
+                    <td><a class="borrarEntidad" th:href="@{/nuevoUsuario/segundaVista/{idBusca}/borrarNuevoConocimiento/{idConocimiento}(idConocimiento=${conocimiento.id}, idBusca=${nuevoBusca.getId()})}">
+                        <img src="/images/borrar.png" alt="delete">
+                    </a></td>
                 </tr>
             </table>
         </div>
@@ -94,24 +98,23 @@
                 <tr>
                     <th>Puesto</th>
                     <th>Empresa</th>
-                    <th>Inicio experiencia</th>
-                    <th>Fin experiencia</th>
+                    <!-- <th>Inicio experiencia</th>
+                    <th>Fin experiencia</th> -->
                 </tr>
                 <tr th:each="experiencia:${listaExperiencias}">
                     <td th:text="${experiencia.id}" hidden></td>
                     <td th:text="${experiencia.puesto}">Abogado <br> </td>
                     <td th:text="${experiencia.empresa}">Soluciones Fiscales S.L</td>
-                    <td th:text="${experiencia.inicioExperiencia}">17/10/1999</td>
-                    <td th:text="${experiencia.finExperiencia}"></td>
-                    <td><a class="borrarEntidad" th:href="@{/nuevoUsuario/formularioNuevoBusca/borrarNuevaExperiencia/{idExperiencia}/{idBusca}(idExperiencia=${experiencia.id}, idBusca=${idBusca})}">Borrar</a></td>
+                    <!-- <td th:text="${experiencia.inicioExperiencia}"></td>
+                    <td th:text="${experiencia.finExperiencia}"></td> -->
+                    <td><a class="borrarEntidad" th:href="@{/nuevoUsuario/segundaVista/{idBusca}/borrarNuevaExperiencia/{idExperiencia}(idExperiencia=${experiencia.id}, idBusca=${nuevoBusca.getId()})}">
+                        <img src="/images/borrar.png" alt="delete">
+                    </a></td>
                 </tr>
             </table>
         </div>
+        <a id="terminar" th:href="@{/}"> Terminar</a>
     </div>
-    
-    <section>
-        <a id="terminar" th:href="@{/nuevoUsuario/terminarCreacionUsuario/{idBusca}(idBusca=${idBusca})}"> Terminar</a>
-    </section>
     
 </body>
 </html>

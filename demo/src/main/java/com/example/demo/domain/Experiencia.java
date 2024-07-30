@@ -28,11 +28,13 @@ public class Experiencia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
+    
     @NotNull
-    @Size(max = 30, message = "Máximo 30 carácteres")
+    @Size(max = 40, message = "Máximo 40 carácteres puesto")
     private String puesto;
+
     @NotNull
-    @Size(max = 30, message = "Máximo 30 carácteres")
+    @Size(max = 40, message = "Máximo 40 carácteres experiencia")
     private String empresa;
     @NotNull
     private LocalDate inicioExperiencia; 

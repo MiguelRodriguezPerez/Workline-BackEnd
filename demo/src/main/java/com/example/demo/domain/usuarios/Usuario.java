@@ -8,8 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -25,11 +24,10 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(of="id")
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name="usuario")
-@Inheritance(strategy = InheritanceType.JOINED)
+// @Entity
 @DiscriminatorColumn(name = "dtype")
-public class Usuario {
+@MappedSuperclass
+public abstract class Usuario {
     
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

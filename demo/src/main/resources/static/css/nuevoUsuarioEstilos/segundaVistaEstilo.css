@@ -4,8 +4,23 @@ body{
 
 body h1, body h2, body h3{
     text-align: center;
+    font-weight: normal;
 }
 
+body > section:first-child{
+    display: flex;
+    justify-content: center;
+
+}
+
+body > section:first-child > h1{
+    font-size: 33px;
+    margin-bottom: 0px;
+}
+
+body > section:first-child > h1:first-child{
+    margin-right: 10px;
+}
 
 #contenedorPadre{
     margin: 0px auto;
@@ -13,6 +28,7 @@ body h1, body h2, body h3{
     display: grid;
     grid-template-columns: 50% 50%;
     background-color: white;
+    padding: 20px;
 }
 
 #contenedorPadre > .formularioContenedor > h3{
@@ -39,7 +55,7 @@ body h1, body h2, body h3{
 }
 
 .formularioContenedor > form > input.subirEntidad{
-    font-size: 15px;
+    font-size: 18px;
     margin-top: 20px;
     padding: 10px 15px;
     border: 0px;
@@ -59,7 +75,8 @@ body h1, body h2, body h3{
 }
 
 .formularioContenedor > table{
-    margin: 15px auto;
+    width: 95%;
+    margin: 15px auto 30px;
 }
 
 .formularioContenedor > table th{
@@ -74,11 +91,38 @@ body h1, body h2, body h3{
 
 .formularioContenedor > table th,
 .formularioContenedor > table td{
-    padding:0px 6px;
+    padding:0px 4px;
 }
 
 .formularioContenedor > table tr{
     border: solid 1px black;
 }
 
+#contenedorPadre > a{
+    grid-column: 1/3;
+    justify-self: end;
 
+    text-decoration: none;
+    color: black;
+    font-size: 19px;
+}
+
+
+@media screen and (max-width:1400px) {
+    #contenedorPadre{
+        grid-template-columns: 100%;
+        width: 70%;
+        justify-content: center;
+    }
+
+    #contenedorPadre a{
+        grid-column: 1/1;
+    }
+}
+
+@media screen and (max-width:700px){
+    #contenedorPadre{
+        width: 85%;
+    }
+
+}

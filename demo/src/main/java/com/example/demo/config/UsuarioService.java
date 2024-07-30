@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.domain.usuarios.Usuario;
 import com.example.demo.services.usuarios.AdminService;
 import com.example.demo.services.usuarios.BuscaService;
 import com.example.demo.services.usuarios.ContrataService;
@@ -39,5 +40,12 @@ public class UsuarioService {
         else if(buscaService.esNombreRepetido(nombre)) return true;
         else if(adminService.esNombreRepetido(nombre)) return true;
         else return false;
+    }
+
+    public Usuario obtenerUsuarioPorNombre(String nombre){
+        if(contrataService.obtenerPorNombre(nombre) != null) return contrataService.obtenerPorNombre(nombre);
+        if(buscaService.obtenerPorNombre(nombre) != null) return buscaService.obtenerPorNombre(nombre);
+        if(adminService.obtenerPorNombre(nombre) != null) return adminService.obtenerPorNombre(nombre);
+        return null;
     }
 }

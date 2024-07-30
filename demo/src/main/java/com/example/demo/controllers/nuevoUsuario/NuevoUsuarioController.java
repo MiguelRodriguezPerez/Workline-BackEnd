@@ -81,7 +81,7 @@ public class NuevoUsuarioController {
         conocimiento.setBusca(busca);//Discutible
         conocimientoService.guardarConocimiento(conocimiento);
         busca.getListaConocimientos().add(conocimiento);
-        buscaService.guardar(busca);
+        buscaService.guardarSinEncriptar(busca);
 
         return "redirect:/nuevoUsuario/segundaVista/" + id;
     }
@@ -93,8 +93,33 @@ public class NuevoUsuarioController {
         experiencia.setBusca(busca);
         experienciaService.guardarExperiencia(experiencia);
         busca.getListaExperiencias().add(experiencia);
-        buscaService.guardar(busca);
+        buscaService.guardarSinEncriptar(busca);
 
         return "redirect:/nuevoUsuario/segundaVista/" + id;
+    }
+
+    @GetMapping("/segundaVista/{idBusca}/borrarNuevoConocimiento/{idConocimiento}")
+    public String deleteNewUserConocimiento(@PathVariable Long idBusca, @PathVariable Long idConocimiento){
+        Busca busca = buscaService.obtenerPorId(idBusca);
+        Conocimiento conocimiento = conocimientoService.obtenerPorId(idConocimiento);
+
+        busca.getListaConocimientos().remove(conocimiento);
+
+        conocimientoService.borrarConocimiento(idConocimiento);
+
+        return "redirect:/nuevoUsuario/segundaVista/" + idBusca;
+
+    }
+
+    @GetMapping("/segundaVista/{idBusca}/borrarNuevaExperiencia/{idExperiencia}")
+    public String deleteNewUserExperiencia(@PathVariable Long idBusca, @PathVariable Long idExperiencia){
+        Busca busca = buscaService.obtenerPorId(idBusca);
+        Experiencia experiencia = experienciaService.obtenerPorId(idExperiencia);
+
+        busca.getListaExperiencias().remove(experiencia);
+        buscaService.guardarSinEncriptar(busca);
+        experienciaService.borrarExperiencia(idExperiencia);
+
+        return "redirect:/nuevoUsuario/segundaVista/" + idBusca;
     }
 }

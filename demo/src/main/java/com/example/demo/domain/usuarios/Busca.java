@@ -13,6 +13,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,8 +26,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorValue("Busca")
+// @Inheritance(strategy = InheritanceType.JOINED)
+// @DiscriminatorValue("Busca")
+@Table(name="Busca")
 public class Busca extends Usuario{
     
     @OneToMany(fetch= FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "busca")

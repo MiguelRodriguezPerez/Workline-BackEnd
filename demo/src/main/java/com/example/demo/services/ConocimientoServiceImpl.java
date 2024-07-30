@@ -33,14 +33,13 @@ public class ConocimientoServiceImpl implements ConocimientoService{
         for(Conocimiento con: conocimientos){
 
             con.setBusca(busca);
-            con.setNombreBusca(busca.getNombre());
             guardarConocimiento(con);
             
         }
     }
 
     @Override
-    public Conocimiento obtenerConocimientoPorId(Long id) {
+    public Conocimiento obtenerPorId(Long id) {
         return repo.findById(id).orElse(null);
     }
 
