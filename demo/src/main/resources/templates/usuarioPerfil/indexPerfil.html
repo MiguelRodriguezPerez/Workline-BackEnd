@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workline | Mi perfil</title>
-    <script src="/js/encabezado.js" defer></script>
     <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
     <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
     <link rel="stylesheet" href="/css/usuarioPerfilEstilos/indexPerfilEstilo.css">
@@ -14,7 +13,11 @@
     <main>
         <section id="cabeceraAjustesPerfil">
             <h1>Ajustes de Cuenta</h1>
-            <img src="/images/editar.png" alt="editar">
+            <div>
+                <a th:href="@{/miPerfil/editarDatos}">
+                    <img src="/images/miPerfil/editar.png" alt="editar">
+                </a>
+            </div>
         </section>
        
         <section class="contenedorDatos" id="perfilNombre">
@@ -40,8 +43,12 @@
             <div class="contenedorDatos" th:unless="${#lists.isEmpty(usuarioLogueado.getListaConocimientos())}">
                 <div class="cabeceraEntidad">
                     <h2>Estudios</h2>
-                    <img src="/images/suma.png" alt="suma.png">
-                    <img src="/images/editar.png" alt="editar.png">
+                    <a th:href="@{/miPerfil/subirEstudios}">
+                        <img src="/images/miPerfil/suma.png" alt="suma.png">
+                    </a>
+                    <a th:href="@{/miPerfil/editarEstudios}">
+                        <img src="/images/miPerfil/editar.png" alt="editar">
+                    </a>
                 </div>
                 <ul>
                     <li class="elementoEntidad" th:each="conocimiento:${usuarioLogueado.getListaConocimientos()}">
@@ -58,8 +65,12 @@
             <div class="contenedorDatos" th:unless="${#lists.isEmpty(usuarioLogueado.getListaExperiencias())}">
                 <div class="cabeceraEntidad">
                     <h2>Experiencia</h2>
-                    <img src="/images/suma.png" alt="suma.png">
-                    <img src="/images/editar.png" alt="editar.png">
+                    <a th:href="@{/miPerfil/subirExperiencia}">
+                        <img src="/images/miPerfil/suma.png" alt="suma.png">
+                    </a>
+                    <a th:href="@{/miPerfil/editarExperiencia}">
+                        <img src="/images/miPerfil/editar.png" alt="editar.png">
+                    </a>
                 </div>
                 <ul>
                     <li class="elementoEntidad" th:each="experiencia:${usuarioLogueado.getListaExperiencias()}">

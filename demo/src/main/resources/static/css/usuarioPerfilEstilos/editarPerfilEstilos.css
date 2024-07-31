@@ -1,0 +1,78 @@
+body{
+    background-color: #F5F5F5;
+}
+
+main{
+    width: 80%;
+    margin: 20px auto;
+}
+
+main > #formularioDatos{
+    background-color: white;
+    border-radius: 10px;
+
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+#formularioDatos > div{
+    padding: 20px 30px;
+}
+
+#formularioDatos > div > *{
+    display: block;
+}
+
+#formularioDatos label{
+    margin-bottom: 5px;
+    font-size: 23px;
+}
+
+#formularioDatos input{
+    border: 0px;
+    border-bottom: solid 1px black;
+    font-size: 15px;
+    margin-bottom: 5px;
+    width: 50%;
+}
+
+#formularioDatos select{
+    margin-top: 8px;
+    margin-bottom: 5px;
+    border: 0px;
+    border-bottom: solid 1px black;
+    font-size: 18px;
+}
+
+.mensajeError{
+    margin-top: 0px;
+    color: rgb(244, 54, 54);
+    font-size: 18px;
+    padding-right: 10px;
+}
+
+#formularioDatos p.mensajeError + p.mensajeError{
+    margin-top: -15px;
+}
+
+#formularioDatos input + label{
+    margin-top: 15px;
+}
+
+.inputError{
+    border-bottom: solid 1px rgb(244, 54, 54) !important;
+}
+
+#formularioDatos > div:last-of-type{
+    margin: 0px 30px;
+    grid-column: 1/3;
+}
+
+#formularioDatos > div:last-of-type > #editarUsuario{
+    width: 10%;
+    margin-left: auto;
+    padding: 10px;
+    border: 0px;
+    cursor: pointer;
+    font-size: 16px;
+}

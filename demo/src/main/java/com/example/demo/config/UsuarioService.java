@@ -7,6 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.domain.usuarios.Admin;
+import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.domain.usuarios.Usuario;
 import com.example.demo.services.usuarios.AdminService;
 import com.example.demo.services.usuarios.BuscaService;
@@ -43,9 +46,9 @@ public class UsuarioService {
     }
 
     public Usuario obtenerUsuarioConectado(){
-        if(contrataService.obtenerContrataConectado() != null) return contrataService.obtenerContrataConectado();
-        if(buscaService.obtenerBuscaConectado() != null) return buscaService.obtenerBuscaConectado();
-        if(adminService.obtenerAdminConectado() != null) return adminService.obtenerAdminConectado();
+        if(contrataService.obtenerContrataConectado() != null) return (Contrata) contrataService.obtenerContrataConectado();
+        if(buscaService.obtenerBuscaConectado() != null) return (Busca) buscaService.obtenerBuscaConectado();
+        if(adminService.obtenerAdminConectado() != null) return (Admin) adminService.obtenerAdminConectado();
         return null;
     }
 }

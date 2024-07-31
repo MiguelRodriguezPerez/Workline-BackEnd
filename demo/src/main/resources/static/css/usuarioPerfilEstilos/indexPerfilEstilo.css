@@ -18,14 +18,19 @@ main > h1{
 }
 
 #cabeceraAjustesPerfil h1{
-    margin: 0px 10px;
+    margin: 0px 0px;
+    padding-left: 10px;
     font-weight: normal;
     font-size: 30px;
 }
 
-#cabeceraAjustesPerfil img{
-    margin: 0px 10px;
-    justify-self: end;
+#cabeceraAjustesPerfil div{
+    margin: 0px;
+    padding-right: 10px;
+}
+
+#cabeceraAjustesPerfil  a{
+    float: right;
 }
 
 .contenedorDatos{
@@ -90,7 +95,7 @@ main > h1{
     grid-template-columns: 84% 8% 8%;
 }
 
-#listasEntidades > div.contenedorDatos > div.cabeceraEntidad > img{
+#listasEntidades > div.contenedorDatos > div.cabeceraEntidad > a{
     justify-self: end;
     align-self: center;
 }
