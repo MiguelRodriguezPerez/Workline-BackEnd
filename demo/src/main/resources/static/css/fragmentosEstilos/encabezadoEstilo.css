@@ -10,17 +10,14 @@ header > nav{
     background-color: #333;
     display: grid;
     grid-template-columns: 33% 33% 34%;
-    padding: 15px 18px;
+    padding: 20px;
 }
 
-
-header > nav section{
-    margin-top: 15px;
-}
 
 #pestayas{
     display: grid;
     grid-template-columns: 20% 20% 20%;
+    align-items: center;
 }
 
 #pestayas a:first-child{
@@ -61,8 +58,7 @@ header > nav section{
     color:white;
     text-decoration: none;
     font-size: 20px;
-    justify-self: start;
-    margin-left: 30%;
+    justify-self: center;
 }
 
 #perfil input{
@@ -78,7 +74,7 @@ header > nav section{
 /*Tablet*/
 @media screen and (max-width:1200px) {
     header > nav{
-        grid-template-columns: 20% 50% 30%;
+        grid-template-columns: 15% 55% 30%;
     }
 
     #pestayas{

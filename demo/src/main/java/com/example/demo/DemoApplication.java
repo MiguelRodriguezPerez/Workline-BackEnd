@@ -27,6 +27,7 @@ public class DemoApplication {
 	CommandLineRunner initData(AdminService adminService,ContrataService contrataService, OfertaService ofertaService){
 		return args ->{
 			// 1234kasdddddddjfA#
+			// Iconos 24 *24
 			// adminService.guardar(new Admin("Raul","aaa@gmail","Jaen","654474733","1234kasdddddddjfA#"));
 			// contrataService.guardarContrata(new Contrata("laura","laura@gmail.com","Jaen","625557811","1234kasdddddddjfA#"));
 			

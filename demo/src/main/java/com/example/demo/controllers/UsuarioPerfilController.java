@@ -19,10 +19,9 @@ public class UsuarioPerfilController {
     
     @GetMapping("/")
     public String showUserInfo(Model model){
-        model.addAttribute("usuarioLogueado", usuarioService.obtenerUsuarioConectado());
-
         if(usuarioService.obtenerUsuarioConectado().getRol() == Rol.BUSCA){
             Busca busca = (Busca) usuarioService.obtenerUsuarioConectado();
+            model.addAttribute("usuarioLogueado",busca);
             model.addAttribute("listaConocimientos", busca.getListaConocimientos());
             model.addAttribute("listaExperiencias", busca.getListaExperiencias());
         }

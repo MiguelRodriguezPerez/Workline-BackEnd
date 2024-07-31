@@ -12,92 +12,64 @@
 <body>
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
     <main>
-        <h1>Ajustes de Cuenta</h1>
-        <form method="post" id="formularioUsuario" 
-        th:action="@{/miPerfil/cambiarNombre}"
-        th:object="${usuarioLogueado}">
-            <section class="contenedorDatos">
-                <div>
-                    <h2>Mi Perfil</h2>
-                    <input hidden class="editarInfo" type="submit" value="Confirmar cambios">
-                </div>       
-                <div>
-                    <label for="">Nombre</label>
-                    <input readonly type="text" th:value="${usuarioLogueado.nombre}">
-                </div>
-                <div>
-                    <button class="editarInfo">Editar</button>
-                </div>
-            </section>
-            <section class="contenedorDatos">
-                <div>
-                    <h2>Mis datos</h2>
-                    <input hidden class="editarInfo" type="submit" value="Confirmar cambios">
-                </div>
-                <div>
-                    <label for="">Email</label>
-                    <input readonly type="text" th:value="${usuarioLogueado.email}">
-                    
-                    <label for="">Ciudad</label>
-                    <input readonly type="text" th:value="${usuarioLogueado.ciudad}">
-                </div>
-                <div>
-                    <label for="">Teléfono</label>
-                    <input readonly type="text" th:value="${usuarioLogueado.telefono}">
-                    <button>Cambiar contraseña</button>
-                </div>
-            </section>
-        </form>
-        <section>
-            <p th:if="${#lists.isEmpty(listaConocimientos)}" class="sinEntidad">No has registrado ningún conocimiento</p>
-            <table th:unless="${#lists.isEmpty(listaConocimientos)}">
-                <tr>
-                    <th>Titulo</th>
-                    <th>Centro Educativo</th>
-                    <th>Inicio estudios</th>
-                    <th>Fin estudios</th>
-                </tr>
-                <tr th:each="conocimiento:${listaConocimientos}">
-                    <form action="#" method="post"
-                        th:action="@{/miPerfil/modificarConocimiento}"
-                        th:object="${conocimiento}">
-                        <td><input readonly type="text" th:value="${conocimiento.titulo}"></td>
-                        <td><input readonly type="text" th:value="${conocimiento.centroEducativo}"></td>
-                        <td><input readonly type="text" th:value="${conocimiento.inicioPeriodoConocimiento}"></td>
-                        <td><input readonly type="text" th:value="${conocimiento.finPeriodoConocimiento}"></td>
-                        <td><input type="submit" value="Img"></td>
-                        <td><input type="submit" value="borrar"></td>
-                    </form>  
-                    <!-- <td><a class="borrarEntidad" th:href="@{/nuevoUsuario/segundaVista/{idBusca}/borrarNuevoConocimiento/{idConocimiento}(idConocimiento=${conocimiento.id}, idBusca=${nuevoBusca.getId()})}">
-                        <img src="/images/borrar.png" alt="delete">
-                    </a></td> -->
-                </tr>
-            </table>
+        <section id="cabeceraAjustesPerfil">
+            <h1>Ajustes de Cuenta</h1>
+            <img src="/images/editar.png" alt="editar">
+        </section>
+       
+        <section class="contenedorDatos" id="perfilNombre">
+            <h2 th:text="${usuarioLogueado.nombre}"></h2>
+            <p>Puesto actual</p>
+            <p th:text="${usuarioLogueado.ciudad}"></p>
+        </section>
 
-            <p th:if="${#lists.isEmpty(listaExperiencias)}" class="sinEntidad">No has registrado ninguna experiencia</p>
-            <table th:unless="${#lists.isEmpty(listaExperiencias)}">
-                <tr>
-                    <th>Puesto</th>
-                    <th>Empresa</th>
-                    <th>Inicio experiencia</th>
-                    <th>Fin experiencia</th>
-                </tr>
-                <tr th:each="experiencia : ${listaExperiencias}">
-                    <form action="#" method="post" 
-                        th:action="@{/miPerfil/modificarExperiencia}" 
-                        th:object="${experiencia}">
-                        <td><input readonly type="text" th:value="${experiencia.puesto}"></td>
-                        <td><input readonly type="text" th:value="${experiencia.empresa}"></td>
-                        <td><input readonly type="text" th:value="${experiencia.inicioExperiencia}"></td>
-                        <td><input readonly type="text" th:value="${experiencia.finExperiencia}"></td>
-                        <td><input type="submit" value="Img"></td>
-                        <td><input type="submit" value="borrar"></td>
-                    </form>
-                    <!-- <td><a class="borrarEntidad" th:href="@{/nuevoUsuario/segundaVista/{idBusca}/borrarNuevaExperiencia/{idExperiencia}(idExperiencia=${experiencia.id}, idBusca=${nuevoBusca.getId()})}">
-                        <img src="/images/borrar.png" alt="delete">
-                    </a></td> -->
-                </tr>
-            </table>
+        <section class="contenedorDatos" id="perfilDatos">
+            <h2>Mis datos</h2>
+            <div>
+                <label for="">Email</label>
+                <p th:text="${usuarioLogueado.email}">
+            </div>
+            <div>
+                <label for="">Teléfono</label>
+                <p th:text="${usuarioLogueado.telefono}">
+            </div>
+        </section>
+
+        <section id="listasEntidades">
+            <p th:if="${#lists.isEmpty(listaConocimientos)}" class="sinEntidad">No tienes estudios registrados</p>
+            <div class="contenedorDatos" th:unless="${#lists.isEmpty(usuarioLogueado.getListaConocimientos())}">
+                <div class="cabeceraEntidad">
+                    <h2>Estudios</h2>
+                    <img src="/images/suma.png" alt="suma.png">
+                    <img src="/images/editar.png" alt="editar.png">
+                </div>
+                <ul>
+                    <li class="elementoEntidad" th:each="conocimiento:${usuarioLogueado.getListaConocimientos()}">
+                        <h3 th:text="${conocimiento.titulo}"></h3>
+                        <p th:text="${conocimiento.centroEducativo}"></p>
+                        <p th:text="${conocimiento.inicioPeriodoConocimiento}"></p>-
+                        <p th:text="${conocimiento.finPeriodoConocimiento}"></p>
+                    </li>
+                </ul>
+                
+            </div>
+            <p th:if="${#lists.isEmpty(listaConocimientos)}" class="sinEntidad">No tienes experiencias laborales
+                 registradas</p>
+            <div class="contenedorDatos" th:unless="${#lists.isEmpty(usuarioLogueado.getListaExperiencias())}">
+                <div class="cabeceraEntidad">
+                    <h2>Experiencia</h2>
+                    <img src="/images/suma.png" alt="suma.png">
+                    <img src="/images/editar.png" alt="editar.png">
+                </div>
+                <ul>
+                    <li class="elementoEntidad" th:each="experiencia:${usuarioLogueado.getListaExperiencias()}">
+                        <h3 th:text="${experiencia.puesto}"></h3>
+                        <p th:text="${experiencia.empresa}"></p>
+                        <p th:text="${experiencia.inicioExperiencia}"></p>-
+                        <p th:text="${experiencia.finExperiencia}"></p>
+                    </li>
+                </ul>
+            </div>
         </section>
     </main>
     

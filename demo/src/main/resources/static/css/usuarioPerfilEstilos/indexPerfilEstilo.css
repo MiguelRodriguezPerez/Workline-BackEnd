@@ -1,6 +1,156 @@
+body{
+    background-color: #F5F5F5;
+}
+
 main{
-    border: solid 1px black;
     width: 80%;
     margin: 30px auto;
 }
 
+main > h1{
+    font-weight: normal;
+}
+
+#cabeceraAjustesPerfil{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin-bottom: 30px;
+}
+
+#cabeceraAjustesPerfil h1{
+    margin: 0px 10px;
+    font-weight: normal;
+    font-size: 30px;
+}
+
+#cabeceraAjustesPerfil img{
+    margin: 0px 10px;
+    justify-self: end;
+}
+
+.contenedorDatos{
+    background-color: white;
+    margin: 10px;
+    padding: 15px 20px;
+    border-radius: 15px;
+}
+
+.contenedorDatos h2{
+    font-weight: normal;
+    font-size: 26px;
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+
+#perfilNombre p{
+    margin: 10px 0px;
+}
+
+#perfilNombre > p:first-of-type{
+    font-size: 22px;
+}
+
+#perfilNombre > p:last-of-type{
+    font-size: 19px;
+}
+
+#perfilDatos{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+#perfilDatos h2{
+    grid-column:span 2;
+    margin-bottom: 0px;
+}
+
+#perfilDatos label{
+    font-size: 21px;
+    margin-bottom: 0px;
+}
+
+#perfilDatos p{
+    font-size: 20px;
+    margin-top: 7px;
+}
+
+#perfilDatos > div{
+    margin-top: 10px;
+}
+
+#listasEntidades{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    align-items: start;
+}
+
+#listasEntidades > div.contenedorDatos > div.cabeceraEntidad{
+    display: grid;
+    grid-template-columns: 84% 8% 8%;
+}
+
+#listasEntidades > div.contenedorDatos > div.cabeceraEntidad > img{
+    justify-self: end;
+    align-self: center;
+}
+
+#listasEntidades > div.contenedorDatos > ul{
+    list-style: none;
+    padding-left: 1%;
+    margin: 0px 0px 15px;
+}
+
+.elementoEntidad{
+    margin: 10px 0px 20px;
+}
+
+.elementoEntidad h3{
+    font-weight: normal;
+    font-size: 23px;
+    margin: 0px 0px 5px;
+}
+
+.elementoEntidad > p:first-of-type{
+    display: block;
+    font-size: 20px;
+    margin: 0px 0px 5px;
+}
+
+.elementoEntidad > p{
+    display: inline;
+    font-size: 18px;
+}
+
+@media screen and (max-width:1200px) {
+    main{
+        width: 88%;
+    }
+
+    #listasEntidades > div.contenedorDatos > div.cabeceraEntidad{
+        display: grid;
+        grid-template-columns: 75% 14% 14%;
+    }
+
+    #listasEntidades > div.contenedorDatos > div.cabeceraEntidad > img{
+        align-self:auto;
+    }
+}
+
+@media screen and (max-width:700px) {
+    #cabeceraAjustesPerfil{
+        grid-template-columns: 80% 20%;
+    }
+
+    #perfilDatos{
+        grid-template-columns: 100%;
+    }
+
+    #perfilDatos h2{
+        grid-column: 1/1;
+    }
+
+    #listasEntidades{
+        grid-template-columns: 100%;
+    }
+}
