@@ -14,6 +14,7 @@ main > h1{
 main > #formularioDatos{
     background-color: white;
     border-radius: 10px;
+    padding:30px;
 
     display: grid;
     grid-template-columns: 50% 50%;
@@ -21,7 +22,7 @@ main > #formularioDatos{
 
 #formularioDatos > div{
     margin-top: 10px;
-    padding: 20px 30px;
+    padding: 0px;
 }
 
 #formularioDatos > div > *{
@@ -51,7 +52,7 @@ main > #formularioDatos{
 
 #formularioDatos > div > p.mensajeError{
     display: none;
-    margin-top: 0px;
+    margin-top: -10px;
     color: rgb(244, 54, 54);
     font-size: 18px;
     padding-right: 10px;
@@ -71,14 +72,47 @@ main > #formularioDatos{
 
 #formularioDatos > div:last-of-type{
     margin: 0px 30px;
+    padding:0px;
     grid-column: 1/3;
 }
 
 #formularioDatos > div:last-of-type > #editarUsuario{
-    width: 10%;
+    width: 25%;
     margin-left: auto;
     padding: 10px;
     border: 0px;
     cursor: pointer;
     font-size: 16px;
+}
+
+@media screen and (max-width:1200px) {
+    #formularioDatos input{
+        width: 75%;
+    }
+
+    #formularioDatos > div:last-of-type > #editarUsuario{
+        width:35%;
+    }
+}
+
+@media screen and (max-width:700px) {
+    main{
+        width: 80%;
+    }
+
+    main > #formularioDatos{
+        grid-template-columns: 100%;
+    }
+
+    #formularioDatos input{
+        width: 90%;
+    }
+
+    #formularioDatos > div:last-of-type{
+        grid-column: 1/1;
+    }
+
+    #formularioDatos > div:last-of-type > #editarUsuario{
+        width:70%;
+    }
 }
