@@ -7,13 +7,14 @@
         <a th:href="@{/seccionContrata/pagina/0}">Contratar</a>
     </section>
     <section id="perfil">
-        <img src="/images/fragmentos/pfp.png" alt="pfp.png" id="pfp">
-        <a th:if="${currentUserName == null}" th:href="@{/sesion/signin}">Iniciar Sesión</a>
         <a th:if="${currentUserName != null}"  th:href="@{/miPerfil/}" th:text="${currentUserName}"></a>
         <form th:if="${currentUserName != null}" th:action="@{/logout}" method="post">
-            
             <input type="submit" value="Logout" />
         </form>
+        <span th:if="${currentUserName == null}" ></span>
+        <a th:if="${currentUserName == null}" th:href="@{/sesion/signin}">
+            Iniciar Sesión
+        </a>
     </section>
     <select name="" id="desplegable">
         <option value="" data-icon="/images/encabezado/barras.png">Mi perfil</option>

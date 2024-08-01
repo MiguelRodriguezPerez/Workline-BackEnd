@@ -39,6 +39,7 @@ public class UsuarioService {
     }
 
     public boolean esNombreRepetido(String nombre){
+        if(obtenerUsuarioConectado().getNombre().equals(nombre)) return false; //Si el usuario envía su propio nombre, no se impedirá la validación
         if(contrataService.esNombreRepetido(nombre)) return true;
         else if(buscaService.esNombreRepetido(nombre)) return true;
         else if(adminService.esNombreRepetido(nombre)) return true;

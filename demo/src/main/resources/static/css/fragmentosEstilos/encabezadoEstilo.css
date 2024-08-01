@@ -43,22 +43,28 @@ header > nav{
 #perfil{
     justify-items: start;
     display: grid;
-    grid-template-columns: auto 15% 15%;
+    grid-template-columns: auto 18%;
     justify-items: start;
     align-items: center;
 }
 
-#perfil img{
-    justify-self: end;
-    cursor: pointer;
-    margin-right: 10px;
-}
 
 #perfil a{
     color:white;
     text-decoration: none;
     font-size: 20px;
+    justify-self: end;
+    cursor: pointer;
+}
+
+#perfil a:first-child{
+    justify-self: end;
+    align-self: center;
+}
+
+#perfil form:last-child{
     justify-self: center;
+    align-self: center;
 }
 
 #perfil input{

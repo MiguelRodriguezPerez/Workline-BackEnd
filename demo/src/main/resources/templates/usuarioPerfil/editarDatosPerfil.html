@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
     <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
     <link rel="stylesheet" href="/css/usuarioPerfilEstilos/editarPerfilEstilos.css">
+    <script type="module" src="/js/usuarioPerfil/editarDatosPerfil.js" defer></script>
 </head>
 <body>
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
@@ -20,31 +21,29 @@
         
                 <div>
                     <label for="">Nombre de usuario</label>
-                    <input type="text" th:field="*{nombre}" id="nombreUsuario" maxlength="25">
-                    <p hidden class="mensajeError" id="err1">El nombre de usuario tiene más de 25 carácteres o esta vacío</p>
-                    <p hidden class="mensajeError" id="err2">Ya existe un usuario con este nombre</p>
+                    <input type="text" th:field="*{nombre}" maxlength="25">
+                    <p class="mensajeError" id="err1">El nombre de usuario tiene más de 25 carácteres o esta vacío</p>
+                    <p class="mensajeError" id="err2">Ya existe un usuario con este nombre</p>
     
                     <label for="">Email</label>
                     <input type="text" th:field="*{email}" id="email" maxlength="35">
-                    <p hidden class="mensajeError" id="err4">El email tiene más de 35 carácteres</p>
-                    <p hidden class="mensajeError" id="err5">No has introducido un email válido</p>
+                    <p class="mensajeError" id="err4">El email tiene más de 35 carácteres</p>
+                    <p class="mensajeError" id="err5">Email no válido</p>
     
                     <label for="">Contraseña</label>
                     <input type="text" th:field="*{password}" id="password" maxlength="30">
-                    <p hidden class="mensajeError" id="err6">La contraseña debe tener entre 14 y 30 carácteres</p>
-                    <p hidden class="mensajeError" id="err7">La contaseña debe combinar mayúsculas, minúsculas
-                    y carácteres especiales</p>
+                    <p class="mensajeError" id="err6">La contraseña debe tener entre 14 y 30 carácteres y combinar mayúsculas, minúsculas
+                        y carácteres especiales</p>
     
                 </div>
                 <!-- <p hidden class="mensajeError" id=""></p> -->
                 <div>
-                    <label for="">Ciudad en la que vives</label>
-                    <input type="text" th:field="*{ciudad}">
-      
                     <label for="">Teléfono</label>
                     <input type="text" th:field="*{telefono}" id="telefono" maxlength="9">
-                    <p hidden class="mensajeError" id="err8">El teléfono debe tener formato español</p>
-    
+                    <p class="mensajeError" id="err8">El teléfono debe tener formato español</p>
+
+                    <label for="">Ciudad en la que vives</label>
+                    <input type="text" th:field="*{ciudad}">
                 </div>
                 <div>
                     <input type="submit" value="Crear cuenta" id="editarUsuario">
