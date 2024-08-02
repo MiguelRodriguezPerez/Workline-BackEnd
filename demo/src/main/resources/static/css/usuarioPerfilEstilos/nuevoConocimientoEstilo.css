@@ -1,0 +1,134 @@
+body{
+    background-color: #F5F5F5;
+}
+
+main{
+    width: 70%;
+    margin: 30px auto;
+}
+
+#formNuevoConocimiento{
+    display: grid;
+    grid-template-columns: 50% 50%;
+
+    background-color: white;
+    border-radius: 10px;
+    padding:15px 30px;
+}
+
+#formNuevoConocimiento > h1{
+    grid-column: span 2;
+    font-weight: normal;
+    margin-top: 0px;
+}
+
+#formNuevoConocimiento > div > *{
+    display: block;
+}
+
+#formNuevoConocimiento label{
+    margin-bottom: 5px;
+    font-size: 23px;
+}
+
+#formNuevoConocimiento input{
+    border: 0px;
+    border-bottom: solid 1px black;
+    font-size: 15px;
+    margin-bottom: 18px;
+    width: 50%;
+}
+
+#formNuevoConocimiento > div > p.mensajeError{
+    display: none;
+    margin-top: -10px;
+    color: rgb(244, 54, 54);
+    font-size: 18px;
+    padding-right: 10px; 
+}
+
+.inputError{
+    border-bottom: solid 1px rgb(244, 54, 54) !important;
+}
+
+#formNuevoConocimiento p.mensajeError + p.mensajeError{
+    margin-top: -15px;
+}
+
+#formNuevoConocimiento input + label{
+    margin-top: 15px;
+}
+
+
+#formNuevoConocimiento > div:last-of-type{
+    margin: 30px 0px 0px;
+    padding:0px;
+    grid-column: 1/3;
+}
+
+#formNuevoConocimiento > div:last-of-type > #subirConocimiento{
+    width: 25%;
+    margin-left: auto;
+    padding: 10px;
+    border: 0px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#conocimientosContenedor{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 15px;
+}
+
+#conocimientosContenedor > h1{
+    grid-column: span 2;
+    font-weight: normal;
+    text-align: center;
+}
+
+.conocimiento{
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px 20px;
+}
+
+.conocimiento > h3{
+    font-weight: normal;
+    font-size: 25px;
+    margin: 0px;
+}
+
+.conocimiento > p{
+    display: inline;
+    font-size: 18px;
+    margin: 10px 0px;
+}
+
+.conocimiento > p:first-of-type{
+    display: block;
+    font-size: 20px;
+}
+
+@media screen and (max-width:1400px) {
+    main{
+        width: 80%;
+    }
+    #formNuevoConocimiento input{
+        width: 80%;
+    }
+}
+
+@media screen and (max-width:700px) {
+    #formNuevoConocimiento, #conocimientosContenedor{
+        grid-template-columns: 100%;
+    }
+
+    #formNuevoConocimiento h1, #formNuevoConocimiento > div:last-of-type {
+        grid-column: 1/1;
+    }
+    
+    #formNuevoConocimiento > div:last-of-type > #subirConocimiento{
+        width: 70%;
+    }
+}

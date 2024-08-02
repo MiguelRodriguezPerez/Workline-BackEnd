@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.domain.usuarios.Admin;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
+import com.example.demo.domain.usuarios.Rol;
 import com.example.demo.domain.usuarios.Usuario;
 import com.example.demo.services.usuarios.AdminService;
 import com.example.demo.services.usuarios.BuscaService;
@@ -46,10 +47,18 @@ public class UsuarioService {
         else return false;
     }
 
+    //Devuelve la instancia hija de usuario
     public Usuario obtenerUsuarioConectado(){
         if(contrataService.obtenerContrataConectado() != null) return (Contrata) contrataService.obtenerContrataConectado();
         if(buscaService.obtenerBuscaConectado() != null) return (Busca) buscaService.obtenerBuscaConectado();
         if(adminService.obtenerAdminConectado() != null) return (Admin) adminService.obtenerAdminConectado();
         return null;
+    }
+
+    public Usuario guardarCambiosUsuario(Usuario usuario){
+        if(usuario.getRol() == Rol.BUSCA) return buscaService.guardarCambios((Busca)usuario);
+        else if(usuario.getRol() == Rol.CONTRATA) return contrataService.guardarCambios((Contrata) usuario);
+        else if(usuario.getRol() == Rol.ADMIN) return adminService.guardarCambios((Admin)usuario);
+        else return null;//Excepción pendiente
     }
 }

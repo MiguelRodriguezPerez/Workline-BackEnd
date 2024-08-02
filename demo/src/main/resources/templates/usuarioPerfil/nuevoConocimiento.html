@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workline | Nuevo Conocimiento</title>
+    <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
+    <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
+    <link rel="stylesheet" href="/css/usuarioPerfilEstilos/nuevoConocimientoEstilo.css">
+    <script type="module" src="/js/usuarioPerfil/nuevoConocimiento.js"></script>
+</head>
+<body>
+    <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
+    <main>
+        <form action="#" method="post" id="formNuevoConocimiento"
+            th:action="@{/miPerfil/nuevoConocimiento/submit}"
+            th:object="${conocimiento}">
+                <input type="text" th:field="*{id}" hidden>
+                <h1>Escribe un nuevo conocimiento</h1>
+                <div>    
+                    <label for="">Titulo</label>
+                    <input type="text" th:field="*{titulo}" class="conocimientoInput" maxlength="40">
+                    <p id="tituloFallo" class="mensajeError" hidden> El título no puede tener más de 40 carácteres y no puede ser nulo</p>
+        
+                    <label for="">Centro Educativo</label>
+                    <input type="text" th:field="*{centroEducativo}" class="conocimientoInput" maxlength="40">
+                    <p id="centroFallo" class="mensajeError" hidden> El centro educativo no puede tener más de 40 carácteres y no puede ser nulo</p>
+                </div>
+                <div>
+                    <label for="">Inicio Estudios</label>
+                    <input type="date" th:field="*{inicioPeriodoConocimiento}" class="conocimientoInput">
+                    <p id="fechaInicioConocimientoFallo" class="mensajeError" hidden> La fecha debe estar en formato dd-mm-yyyy y no puede ser nulo</p>
+                    
+        
+                    <label for="">Fin Estudios</label>
+                    <input type="date" th:field="*{finPeriodoConocimiento}" class="conocimientoInput">
+                    <p id="fechaFinConocimientoFallo" class="mensajeError" hidden> La fecha debe estar en formato dd-mm-yyyy y no puede ser nulo</p>
+                    <p id="fechaFinConocimientoFalloDos" class="mensajeError" hidden> La fecha de inicio no puede ser superior a la final</p>
+                </div>
+                <div>
+                    <input type="submit" value="Subir" id="subirConocimiento" class="subirEntidad">
+                </div>
+        </form>
+        <section id="conocimientosContenedor">
+            <h1>Tus estudios actuales</h1>
+            <div th:each="conocimiento:${buscaLogueado.getListaConocimientos()}" class="conocimiento">
+                <h3 th:text="${conocimiento.titulo}"></h3>
+                <p th:text="${conocimiento.centroEducativo}"></p>
+                <p th:text="${conocimiento.inicioPeriodoConocimiento}"></p>-
+                <p th:text="${conocimiento.finPeriodoConocimiento}"></p>
+            </div>
+        </section>
+    </main>
+    <footer th:insert="~{/fragmentos/pie :: nav}"></footer>
+</body>
+</html>

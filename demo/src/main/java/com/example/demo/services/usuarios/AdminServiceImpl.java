@@ -9,7 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.usuarios.Admin;
-import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.repositories.AdminRepository;
 
 @Service
@@ -30,6 +29,12 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public Admin guardarSinEncriptar(Admin admin) {
         return repo.save(admin);
+    }
+
+    @Override
+    public Admin guardarCambios(Admin admin) {
+        if(!admin.getPassword().equals(this.obtenerAdminConectado().getPassword())) return this.guardar(admin);
+        else return this.guardarSinEncriptar(admin);
     }
 
     @Override

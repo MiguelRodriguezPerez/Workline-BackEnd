@@ -8,9 +8,10 @@ import com.example.demo.domain.usuarios.Contrata;
 
 public interface ContrataService {
     
-    Contrata guardarContrata(Contrata contrata);
-    Contrata guardarContrataSinEncriptar(Contrata contrata);
+    Contrata guardar(Contrata contrata);
+    Contrata guardarSinEncriptar(Contrata contrata);
     Contrata guardarContrataDesdeNuevoUsuario(NuevoUsuario nuevoUsuario);
+    Contrata guardarCambios(Contrata contrata);
     void borrarContrata(Long id);
     List<Contrata> obtenerTodos();
     Contrata obtenerPorId(Long id);

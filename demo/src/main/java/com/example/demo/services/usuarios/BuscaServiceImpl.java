@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.NuevoUsuario;
 import com.example.demo.domain.usuarios.Busca;
-import com.example.demo.domain.usuarios.Rol;
 import com.example.demo.repositories.BuscaRepository;
 
 @Service
@@ -31,6 +30,17 @@ public class BuscaServiceImpl implements BuscaService{
     @Override
     public Busca guardarSinEncriptar(Busca busca) {
         return repo.save(busca);
+    }
+
+    /*Este método sirve para actualizar los datos del usuario. Su contraseña
+    se encriptará solo si la cambia*/
+    @Override
+    public Busca guardarCambios(Busca busca) {
+        busca.setListaConocimientos(this.obtenerBuscaConectado().getListaConocimientos());
+        busca.setListaExperiencias(this.obtenerBuscaConectado().getListaExperiencias());
+
+        if(!busca.getPassword().equals(this.obtenerBuscaConectado().getPassword())) return this.guardar(busca);
+        else return this.guardarSinEncriptar(busca);
     }
 
     @Override

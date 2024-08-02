@@ -12,8 +12,8 @@
 <body>
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
     <main>
-        <h1>Ajustes de Cuenta</h1>
-        <form id="formularioDatos" th:action="@{/miPerfil/editarDatosPerfil/submit}"
+        <h1>Ajustes de Cuenta </h1>
+        <form method="post" id="formularioDatos" th:action="@{/miPerfil/editarDatos/{rol}/submit(rol=${usuarioLogueado.getRol().toString()})}"
                 th:object="${usuarioLogueado}">
 
                 <input type="text" th:field="*{id}" hidden>

@@ -27,13 +27,13 @@ public class ContrataServiceImpl implements ContrataService{
     PasswordEncoder passwordEncoder;
 
     @Override
-    public Contrata guardarContrata(Contrata contrata) {
+    public Contrata guardar(Contrata contrata) {
         contrata.setPassword(passwordEncoder.encode(contrata.getPassword()));
         return repo.save(contrata);
     }
 
     @Override
-    public Contrata guardarContrataSinEncriptar(Contrata contrata) {
+    public Contrata guardarSinEncriptar(Contrata contrata) {
         return repo.save(contrata);
     }
 
@@ -44,6 +44,13 @@ public class ContrataServiceImpl implements ContrataService{
         contrata.setPassword(passwordEncoder.encode(contrata.getPassword()));
 
         return repo.save(contrata);
+    }
+
+    @Override
+    public Contrata guardarCambios(Contrata contrata) {
+        contrata.setListaOfertas(this.obtenerContrataConectado().getListaOfertas());
+        if(!contrata.getPassword().equals(this.obtenerContrataConectado().getPassword())) return this.guardar(contrata);
+        else return this.guardarSinEncriptar(contrata);
     }
 
     @Override

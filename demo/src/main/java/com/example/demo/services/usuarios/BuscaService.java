@@ -10,6 +10,7 @@ public interface BuscaService {
     Busca guardar(Busca busca);
     Busca guardarSinEncriptar(Busca busca);
     Busca guardarBuscaDesdeNuevoUsuario(NuevoUsuario nuevoUsuario);
+    Busca guardarCambios(Busca busca);
     void borrar(Long id);
     List <Busca> obtenerTodos();
     Busca obtenerPorId(Long id);

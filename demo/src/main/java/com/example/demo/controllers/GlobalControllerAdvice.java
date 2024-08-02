@@ -21,6 +21,7 @@ public class GlobalControllerAdvice {
         }
     }
 
+
     @ModelAttribute("currentUserRoles")
     public Collection<String> addCurrentUserRoles() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

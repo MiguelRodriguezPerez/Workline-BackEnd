@@ -30,7 +30,6 @@ public class DemoApplication {
 			// Iconos 24 *24
 			// adminService.guardar(new Admin("Raul","aaa@gmail","Jaen","654474733","1234kasdddddddjfA#"));
 			// contrataService.guardarContrata(new Contrata("laura","laura@gmail.com","Jaen","625557811","1234kasdddddddjfA#"));
-			
 			// ofertaService.guardarOferta(new Oferta("Camarero", "Hosteleria", "Servir copas", "Jaen", 15000d, TipoContrato.TEMPORAL, (byte)12, ModalidadTrabajo.PRESENCIAL, contrataService.obtenerTodos().get(0)));
 			// ofertaService.guardarOferta(new Oferta("Cocinero", "Hosteleria", "Preparar alimentos", "Soria",  18000d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.HIBRIDO, contrataService.obtenerTodos().get(0)));
 			// ofertaService.guardarOferta(new Oferta("Recepcionista", "Hosteleria", "Atender a los clientes", "Jaen", 1500d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.TELETRABAJO, contrataService.obtenerTodos().get(0)));
