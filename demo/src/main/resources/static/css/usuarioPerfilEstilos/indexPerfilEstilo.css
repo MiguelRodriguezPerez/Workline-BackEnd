@@ -92,7 +92,8 @@ main > h1{
 
 #listasEntidades > div.contenedorDatos > div.cabeceraEntidad{
     display: grid;
-    grid-template-columns: 84% 8% 8%;
+    grid-template-columns: 84% 16%;
+    margin-bottom: 10px;
 }
 
 #listasEntidades > div.contenedorDatos > div.cabeceraEntidad > a{
@@ -108,6 +109,11 @@ main > h1{
 
 .elementoEntidad{
     margin: 10px 0px 20px;
+}
+
+.elementoEntidad > div:first-of-type{
+    display: grid;
+    grid-template-columns: 95% 5%;
 }
 
 .elementoEntidad h3{

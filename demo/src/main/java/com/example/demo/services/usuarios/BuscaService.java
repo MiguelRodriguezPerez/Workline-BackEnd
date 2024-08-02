@@ -2,6 +2,7 @@ package com.example.demo.services.usuarios;
 
 import java.util.List;
 
+import com.example.demo.domain.Conocimiento;
 import com.example.demo.domain.NuevoUsuario;
 import com.example.demo.domain.usuarios.Busca;
 

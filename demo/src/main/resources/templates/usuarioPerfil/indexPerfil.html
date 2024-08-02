@@ -46,13 +46,14 @@
                     <a th:href="@{/miPerfil/nuevoConocimiento}">
                         <img src="/images/miPerfil/suma.png" alt="suma.png">
                     </a>
-                    <a th:href="@{/miPerfil/editarEstudios}">
-                        <img src="/images/miPerfil/editar.png" alt="editar">
-                    </a>
                 </div>
                 <ul>
                     <li class="elementoEntidad" th:each="conocimiento:${usuarioLogueado.getListaConocimientos()}">
-                        <h3 th:text="${conocimiento.titulo}"></h3>
+                        <div>
+                            <h3 th:text="${conocimiento.titulo}"></h3><a th:href="@{/miPerfil/editarConocimiento/{idCon}(idCon=${conocimiento.getId()})}">
+                                <img src="/images/miPerfil/editar.png" alt="editar">
+                            </a>
+                        </div>
                         <p th:text="${conocimiento.centroEducativo}"></p>
                         <p th:text="${conocimiento.inicioPeriodoConocimiento}"></p>-
                         <p th:text="${conocimiento.finPeriodoConocimiento}"></p>
@@ -68,13 +69,15 @@
                     <a th:href="@{/miPerfil/subirExperiencia}">
                         <img src="/images/miPerfil/suma.png" alt="suma.png">
                     </a>
-                    <a th:href="@{/miPerfil/editarExperiencia}">
-                        <img src="/images/miPerfil/editar.png" alt="editar.png">
-                    </a>
                 </div>
                 <ul>
                     <li class="elementoEntidad" th:each="experiencia:${usuarioLogueado.getListaExperiencias()}">
-                        <h3 th:text="${experiencia.puesto}"></h3>
+                        <div>
+                            <h3 th:text="${experiencia.puesto}"></h3>
+                            <a th:href="@{/miPerfil/editarExperiencia/{idExp}(idExp=${experiencia.getId()})}">
+                                <img src="/images/miPerfil/editar.png" alt="editar.png">
+                            </a>
+                        </div>
                         <p th:text="${experiencia.empresa}"></p>
                         <p th:text="${experiencia.inicioExperiencia}"></p>-
                         <p th:text="${experiencia.finExperiencia}"></p>

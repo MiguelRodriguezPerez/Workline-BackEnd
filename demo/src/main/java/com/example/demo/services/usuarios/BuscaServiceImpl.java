@@ -1,6 +1,8 @@
 package com.example.demo.services.usuarios;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -8,9 +10,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.domain.Conocimiento;
 import com.example.demo.domain.NuevoUsuario;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.repositories.BuscaRepository;
+import com.example.demo.services.ConocimientoService;
 
 @Service
 public class BuscaServiceImpl implements BuscaService{
@@ -20,6 +24,9 @@ public class BuscaServiceImpl implements BuscaService{
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    // @Autowired
+    // ConocimientoService conocimientoService;
 
     @Override
     public Busca guardar(Busca busca) {
@@ -42,6 +49,8 @@ public class BuscaServiceImpl implements BuscaService{
         if(!busca.getPassword().equals(this.obtenerBuscaConectado().getPassword())) return this.guardar(busca);
         else return this.guardarSinEncriptar(busca);
     }
+
+
 
     @Override
     public void borrar(Long id) {

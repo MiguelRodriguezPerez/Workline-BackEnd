@@ -16,6 +16,7 @@ import com.example.demo.services.usuarios.BuscaService;
 public class ConocimientoServiceImpl implements ConocimientoService{
     @Autowired
     ConocimientoRepository repo;
+
     @Autowired
     BuscaService buscaService;
 
@@ -63,5 +64,20 @@ public class ConocimientoServiceImpl implements ConocimientoService{
         }
 
         return resultado;
+    }
+
+    @Override
+    public void actualizarConocimiento(Conocimiento conocimiento) {
+        Conocimiento cEditar = this.obtenerPorId(conocimiento.getId());
+
+        cEditar.setId(conocimiento.getId());
+        cEditar.setBusca(buscaService.obtenerBuscaConectado());
+
+        cEditar.setCentroEducativo(conocimiento.getCentroEducativo());
+        cEditar.setTitulo(conocimiento.getTitulo());
+        cEditar.setInicioPeriodoConocimiento(conocimiento.getInicioPeriodoConocimiento());
+        cEditar.setFinPeriodoConocimiento(conocimiento.getFinPeriodoConocimiento());
+
+        this.guardarConocimiento(cEditar);
     }
 }

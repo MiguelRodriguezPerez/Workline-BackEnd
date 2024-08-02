@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -11,7 +12,6 @@ import com.example.demo.config.UsuarioService;
 import com.example.demo.domain.Conocimiento;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Rol;
-import com.example.demo.domain.usuarios.Usuario;
 import com.example.demo.services.ConocimientoService;
 import com.example.demo.services.usuarios.BuscaService;
 
@@ -69,6 +69,18 @@ public class UsuarioPerfilController {
         buscaService.obtenerBuscaConectado().getListaConocimientos().add(conocimiento);
         buscaService.guardarSinEncriptar(buscaService.obtenerBuscaConectado());
 
-        return "redirect:/miPerfil/nuevoConocimiento";
+        return "redirect:/miPerfil/";
+    }
+
+    @GetMapping("/editarConocimiento/{idExp}")
+    public String showEditConocimiento(@PathVariable Long idExp, Model model){
+        model.addAttribute("conocimientoEditar", conocimientoService.obtenerPorId(idExp));
+        return "usuarioPerfil/editarConocimiento";
+    }
+
+    @PostMapping("/editarConocimiento/submit")
+    public String showSubmitEdittedConocimiento(Conocimiento conocimiento){
+        conocimientoService.actualizarConocimiento(conocimiento);
+        return "redirect:/miPerfil/";
     }
 }
