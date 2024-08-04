@@ -7,13 +7,19 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.example.demo.domain.Conocimiento;
+import com.example.demo.domain.Experiencia;
 import com.example.demo.domain.ofertas.ModalidadTrabajo;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.ofertas.TipoContrato;
 import com.example.demo.domain.usuarios.Admin;
+import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
+import com.example.demo.services.ConocimientoService;
+import com.example.demo.services.ExperienciaService;
 import com.example.demo.services.ofertas.OfertaService;
 import com.example.demo.services.usuarios.AdminService;
+import com.example.demo.services.usuarios.BuscaService;
 import com.example.demo.services.usuarios.ContrataService;
 
 @SpringBootApplication
@@ -24,12 +30,14 @@ public class DemoApplication {
 	}
 
 	@Bean
-	CommandLineRunner initData(AdminService adminService,ContrataService contrataService, OfertaService ofertaService){
+	CommandLineRunner initData(AdminService adminService,ContrataService contrataService, 
+	OfertaService ofertaService, BuscaService buscaService, 
+	ConocimientoService conocimientoService, ExperienciaService experienciaService){
 		return args ->{
 			// 1234kasdddddddjfA#
 			// Iconos 24 *24
-			// adminService.guardar(new Admin("Raul","aaa@gmail","Jaen","654474733","1234kasdddddddjfA#"));
-			// contrataService.guardarContrata(new Contrata("laura","laura@gmail.com","Jaen","625557811","1234kasdddddddjfA#"));
+			// adminService.guardar(new Admin("raul","aaa@gmail","Jaen","654474733","1234kasdddddddjfA#"));
+			// contrataService.guardar(new Contrata("laura","laura@gmail.com","Jaen","625557811","1234kasdddddddjfA#"));
 			// ofertaService.guardarOferta(new Oferta("Camarero", "Hosteleria", "Servir copas", "Jaen", 15000d, TipoContrato.TEMPORAL, (byte)12, ModalidadTrabajo.PRESENCIAL, contrataService.obtenerTodos().get(0)));
 			// ofertaService.guardarOferta(new Oferta("Cocinero", "Hosteleria", "Preparar alimentos", "Soria",  18000d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.HIBRIDO, contrataService.obtenerTodos().get(0)));
 			// ofertaService.guardarOferta(new Oferta("Recepcionista", "Hosteleria", "Atender a los clientes", "Jaen", 1500d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.TELETRABAJO, contrataService.obtenerTodos().get(0)));
@@ -55,6 +63,13 @@ public class DemoApplication {
 			// ofertaService.guardarOferta(new Oferta("Operador de centralita", "Hosteleria", "Atender llamadas", "Jaen",  15000d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.HIBRIDO, contrataService.obtenerTodos().get(0)));
 			// ofertaService.guardarOferta(new Oferta("Chef pastelero", "Hosteleria", "Preparar postres", "Jaen",  15000d, TipoContrato.DISCONTINUO, (byte)12, ModalidadTrabajo.TELETRABAJO, contrataService.obtenerTodos().get(0)));
 
+			// buscaService.guardar(new Busca("manuel","manuel@gmail.com","Cordoba","654344512","1234kasdddddddjfA#"));
+
+			// conocimientoService.guardarConocimiento(new Conocimiento(0l, "Liceo Alog", "barrendero", LocalDate.of(2006,10,11), LocalDate.of(2008, 11, 12), buscaService.obtenerTodos().get(0)));
+			// conocimientoService.guardarConocimiento(new Conocimiento(0l, "Barreiros Lopez", "Técnico en técnicos", LocalDate.of(2009,10,11), LocalDate.of(2011, 11, 12), buscaService.obtenerTodos().get(0)));
+
+			// experienciaService.guardarExperiencia(new Experiencia(0l, "Sumiller", "AirEuropa", LocalDate.of(2008, 10, 11), LocalDate.of(2010,10, 02),buscaService.obtenerTodos().get(0)));
+			// experienciaService.guardarExperiencia(new Experiencia(0l, "Zapatero", "Rebook", LocalDate.of(2014, 10, 11), LocalDate.of(2018,10, 02),buscaService.obtenerTodos().get(0)));
 		};
 	}
 

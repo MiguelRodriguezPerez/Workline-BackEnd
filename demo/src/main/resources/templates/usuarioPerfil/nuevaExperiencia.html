@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workline | Nuevo Conocimiento</title>
+    <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
+    <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
+    <link rel="stylesheet" href="/css/usuarioPerfilEstilos/nuevoConocimientoEstilo.css">
+    <script type="module" src="/js/usuarioPerfil/nuevaExperiencia.js"></script>
+</head>
+<body>
+    <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
+    <main>
+        <form action="#" method="post" id="formNuevoConocimiento"
+            th:action="@{/miPerfil/nuevaExperiencia/submit}"
+            th:object="${experiencia}">
+                <input type="text" th:field="*{id}" hidden>
+                <h1 th:text="${titulo}"></h1>
+                <div>    
+                    <label for="">Puesto</label>
+                    <input type="text" th:field="*{puesto}" class="conocimientoInput" maxlength="40">
+                    <p class="mensajeError" hidden> El puesto no puede tener más de 40 carácteres y no puede ser nulo</p>
+        
+                    <label for="">Empresa</label>
+                    <input type="text" th:field="*{empresa}" class="conocimientoInput" maxlength="40">
+                    <p class="mensajeError" hidden> La empresa no puede tener más de 40 carácteres y no puede ser nulo</p>
+                </div>
+                <div>
+                    <label for="">Inicio Experiencia</label>
+                    <input type="date" th:field="*{inicioExperiencia}" class="conocimientoInput">
+                    <p class="mensajeError" hidden> La fecha debe estar en formato dd-mm-yyyy y no puede ser nulo</p>
+                    
+        
+                    <label for="">Fin Experiencia</label>
+                    <input type="date" th:field="*{finExperiencia}" class="conocimientoInput">
+                    <p class="mensajeError" hidden> La fecha debe estar en formato dd-mm-yyyy y no puede ser nulo</p>
+                    <p class="mensajeError" hidden> La fecha de inicio no puede ser superior a la final</p>
+                </div>
+                <div>
+                    <input type="submit" value="Subir" id="subirConocimiento" class="subirEntidad">
+                </div>
+        </form>
+        <section id="conocimientosContenedor">
+            <h1>Tus estudios actuales</h1>
+            <div th:each="experiencia:${buscaLogueado.getListaExperiencias()}" class="conocimiento">
+                <h3 th:text="${experiencia.puesto}"></h3>
+                <p th:text="${experiencia.empresa}"></p>
+                <p th:text="${experiencia.inicioExperiencia}"></p>-
+                <p th:text="${experiencia.finExperiencia}"></p>
+            </div>
+        </section>
+    </main>
+    <footer th:insert="~{/fragmentos/pie :: nav}"></footer>
+</body>
+</html>

@@ -113,7 +113,7 @@ main > h1{
 
 .elementoEntidad > div:first-of-type{
     display: grid;
-    grid-template-columns: 95% 5%;
+    grid-template-columns: 88% 7% 5%;
 }
 
 .elementoEntidad h3{
@@ -138,13 +138,16 @@ main > h1{
         width: 88%;
     }
 
-    #listasEntidades > div.contenedorDatos > div.cabeceraEntidad{
-        display: grid;
-        grid-template-columns: 75% 14% 14%;
-    }
-
     #listasEntidades > div.contenedorDatos > div.cabeceraEntidad > img{
         align-self:auto;
+    }
+
+    .elementoEntidad > div:first-of-type{
+        grid-template-columns: 70% 15% 15%;
+    }
+
+    .elementoEntidad > div:first-of-type > a{
+        justify-self: end;
     }
 }
 

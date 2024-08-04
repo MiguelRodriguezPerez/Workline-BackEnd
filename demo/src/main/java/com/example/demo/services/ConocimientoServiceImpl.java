@@ -46,7 +46,7 @@ public class ConocimientoServiceImpl implements ConocimientoService{
 
     @Override
     public void borrarConocimiento(Long id) {
-        repo.delete(repo.findById(id).orElse(null));
+        repo.delete(this.obtenerPorId(id));
     }
 
     @Override

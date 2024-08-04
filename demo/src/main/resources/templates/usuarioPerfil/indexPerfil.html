@@ -53,20 +53,23 @@
                             <h3 th:text="${conocimiento.titulo}"></h3><a th:href="@{/miPerfil/editarConocimiento/{idCon}(idCon=${conocimiento.getId()})}">
                                 <img src="/images/miPerfil/editar.png" alt="editar">
                             </a>
+                            <a th:href="@{/miPerfil/borrarConocimiento/{idCon}(idCon=${conocimiento.getId()})}">
+                                <img src="/images/miPerfil/borrar.png" alt="borrar.png">
+                            </a>
                         </div>
                         <p th:text="${conocimiento.centroEducativo}"></p>
                         <p th:text="${conocimiento.inicioPeriodoConocimiento}"></p>-
                         <p th:text="${conocimiento.finPeriodoConocimiento}"></p>
                     </li>
-                </ul>
-                
+                </ul>    
             </div>
+
             <p th:if="${#lists.isEmpty(listaConocimientos)}" class="sinEntidad">No tienes experiencias laborales
                  registradas</p>
             <div class="contenedorDatos" th:unless="${#lists.isEmpty(usuarioLogueado.getListaExperiencias())}">
                 <div class="cabeceraEntidad">
                     <h2>Experiencia</h2>
-                    <a th:href="@{/miPerfil/subirExperiencia}">
+                    <a th:href="@{/miPerfil/nuevaExperiencia}">
                         <img src="/images/miPerfil/suma.png" alt="suma.png">
                     </a>
                 </div>
@@ -76,6 +79,9 @@
                             <h3 th:text="${experiencia.puesto}"></h3>
                             <a th:href="@{/miPerfil/editarExperiencia/{idExp}(idExp=${experiencia.getId()})}">
                                 <img src="/images/miPerfil/editar.png" alt="editar.png">
+                            </a>
+                            <a th:href="@{/miPerfil/borrarExperiencia/{idExp}(idExp=${experiencia.getId()})}">
+                                <img src="/images/miPerfil/borrar.png" alt="borrar.png">
                             </a>
                         </div>
                         <p th:text="${experiencia.empresa}"></p>

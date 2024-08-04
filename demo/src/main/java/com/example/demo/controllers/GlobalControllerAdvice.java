@@ -3,13 +3,19 @@ package com.example.demo.controllers;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
+
+import com.example.demo.config.UsuarioService;
 @ControllerAdvice
 public class GlobalControllerAdvice {
+
+    @Autowired
+    UsuarioService usuarioService;
     
     @ModelAttribute("currentUserName")
     public String addCurrentUserName() {
@@ -32,5 +38,10 @@ public class GlobalControllerAdvice {
         } else {
             return null;
         }
+    }
+
+    @ModelAttribute("rolActual")
+    public String addActualRol() {
+        return usuarioService.obtenerUsuarioConectado().getRol().toString();
     }
 }

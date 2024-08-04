@@ -43,7 +43,7 @@ header > nav{
 #perfil{
     justify-items: start;
     display: grid;
-    grid-template-columns: auto 18%;
+    grid-template-columns: 85% 15%;
     justify-items: start;
     align-items: center;
 }
@@ -63,6 +63,7 @@ header > nav{
 }
 
 #perfil form:last-child{
+    /* margin: 0px 25% 0px 0%; */
     justify-self: center;
     align-self: center;
 }
@@ -95,7 +96,7 @@ header > nav{
 
     #perfil{
         display: grid;
-        grid-template-columns: 40% 30% 30%;
+        grid-template-columns: 60% 40%;
     }
 
     #perfil a{
