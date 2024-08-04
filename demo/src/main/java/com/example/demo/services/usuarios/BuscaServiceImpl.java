@@ -44,7 +44,7 @@ public class BuscaServiceImpl implements BuscaService{
         busca.setListaExperiencias(this.obtenerBuscaConectado().getListaExperiencias());
 
         if(!busca.getPassword().equals(this.obtenerBuscaConectado().getPassword())) return this.guardar(busca);
-        else return this.guardarSinEncriptar(busca);
+        else return this.guardar(busca);
     }
 
 

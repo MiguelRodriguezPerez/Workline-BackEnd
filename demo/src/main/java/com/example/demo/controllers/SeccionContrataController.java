@@ -49,9 +49,7 @@ public class SeccionContrataController {
         model.addAttribute("numPag", numPag);
         model.addAttribute("ofertaId", ofertaId);
         model.addAttribute("oferta", ofertaService.obtenerPorId(ofertaId));
-
-        model.addAttribute("tiposContrato", TipoContrato.values());
-        model.addAttribute("modalidadesTrabajo", ModalidadTrabajo.values());
+        System.out.println("Lista de candidatos: " + ofertaService.obtenerPorId(ofertaId).getListaCandidatos()); // Log candidates
 
         return "contrataSeccion/detallesOferta";
     }

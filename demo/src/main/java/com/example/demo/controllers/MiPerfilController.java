@@ -91,7 +91,7 @@ public class MiPerfilController {
         //Orden exacto. No cambiar
         buscaService.obtenerBuscaConectado().getListaConocimientos().remove(conocimientoService.obtenerPorId(idCon));
         conocimientoService.borrarConocimiento(idCon);
-        buscaService.guardar(buscaService.obtenerBuscaConectado());
+        buscaService.guardarSinEncriptar(buscaService.obtenerBuscaConectado());
         return "redirect:/miPerfil/";
     }
 
@@ -126,7 +126,7 @@ public class MiPerfilController {
         //Orden exacto. No cambiar
         buscaService.obtenerBuscaConectado().getListaExperiencias().remove(experienciaService.obtenerPorId(idExp));
         experienciaService.borrarExperiencia(idExp);
-        buscaService.guardar(buscaService.obtenerBuscaConectado());
+        buscaService.guardarSinEncriptar(buscaService.obtenerBuscaConectado());
 
         return "redirect:/miPerfil/";
     }

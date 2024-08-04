@@ -54,11 +54,4 @@ public class UsuarioService {
         if(adminService.obtenerAdminConectado() != null) return (Admin) adminService.obtenerAdminConectado();
         return null;
     }
-
-    public Usuario guardarCambiosUsuario(Usuario usuario){
-        if(usuario.getRol() == Rol.BUSCA) return buscaService.guardarCambios((Busca)usuario);
-        else if(usuario.getRol() == Rol.CONTRATA) return contrataService.guardarCambios((Contrata) usuario);
-        else if(usuario.getRol() == Rol.ADMIN) return adminService.guardarCambios((Admin)usuario);
-        else return null;//Excepción pendiente
-    }
 }

@@ -63,6 +63,7 @@ public class DemoApplication {
 			// ofertaService.guardarOferta(new Oferta("Operador de centralita", "Hosteleria", "Atender llamadas", "Jaen",  15000d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.HIBRIDO, contrataService.obtenerTodos().get(0)));
 			// ofertaService.guardarOferta(new Oferta("Chef pastelero", "Hosteleria", "Preparar postres", "Jaen",  15000d, TipoContrato.DISCONTINUO, (byte)12, ModalidadTrabajo.TELETRABAJO, contrataService.obtenerTodos().get(0)));
 
+			// buscaService.guardar(new Busca("gasolina","manuel@gmail.com","Cordoba","654344512","1234kasdddddddjfA#"));
 			// buscaService.guardar(new Busca("manuel","manuel@gmail.com","Cordoba","654344512","1234kasdddddddjfA#"));
 
 			// conocimientoService.guardarConocimiento(new Conocimiento(0l, "Liceo Alog", "barrendero", LocalDate.of(2006,10,11), LocalDate.of(2008, 11, 12), buscaService.obtenerTodos().get(0)));

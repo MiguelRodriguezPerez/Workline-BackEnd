@@ -65,7 +65,7 @@ public class BuscarTrabajoController {
         buscaService.obtenerBuscaConectado().getListaOfertas().add(ofertaService.obtenerPorId(ofertaId));
 
         ofertaService.guardarOferta(ofertaService.obtenerPorId(ofertaId));
-        buscaService.guardar(buscaService.obtenerBuscaConectado());
+        buscaService.guardarSinEncriptar(buscaService.obtenerBuscaConectado());
 
         return "redirect:/ofertasDeTrabajo/verOferta/" + ofertaId;
     }
@@ -76,7 +76,7 @@ public class BuscarTrabajoController {
         buscaService.obtenerBuscaConectado().getListaOfertas().remove(ofertaService.obtenerPorId(ofertaId));
 
         ofertaService.guardarOferta(ofertaService.obtenerPorId(ofertaId));
-        buscaService.guardar(buscaService.obtenerBuscaConectado());
+        buscaService.guardarSinEncriptar(buscaService.obtenerBuscaConectado());
 
         return "redirect:/ofertasDeTrabajo/verOferta/" + ofertaId;
     }

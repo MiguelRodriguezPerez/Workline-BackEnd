@@ -65,6 +65,11 @@ body > section:first-child > h1:first-child{
     cursor: pointer;
 }
 
+.sinEntidad{
+    text-align: center;
+    font-size: 20px;
+}
+
 .mensajeError{
     color: red;
     font-size: 15px;
