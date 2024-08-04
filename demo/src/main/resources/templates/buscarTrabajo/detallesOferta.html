@@ -7,25 +7,18 @@
     <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
     <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
     <link rel="stylesheet" href="/css/buscarTrabajoEstilos/detallesOfertaEstilo.css">
-    <script src="/js/encabezado.js" defer></script>
+
 </head>
 <body>
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
-    <!-- <p th:text="${oferta.puesto}"></p>
-    <p th:text="${oferta.parsearFecha()}"></p>
-    <p th:text="${oferta.nombreEmpresa}"></p> -->
-    <!-- <h4>Datos de la oferta</h4>
-    <p th:text="${oferta.salarioAnual}"></p>
-    <p th:text="${oferta.ciudad}"></p>
-    <p th:text="${oferta.tipoContrato}"></p>
-    <p th:text="${oferta.horas}"></p>
-    <p th:text="${oferta.modalidadTrabajo}"></p> -->
     <body>
         <div id="contenedorDetalles">
             <div class="nube" id="primeraSeccion">
                 <h3 th:text="${oferta.puesto}"></h3>
                 <p th:text="${oferta.parsearFecha()}"></p>
                 <p th:text="${oferta.nombreEmpresa}"></p>
+                <a class="noSuscrito" th:unless="${estaInscrito}" th:href="@{/ofertasDeTrabajo/inscribirse/{ofertaId}(ofertaId=${oferta.id})}">Inscribirse</a>
+                <a class="suscrito" th:if="${estaInscrito}" th:href="@{/ofertasDeTrabajo/desinscribirse/{ofertaId}(ofertaId=${oferta.id})}">Desinscribirse</a>
             </div>
             <div id="contenidoOferta">
                 <div class="nube">
@@ -52,6 +45,8 @@
                 <h3 th:text="${oferta.puesto}"></h3>
                 <p th:text="${oferta.parsearFecha()}"></p>
                 <p th:text="${oferta.nombreEmpresa}"></p>
+                <a class="noSuscrito" th:unless="${estaInscrito}" th:href="@{/ofertasDeTrabajo/inscribirse/{ofertaId}(ofertaId=${oferta.id})}">Inscribirse</a>
+                <a class="suscrito" th:if="${estaInscrito}" th:href="@{/ofertasDeTrabajo/desinscribirse/{ofertaId}(ofertaId=${oferta.id})}">Desinscribirse</a>
             </div>
             <div class="nube">
                 <h3>Descripción</h3>

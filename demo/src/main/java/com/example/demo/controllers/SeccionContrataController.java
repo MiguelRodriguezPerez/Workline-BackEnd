@@ -48,7 +48,7 @@ public class SeccionContrataController {
     public String showOfertaDetails(@PathVariable Long numPag, @PathVariable Long ofertaId, Model model){
         model.addAttribute("numPag", numPag);
         model.addAttribute("ofertaId", ofertaId);
-        model.addAttribute("ofertaSeleccionada", ofertaService.obtenerPorId(ofertaId));
+        model.addAttribute("oferta", ofertaService.obtenerPorId(ofertaId));
 
         model.addAttribute("tiposContrato", TipoContrato.values());
         model.addAttribute("modalidadesTrabajo", ModalidadTrabajo.values());

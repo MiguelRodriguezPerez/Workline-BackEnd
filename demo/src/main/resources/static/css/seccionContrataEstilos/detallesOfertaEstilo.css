@@ -1,20 +1,21 @@
+
 body{
     background-color: #F5F5F5;
 }
 
-#contenedorDetalles{
+main{
     width: 70%;
     margin: 40px auto;
 }
 
-#contenedorDetalles > a:first-child{
+main > a:first-child{
     text-decoration: none;
     color: black;
     font-size: 21px;
     margin-left: 8.5%;
 }
 
-#contenedorDetalles > button:first-of-type{
+main > button:first-of-type{
     float: right;
 
     background-color: #F5F5F5;
@@ -28,7 +29,7 @@ body{
 }
 
 
-#contenedorDetalles form{
+main section{
     background-color: white;
     width: 80%;
     margin: 30px auto;
@@ -38,18 +39,18 @@ body{
     grid-template-columns: 50% 50%;
 }
 
-#contenedorDetalles form > div > label, #contenedorDetalles form > div > input,
-#contenedorDetalles form > div > textarea{
+main section > div > label, main section > div > input,
+main section > div > textarea{
     display: block;
 } 
 
-#contenedorDetalles form label{
+section label{
     margin-bottom: 5px;
     font-size: 23px;
     width: 60%;
 }
 
-#contenedorDetalles form textarea{
+section textarea{
     width: 70%;
     height: 90px;
     border: solid 1px black;
@@ -58,16 +59,16 @@ body{
     margin-bottom: 30px
 }
 
-#contenedorDetalles form input, #contenedorDetalles form select{
-    font-size: 18px;
+main section p{
+    font-size: 20px;
     border: 0px;
     border-bottom: solid 1px black;
-    margin-bottom: 30px;
+    margin: 10px 0px 20px;
     color: black;
-    width: 60%;
+    width: 40%;
 }
 
-#contenedorDetalles form input#subirCambios{
+section input#subirCambios{
     display: none;
     width: 35%;
 
@@ -97,25 +98,25 @@ p.mensajeError{
 }
 
 @media screen and (max-width:1200px) {
-    #contenedorDetalles{
+    main{
         width: 90%;
     }
 
-    #contenedorDetalles form input, #contenedorDetalles form select{
+    main section input, main section select{
         width: 75%;
     }
 
-    #contenedorDetalles form textarea{
+    main section textarea{
         width: 85%;
     }
 
-    #contenedorDetalles form input#subirCambios{
+    main section input#subirCambios{
         width: 60%;
     }
 }
 
 @media screen and (max-width:700px) {
-    #contenedorDetalles form{
+    main section{
         grid-template-columns: 100%;
     }
 

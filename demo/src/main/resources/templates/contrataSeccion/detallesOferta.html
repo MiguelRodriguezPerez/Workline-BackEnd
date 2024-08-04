@@ -8,60 +8,47 @@
     <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
     <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
     <link rel="stylesheet" href="/css/seccionContrataEstilos/detallesOfertaEstilo.css">
-    <script src="/js/contratar/detallesOferta.js" defer module></script>
 </head>
 <body>
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
     <body>  
-        <div id="contenedorDetalles">
+        <main id="contenedorDetalles">
             <a th:href="@{/seccionContrata/pagina/{numPag}(numPag=${numPag})}">Volver atrás</a>
             <button id="editar">Editar Oferta</button>
-            <form action="" method="post" id="formularioEdicion"
-                th:object="${ofertaSeleccionada}"
-                th:action="@{/seccionContrata/pagina/{numPag}/detallesOferta/{ofertaId}/editarOferta(numPag=${numPag}, ofertaId=${ofertaId})}">
-
-                <input class="datosOcultos" hidden th:field="*{id}"></input>
-                <input class="datosOcultos" hidden th:field="*{requisitos}"></input>
-                <input class="datosOcultos" hidden th:field="*{nombreEmpresa}"></input>
-                <input class="datosOcultos" hidden th:field="*{fechaPublicacion}"></input>
-
+            <section>
                 <div>
-                    <label for="puesto">Puesto</label>
-                    <input readonly type="text" th:field="*{puesto}" id="puesto">
-                    <p class="mensajeError" id="err1">El puesto no puede tener más de 30 carácteres ni estar vacío</p>
+                    <label>Puesto</label>
+                    <p th:text="${oferta.puesto}" id="puesto"></p>
                     
-                    <label for="sector">Sector</label>
-                    <input readonly type="text" th:field="*{sector}" id="sector">
+                    <label>Sector</label>
+                    <p th:text="${oferta.sector}" id="sector"></p>
                     
-                    <label for="modalidad">Modalidad de Trabajo</label>
-                    <select disabled name="" id="modalidad" th:field="*{modalidadTrabajo}">
-                        <option th:value="${mt}" th:text="${mt}" th:each="mt:${modalidadesTrabajo}"></option>
-                    </select>
+                    <label >Modalidad de Trabajo</label>
+                    <p th:text="${oferta.modalidadTrabajo}"></p>
 
-                    <label for="descripcion">Descripción</label>
-                    <textarea  readonly th:field="*{descripcion}" id="descripcion"></textarea>
-                    <p class="mensajeError" id="err2">La descripción no puede tener más de 50 carácteres</p>
+                    <label>Descripción</label>
+                    <textarea  th:text="${oferta.descripcion}"></textarea>
                 </div>
                 <div>
-                    <label for="salarioAnual">Salario Anual</label>
-                    <input readonly type="text" th:field="*{salarioAnual}" id="salarioAnual">
+                    <label>Salario Anual</label>
+                    <p th:text="${oferta.salarioAnual}"></p>
                     
-                    <label for="tipoContrato">Tipo de Contrato</label>
-                    <select disabled name="" id="tipoContrato" th:field="*{tipoContrato}">
-                        <option th:value="${tc}" th:text="${tc}" th:each="tc:${tiposContrato}"></option>
-                    </select>
-                    
-                    <label for="horas">Horas</label>
-                    <input readonly type="text" th:field="*{horas}" id="horas">
+                    <label>Tipo de Contrato</label>
+                    <p th:text="${oferta.tipoContrato}"></p>
 
-                    <label for="ciudad">Ciudad</label>
-                    <input readonly type="text" th:field="*{ciudad}" id="ciudad">
-                    <p class="mensajeError" id="err3">La ciudad no puede ser nula</p>
+                    <label>Horas</label>
+                    <p th:text="${oferta.horas}"></p>
 
-                    <input type="submit" id="subirCambios" value="Subir cambios">
+                    <label >Ciudad</label>
+                    <p th:text="${oferta.ciudad}"></p>
                 </div>
-            </form>
-        </div>
+            </section>
+            <section th:unless="${#lists.isEmpty(oferta.getListaCandidatos())}">
+                <a th:each="candidato:${oferta.getListaCandidatos()}">
+
+                </a>
+            </section>
+        </main>
     </body>
     <footer th:insert="~{/fragmentos/pie :: nav}"></footer>
 </body>

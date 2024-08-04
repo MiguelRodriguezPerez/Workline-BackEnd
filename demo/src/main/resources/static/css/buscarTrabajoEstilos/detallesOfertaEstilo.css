@@ -25,22 +25,49 @@ body{
     grid-template-columns: 50% 50%;
 }
 
+#primeraSeccion > *{
+    margin: 10px 0px;
+}
+
 #primeraSeccion h3{
     font-weight: normal;
     font-size: 33px;
-    margin-top: 10px;
-    margin-bottom: 0px;
 }
 
 #primeraSeccion p:first-of-type{
     justify-self: end;
     font-size: 18px;
-    margin-top: 10px;
 }
 
 #primeraSeccion p:last-of-type{
     font-size: 21px;
-    margin-top: 10px;
+    margin: 10px 0px;
+}
+
+.noSuscrito{
+    justify-self: end;
+    align-self: center;
+
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+
+    padding: 8px 25px;
+    background-color: green;
+    border-radius: 5px;
+}
+
+.suscrito{
+    justify-self: end;
+    align-self: center;
+
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+
+    padding: 8px 25px;
+    background-color: #e52020;
+    border-radius: 5px;
 }
 
 #contenidoOferta{
@@ -94,6 +121,16 @@ body{
     margin-bottom: 15px;
 }
 
+@media screen and (max-width:1400px) {
+    #contenedorDetalles{
+        width: 80%;
+    }
+
+    #contenidoOferta{
+        grid-template-columns: 35% 65%;
+    }
+}
+
 @media screen and (max-width:700px) {
     #contenedorDetalles{
         display: none;
@@ -107,18 +144,23 @@ body{
         padding: 30px 0px;
     }
 
+    .noSuscrito,.suscrito{
+        padding: 7px 20px;
+    }
+
     #contenedorDetallesTelefono div:nth-child(2){
         margin-top: 10px;
     }
 
     #contenedorDetallesTelefono div:nth-child(2) h3{
         font-weight: normal;
-        font-size: 20px;
+        font-size: 23px;
         margin-top: 10px;
+        margin-bottom: 10px;
     }
 
     .nube{
-        padding: 5px 12px;
+        padding: 5px 15px;
     }
 
     #contenidoOferta{
@@ -135,7 +177,7 @@ body{
 
     #contenidoOferta h3{
         margin-top: 6px !important;
-        font-size: 24px !important;
+        font-size: 23px !important;
     }
 
     

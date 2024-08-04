@@ -4,14 +4,15 @@ import java.util.Set;
 
 import com.example.demo.domain.Conocimiento;
 import com.example.demo.domain.Experiencia;
+import com.example.demo.domain.ofertas.Oferta;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -39,10 +40,10 @@ public class Busca extends Usuario{
     @JsonManagedReference
     private Set<Conocimiento> listaConocimientos;
 
-    // @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    // @JoinTable(name="busca_oferta",joinColumns = @JoinColumn(name="busca_id"),inverseJoinColumns = @JoinColumn(name="oferta_id"))
-    // @JsonManagedReference
-    // private Set<Oferta> listaOfertas;
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinTable(name="busca_oferta",joinColumns = @JoinColumn(name="busca_id"),inverseJoinColumns = @JoinColumn(name="oferta_id"))
+    @JsonManagedReference
+    private Set<Oferta> listaOfertas;
 
     /*Busca es la entidad propietaria porque cada vez que se añada
     un nuevo busca a la tabla que une las ofertas con los busca se actualizará*/

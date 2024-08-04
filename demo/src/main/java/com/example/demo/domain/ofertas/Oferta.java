@@ -3,19 +3,22 @@ package com.example.demo.domain.ofertas;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Set;
 
+import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -67,6 +70,11 @@ public class Oferta implements Comparable<Oferta>{
 
     private LocalDate fechaPublicacion;
 
+    @ManyToMany(mappedBy = "listaOfertas")
+    @JsonBackReference
+    @Nullable
+    private Set<Busca> listaCandidatos;
+
     public Oferta(@NotNull @Size(max = 30) String puesto, @NotNull String sector, @Size(max = 80) String descripcion,
             @NotNull String ciudad, Double salarioAnual, @NotNull TipoContrato tipoContrato, @NotNull Byte horas,
             @NotNull ModalidadTrabajo modalidadTrabajo, Contrata contrata) {
@@ -117,10 +125,7 @@ public class Oferta implements Comparable<Oferta>{
         return resultado;
     }
 
-    // @ManyToMany(mappedBy = "listaOfertas")
-    // @JsonBackReference
-    // @Nullable
-    // private Set<Busca> listaCandidatos;
+    
 
     
 }

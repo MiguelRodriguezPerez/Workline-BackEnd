@@ -13,6 +13,7 @@ import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.domain.ofertas.ModalidadTrabajo;
 import com.example.demo.domain.ofertas.TipoContrato;
 import com.example.demo.services.ofertas.OfertaService;
+import com.example.demo.services.usuarios.BuscaService;
 
 @Controller
 @RequestMapping("/ofertasDeTrabajo")
@@ -20,6 +21,9 @@ public class BuscarTrabajoController {
 
     @Autowired
     OfertaService ofertaService;
+
+    @Autowired
+    BuscaService buscaService;
     
     @GetMapping("/{numPag}")
     public String getOfferJobsPageWithoutSearch(@PathVariable Integer numPag,Model model){
@@ -50,9 +54,30 @@ public class BuscarTrabajoController {
     @GetMapping("/verOferta/{id}")
     public String showDetallesOferta(@PathVariable Long id,Model model){
         model.addAttribute("oferta", ofertaService.obtenerPorId(id));
+        model.addAttribute("estaInscrito", buscaService.estaSuscritoOferta(id));
 
         return "buscarTrabajo/detallesOferta";
     }
 
+    @GetMapping("/inscribirse/{ofertaId}")
+    public String showSuscribedOferta(@PathVariable Long ofertaId){
+        ofertaService.obtenerPorId(ofertaId).getListaCandidatos().add(buscaService.obtenerBuscaConectado());
+        buscaService.obtenerBuscaConectado().getListaOfertas().add(ofertaService.obtenerPorId(ofertaId));
 
+        ofertaService.guardarOferta(ofertaService.obtenerPorId(ofertaId));
+        buscaService.guardar(buscaService.obtenerBuscaConectado());
+
+        return "redirect:/ofertasDeTrabajo/verOferta/" + ofertaId;
+    }
+
+    @GetMapping("/desinscribirse/{ofertaId}")
+    public String showDesuscribedOferta(@PathVariable Long ofertaId){
+        ofertaService.obtenerPorId(ofertaId).getListaCandidatos().remove(buscaService.obtenerBuscaConectado());
+        buscaService.obtenerBuscaConectado().getListaOfertas().remove(ofertaService.obtenerPorId(ofertaId));
+
+        ofertaService.guardarOferta(ofertaService.obtenerPorId(ofertaId));
+        buscaService.guardar(buscaService.obtenerBuscaConectado());
+
+        return "redirect:/ofertasDeTrabajo/verOferta/" + ofertaId;
+    }
 }

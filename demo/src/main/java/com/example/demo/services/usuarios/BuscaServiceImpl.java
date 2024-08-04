@@ -1,8 +1,6 @@
 package com.example.demo.services.usuarios;
 
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -10,11 +8,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.domain.Conocimiento;
 import com.example.demo.domain.NuevoUsuario;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.repositories.BuscaRepository;
-import com.example.demo.services.ConocimientoService;
+import com.example.demo.services.ofertas.OfertaService;
 
 @Service
 public class BuscaServiceImpl implements BuscaService{
@@ -25,8 +22,8 @@ public class BuscaServiceImpl implements BuscaService{
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    // @Autowired
-    // ConocimientoService conocimientoService;
+    @Autowired
+    OfertaService ofertaService;
 
     @Override
     public Busca guardar(Busca busca) {
@@ -92,8 +89,12 @@ public class BuscaServiceImpl implements BuscaService{
 
     @Override
     public boolean estaSuscritoOferta(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'estaSuscritoOferta'");
+        if(this.obtenerBuscaConectado() != null 
+            && ofertaService.obtenerPorId(id) != null
+            && this.obtenerBuscaConectado().getListaOfertas().contains(ofertaService.obtenerPorId(id))){
+            return true;
+        }
+        return false;
     }
 
     @Override
