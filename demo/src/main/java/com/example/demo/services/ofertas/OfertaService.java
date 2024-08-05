@@ -9,7 +9,9 @@ public interface OfertaService {
     
     Oferta guardarOferta(Oferta oferta);
     Oferta guardarOfertaFromContrata(Oferta oferta);
+    Oferta guardarCambios(Oferta oferta);
     void borrarOferta(Long id);
+    void borrarCandidatosOferta(Long id);
     Oferta obtenerPorId(Long id);
     List<Oferta> obtenerTodos();
     List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta);

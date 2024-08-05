@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.domain.ofertas.ModalidadTrabajo;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.ofertas.TipoContrato;
+import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.services.ofertas.OfertaService;
+import com.example.demo.services.usuarios.BuscaService;
 import com.example.demo.services.usuarios.ContrataService;
 
 
@@ -24,6 +27,9 @@ public class SeccionContrataController {
 
     @Autowired
     OfertaService ofertaService;
+
+    @Autowired 
+    BuscaService buscaService;
     
     @GetMapping("/pagina/{numPag}")
     public String showIndexContrata(Model model, @PathVariable Integer numPag){
@@ -49,6 +55,7 @@ public class SeccionContrataController {
         model.addAttribute("numPag", numPag);
         model.addAttribute("ofertaId", ofertaId);
         model.addAttribute("oferta", ofertaService.obtenerPorId(ofertaId));
+        model.addAttribute("listaCandidatos", ofertaService.obtenerPorId(ofertaId).getListaCandidatos());
         System.out.println("Lista de candidatos: " + ofertaService.obtenerPorId(ofertaId).getListaCandidatos()); // Log candidates
 
         return "contrataSeccion/detallesOferta";
@@ -72,9 +79,38 @@ public class SeccionContrataController {
         return "contrataSeccion/nuevaOferta";
     }
 
+    @GetMapping("/pagina/{numPag}/oferta/editarOferta/{ofertaId}")
+    public String showEditOffer(@PathVariable Long numPag, @PathVariable Long ofertaId, Model model){
+        model.addAttribute("nuevaOferta", ofertaService.obtenerPorId(ofertaId));
+        model.addAttribute("numPag", numPag);
+
+        model.addAttribute("tiposContrato", TipoContrato.values());
+        model.addAttribute("modalidadesTrabajo", ModalidadTrabajo.values());
+
+        return "contrataSeccion/nuevaOferta";
+    }
+
     @PostMapping("/pagina/{numPag}/detallesOferta/{ofertaId}/crearNuevaOferta")
     public String showCreateNewOffer(@PathVariable Long numPag, Oferta oferta){
         ofertaService.guardarOfertaFromContrata(oferta);
+
+        return "redirect:/seccionContrata/pagina/" + numPag;
+    }
+
+    @GetMapping("/pagina/{numPag}/oferta/borrarOferta/{ofertaId}")
+    public String deleteOffer(@PathVariable Long numPag, @PathVariable Long ofertaId){
+        /*Tuviste que hacerlo todo aquí en vez de en ofertaService porque al inyectar
+        buscaService en ofertaService provocaste una referencia circular*/
+        Contrata contrata = contrataService.obtenerContrataConectado();
+        Oferta oferta = ofertaService.obtenerPorId(ofertaId);
+
+        buscaService.borrarCandidatosOferta(oferta);
+
+        contrata.getListaOfertas().remove(oferta);
+        contrataService.guardarSinEncriptar(contrata);
+
+        ofertaService.guardarOferta(oferta);
+        ofertaService.borrarOferta(ofertaId);
 
         return "redirect:/seccionContrata/pagina/" + numPag;
     }

@@ -15,7 +15,7 @@ main > a:first-child{
     
 }
 
-main > a:last-of-type{
+main > button:first-of-type{
     float: right;
     padding: 0px;
 
@@ -29,7 +29,7 @@ main > a:last-of-type{
 }
 
 
-main #oferta{
+main form{
     background-color: white;
     margin: 15px auto;
     border-radius: 8px;
@@ -38,22 +38,22 @@ main #oferta{
     grid-template-columns: 50% 50%;
 }
 
-main #oferta > div{
+main form > div{
     padding: 15px 25px 0px;
 }
 
-main #oferta > div > label, main #oferta > div > input,
-main #oferta > div > textarea{
+main form > div > label, main form > div > input,
+main form > div > textarea{
     display: block;
 } 
 
-#oferta label{
+main form label{
     margin-bottom: 5px;
     font-size: 23px;
     width: 60%;
 }
 
-#oferta textarea{
+main form textarea{
     width: 70%;
     height: 90px;
     border: solid 1px black;
@@ -62,7 +62,7 @@ main #oferta > div > textarea{
     margin-bottom: 30px
 }
 
-main #oferta p{
+main form input,main form select{
     font-size: 20px;
     border: 0px;
     border-bottom: solid 1px black;
@@ -71,12 +71,17 @@ main #oferta p{
     width: 40%;
 }
 
-#oferta input#subirCambios{
+main form select{
+    font-size: 16px;
+}
+
+form input#subirCambios{
     display: none;
     width: 35%;
 
     background-color: green;
     color: white !important;
+    font-size: 18px;
 
     padding:10px 15px;
     margin:20px 0px 0px;
@@ -84,51 +89,6 @@ main #oferta p{
     cursor: pointer;
 }
 
-#candidatos{
-    display: grid;
-    grid-template-columns: 50% 50%;
-
-    margin: 30px auto;
-    justify-items: center;
-}
-
-#candidatos > div{
-    width: 96%;
-    background-color: white;
-    border-radius: 8px;
-
-    padding: 10px 0px;
-}
-
-#candidatos > div:nth-child(odd){
-    justify-self: start;
-}
-
-#candidatos > div:nth-child(even){
-    justify-self: end;
-}
-
-
-#candidatos h3{
-    border-bottom: solid 1px black;
-
-    font-weight: normal;
-    font-size: 23px;
-
-    margin-top: 0px;
-    padding-left: 15px;
-    padding-bottom: 10px;
-}
-
-#candidatos ul{
-    list-style:url("/images/linea.png");
-    padding-top: 0px;
-    padding-left: 20px;
-    margin-top: 0px;
-    margin-left: 17px;
-
-    font-size: 20px;
-}
 
 
 p.mensajeError{
@@ -152,21 +112,21 @@ p.mensajeError{
         width: 90%;
     }
 
-    main #oferta input, main #oferta select{
+    main form input, main form select{
         width: 75%;
     }
 
-    main #oferta textarea{
+    main form textarea{
         width: 85%;
     }
 
-    main #oferta input#subirCambios{
+    main form input#subirCambios{
         width: 60%;
     }
 }
 
 @media screen and (max-width:700px) {
-    main #oferta{
+    main form{
         grid-template-columns: 100%;
     }
 

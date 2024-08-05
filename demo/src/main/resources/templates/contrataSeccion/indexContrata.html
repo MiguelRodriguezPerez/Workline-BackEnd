@@ -21,7 +21,15 @@
         </div>
         
         <div th:each="oferta:${listaOfertas}" class="oferta" th:id="${oferta.id}">
-            <h4 th:text="${oferta.puesto}"></h4>
+            <section class="cabeceraOferta">
+                <h4 th:text="${oferta.puesto}"></h4>
+                <a th:href="@{/seccionContrata/pagina/{numPag}/oferta/editarOferta/{ofertaId}(numPag=${numPag},ofertaId=${oferta.id})}">
+                    <img src="/images/contratar/editarB.png" alt="editar.png">
+                </a>
+                <a th:href="@{/seccionContrata/pagina/{numPag}/oferta/borrarOferta/{ofertaId}(numPag=${numPag},ofertaId=${oferta.id})}">
+                    <img src="/images/contratar/borrarB.png" alt="borrar.png">
+                </a>
+            </section>
             <section>
                 <ul>
                     <li><p th:text="${oferta.salarioAnual.intValue()} + ' €'"></p></li>

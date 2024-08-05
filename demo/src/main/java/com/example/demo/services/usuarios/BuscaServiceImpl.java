@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.NuevoUsuario;
+import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.repositories.BuscaRepository;
 import com.example.demo.services.ofertas.OfertaService;
@@ -46,8 +47,6 @@ public class BuscaServiceImpl implements BuscaService{
         if(!busca.getPassword().equals(this.obtenerBuscaConectado().getPassword())) return this.guardar(busca);
         else return this.guardar(busca);
     }
-
-
 
     @Override
     public void borrar(Long id) {
@@ -105,6 +104,16 @@ public class BuscaServiceImpl implements BuscaService{
         System.out.println(busca2 + "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
         
         return busca2;
+    }
+
+    @Override
+    public void borrarCandidatosOferta(Oferta oferta) {
+        for(Busca b: oferta.getListaCandidatos()){
+            b.getListaOfertas().remove(oferta);
+            this.guardarSinEncriptar(b);
+            oferta.getListaCandidatos().remove(b);
+            ofertaService.guardarOferta(oferta);
+        }
     }
     
 

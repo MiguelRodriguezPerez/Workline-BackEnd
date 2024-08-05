@@ -7,13 +7,13 @@
     <script src="/js/encabezado.js" defer></script>
     <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
     <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
-    <link rel="stylesheet" href="/css/seccionContrataEstilos/detallesOfertaEstilo.css">
+    <link rel="stylesheet" href="/css/seccionContrataEstilos/nuevaOfertaEstilo.css">
     <script src="/js/contratar/nuevaOferta.js" defer></script>
 </head>
 <body>
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
     <body>  
-        <div id="contenedorDetalles">
+        <main>
             <a th:href="@{/seccionContrata/pagina/{numPag}(numPag=${numPag})}">Volver atrás</a>
             <form action="" method="post" id="formularioEdicion"
                 th:object="${nuevaOferta}"
@@ -60,7 +60,7 @@
                     <input type="submit" id="subirCambios" value="Subir cambios">
                 </div>
             </form>
-        </div>
+        </main>
     </body>
     <footer th:insert="~{/fragmentos/pie :: nav}"></footer>
 </body>

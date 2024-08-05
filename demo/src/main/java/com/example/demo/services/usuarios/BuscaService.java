@@ -2,8 +2,8 @@ package com.example.demo.services.usuarios;
 
 import java.util.List;
 
-import com.example.demo.domain.Conocimiento;
 import com.example.demo.domain.NuevoUsuario;
+import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.usuarios.Busca;
 
 public interface BuscaService {
@@ -20,4 +20,5 @@ public interface BuscaService {
     String obtenerNombre();
     Busca obtenerBuscaConectado();
     boolean estaSuscritoOferta(Long id);
+    void borrarCandidatosOferta(Oferta oferta);
 }

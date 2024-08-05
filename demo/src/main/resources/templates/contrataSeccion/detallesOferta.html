@@ -12,10 +12,10 @@
 <body>
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
     <body>  
-        <main id="contenedorDetalles">
+        <main>
             <a th:href="@{/seccionContrata/pagina/{numPag}(numPag=${numPag})}">Volver atrás</a>
-            <button id="editar">Editar Oferta</button>
-            <section>
+            <a th:href="@{/seccionContrata/pagina/{numPag}/oferta/editarOferta/{ofertaId}(numPag=${numPag},ofertaId=${ofertaId})}" id="editar">Editar Oferta</a>
+            <section id="oferta" class="nube">
                 <div>
                     <label>Puesto</label>
                     <p th:text="${oferta.puesto}" id="puesto"></p>
@@ -39,14 +39,19 @@
                     <label>Horas</label>
                     <p th:text="${oferta.horas}"></p>
 
-                    <label >Ciudad</label>
+                    <label>Ciudad</label>
                     <p th:text="${oferta.ciudad}"></p>
                 </div>
             </section>
-            <section th:unless="${#lists.isEmpty(oferta.getListaCandidatos())}">
-                <a th:each="candidato:${oferta.getListaCandidatos()}">
-
-                </a>
+            <section th:unless="${#lists.isEmpty(oferta.getListaCandidatos())}" id="candidatos">
+                <div th:each="candidato:${listaCandidatos}" class="nube">
+                    <h3 th:text="${candidato.nombre}"></h3>
+                    <ul>
+                        <li><p th:text="${candidato.email}"></p></li>
+                        <li><p th:text="${candidato.telefono}"></p></li>
+                        <li><p th:text="${candidato.ciudad}"></p></li>
+                    </ul>
+                </div>
             </section>
         </main>
     </body>

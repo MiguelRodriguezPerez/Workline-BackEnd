@@ -54,6 +54,23 @@ public class OfertaServiceImpl implements OfertaService{
     }
 
     @Override
+    public Oferta guardarCambios(Oferta oferta){
+        Oferta ofertaEdit = this.obtenerPorId(oferta.getId());
+
+        ofertaEdit.setPuesto(oferta.getPuesto());
+        ofertaEdit.setSector(oferta.getSector());
+        ofertaEdit.setModalidadTrabajo(oferta.getModalidadTrabajo());
+        ofertaEdit.setDescripcion(oferta.getDescripcion());
+        ofertaEdit.setSalarioAnual(oferta.getSalarioAnual());
+        ofertaEdit.setTipoContrato(oferta.getTipoContrato());
+        ofertaEdit.setHoras(oferta.getHoras());
+        ofertaEdit.setFechaPublicacion(oferta.getFechaPublicacion());
+        ofertaEdit.setCiudad(oferta.getCiudad());
+
+        return this.guardarOferta(ofertaEdit);        
+    }
+
+    @Override
     public void borrarOferta(Long id) {
         repo.deleteById(id);
     }
@@ -212,6 +229,10 @@ public class OfertaServiceImpl implements OfertaService{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'cambiarPropiedadOfertas'");
     }
-    
+
+    @Override
+    public void borrarCandidatosOferta(Long id) {
+        
+    }
     
 }

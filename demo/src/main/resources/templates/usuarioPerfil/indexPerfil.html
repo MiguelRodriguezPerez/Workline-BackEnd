@@ -64,8 +64,9 @@
                 </ul>    
             </div>
 
-            <p th:if="${usuarioLogueado.getRol() == Rol.BUSCA &&  #lists.isEmpty(listaConocimientos)}" class="sinEntidad">No tienes experiencias laborales
-                 registradas</p>
+            <p th:if="${#lists.isEmpty(usuarioLogueado.getListaExperiencias())}" class="sinEntidad">
+                No tienes experiencias laborales registradas
+            </p>
             <div class="contenedorDatos" th:unless="${#lists.isEmpty(usuarioLogueado.getListaExperiencias())}">
                 <div class="cabeceraEntidad">
                     <h2>Experiencia</h2>

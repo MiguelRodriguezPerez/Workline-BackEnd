@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.config.LeerCSV;
 import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.domain.ofertas.ModalidadTrabajo;
+import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.ofertas.TipoContrato;
+import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.services.ofertas.OfertaService;
 import com.example.demo.services.usuarios.BuscaService;
 
@@ -60,15 +62,21 @@ public class BuscarTrabajoController {
     }
 
     @GetMapping("/inscribirse/{ofertaId}")
-    public String showSuscribedOferta(@PathVariable Long ofertaId){
-        ofertaService.obtenerPorId(ofertaId).getListaCandidatos().add(buscaService.obtenerBuscaConectado());
-        buscaService.obtenerBuscaConectado().getListaOfertas().add(ofertaService.obtenerPorId(ofertaId));
+    public String showSuscribedOferta(@PathVariable Long ofertaId) {
+        Oferta oferta = ofertaService.obtenerPorId(ofertaId);
+        Busca busca = buscaService.obtenerBuscaConectado();
 
-        ofertaService.guardarOferta(ofertaService.obtenerPorId(ofertaId));
-        buscaService.guardarSinEncriptar(buscaService.obtenerBuscaConectado());
+        oferta.getListaCandidatos().add(busca);
+        busca.getListaOfertas().add(oferta);
+
+        ofertaService.guardarOferta(oferta);
+        buscaService.guardarSinEncriptar(busca);
+
+        System.out.println(oferta.getListaCandidatos());
 
         return "redirect:/ofertasDeTrabajo/verOferta/" + ofertaId;
     }
+
 
     @GetMapping("/desinscribirse/{ofertaId}")
     public String showDesuscribedOferta(@PathVariable Long ofertaId){

@@ -133,6 +133,11 @@ main > h1{
     font-size: 18px;
 }
 
+.sinEntidad{
+    text-align: center;
+    font-size: 20px;
+}
+
 @media screen and (max-width:1200px) {
     main{
         width: 88%;
