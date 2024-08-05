@@ -1,6 +1,6 @@
 import * as funciones from '/js/functionSnippets/validarUsuario.js';
 
-document.querySelectorAll('#formularioDatos input:not([hidden]):not([type="submit"])')[2].value = '';
+document.querySelectorAll('#formularioDatos input:not([hidden]):not([type="submit"])')[3].value = '';
 
 /*El primer indice estaba vacío y como no se puede modificar un NodeList, se pasa a array
 y se modifica*/
@@ -10,6 +10,8 @@ arrayInputs.splice(0,1);
 
 const arrayFallos = document.querySelectorAll('.mensajeError');
 const formulario = document.getElementById('formularioDatos');
+const rolSelect = document.querySelector('select');
+const validacionesArray = [];
 
 const valNombre = async () =>{
     if(!funciones.validarNombreUsuario(arrayInputs[0].value)){
@@ -28,6 +30,7 @@ const valNombre = async () =>{
     }
 }
 arrayInputs[0].addEventListener('input',valNombre);
+validacionesArray.push(valNombre);
 
 const valEmail = () =>{
     if(!funciones.validarLongitudEmail(arrayInputs[1].value)){
@@ -46,6 +49,7 @@ const valEmail = () =>{
     }
 }
 arrayInputs[1].addEventListener('input',valEmail);
+validacionesArray.push(valEmail);
 
 const valPassword = () =>{
     if(!funciones.validarPassword(arrayInputs[2].value)){
@@ -58,6 +62,7 @@ const valPassword = () =>{
     }
 }
 arrayInputs[2].addEventListener('input',valPassword);
+validacionesArray.push(valPassword);
 
 const valTelefono = () =>{
     if(!funciones.validarTelefono(arrayInputs[3].value)){
@@ -70,6 +75,7 @@ const valTelefono = () =>{
     }
 }
 arrayInputs[3].addEventListener('input',valTelefono);
+validacionesArray.push(valTelefono);
 
 const valCiudad = () =>{
     if(!funciones.validarCiudad(arrayInputs[4].value)){
@@ -82,10 +88,29 @@ const valCiudad = () =>{
     }
 }
 arrayInputs[4].addEventListener('input',valCiudad);
+validacionesArray.push(valCiudad);
+
+const valRol = () =>{
+    if(!funciones.validarRol(rolSelect.value)){
+        funciones.mostrarError(arrayFallos[7],rolSelect);
+        return false;
+    }
+    else{
+        funciones.limpiarError(arrayFallos[7],rolSelect);
+        return true;
+    }
+}
+rolSelect.addEventListener('change',valRol);
+validacionesArray.push(valRol);
 
 
 document.getElementById('editarUsuario').addEventListener('click', async (e) => {
     e.preventDefault();
-    const nombreValido = await valNombre(); // Garantiza que esta promesa se resuelva
-    if(nombreValido && valEmail() && valPassword() && valTelefono() && valCiudad()) formulario.submit();
+    let verificarSubmit = true;
+
+    for(const val of validacionesArray){
+        verificarSubmit = val();
+    }
+
+    if(verificarSubmit) formulario.submit();
 });

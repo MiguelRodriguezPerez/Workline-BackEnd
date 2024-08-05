@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workline | Nuevo Usuario</title>
     <link rel="stylesheet" href="/css/nuevoUsuarioEstilos/primeraVistaEstilo.css">
-    <script src="/js/nuevoUsuario/primeraVista.js" defer></script>
+    <script type="module" src="/js/usuarioPerfil/editarDatosPerfil.js" defer></script>
 </head>
 <body>
-    <div id="contenedorPadre">
+    <main>
         <h2>Crea tu cuenta en Workline</h2>
         <h3>¡Solo te llevará unos segundos!</h3>
-        <form action="" method="post" id="primerFormulario"
+        <form action="" method="post" id="formularioDatos"
             th:object="${nuevoUsuario}"
             th:action="@{/nuevoUsuario/procesarUsuario}">
             <div>
@@ -49,10 +49,10 @@
                 <p hidden class="mensajeError" id="err9">Selecciona una de las dos opciones</p>
             </div>
             <div>
-                <input type="submit" value="Crear cuenta" id="crearNuevoUsuario">
+                <input type="submit" value="Crear cuenta" id="editarUsuario">
             </div>
             
         </form>
-    </div>
+    </main>
 </body>
 </html>

@@ -98,49 +98,49 @@ public class OfertaServiceImpl implements OfertaService{
     @Override
     public List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta) {
         ArrayList<Oferta> listaResultado = new ArrayList<>(repo.findAll());
-        System.out.println(listaResultado);
-        System.out.println(busquedaOferta + "AAAAAAAAAAAAAAAAAAAAAAAA");
+        // System.out.println(listaResultado);
+        // System.out.println(busquedaOferta + "AAAAAAAAAAAAAAAAAAAAAAAA");
 
         listaResultado.removeIf(o -> 
         busquedaOferta.getPuestoB() != null
         && !busquedaOferta.getPuestoB().equals("")
         && !o.getPuesto().equals(busquedaOferta.getPuestoB()));
-        System.out.println(listaResultado + "primerFiltro");
-        System.out.println();
+        // System.out.println(listaResultado + "primerFiltro");
+        // System.out.println();
 
         listaResultado.removeIf(o -> 
         busquedaOferta.getSectorB() != null
         && !busquedaOferta.getSectorB().equals("placeholder")
         && !busquedaOferta.getSectorB().equals("")
         && !o.getSector().equals(busquedaOferta.getSectorB()));
-        System.out.println(listaResultado + "segundoFiltro");
-        System.out.println();
+        // System.out.println(listaResultado + "segundoFiltro");
+        // System.out.println();
 
         listaResultado.removeIf(o -> 
         !busquedaOferta.getTipoContratoB().isEmpty()
         && !o.getTipoContrato().toString().toUpperCase().equals(busquedaOferta.getTipoContratoB().toUpperCase()));//PELIGRO COMPARANDO ENUMS
-        System.out.println(listaResultado + "TercerFiltro");
-        System.out.println(busquedaOferta.getTipoContratoB().toString());
+        // System.out.println(listaResultado + "TercerFiltro");
+        // System.out.println(busquedaOferta.getTipoContratoB().toString());
 
         listaResultado.removeIf(o -> 
         !busquedaOferta.getCiudadB().isEmpty() 
         && !o.getCiudad().equals(busquedaOferta.getCiudadB()));
-        System.out.println(listaResultado + "cuartoFiltro");
-        System.out.println();
+        // System.out.println(listaResultado + "cuartoFiltro");
+        // System.out.println();
 
         if(busquedaOferta.getSalarioAnual() != null){
             listaResultado.removeIf(o -> 
             o.getSalarioAnual() < busquedaOferta.getSalarioAnual());
         }
        
-        System.out.println(listaResultado + "quintoFiltro");
-        System.out.println();
+        // System.out.println(listaResultado + "quintoFiltro");
+        // System.out.println();
 
         listaResultado.removeIf(o -> 
         !busquedaOferta.getModalidadB().isEmpty()
         && !o.getModalidadTrabajo().toString().equalsIgnoreCase(busquedaOferta.getModalidadB()));//PELIGRO COMPARANDO ENUMS
-        System.out.println(listaResultado + "sextoFiltro");
-        System.out.println();
+        // System.out.println(listaResultado + "sextoFiltro");
+        // System.out.println();
 
         //Comprobar si los estudios requeridos coinciden
         if(busquedaOferta.getRequisitos() != null){
@@ -148,8 +148,8 @@ public class OfertaServiceImpl implements OfertaService{
                 if(!coincidenEstudios(oferta, busquedaOferta))listaResultado.remove(oferta);
             }
         }
-        System.out.println(listaResultado + "septimoFiltro");
-        System.out.println();
+        // System.out.println(listaResultado + "septimoFiltro");
+        // System.out.println();
 
         Collections.sort(listaResultado,(f1,f2) -> f1.getFechaPublicacion().compareTo(f2.getFechaPublicacion()));
         

@@ -30,7 +30,7 @@ public class BuscarTrabajoController {
     @GetMapping("/{numPag}")
     public String getOfferJobsPageWithoutSearch(@PathVariable Integer numPag,Model model){
         model.addAttribute("busquedaOferta", new BusquedaOferta());
-        model.addAttribute("listaSectores", LeerCSV.procesarCSV("csv/listaSectores.csv"));
+        // model.addAttribute("listaSectores", LeerCSV.procesarCSV("csv/listaSectores.csv"));
         model.addAttribute("tiposContrato", TipoContrato.values());
         model.addAttribute("tiposModalidad", ModalidadTrabajo.values());
 
@@ -71,8 +71,6 @@ public class BuscarTrabajoController {
 
         ofertaService.guardarOferta(oferta);
         buscaService.guardarSinEncriptar(busca);
-
-        System.out.println(oferta.getListaCandidatos());
 
         return "redirect:/ofertasDeTrabajo/verOferta/" + ofertaId;
     }
