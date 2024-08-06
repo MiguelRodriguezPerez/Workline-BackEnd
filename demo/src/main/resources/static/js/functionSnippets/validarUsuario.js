@@ -13,6 +13,8 @@ export function validarNombreUsuario(nombre) {
 }
 
 export async function esNombreRepetido(nombre) {
+    console.log(nombre)
+    if(nombre === '') return false;
     const peticionNombreRepetido = await fetch('/nuevoUsuarioCreacion/esRepetido/' + nombre);
     const esNombreRepetido = await peticionNombreRepetido.json();
     console.log(esNombreRepetido);
@@ -38,4 +40,8 @@ export function validarTelefono(telefono) {
 
 export function validarCiudad(ciudad) {
     return (ciudad !== '');
+}
+
+export function validarRol(rol){
+    return (rol === 'ADMIN' || rol === 'CONTRATA' || rol === 'BUSCA')
 }

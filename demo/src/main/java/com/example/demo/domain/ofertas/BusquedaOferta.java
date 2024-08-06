@@ -31,6 +31,8 @@ public class BusquedaOferta {
     private Double salarioAnual;
     @Nullable
     private String modalidadB;
+    @Nullable
+    private Long numPag;
 
     public boolean estaVacio(){
         if(!puestoB.isEmpty()) return false;

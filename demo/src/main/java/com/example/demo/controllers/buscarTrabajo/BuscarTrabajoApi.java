@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.services.ofertas.OfertaService;
 
 @RestController
@@ -27,11 +28,10 @@ public class BuscarTrabajoApi {
         return new ResponseEntity<>(haySiguientePag, HttpStatus.OK);
     }
     
-    @PostMapping("/existeSiguientePaginaConCriterios")
-    public ResponseEntity<Boolean> isNextPage(@RequestBody Map<String,Object> busqueda){
-        System.out.println(busqueda);
-        return new ResponseEntity<>(true, HttpStatus.OK);
-        // boolean haySiguientePag = ofertaService.existeSiguientePagina(pag, null);
-        // return new ResponseEntity<>(haySiguientePag, HttpStatus.OK);
-    }
+    @PostMapping("/solicitudOfertas/existeSiguientePaginaConCriterios")
+    public ResponseEntity<Boolean> isNextPage(@RequestBody BusquedaOferta busqueda) {
+    System.out.println(busqueda + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    return new ResponseEntity<>(true, HttpStatus.OK);
+}
+
 }
