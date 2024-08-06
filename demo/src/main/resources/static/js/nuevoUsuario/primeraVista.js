@@ -2,12 +2,11 @@
 
 import * as funciones from '/js/functionSnippets/validarUsuario.js';
 
-document.querySelectorAll('#formularioDatos input:not([hidden]):not([type="submit"])')[3].value = '';
 
 /*El primer indice estaba vacío y como no se puede modificar un NodeList, se pasa a array
 y se modifica*/
 
-const arrayInputs = Array.from(document.querySelectorAll("#formularioDatos input[type='text']:not([hidden])"));
+const arrayInputs = Array.from(document.querySelectorAll("#primerFormulario input[type='text']:not([hidden])"));
 const arrayFallos = document.querySelectorAll('.mensajeError');
 const formulario = document.getElementById('formularioDatos');
 const rolSelect = document.querySelector('select');

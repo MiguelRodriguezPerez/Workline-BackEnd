@@ -56,12 +56,9 @@ async function existeSiguientePagConCriterios(busqueda){
     busqueda = JSON.stringify(busqueda);
     console.log(busqueda)
     
-    const respuesta = await fetch('/solicitudOfertas/existeSiguientePaginaConCriterios', {
+    const respuesta = await fetch('http://localhost:9001/solicitudOfertas/existeSiguientePaginaConCriterios', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(busqueda)
+        body: busqueda
     });
     
 

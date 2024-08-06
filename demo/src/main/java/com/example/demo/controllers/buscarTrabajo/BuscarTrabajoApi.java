@@ -28,10 +28,10 @@ public class BuscarTrabajoApi {
         return new ResponseEntity<>(haySiguientePag, HttpStatus.OK);
     }
     
-    @PostMapping("/solicitudOfertas/existeSiguientePaginaConCriterios")
+    @PostMapping("/existeSiguientePaginaConCriterios")
     public ResponseEntity<Boolean> isNextPage(@RequestBody BusquedaOferta busqueda) {
-    System.out.println(busqueda + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-    return new ResponseEntity<>(true, HttpStatus.OK);
-}
+        System.out.println(busqueda + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        return new ResponseEntity<>(true, HttpStatus.OK);
+    }
 
 }

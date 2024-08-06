@@ -15,7 +15,7 @@ export function validarNombreUsuario(nombre) {
 export async function esNombreRepetido(nombre) {
     console.log(nombre)
     if(nombre === '') return false;
-    const peticionNombreRepetido = await fetch('/nuevoUsuarioCreacion/esRepetido/' + nombre);
+    const peticionNombreRepetido = await fetch('http://localhost:9001/nuevoUsuarioCreacion/esRepetido/' + nombre);
     const esNombreRepetido = await peticionNombreRepetido.json();
     console.log(esNombreRepetido);
     return esNombreRepetido;

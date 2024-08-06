@@ -73,7 +73,7 @@ public class Oferta implements Comparable<Oferta>{
     @ManyToMany(mappedBy = "listaOfertas")
     @JsonBackReference
     @Nullable
-    private Set<Busca> listaCandidatos;
+    private List<Busca> listaCandidatos;
 
     public Oferta(@NotNull @Size(max = 30) String puesto, @NotNull String sector, @Size(max = 80) String descripcion,
             @NotNull String ciudad, Double salarioAnual, @NotNull TipoContrato tipoContrato, @NotNull Byte horas,

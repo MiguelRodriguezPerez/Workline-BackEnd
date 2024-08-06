@@ -44,7 +44,7 @@ public class BuscarTrabajoController {
         if(busquedaOferta.estaVacio()) return "redirect:/ofertasDeTrabajo/0";
         
         model.addAttribute("busquedaOferta", busquedaOferta);
-        model.addAttribute("listaSectores", LeerCSV.procesarCSV("/csv/listaSectores.csv"));
+        // model.addAttribute("listaSectores", LeerCSV.procesarCSV("/csv/listaSectores.csv"));
         model.addAttribute("tiposContrato", TipoContrato.values());
         model.addAttribute("tiposModalidad", ModalidadTrabajo.values());
 
