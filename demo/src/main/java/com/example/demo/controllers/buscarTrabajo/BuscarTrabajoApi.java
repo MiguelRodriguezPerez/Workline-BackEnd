@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.services.ofertas.OfertaService;
 
+//Esta es la api que debería gestionar la paginación con criterios
 @RestController
 @RequestMapping("/solicitudOfertas")
 public class BuscarTrabajoApi {
@@ -27,10 +28,13 @@ public class BuscarTrabajoApi {
         boolean haySiguientePag = ofertaService.existeSiguientePagina(pag, null);
         return new ResponseEntity<>(haySiguientePag, HttpStatus.OK);
     }
-    
+
+    //Este es el PostMapping que no funciona. Ver SecurityFilterChain
     @PostMapping("/existeSiguientePaginaConCriterios")
     public ResponseEntity<Boolean> isNextPage(@RequestBody BusquedaOferta busqueda) {
         System.out.println(busqueda + "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        //Si este postMapping funcionase deberías ver este print en la consola
+        /*NOTA: De la lógica de la búsqueda ya me encargo yo*/
         return new ResponseEntity<>(true, HttpStatus.OK);
     }
 

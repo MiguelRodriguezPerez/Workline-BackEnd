@@ -16,7 +16,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BusquedaOferta {
-    
+    //Este es el objeto que estoy intentando que reciba la api BuscarTrabajoApi
     @Nullable
     private String puestoB;
     @Nullable
