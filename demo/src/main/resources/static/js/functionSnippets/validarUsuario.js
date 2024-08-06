@@ -12,10 +12,16 @@ export function validarNombreUsuario(nombre) {
     return (nombre.length < 25 && nombre !== '');
 }
 
+/*Esta función se encarga de validar si un nombre de usuario ya esta cogido o no envíando una petición
+a una api del lado servidor que utiliza un método para averiguar si existe un usuario con dicho nombre*/
 export async function esNombreRepetido(nombre) {
     console.log(nombre)
     if(nombre === '') return false;
-    const peticionNombreRepetido = await fetch('http://localhost:9001/nuevoUsuarioCreacion/esRepetido/' + nombre);
+    /*Los nombres vacíos devuelven false para evitar que la api falle por recibir un valor nulo*/
+    const peticionNombreRepetido = await fetch('/nuevoUsuarioCreacion/esRepetido/' + nombre);
+    /*Supuestamente aquí debería ejecutarse la petición api y almacenarse su resultado en una variable
+    Además esta ruta esta configurada en el SecurityFilterChain para que admita peticiones de usuarios
+    sin loguearse*/
     const esNombreRepetido = await peticionNombreRepetido.json();
     console.log(esNombreRepetido);
     return esNombreRepetido;

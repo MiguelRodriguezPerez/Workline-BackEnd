@@ -53,7 +53,8 @@ async function existeSiguientePagConCriterios(busqueda){
     busqueda = JSON.stringify(busqueda);
     //Se convierte a JSON para enviarlo a la api
     console.log(busqueda);
-    //Este console.log demuestra que el json que envía coincide con el objeto busquedaOferta
+    //Este console.log demuestra que el json busqueda 
+    //que envía a la api coincide con el objeto busquedaOferta
     
 
     const respuesta = await fetch('http://localhost:9001/solicitudOfertas/existeSiguientePaginaConCriterios', {

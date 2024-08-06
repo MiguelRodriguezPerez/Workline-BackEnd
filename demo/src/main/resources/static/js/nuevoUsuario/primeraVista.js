@@ -2,25 +2,33 @@
 
 import * as funciones from '/js/functionSnippets/validarUsuario.js';
 
-
-/*El primer indice estaba vacío y como no se puede modificar un NodeList, se pasa a array
-y se modifica*/
-
 const arrayInputs = Array.from(document.querySelectorAll("#primerFormulario input[type='text']:not([hidden])"));
+//Este array representa todos los campos input visibles, menos el select
 const arrayFallos = document.querySelectorAll('.mensajeError');
+//Este array representa todos los mensajes de error ocultos que se muestran cuando fallan las validaciones
 const formulario = document.getElementById('formularioDatos');
 const rolSelect = document.querySelector('select');
 const validacionesArray = [];
 
 console.log(arrayInputs)
 
+/*Esta variable tiene una función anónima que válida el nombre de la siguiente manera*/
 const valNombre = async () =>{
+    //Esta arrow function es async porque funciones.esNombreRepetido() también es async
+    
+    //Primero ejecuta esta función importada que válida si el nombre esta vacío o tiene más de 25 carácteres
+    //Funciona perfectamente, no tocar
     if(!funciones.validarNombreUsuario(arrayInputs[0].value)){
         funciones.mostrarError(arrayFallos[0],arrayInputs[0]);
         return false;
     }
-    else if(await funciones.esNombreRepetido(arrayInputs[0].value) === true){
+    else{
         funciones.limpiarError(arrayFallos[0],arrayInputs[0]);
+    }
+    /*Aquí es donde falla la validación. Le llega como argumento 
+    el texto que se introduce en el input que esta debajo de 'Nombre de usuario'*/
+    if(await funciones.esNombreRepetido(arrayInputs[0].value) === true){
+        
         funciones.mostrarError(arrayFallos[1],arrayInputs[0]);
         return false;
     }
