@@ -20,7 +20,7 @@ const valTitulo = () =>{
         return true;
     }
 }
-inputsConocimiento[0].addEventListener('input',valTitulo);
+// inputsConocimiento[0].addEventListener('input',valTitulo);
 arrayValidaciones.push(valTitulo);
 
 const valCentro = () =>{
@@ -33,7 +33,7 @@ const valCentro = () =>{
         return true;
     }
 }
-inputsConocimiento[1].addEventListener('input',valCentro);
+// inputsConocimiento[1].addEventListener('input',valCentro);
 arrayValidaciones.push(valCentro);
 
 const valFecha = () =>{
@@ -46,7 +46,7 @@ const valFecha = () =>{
         return true;
     }
 }
-inputsConocimiento[2].addEventListener('input',valFecha);
+// inputsConocimiento[2].addEventListener('input',valFecha);
 arrayValidaciones.push(valFecha);
 
 const valFechaDos = () =>{
@@ -67,20 +67,21 @@ const valFechaDos = () =>{
         return true;
     }
 }
-inputsConocimiento[3].addEventListener('input',valFechaDos);
+// inputsConocimiento[3].addEventListener('input',valFechaDos);
 arrayValidaciones.push(valFechaDos);
 
-document.getElementById('subirConocimiento').addEventListener('click',()=>{
+document.getElementById('subirConocimiento').addEventListener('click',(e)=>{
+    e.preventDefault();
     let validacionesCorrectas = true;
 
     for(const val of arrayValidaciones){
         validacionesCorrectas = val();
     }
 
-    if(validacionesCorrectas){
+    if(validacionesCorrectas === true){
         inputsConocimiento[2].value = valEstudio.convertirFechaJava(inputsConocimiento[2].value);
         inputsConocimiento[3].value = valEstudio.convertirFechaJava(inputsConocimiento[3].value); 
 
         formularioConocimiento.submit();
     } 
-})
+});

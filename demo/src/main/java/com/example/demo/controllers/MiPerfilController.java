@@ -64,6 +64,7 @@ public class MiPerfilController {
     @PostMapping("/nuevoConocimiento/submit")
     public String submitNewConocimiento(Conocimiento conocimiento){
         conocimiento.setBusca(buscaService.obtenerBuscaConectado());
+        buscaService.guardarSinEncriptar(buscaService.obtenerBuscaConectado());
         conocimientoService.guardarConocimiento(conocimiento);
 
         return "redirect:/miPerfil/";

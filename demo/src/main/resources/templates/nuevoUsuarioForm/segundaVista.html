@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workline | Nueva Cuenta</title>
     <script type="module" src="/js/nuevoUsuario/segundaVistaConocimiento.js" defer></script>
-    <!-- <script type="module" src="/js/nuevoUsuario/segundaVistaExperiencia.js" defer></script> -->
+    <script type="module" src="/js/nuevoUsuario/segundaVistaExperiencia.js" defer></script>
     <link rel="stylesheet" href="/css/nuevoUsuarioEstilos/segundaVistaEstilo.css">
 </head>
 <body>
@@ -75,22 +75,22 @@
                 <input type="text" th:field="*{id}" hidden>
     
                 <label for="">Puesto</label>
-                <input type="text" th:field="*{puesto}" class="experienciaInput" maxlength="40">
-                <p id="puestoError" class="mensajeError" hidden>El puesto no puede tener más de 40 carácteres ni ser nulo</p>
+                <input type="text" th:field="*{puesto}" class="experienciaInput" maxlength="31">
+                <p class="falloExperiencia" hidden>El puesto no puede tener más de 30 carácteres ni ser nulo</p>
     
                 <label for="">Empresa</label>
-                <input type="text" th:field="*{empresa}" class="experienciaInput" maxlength="40">
-                <p id="empresaError" class="mensajeError" hidden>La empresa no puede tener más de 40 carácteres ni ser nulo</p>
+                <input type="text" th:field="*{empresa}" class="experienciaInput" maxlength="21">
+                <p class="falloExperiencia" hidden>La empresa no puede tener más de 20 carácteres ni ser nulo</p>
     
                 <label for="">Inicio experiencia</label>
-                <input type="date" th:field="*{inicioExperiencia}" class="experienciaInput" >
-                <p id="inicioExperienciaError" class="mensajeError" hidden>La fecha debe estar en formato dd/mm/yyyy y no puede ser nula</p>
+                <input type="text" th:field="*{inicioExperiencia}" class="experienciaInput" >
+                <p class="falloExperiencia" hidden>La fecha debe estar en formato dd/mm/yyyy y no puede ser nula</p>
                 
     
                 <label for="">Fin experiencia</label>
-                <input type="date" th:field="*{finExperiencia}" class="experienciaInput" >
-                <p id="finExperienciaError" class="mensajeError" hidden>La fecha debe estar en formato dd/mm/yyyy y no puede ser nula</p>
-                <p id="falloFechasExperiencia" class="mensajeError" hidden>La fecha de inicio no puede ser superior a la del fin</p>
+                <input type="text" th:field="*{finExperiencia}" class="experienciaInput" >
+                <p id="finfalloExperiencia" class="falloExperiencia" hidden>La fecha debe estar en formato dd/mm/yyyy y no puede ser nula</p>
+                <p id="falloFechasExperiencia" class="falloExperiencia" hidden>La fecha de inicio no puede ser superior a la del fin</p>
     
                 <input type="submit" value="Subir" id="subirExperiencia" class="subirEntidad">
             </form>

@@ -10,16 +10,19 @@ export function limpiarError(fallo,input){
     input.classList.remove('inputError');
 }
 
-export function validarTextoConocimiento(texto){
-    console.log(texto)
-    return (texto.length < 40 && texto !== '');
+export function validarPuesto(texto){
+    return (texto.length < 30 && texto !== '');
+}
+
+export function validarEmpresa(texto){
+    return (texto.length < 20 && texto !== '');
 }
 
 export function validarFecha(fecha){
     return (/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/.test(fecha) && fecha !== '');
 }
 
-function convertirFecha(fecha) {
+export function convertirFecha(fecha) {
     const [dia, mes, año] = fecha.split('/').map(Number);
     return new Date(año, mes - 1, dia); // Los meses en JavaScript van de 0 (enero) a 11 (diciembre)
 }
@@ -29,4 +32,9 @@ export function compararFechas(fecha1, fecha2) {
     const date2 = convertirFecha(fecha2);
 
     return (date1 < date2);
+}
+
+export function convertirFechaJava(fecha){
+    const [dia, mes, año] = fecha.split('/').map(Number);
+    return año + '-' + mes + '-' + dia;
 }

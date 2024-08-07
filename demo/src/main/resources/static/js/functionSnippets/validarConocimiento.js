@@ -30,10 +30,11 @@ export function convertirFecha(fecha) {
 export function convertirFechaJava(fecha){
     const [dia, mes, año] = fecha.split('/').map(Number);
     return año + '-' + mes + '-' + dia;
-
 }
 
 export function compararFechas(fecha1, fecha2) {
+    if(fecha1 === '' || fecha2 === '') return false;
+
     const date1 = convertirFecha(fecha1);
     const date2 = convertirFecha(fecha2);
 
