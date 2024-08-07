@@ -13,6 +13,11 @@ public class LoginController {
         return "sesion/error";
     }
 
+    @GetMapping("/error404")
+    public String show404(){
+        return "sesion/pagina404";
+    }
+
     @GetMapping("/signin")
     public String showLogin(){
         return "sesion/logInView";
