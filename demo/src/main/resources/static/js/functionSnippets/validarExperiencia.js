@@ -16,7 +16,17 @@ export function validarTextoConocimiento(texto){
 }
 
 export function validarFecha(fecha){
-    fecha = fecha.split("-").reverse().join("-");
-    console.log(fecha)
-    return(/^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-\d{4}$/.test(fecha) && fecha !== '');
+    return (/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/.test(fecha) && fecha !== '');
+}
+
+function convertirFecha(fecha) {
+    const [dia, mes, año] = fecha.split('/').map(Number);
+    return new Date(año, mes - 1, dia); // Los meses en JavaScript van de 0 (enero) a 11 (diciembre)
+}
+
+export function compararFechas(fecha1, fecha2) {
+    const date1 = convertirFecha(fecha1);
+    const date2 = convertirFecha(fecha2);
+
+    return (date1 < date2);
 }

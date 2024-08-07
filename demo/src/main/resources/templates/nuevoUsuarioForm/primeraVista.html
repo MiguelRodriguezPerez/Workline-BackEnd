@@ -9,7 +9,6 @@
 </head>
 <body>
     <main>
-    <main>
         <h2>Crea tu cuenta en Workline</h2>
         <h3>¡Solo te llevará unos segundos!</h3>
         <form action="" method="post" id="primerFormulario"
@@ -37,6 +36,7 @@
             <div>
                 <label for="">Ciudad en la que vives</label>
                 <input type="text" th:field="*{ciudad}">
+                <p hidden class="mensajeError" id="err8">La ciudad no puede quedar vacía</p>
   
                 <label for="">Teléfono</label>
                 <input type="text" th:field="*{telefono}" id="telefono" maxlength="9">
@@ -54,7 +54,6 @@
             </div>
             
         </form>
-    </main>
     </main>
 </body>
 </html>

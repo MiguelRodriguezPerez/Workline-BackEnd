@@ -1,5 +1,6 @@
 package com.example.demo.domain.usuarios;
 
+import java.util.List;
 import java.util.Set;
 
 import com.example.demo.domain.Conocimiento;
@@ -34,16 +35,16 @@ public class Busca extends Usuario{
     
     @OneToMany(fetch= FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "busca")
     @JsonManagedReference
-    private Set<Experiencia> listaExperiencias;//Cambiar por hashset???
+    private List<Experiencia> listaExperiencias;//Cambiar por hashset???
 
     @OneToMany(fetch= FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "busca")
     @JsonManagedReference
-    private Set<Conocimiento> listaConocimientos;
+    private List<Conocimiento> listaConocimientos;
 
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(name="busca_oferta",joinColumns = @JoinColumn(name="busca_id"),inverseJoinColumns = @JoinColumn(name="oferta_id"))
     @JsonManagedReference
-    private Set<Oferta> listaOfertas;
+    private List<Oferta> listaOfertas;
 
     /*Busca es la entidad propietaria porque cada vez que se añada
     un nuevo busca a la tabla que une las ofertas con los busca se actualizará*/

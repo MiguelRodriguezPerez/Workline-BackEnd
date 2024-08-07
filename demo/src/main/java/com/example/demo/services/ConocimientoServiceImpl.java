@@ -1,8 +1,8 @@
 package com.example.demo.services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +25,18 @@ public class ConocimientoServiceImpl implements ConocimientoService{
         return repo.save(c);
     }
 
+    public Conocimiento guardarConocimientoDemoApp(Busca busca,Conocimiento c) {
+        c.setBusca(busca);
+        busca.getListaConocimientos().add(c);
+
+        this.guardarConocimiento(c);
+        buscaService.guardarSinEncriptar(busca);
+        
+        return c;
+    }
+
     @Override
-    public void guardarListaConocimientos(Busca busca, Set<Conocimiento> conocimientos) {
+    public void guardarListaConocimientos(Busca busca, List<Conocimiento> conocimientos) {
 
         busca.setListaConocimientos(conocimientos);
         buscaService.guardarSinEncriptar(busca);
@@ -55,9 +65,9 @@ public class ConocimientoServiceImpl implements ConocimientoService{
     }
 
     @Override
-    public Set<Conocimiento> obtenerTodosSet() {
+    public List<Conocimiento> obtenerTodosSet() {
 
-        Set<Conocimiento> resultado = new HashSet<Conocimiento>();
+        ArrayList<Conocimiento> resultado = new ArrayList<Conocimiento>();
 
         for(Conocimiento con: obtenerTodos()){
             resultado.add(con);

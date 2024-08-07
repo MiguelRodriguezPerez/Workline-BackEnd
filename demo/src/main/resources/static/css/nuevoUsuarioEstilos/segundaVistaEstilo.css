@@ -70,13 +70,15 @@ body > section:first-child > h1:first-child{
     font-size: 20px;
 }
 
-.mensajeError{
-    color: red;
-    font-size: 15px;
+p.falloConocimiento,p.falloExperiencia{
+    margin-top: 0px;
+    color: rgb(244, 54, 54);
+    font-size: 18px;
+    padding-right: 10px;
 }
 
-.formularioContenedor .inputError{
-    border-bottom: solid 1px red ;
+.inputError{
+    border-bottom: solid 1px rgb(244, 54, 54) !important;
 }
 
 .formularioContenedor > table{

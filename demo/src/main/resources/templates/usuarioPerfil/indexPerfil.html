@@ -38,8 +38,9 @@
             </div>
         </section>
 
-        <section id="listasEntidades" th:if="${rolActual == BUSCA}">
-            <p th:if="${#lists.isEmpty(listaConocimientos)}" class="sinEntidad">No tienes estudios registrados</p>
+        <section id="listasEntidades" th:if="${rolActual.equals('BUSCA')}">
+            <p th:if="${#lists.isEmpty(usuarioLogueado.getListaConocimientos())}" class="sinEntidad">No tienes estudios registrados</p>
+
             <div class="contenedorDatos" th:unless="${#lists.isEmpty(usuarioLogueado.getListaConocimientos())}">
                 <div class="cabeceraEntidad">
                     <h2>Estudios</h2>

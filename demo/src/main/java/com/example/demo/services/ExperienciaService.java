@@ -11,7 +11,8 @@ import com.example.demo.domain.usuarios.Busca;
 @Service
 public interface ExperienciaService  {
     Experiencia guardarExperiencia(Experiencia ex);
-    void guardarListaExperiencias(Busca busca,Set<Experiencia> experiencias);
+    Experiencia guardarExperienciaDemoApp(Busca busca, Experiencia exp);
+    void guardarListaExperiencias(Busca busca,List<Experiencia> experiencias);
     Experiencia obtenerPorId(Long id);
     void borrarExperiencia(Long id);
     List<Experiencia> obtenerTodos();

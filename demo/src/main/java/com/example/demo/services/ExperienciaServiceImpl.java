@@ -25,8 +25,18 @@ public class ExperienciaServiceImpl implements ExperienciaService{
         return experienciaRepository.save(ex);
     }
 
+    public Experiencia guardarExperienciaDemoApp(Busca busca, Experiencia experiencia){
+        experiencia.setBusca(busca);
+        busca.getListaExperiencias().add(experiencia);
+
+        buscaService.guardarSinEncriptar(busca);
+        this.guardarExperiencia(experiencia);
+
+        return experiencia;
+    }
+
     @Override
-    public void guardarListaExperiencias(Busca busca, Set<Experiencia> experiencias) {
+    public void guardarListaExperiencias(Busca busca, List<Experiencia> experiencias) {
         
         busca.setListaExperiencias(experiencias);
         buscaService.guardarSinEncriptar(busca);

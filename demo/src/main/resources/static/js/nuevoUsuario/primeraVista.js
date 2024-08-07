@@ -4,13 +4,14 @@ import * as funciones from '/js/functionSnippets/validarUsuario.js';
 
 const arrayInputs = Array.from(document.querySelectorAll("#primerFormulario input[type='text']:not([hidden])"));
 //Este array representa todos los campos input visibles, menos el select
-const arrayFallos = document.querySelectorAll('.mensajeError');
+const arrayFallos = Array.from(document.querySelectorAll('.mensajeError'));
 //Este array representa todos los mensajes de error ocultos que se muestran cuando fallan las validaciones
-const formulario = document.getElementById('formularioDatos');
+const formulario = document.getElementById('primerFormulario');
 const rolSelect = document.querySelector('select');
 const validacionesArray = [];
 
 console.log(arrayInputs)
+console.log(arrayFallos)
 
 /*Esta variable tiene una función anónima que válida el nombre de la siguiente manera*/
 const valNombre = async () =>{
@@ -73,40 +74,42 @@ const valPassword = () =>{
 arrayInputs[2].addEventListener('input',valPassword);
 validacionesArray.push(valPassword);
 
-const valTelefono = () =>{
-    if(!funciones.validarTelefono(arrayInputs[3].value)){
-        funciones.mostrarError(arrayFallos[5],arrayInputs[3]);
+const valCiudad = () =>{
+    if(!funciones.validarCiudad(arrayInputs[3].value)){
+        funciones.mostrarError(arrayFallos[6],arrayInputs[3]);
         return false;
     }
     else{
-        funciones.limpiarError(arrayFallos[5],arrayInputs[3]);
+        funciones.limpiarError(arrayFallos[6],arrayInputs[3]);
         return true;
     }
 }
-arrayInputs[3].addEventListener('input',valTelefono);
+arrayInputs[3].addEventListener('input',valCiudad);
+validacionesArray.push(valCiudad);
+
+const valTelefono = () =>{
+    if(!funciones.validarTelefono(arrayInputs[4].value)){
+        funciones.mostrarError(arrayFallos[7],arrayInputs[4]);
+        return false;
+    }
+    else{
+        funciones.limpiarError(arrayFallos[7],arrayInputs[4]);
+        return true;
+    }
+}
+arrayInputs[4].addEventListener('input',valTelefono);
 validacionesArray.push(valTelefono);
 
-const valCiudad = () =>{
-    if(!funciones.validarCiudad(arrayInputs[4].value)){
-        funciones.mostrarError(arrayFallos[6],arrayInputs[4]);
-        return false;
-    }
-    else{
-        funciones.limpiarError(arrayFallos[6],arrayInputs[4]);
-        return true;
-    }
-}
-arrayInputs[4].addEventListener('input',valCiudad);
-validacionesArray.push(valCiudad);
+
 
 const valRol = () =>{
     if(rolSelect.value !== undefined){
         if(!funciones.validarRol(rolSelect.value)){
-            funciones.mostrarError(arrayFallos[7],rolSelect);
+            funciones.mostrarError(arrayFallos[8],rolSelect);
             return false;
         }
         else{
-            funciones.limpiarError(arrayFallos[7],rolSelect);
+            funciones.limpiarError(arrayFallos[8],rolSelect);
             return true;
         }
     }

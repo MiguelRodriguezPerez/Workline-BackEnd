@@ -44,5 +44,17 @@ public class Conocimiento {
     @JoinColumn(name = "busca_id")
     @JsonBackReference
     private Busca busca;
+
+    public Conocimiento(Long id, @NotNull @Size(max = 40, message = "Máximo 40 carácteres") String centroEducativo,
+            @NotNull @Size(max = 40, message = "Máximo 40 carácteres") String titulo, String f1, String f2) {
+        this.id = id;
+        this.centroEducativo = centroEducativo;
+        this.titulo = titulo;
+        this.busca = busca;
+
+        
+    }
+
+    
     
 }

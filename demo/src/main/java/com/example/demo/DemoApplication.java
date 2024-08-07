@@ -66,11 +66,13 @@ public class DemoApplication {
 			// buscaService.guardar(new Busca("gasolina","manuel@gmail.com","Cordoba","654344512","1234kasdddddddjfA#"));
 			// buscaService.guardar(new Busca("manuel","manuel@gmail.com","Cordoba","654344512","1234kasdddddddjfA#"));
 
-			// conocimientoService.guardarConocimiento(new Conocimiento(0l, "Liceo Alog", "barrendero", LocalDate.of(2006,10,11), LocalDate.of(2008, 11, 12), buscaService.obtenerTodos().get(0)));
-			// conocimientoService.guardarConocimiento(new Conocimiento(0l, "Barreiros Lopez", "Técnico en técnicos", LocalDate.of(2009,10,11), LocalDate.of(2011, 11, 12), buscaService.obtenerTodos().get(0)));
+			// conocimientoService.guardarConocimientoDemoApp(buscaService.obtenerTodos().get(0),new Conocimiento(0l, "Liceo Alog", "barrendero", LocalDate.of(2006,10,11), LocalDate.of(2008, 11, 12), buscaService.obtenerTodos().get(0)));
 
-			// experienciaService.guardarExperiencia(new Experiencia(0l, "Sumiller", "AirEuropa", LocalDate.of(2008, 10, 11), LocalDate.of(2010,10, 02),buscaService.obtenerTodos().get(0)));
-			// experienciaService.guardarExperiencia(new Experiencia(0l, "Zapatero", "Rebook", LocalDate.of(2014, 10, 11), LocalDate.of(2018,10, 02),buscaService.obtenerTodos().get(0)));
+			// conocimientoService.guardarConocimientoDemoApp(buscaService.obtenerTodos().get(0),new Conocimiento(0l, "Barreiros Lopez", "Técnico en técnicos", LocalDate.of(2009,10,11), LocalDate.of(2011, 11, 12), buscaService.obtenerTodos().get(0)));
+
+			// experienciaService.guardarExperienciaDemoApp(buscaService.obtenerTodos().get(0),new Experiencia(0l, "Sumiller", "AirEuropa", LocalDate.of(2008, 10, 11), LocalDate.of(2010,10, 02),buscaService.obtenerTodos().get(0)));
+			// experienciaService.guardarExperienciaDemoApp(buscaService.obtenerTodos().get(0),new Experiencia(0l, "Zapatero", "Rebook", LocalDate.of(2014, 10, 11), LocalDate.of(2018,10, 02),buscaService.obtenerTodos().get(0)));
+
 		};
 	}
 

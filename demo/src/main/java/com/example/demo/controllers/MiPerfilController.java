@@ -35,13 +35,8 @@ public class MiPerfilController {
     
     @GetMapping("/")
     public String showUserInfo(Model model){
-        model.addAttribute("usuarioLogueado",usuarioService.obtenerUsuarioConectado());
-
-        if(usuarioService.obtenerUsuarioConectado().getRol() == Rol.BUSCA){
-            Busca busca = (Busca) usuarioService.obtenerUsuarioConectado();
-            model.addAttribute("listaConocimientos", busca.getListaConocimientos());
-            model.addAttribute("listaExperiencias", busca.getListaExperiencias());
-        }
+        model.addAttribute("usuarioLogueado",buscaService.obtenerBuscaConectado());
+        System.out.println(usuarioService.obtenerUsuarioConectado());
 
         return "usuarioPerfil/indexPerfil";
     }
