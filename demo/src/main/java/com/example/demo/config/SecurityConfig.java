@@ -50,13 +50,10 @@ SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         .logoutSuccessUrl("/")
         .permitAll());
 
-    http.exceptionHandling(exceptions -> {
-        exceptions.accessDeniedPage("/sesion/error");
-        exceptions.defaultAuthenticationEntryPointFor(
-            (request, response, authException) -> response.sendRedirect("/sesion/error404"),
-            request -> !request.getRequestURI().startsWith("/api")
-        );
-    });
+        http.exceptionHandling(exceptions -> {
+            exceptions.accessDeniedPage("/sesion/error");
+            exceptions.authenticationEntryPoint((request, response, authException) -> response.sendRedirect("/sesion/error404"));
+        });
 
     return http.build();
 }
