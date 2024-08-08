@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/desplegableEncabezado.js" defer></script>
+    <link rel="stylesheet" href="/css/fragmentosEstilos/desplegableEncabezado.css">
     <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
     <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
     <link rel="stylesheet" href="/css/buscarTrabajoEstilos/indexBuscarTrabajoEstilo.css">
@@ -14,8 +16,8 @@
 <body>
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
 
-    <aside id="mySidenav" class="sidenav">
-        <a id="closebtn">&times;</a>
+    <aside id="desplegableOfertas">
+        <a id="cerrarBotonOfertas">&times;</a>
         <form action="#" method="get"
                 th:object="${busquedaOferta}"
                 th:action="@{/ofertasDeTrabajo/resultadosBusqueda/0}">
@@ -59,7 +61,7 @@
             </form>
         </aside>
     </aside>
-    <div id="buttonNav">Filtrar Ofertas</div>
+    <div id="botonDesplegableOfertas">Filtrar Ofertas</div>
     <section id="origenOfertas">
         <aside>
             <form action="#" method="get"

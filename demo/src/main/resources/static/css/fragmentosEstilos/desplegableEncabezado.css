@@ -1,0 +1,59 @@
+#barrasDesplegableMenu{
+    margin: auto 0px auto auto;
+}
+
+#desplegableMenu{
+    background-color: #333;
+    height: 100%;
+    width: 0%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    /*Si pones right 0 se abrirá y cerrará desde la derecha,
+    si pones left 0 se abrirá y cerrará desde la izquierda*/
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.8s;
+
+    padding:0px;
+}
+
+#cerrarDesplegableMenu{
+    margin: 10px 5px 10px 90%;
+}
+
+#contenedorPadreMenuDesplegable{
+    width: 80%;
+    margin: 20px auto;
+    /* border: solid 1px white; */
+}
+
+#contenedorPadreMenuDesplegable > *{
+    display: block;
+}
+
+#contenedorPadreMenuDesplegable > a{
+    width: 100%;
+
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    
+    padding-bottom: 10px;
+    border-bottom: solid 1px white;
+    margin-bottom: 10px;
+}
+
+/* Adaptación al resto del encabezado */
+
+#barrasDesplegableMenu{
+    display: none;
+}
+
+@media screen and (max-width:700px) {
+    
+    #barrasDesplegableMenu{
+        display: block;
+    }
+}

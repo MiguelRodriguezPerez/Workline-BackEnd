@@ -16,10 +16,23 @@
             Iniciar Sesión
         </a>
     </section>
-    <select name="" id="desplegable">
-        <option value="" data-icon="/images/encabezado/barras.png">Mi perfil</option>
-        <option value="">Inicio</option>
-        <option value="">Ofertas</option>
-        <option value="">Contratar</option>
-    </select>
+    <section id="menuTelefono">
+        <div>
+            <a th:href="@{/sesion/signin}">Iniciar Sesión</a>
+            <a th:href="@{/sesion/signin}" id="loginTelefono">
+                <img src="/images/fragmentos/pfp.png" alt="pfp.png">
+            </a>
+        </div>
+        <img src="/images/fragmentos/barras3.png" alt="cerrar.png" id="barrasDesplegableMenu">
+    </section>
+    
+    <aside id="desplegableMenu">
+        <img src="/images/fragmentos/cerrar.png" alt="cerrar.png" id="cerrarDesplegableMenu">
+        <div id="contenedorPadreMenuDesplegable">
+            <a th:href="@{/}">Inicio</a>
+            <a th:href="@{/ofertasDeTrabajo/0}">Ofertas</a>
+            <a th:href="@{/seccionContrata/pagina/0}">Contratar</a>
+        </div>
+    </aside>
+    
 </nav>

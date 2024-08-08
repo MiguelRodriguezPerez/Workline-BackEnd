@@ -1,4 +1,4 @@
-#mySidenav {
+#desplegableOfertas {
     height: 100%; 
     width: 0; 
     position: fixed; /* Stay in place */
@@ -12,7 +12,7 @@
   }
   
   /* Position and style the close button (top right corner) */
-#closebtn {
+#cerrarBotonOfertas {
     position: absolute;
     top: 0;
     right: 25px;
@@ -24,15 +24,15 @@
 
   /*Estilos formulario*/
 
-  #mySidenav{
+  #desplegableOfertas{
     background-color: rgb(155, 154, 154);
   }
 
-  #mySidenav form > *{
+  #desplegableOfertas form > *{
     margin-left: 30px;
   }
 
-  #mySidenav label{
+  #desplegableOfertas label{
     color: white;
     font-size: 23px;
 
@@ -40,13 +40,13 @@
     margin-top: 15px;
   }
 
-  #mySidenav form{
+  #desplegableOfertas form{
     display: grid;
     grid-template-columns: 100%;
     justify-content: center;
   }
 
-  #mySidenav form a{
+  #desplegableOfertas form a{
     justify-self: end;
     text-decoration: none;
     color:white;
@@ -58,7 +58,7 @@
   }
 
 
-  #mySidenav form input{
+  #desplegableOfertas form input{
     margin-bottom: 10px;
 
     width: 70%;
@@ -68,14 +68,14 @@
     border: 0px;
   }
 
-  #mySidenav form select{
+  #desplegableOfertas form select{
     width: 71%;
     height: 35px;
     border: 0px;
   }
 
   @media screen and (max-width:700px) {
-    #mySidenav form > *{
+    #desplegableOfertas form > *{
       margin-left: 35px;
     }
   }

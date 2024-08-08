@@ -1,19 +1,18 @@
 "use strict"
 
-function openNav() {
-    if(window.innerWidth > 700) document.getElementById("mySidenav").style.width = "300px";
-    else document.getElementById("mySidenav").style.width = "100%";
+function abrirDesplegableOfertas() {
+    document.getElementById("desplegableOfertas").style.width = "100%";
     
-  }
+}
   
-function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
+function cerrarDesplegableOfertas() {
+    document.getElementById("desplegableOfertas").style.width = "0";
 }
 
-document.getElementById('buttonNav').addEventListener('click',openNav);
+document.getElementById('botonDesplegableOfertas').addEventListener('click',abrirDesplegableOfertas);
 
-document.getElementById('closebtn').addEventListener('click',closeNav);
+document.getElementById('cerrarBotonOfertas').addEventListener('click',cerrarDesplegableOfertas);
 
-document.addEventListener('click',(e)=>{
-  if(e.layerX > 300) closeNav();
-})
+// document.addEventListener('click',(e)=>{
+//   if(e.layerX > 300) closeNav();
+// });
