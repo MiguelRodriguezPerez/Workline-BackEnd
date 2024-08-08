@@ -18,6 +18,11 @@ public class LoginController {
         return "sesion/pagina404";
     }
 
+    @GetMapping("/error500")
+    public String show500(){
+        return "sesion/pagina500";
+    }
+
     @GetMapping("/signin")
     public String showLogin(){
         return "sesion/logInView";

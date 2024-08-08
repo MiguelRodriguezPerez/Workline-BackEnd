@@ -34,6 +34,7 @@ public class BuscarTrabajoController {
         model.addAttribute("tiposContrato", TipoContrato.values());
         model.addAttribute("tiposModalidad", ModalidadTrabajo.values());
 
+        model.addAttribute("numOfertas", ofertaService.obtenerTodos().size());
         model.addAttribute("listaOfertas", ofertaService.obtenerPagina(numPag, null));
         
         return "buscarTrabajo/indexBuscarTrabajo";

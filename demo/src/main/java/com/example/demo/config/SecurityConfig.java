@@ -28,33 +28,33 @@ public class SecurityConfig {
     }
 
     @Bean
-SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-    http.headers(headersConfigurer -> headersConfigurer.frameOptions(frameOptions -> frameOptions.sameOrigin()));
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+        http.headers(headersConfigurer -> headersConfigurer.frameOptions(frameOptions -> frameOptions.sameOrigin()));
 
-    http.authorizeHttpRequests(auth -> auth
-        .requestMatchers("/ofertasDeTrabajo/inscribirse/**", "/ofertasDeTrabajo/desinscribirse/**").hasRole("BUSCA")
-        .requestMatchers("/seccionContrata/**").hasRole("CONTRATA")
-        .requestMatchers("/miPerfil/**").authenticated()
-        .requestMatchers("/", "/ofertasDeTrabajo/**", "/solicitudOfertas/**", "/nuevoUsuario/**", "/nuevoUsuarioCreacion/**", "/sesion/**").permitAll()
-        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-        .anyRequest().authenticated());
+        http.authorizeHttpRequests(auth -> auth
+            .requestMatchers("/ofertasDeTrabajo/inscribirse/**", "/ofertasDeTrabajo/desinscribirse/**").hasRole("BUSCA")
+            .requestMatchers("/seccionContrata/**").hasRole("CONTRATA")
+            .requestMatchers("/miPerfil/**").authenticated()
+            .requestMatchers("/", "/ofertasDeTrabajo/**", "/solicitudOfertas/**", "/nuevoUsuario/**", "/nuevoUsuarioCreacion/**", "/sesion/**").permitAll()
+            .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+            .anyRequest().authenticated());
 
-    http.formLogin(formLogin -> formLogin
-        .loginPage("/sesion/signin")
-        .loginProcessingUrl("/login")
-        .failureUrl("/sesion/signin?error=true")
-        .defaultSuccessUrl("/", false)
-        .permitAll());
+        http.formLogin(formLogin -> formLogin
+            .loginPage("/sesion/signin")
+            .loginProcessingUrl("/login")
+            .failureUrl("/sesion/signin?error=true")
+            .defaultSuccessUrl("/", false)
+            .permitAll());
 
-    http.logout(logout -> logout
-        .logoutSuccessUrl("/")
-        .permitAll());
+        http.logout(logout -> logout
+            .logoutSuccessUrl("/")
+            .permitAll());
 
         http.exceptionHandling(exceptions -> {
             exceptions.accessDeniedPage("/sesion/error");
             exceptions.authenticationEntryPoint((request, response, authException) -> response.sendRedirect("/sesion/error404"));
         });
 
-    return http.build();
-}
+        return http.build();
+    }
 }

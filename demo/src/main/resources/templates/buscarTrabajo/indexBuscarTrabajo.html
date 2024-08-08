@@ -104,7 +104,7 @@
             </form>
         </aside>
         <div>
-            <h2>Número Ofertas</h2>
+            <h2 th:text="${numOfertas} + ' ofertas disponibles'"></h2>
             <section id="listaOfertas">
                 <div class="oferta" th:if="${listaOfertas != null}"
                 th:each="oferta:${listaOfertas}" th:id="${oferta.id}">

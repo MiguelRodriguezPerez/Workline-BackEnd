@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.domain.NuevoUsuario;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.usuarios.Contrata;
+import com.example.demo.exceptions.PagContrataIncorrectaException;
 import com.example.demo.repositories.ContrataRepository;
 
 @Service
@@ -95,8 +96,13 @@ public class ContrataServiceImpl implements ContrataService{
 
     @Override
     public List<Oferta> obtenerPaginaOfertasPublicadas(Integer paginaElecta) {
+        if(paginaElecta < 0 || paginaElecta > this.obtenerNumeroPaginasOfertasPublicadas()){
+            throw new PagContrataIncorrectaException();
+        }
+
         Pageable paginable = PageRequest.of(paginaElecta,ofertasPorPagina);
         List<Oferta> listaOfertas = obtenerContrataConectado().getListaOfertas();
+
         int inicio = (int) paginable.getOffset();
         int fin = Math.min(inicio + paginable.getPageSize(),listaOfertas.size());
 

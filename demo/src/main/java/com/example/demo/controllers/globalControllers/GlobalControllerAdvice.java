@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package com.example.demo.controllers.globalControllers;
 
 import java.util.Collection;
 import java.util.stream.Collectors;

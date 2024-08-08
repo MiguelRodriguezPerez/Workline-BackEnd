@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.usuarios.Contrata;
+import com.example.demo.exceptions.PagOfertasPublicadasIncorrecta;
 import com.example.demo.repositories.OfertaRepository;
 import com.example.demo.services.usuarios.ContrataService;
 
@@ -160,9 +161,11 @@ public class OfertaServiceImpl implements OfertaService{
 
     @Override
     public List<Oferta> obtenerPagina(Integer numeroPag, BusquedaOferta busquedaOferta) {
+        if(numeroPag < 0  ||
+         numeroPag > this.obtenerNumeroPaginas(busquedaOferta)) throw new PagOfertasPublicadasIncorrecta();
+        
         Pageable paginable = PageRequest.of(numeroPag,ofertasPorPagina);
         
-
         if(busquedaOferta == null){
             Page<Oferta> resultado = repo.findAll(paginable);
             return resultado.getContent();
@@ -178,7 +181,6 @@ public class OfertaServiceImpl implements OfertaService{
 
             // if(resultado.hasContent()) 
             return resultado.getContent();
-
         }
     }
 
