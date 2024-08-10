@@ -4,7 +4,7 @@ body{
 }
 
 main{
-    width: 65%;
+    width: 70%;
     margin: 40px auto;
 }
 
@@ -28,68 +28,108 @@ main > a:last-of-type{
     border: 0px;
 }
 
-
-main #oferta{
+.nube{
     background-color: white;
-    margin: 15px auto;
+    padding: 3.2%;
     border-radius: 8px;
+}
 
+#contenidoOferta{
+    margin: 1% 0%;
+
+    display: grid;
+    grid-template-columns: 63% 33%;
+    gap: 4%;
+}
+
+#contenidoOferta > #infoOferta{
+    grid-row: 1/3;
     display: grid;
     grid-template-columns: 50% 50%;
 }
 
-main #oferta > div{
-    padding: 15px 25px 0px;
-}
-
-main #oferta > div > label, main #oferta > div > input,
-main #oferta > div > textarea{
-    display: block;
-} 
-
-#oferta label{
-    margin-bottom: 5px;
+#infoOferta label{
     font-size: 23px;
-    width: 60%;
 }
 
-#oferta textarea{
-    width: 70%;
-    height: 90px;
-    border: solid 1px black;
-    resize: none;
-    font-size: 15px;
-    margin-bottom: 30px
-}
-
-main #oferta p{
+#infoOferta p{
     font-size: 20px;
-    border: 0px;
+    margin-top: 5px;
     border-bottom: solid 1px black;
-    margin: 10px 0px 20px;
-    color: black;
-    width: 40%;
+    width: 50%;
 }
 
-#oferta input#subirCambios{
-    display: none;
-    width: 35%;
+.listaReq{
+    margin-bottom: 10px;
+}
 
-    background-color: green;
-    color: white !important;
+.listaReq h3{
+    margin: 1% 0px;
+    text-align: center;
+    font-weight: normal;
+    font-size: 23px;
+}
 
-    padding:10px 15px;
-    margin:20px 0px 0px;
+.listaReq ul{
+    padding-left: 20px;
+    margin-top: 15px;
+    margin-left: 17px;
+    margin-bottom: 0px;
+
+    font-size: 20px;
+}
+
+.listaReq li{
+    list-style: url("/images/linea.png");
+}
+
+.listaReq > p{
+    margin: 5% 2%;
+    font-size: 20px;
+    text-align: center;
+}
+
+.listaReq > ul > li > p{
+    margin: 1.5%;
+    font-size: 23px;
+}
+
+#descripcion{
+    grid-column: 1/3;
+    padding: 1.7% 2.5%;
+}
+
+#descripcion > *{
+    display: block;
+}
+
+#descripcion h3{
+    margin: 0% 0% 2%;
+
+    font-weight: normal;
+    font-size: 25px;
+}
+
+#descripcion textarea{
+    width: 100%;
     border: 0px;
-    cursor: pointer;
+
+    font-size: 18px;
 }
+
 
 #candidatos{
     display: grid;
-    grid-template-columns: 50% 50%;
-
+    grid-template-columns: 32% 32% 32%;
+    gap: 2.7%;
     margin: 30px auto;
     justify-items: center;
+}
+
+#candidatos > h2{
+    grid-column: 1/4;
+    font-weight: normal;
+    font-size: 25px;
 }
 
 #candidatos > div{
@@ -99,15 +139,6 @@ main #oferta p{
 
     padding: 10px 0px;
 }
-
-#candidatos > div:nth-child(odd){
-    justify-self: start;
-}
-
-#candidatos > div:nth-child(even){
-    justify-self: end;
-}
-
 
 #candidatos h3{
     border-bottom: solid 1px black;
@@ -126,8 +157,10 @@ main #oferta p{
     padding-left: 20px;
     margin-top: 0px;
     margin-left: 17px;
+    margin-right: 15px;
 
     font-size: 20px;
+    word-wrap: break-word;
 }
 
 
@@ -148,6 +181,22 @@ p.mensajeError{
 }
 
 @media screen and (max-width:1200px) {
+    #contenidoOferta #infoOferta{
+        grid-row: 1/1;
+        grid-column: 1/3;
+    }
+
+    #contenidoOferta > section:nth-child(2){
+        grid-column: 1/3;
+        display: grid;
+        grid-template-columns: 48% 48%;
+        gap:4%;
+    }
+
+    #descripcion{
+        margin-bottom: 3%;
+    }
+
     main{
         width: 90%;
     }
@@ -170,7 +219,22 @@ p.mensajeError{
         grid-template-columns: 100%;
     }
 
+    #contenidoOferta label{
+        font-size: 21px;
+    }
+
     #descripcion{
         margin-bottom: 80px;
     }
+
+    #candidatos{
+        grid-template-columns: 100%;
+    }
+
+    #candidatos h2{
+        grid-column: 1/1;
+        margin-top: -3.5%;
+    }
+
+    
 }

@@ -16,35 +16,64 @@
         <main>
             <a th:href="@{/seccionContrata/pagina/{numPag}(numPag=${numPag})}">Volver atrás</a>
             <a th:href="@{/seccionContrata/pagina/{numPag}/oferta/editarOferta/{ofertaId}(numPag=${numPag},ofertaId=${ofertaId})}" id="editar">Editar Oferta</a>
-            <section id="oferta" class="nube">
-                <div>
-                    <label>Puesto</label>
-                    <p th:text="${oferta.puesto}" id="puesto"></p>
-                    
-                    <label>Sector</label>
-                    <p th:text="${oferta.sector}" id="sector"></p>
-                    
-                    <label >Modalidad de Trabajo</label>
-                    <p th:text="${oferta.modalidadTrabajo}"></p>
+            <section id="contenidoOferta">
+                <section id="infoOferta" class="nube">
+                    <div>
+                        <label>Puesto</label>
+                        <p th:text="${oferta.puesto}" id="puesto"></p>
+                        
+                        <label>Sector</label>
+                        <p th:text="${oferta.sector}" id="sector"></p>
+                        
+                        <label >Modalidad de Trabajo</label>
+                        <p th:text="${oferta.modalidadTrabajo}"></p>
 
-                    <label>Descripción</label>
+                        <label>Ciudad</label>
+                        <p th:text="${oferta.ciudad}"></p>                        
+                    </div>
+                    <div>
+                        <label>Salario Anual</label>
+                        <p th:text="${oferta.salarioAnual}"></p>
+                        
+                        <label>Tipo de Contrato</label>
+                        <p th:text="${oferta.tipoContrato}"></p>
+    
+                        <label>Horas</label>
+                        <p th:text="${oferta.horas}"></p>
+                    </div>
+                </section>
+                <section>
+                    <div class="listaReq nube">
+                        <h3>Requisitos de la oferta</h3>
+                        <p th:if="${#lists.isEmpty(oferta.getListaRequisitos())}">No tiene requisitos registrados</p>
+                        <ul th:unless="${#lists.isEmpty(oferta.getListaRequisitos())}">
+                            <li th:each="req:${oferta.getListaRequisitos()}">
+                                <p th:text="${req}"></p>
+                            </li>
+                        </ul>
+                    </div>    
+    
+                    <div class="listaReq nube">
+                        <h3>Se valorará en la oferta</h3>
+                        <p th:if="${#lists.isEmpty(oferta.getListaValorables())}">No tiene preferencias registradas</p>
+                        <ul th:unless="${#lists.isEmpty(oferta.getListaValorables())}">
+                            <li th:each="val:${oferta.getListaValorables()}">
+                                <p th:text="${val}"></p>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                
+
+                <section id="descripcion" class="nube">
+                    <h3>Descripción</h3>
                     <textarea  th:text="${oferta.descripcion}"></textarea>
-                </div>
-                <div>
-                    <label>Salario Anual</label>
-                    <p th:text="${oferta.salarioAnual}"></p>
-                    
-                    <label>Tipo de Contrato</label>
-                    <p th:text="${oferta.tipoContrato}"></p>
-
-                    <label>Horas</label>
-                    <p th:text="${oferta.horas}"></p>
-
-                    <label>Ciudad</label>
-                    <p th:text="${oferta.ciudad}"></p>
-                </div>
+                </section>
             </section>
+           
             <section th:unless="${#lists.isEmpty(oferta.getListaCandidatos())}" id="candidatos">
+                <h2>Se han inscrito en esta oferta</h2>
                 <div th:each="candidato:${listaCandidatos}" class="nube">
                     <h3 th:text="${candidato.nombre}"></h3>
                     <ul>

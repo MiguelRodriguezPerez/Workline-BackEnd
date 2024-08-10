@@ -39,7 +39,7 @@ public class OfertaServiceImpl implements OfertaService{
     @Override
     public Oferta guardarOfertaFromContrata(Oferta oferta){
         Contrata contrataConectado = contrataService.obtenerContrataConectado();
-        oferta.setRequisitos(null);
+        oferta.setListaRequisitos(null);
         oferta.setNombreEmpresa(contrataConectado.getNombre());
         oferta.setContrata(contrataConectado);
 
@@ -90,7 +90,7 @@ public class OfertaServiceImpl implements OfertaService{
 
     @Override
     public boolean coincidenEstudios(Oferta oferta, BusquedaOferta busquedaOferta) {
-       for(String requisito: oferta.getRequisitos()){
+       for(String requisito: oferta.getListaRequisitos()){
             if(!busquedaOferta.getRequisitos().contains(requisito)) return false;
        }
        return true;
