@@ -55,7 +55,7 @@ h2{
     cursor: pointer;
 }
 
-.oferta .cabeceraOferta{
+.oferta > .cabeceraOferta{
     display: grid;
     grid-template-columns: 72% 14% 14%;
     align-items: center;
@@ -83,17 +83,43 @@ h2{
     grid-template-columns: 50% 50%;
 }
 
-.oferta li{
-    list-style: url("/images/linea.png");
-}
 
 .oferta ul{
     padding-left: 20px;
     margin-top: 0px;
     margin-left: 17px;
+    margin-bottom: 0px;
 
     font-size: 20px;
 }
+
+.oferta li{
+    list-style: url("/images/linea.png");
+}
+
+.oferta > section:nth-child(3) > div{
+    grid-column: 1/3;
+    padding: 2% 3%;
+    margin: -5% 4% 3%;
+    width: 15%;
+    margin-left: auto;
+    background-color: green;
+    border-radius: 40px;
+
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-content: end;
+    align-items: start;
+}
+
+
+.oferta > section:nth-child(3) p{
+    margin: 0px;
+    font-size: 23px;
+    text-align: center;
+    color: white;
+}
+
 
 #botonesPaginas{
     display: grid;

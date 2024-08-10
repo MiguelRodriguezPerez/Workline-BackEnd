@@ -51,8 +51,11 @@ public class Oferta implements Comparable<Oferta>{
     @NotNull
     private String ciudad;
 
-    @Size(max = 10)
+    @Size
     private List<String> requisitos;
+
+    @Size
+    private List<String> valorables;
 
     @Nullable
     private Double salarioAnual;

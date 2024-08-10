@@ -42,6 +42,12 @@
                     <li><p th:text="${oferta.parsearFecha()}"></p></li>
                 </ul>
             </section>
+            <section>
+                <div>
+                    <img src="/images/contratar/candidato.png" alt="candidato.png"><p th:text="${oferta.getListaCandidatos().size()}"></p>
+                </div>     
+                <span></span>
+            </section>
         </div>
     </div>
     <section id="botonesPaginas">
