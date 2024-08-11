@@ -42,14 +42,24 @@ public class BuscarTrabajoController {
 
     @GetMapping("/resultadosBusqueda/{numPag}")
     public String showResults(BusquedaOferta busquedaOferta, @PathVariable Integer numPag, Model model){
+        Integer totalPaginas = ofertaService.obtenerNumeroPaginas(busquedaOferta);
+
         if(busquedaOferta.estaVacio()) return "redirect:/ofertasDeTrabajo/0";
+        if(numPag >= totalPaginas){
+            model.addAttribute("listaOfertas", ofertaService.obtenerPagina(totalPaginas - 1, busquedaOferta));
+        }
+        else{
+            model.addAttribute("listaOfertas", ofertaService.obtenerPagina(numPag, busquedaOferta));
+        }
+
+        model.addAttribute("numOfertas", ofertaService.obtenerResultados(busquedaOferta).size());
         
         model.addAttribute("busquedaOferta", busquedaOferta);
         // model.addAttribute("listaSectores", LeerCSV.procesarCSV("/csv/listaSectores.csv"));
         model.addAttribute("tiposContrato", TipoContrato.values());
         model.addAttribute("tiposModalidad", ModalidadTrabajo.values());
 
-        model.addAttribute("listaOfertas", ofertaService.obtenerPagina(numPag, busquedaOferta));
+        
         
         return "buscarTrabajo/indexBuscarTrabajo";
     }

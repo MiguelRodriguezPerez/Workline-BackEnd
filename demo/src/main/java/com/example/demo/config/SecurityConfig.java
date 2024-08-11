@@ -52,7 +52,6 @@ public class SecurityConfig {
 
         http.exceptionHandling(exceptions -> {
             exceptions.accessDeniedPage("/sesion/error");
-            exceptions.authenticationEntryPoint((request, response, authException) -> response.sendRedirect("/sesion/error404"));
         });
 
         return http.build();
