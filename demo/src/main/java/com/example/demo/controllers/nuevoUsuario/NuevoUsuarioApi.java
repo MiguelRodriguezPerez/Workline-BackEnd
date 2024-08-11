@@ -20,9 +20,8 @@ public class NuevoUsuarioApi {
     //Este es el mapeado con el que debería enlazar validarUsuario.js
     @GetMapping("/esRepetido/{nombre}")
     public ResponseEntity<Boolean> isUsernameRepeated(@PathVariable String nombre){
-        boolean esRepetido = usuarioService.esNombreRepetido(nombre);
-        //Este método comprueba si el nombre es repetido o no
-        return new ResponseEntity<>(esRepetido,HttpStatus.OK);
-        //Devuelve el resultado
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(usuarioService.esNombreRepetido(nombre));
     }
 }

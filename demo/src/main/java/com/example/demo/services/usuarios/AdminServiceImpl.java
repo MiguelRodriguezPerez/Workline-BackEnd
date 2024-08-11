@@ -3,6 +3,7 @@ package com.example.demo.services.usuarios;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -71,6 +72,7 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public Admin obtenerAdminConectado() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth instanceof AnonymousAuthenticationToken) return null;
         Admin admin = obtenerPorNombre(auth.getName());
         return admin;
     }
