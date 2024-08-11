@@ -5,7 +5,6 @@ for(const oferta of document.getElementsByClassName('oferta')){
 }
 
 function redirigir(){
-    const url = window.location.toString();
-    const numPag = parseInt(url.substring(url.length - 1, url.length));
+    const numPag = parseInt(document.getElementById('numPag').textContent);
     window.location.href='/seccionContrata/pagina/' + numPag + '/detallesOferta/' + this.id;
 }
