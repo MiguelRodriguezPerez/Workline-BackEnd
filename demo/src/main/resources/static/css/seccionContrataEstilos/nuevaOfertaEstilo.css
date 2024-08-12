@@ -29,23 +29,35 @@ main > button:first-of-type{
 }
 
 
-main form{
+.nube{
     background-color: white;
     margin: 15px auto;
     border-radius: 8px;
+    padding: 2% 3%;
+}
 
+#primeraSeccion{
     display: grid;
     grid-template-columns: 50% 50%;
+}
+
+#primeraSeccion > div > *{
+    display: block;
 }
 
 main form > div{
     padding: 15px 25px 0px;
 }
 
-main form > div > label, main form > div > input,
-main form > div > textarea{
-    display: block;
-} 
+#segundaSeccion{
+    display: grid;
+    grid-template-columns: 100%;
+}
+
+#segundaSeccion textarea{
+    border: 0px;
+    border-bottom: solid 1px black;
+}
 
 main form label{
     margin-bottom: 5px;
@@ -88,8 +100,6 @@ form input#subirCambios{
     border: 0px;
     cursor: pointer;
 }
-
-
 
 p.mensajeError{
     margin-top: 0px;

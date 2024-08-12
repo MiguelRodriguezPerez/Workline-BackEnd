@@ -1,5 +1,7 @@
 package com.example.demo.services.usuarios;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,13 +110,15 @@ public class BuscaServiceImpl implements BuscaService{
 
     @Override
     public void borrarCandidatosOferta(Oferta oferta) {
-        for(Busca b: oferta.getListaCandidatos()){
-            b.getListaOfertas().remove(oferta);
-            this.guardarSinEncriptar(b);
-            oferta.getListaCandidatos().remove(b);
-            ofertaService.guardarOferta(oferta);
-        }
+    ArrayList<Busca> listaCandidatos = new ArrayList<>(oferta.getListaCandidatos());
+    for (Busca b : listaCandidatos) {
+        b.getListaOfertas().remove(oferta);
+        this.guardarSinEncriptar(b);
+
+        oferta.getListaCandidatos().remove(b); 
+        ofertaService.guardarOferta(oferta);
     }
+}
     
 
 }

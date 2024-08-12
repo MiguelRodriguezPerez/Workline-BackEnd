@@ -96,9 +96,9 @@ public class ContrataServiceImpl implements ContrataService{
 
     @Override
     public List<Oferta> obtenerPaginaOfertasPublicadas(Integer paginaElecta) {
-        if(paginaElecta < 0 || paginaElecta > this.obtenerNumeroPaginasOfertasPublicadas()){
-            throw new PagContrataIncorrectaException();
-        }
+        // if(paginaElecta < 0 || paginaElecta > this.obtenerNumeroPaginasOfertasPublicadas()){
+        //     throw new PagContrataIncorrectaException();
+        // }
 
         Pageable paginable = PageRequest.of(paginaElecta,ofertasPorPagina);
         List<Oferta> listaOfertas = obtenerContrataConectado().getListaOfertas();
@@ -113,7 +113,7 @@ public class ContrataServiceImpl implements ContrataService{
 
     @Override
     public int existeSiguientePagina(Integer paginaElecta) {
-        if(paginaElecta < obtenerNumeroPaginasOfertasPublicadas() + 1){
+        if(paginaElecta < obtenerNumeroPaginasOfertasPublicadas() + 2){
             paginaElecta++;
             return paginaElecta;
         }

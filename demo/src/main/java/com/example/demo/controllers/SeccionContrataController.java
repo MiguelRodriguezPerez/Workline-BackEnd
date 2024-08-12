@@ -61,12 +61,6 @@ public class SeccionContrataController {
         return "contrataSeccion/detallesOferta";
     }
 
-    @PostMapping("/pagina/{numPag}/detallesOferta/{ofertaId}/editarOferta")
-    public String updateOferta(@PathVariable Long numPag, @PathVariable Long ofertaId, Oferta oferta){
-        ofertaService.guardarOfertaFromContrata(oferta);
-
-        return "redirect:/seccionContrata/pagina/" + numPag + "/detallesOferta/" + ofertaId;
-    }
 
     @GetMapping("/pagina/{numPag}/nuevaOferta")
     public String showCreateNewOfferPage(@PathVariable Long numPag, Model model){
@@ -77,6 +71,13 @@ public class SeccionContrataController {
         model.addAttribute("modalidadesTrabajo", ModalidadTrabajo.values());
 
         return "contrataSeccion/nuevaOferta";
+    }
+
+    @PostMapping("/pagina/{numPag}/detallesOferta/{ofertaId}/guardarOferta")
+    public String updateOferta(@PathVariable Long numPag, @PathVariable Long ofertaId, Oferta oferta){
+        ofertaService.guardarOfertaFromContrata(oferta);
+
+        return "redirect:/seccionContrata/pagina/" + numPag + "/detallesOferta/" + ofertaId;
     }
 
     @GetMapping("/pagina/{numPag}/oferta/editarOferta/{ofertaId}")

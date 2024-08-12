@@ -42,29 +42,6 @@
                         <p th:text="${oferta.horas}"></p>
                     </div>
                 </section>
-                <section>
-                    <div class="listaReq nube">
-                        <h3>Requisitos de la oferta</h3>
-                        <p th:if="${#lists.isEmpty(oferta.getListaRequisitos())}">No tiene requisitos registrados</p>
-                        <ul th:unless="${#lists.isEmpty(oferta.getListaRequisitos())}">
-                            <li th:each="req:${oferta.getListaRequisitos()}">
-                                <p th:text="${req}"></p>
-                            </li>
-                        </ul>
-                    </div>    
-    
-                    <div class="listaReq nube">
-                        <h3>Se valorará en la oferta</h3>
-                        <p th:if="${#lists.isEmpty(oferta.getListaValorables())}">No tiene preferencias registradas</p>
-                        <ul th:unless="${#lists.isEmpty(oferta.getListaValorables())}">
-                            <li th:each="val:${oferta.getListaValorables()}">
-                                <p th:text="${val}"></p>
-                            </li>
-                        </ul>
-                    </div>
-                </section>
-
-                
 
                 <section id="descripcion" class="nube">
                     <h3>Descripción</h3>
