@@ -110,7 +110,6 @@ public class SeccionContrataController {
         contrata.getListaOfertas().remove(oferta);
         contrataService.guardarSinEncriptar(contrata);
 
-        ofertaService.guardarOferta(oferta);
         ofertaService.borrarOferta(ofertaId);
 
         return "redirect:/seccionContrata/pagina/" + numPag;

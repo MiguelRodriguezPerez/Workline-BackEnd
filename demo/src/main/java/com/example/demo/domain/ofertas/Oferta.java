@@ -42,6 +42,7 @@ public class Oferta implements Comparable<Oferta>{
     private String puesto;
 
     @NotNull
+    @Size(max = 25)
     private String sector;
 
     @Nullable

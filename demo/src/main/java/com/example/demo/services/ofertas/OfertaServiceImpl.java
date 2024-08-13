@@ -50,6 +50,7 @@ public class OfertaServiceImpl implements OfertaService{
 
         this.guardarOferta(oferta);
         contrataConectado.getListaOfertas().add(oferta);
+        contrataService.guardarSinEncriptar(contrataConectado);
 
         return oferta;
     }

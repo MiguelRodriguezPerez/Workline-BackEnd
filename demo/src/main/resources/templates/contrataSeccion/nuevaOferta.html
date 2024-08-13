@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
     <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
     <link rel="stylesheet" href="/css/seccionContrataEstilos/nuevaOfertaEstilo.css">
-    <script src="/js/contratar/nuevaOferta.js" defer></script>
+    <script type="module" src="/js/contratar/nuevaOferta.js" defer></script>
 </head>
 <body>
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
@@ -27,29 +27,34 @@
                 <section class="nube" id="primeraSeccion">
                     <div>
                         <label for="puesto">Puesto</label>
-                        <input type="text" th:field="*{puesto}" id="puesto">
-                        <p class="mensajeError" id="err1">El puesto no puede tener más de 30 carácteres ni estar vacío</p>
+                        <input type="text" th:field="*{puesto}" class="validarCampo">
+                        <p class="mensajeError" hidden></p>
                         
                         <label for="sector">Sector</label>
-                        <input type="text" th:field="*{sector}" id="sector">
+                        <input type="text" th:field="*{sector}" class="validarCampo">
+                        <p class="mensajeError" hidden></p>
                         
                         <label for="modalidad">Modalidad de Trabajo</label>
-                        <select name="" id="modalidad" th:field="*{modalidadTrabajo}">
+                        <select name="" id="modalidad" th:field="*{modalidadTrabajo}" class="validarCampo">
+                            <option value="default" selected>Selecciona una opción ...</option>
                             <option th:value="${mt}" th:text="${mt}" th:each="mt:${modalidadesTrabajo}"></option>
                         </select>
+                        <p class="mensajeError"></p>
     
                         <label for="ciudad">Ciudad</label>
-                        <input type="text" th:field="*{ciudad}" id="ciudad">
-                        <p class="mensajeError" id="err3">La ciudad no puede ser nula</p>
+                        <input type="text" th:field="*{ciudad}" class="validarCampo">
+                        <p class="mensajeError"></p>
                     </div>
                     <div>
                         <label for="salarioAnual">Salario Anual</label>
-                        <input type="text" th:field="*{salarioAnual}" id="salarioAnual">
+                        <input type="text" th:field="*{salarioAnual}">
                         
                         <label for="tipoContrato">Tipo de Contrato</label>
-                        <select name="" id="tipoContrato" th:field="*{tipoContrato}">
+                        <select name="" id="tipoContrato" th:field="*{tipoContrato}" class="validarCampo">
+                            <option value="default" selected>Selecciona una opción ...</option>
                             <option th:value="${tc}" th:text="${tc}" th:each="tc:${tiposContrato}"></option>
                         </select>
+                        <p class="mensajeError"></p>
                         
                         <label for="horas">Horas</label>
                         <input type="text" th:field="*{horas}" id="horas">
@@ -60,7 +65,7 @@
                 <section id="segundaSeccion" class="nube">
                     <label for="descripcion">Descripción</label>
                         <textarea  th:field="*{descripcion}" id="descripcion"></textarea>
-                        <p class="mensajeError" id="err2">La descripción no puede tener más de 50 carácteres</p>
+                        <p class="mensajeError"></p>
                 </section>
             </form>
         </main>
