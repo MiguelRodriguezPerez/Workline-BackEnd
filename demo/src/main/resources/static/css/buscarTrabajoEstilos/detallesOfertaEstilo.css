@@ -10,6 +10,12 @@ body{
     padding: 30px 0px;
 }
 
+#contenedorDetalles > a:first-child{
+    text-decoration: none;
+    color: black;
+    font-size: 21px;
+}
+
 #contenedorDetallesTelefono{
     display: none;
 }
@@ -21,6 +27,7 @@ body{
 }
 
 #primeraSeccion{
+    margin-top: 1%;
     display: grid;
     grid-template-columns: 50% 50%;
 }

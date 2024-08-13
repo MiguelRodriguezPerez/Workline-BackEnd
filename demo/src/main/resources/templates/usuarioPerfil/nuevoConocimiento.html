@@ -44,7 +44,7 @@
                 </div>
         </form>
         <section id="conocimientosContenedor">
-            <h1>Tus estudios actuales</h1>
+            <h1 th:unless="${#lists.isEmpty(buscaLogueado.getListaConocimientos())}">Tus estudios actuales</h1>
             <div th:each="conocimiento:${buscaLogueado.getListaConocimientos()}" class="conocimiento">
                 <h3 th:text="${conocimiento.titulo}"></h3>
                 <p th:text="${conocimiento.centroEducativo}"></p>

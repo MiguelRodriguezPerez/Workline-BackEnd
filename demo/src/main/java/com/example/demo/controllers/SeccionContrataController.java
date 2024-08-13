@@ -73,6 +73,14 @@ public class SeccionContrataController {
         return "contrataSeccion/nuevaOferta";
     }
 
+    @PostMapping("/pagina/{numPag}/detallesOferta/{ofertaId}/crearNuevaOferta")
+    public String showCreateNewOffer(@PathVariable Long numPag, Oferta oferta){
+        ofertaService.guardarOfertaFromContrata(oferta);
+
+        return "redirect:/seccionContrata/pagina/" + numPag;
+    }
+
+
     @PostMapping("/pagina/{numPag}/detallesOferta/{ofertaId}/guardarOferta")
     public String updateOferta(@PathVariable Long numPag, @PathVariable Long ofertaId, Oferta oferta){
         ofertaService.guardarOfertaFromContrata(oferta);
@@ -88,15 +96,16 @@ public class SeccionContrataController {
         model.addAttribute("tiposContrato", TipoContrato.values());
         model.addAttribute("modalidadesTrabajo", ModalidadTrabajo.values());
 
-        return "contrataSeccion/nuevaOferta";
+        return "contrataSeccion/editarOferta";
     }
 
-    @PostMapping("/pagina/{numPag}/detallesOferta/{ofertaId}/crearNuevaOferta")
-    public String showCreateNewOffer(@PathVariable Long numPag, Oferta oferta){
-        ofertaService.guardarOfertaFromContrata(oferta);
+    @PostMapping("/pagina/{numPag}/detallesOferta/{ofertaId}/editarOfertaSubmit")
+    public String showSubmitEditOffer(@PathVariable Long numPag, Oferta oferta){
+        ofertaService.guardarCambios(oferta);
 
         return "redirect:/seccionContrata/pagina/" + numPag;
     }
+
 
     @GetMapping("/pagina/{numPag}/oferta/borrarOferta/{ofertaId}")
     public String deleteOffer(@PathVariable Long numPag, @PathVariable Long ofertaId){

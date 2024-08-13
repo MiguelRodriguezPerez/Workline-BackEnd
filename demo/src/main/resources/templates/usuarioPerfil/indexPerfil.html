@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
     <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
     <link rel="stylesheet" href="/css/usuarioPerfilEstilos/indexPerfilEstilo.css">
+    <script src="/js/usuarioPerfil/indexPerfil.js" defer></script>
 </head>
 <body>
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
@@ -22,13 +23,13 @@
             </div>
         </section>
        
-        <section class="contenedorDatos" id="perfilNombre">
+        <section class="nube" id="perfilNombre">
             <h2 th:text="${usuarioLogueado.nombre}"></h2>
             <p>Puesto actual</p>
             <p th:text="${usuarioLogueado.ciudad}"></p>
         </section>
 
-        <section class="contenedorDatos" id="perfilDatos">
+        <section class="nube" id="perfilDatos">
             <h2>Mis datos</h2>
             <div>
                 <label for="">Email</label>
@@ -41,9 +42,13 @@
         </section>
 
         <section id="listasEntidades" th:if="${rolActual.equals('BUSCA')}">
-            <p th:if="${#lists.isEmpty(usuarioLogueado.getListaConocimientos())}" class="sinEntidad">No tienes estudios registrados</p>
+            <div th:if="${#lists.isEmpty(usuarioLogueado.getListaConocimientos())}" class="sinEntidad nube">
+                <h3>No tienes estudios registrados</h3>
+                <a th:href="@{/miPerfil/nuevoConocimiento}">Añadir un estudio</a>
+            </div>
+            
 
-            <div class="contenedorDatos" th:unless="${#lists.isEmpty(usuarioLogueado.getListaConocimientos())}">
+            <div class="nube" th:unless="${#lists.isEmpty(usuarioLogueado.getListaConocimientos())}">
                 <div class="cabeceraEntidad">
                     <h2>Estudios</h2>
                     <a th:href="@{/miPerfil/nuevoConocimiento}">
@@ -61,16 +66,19 @@
                             </a>
                         </div>
                         <p th:text="${conocimiento.centroEducativo}"></p>
-                        <p th:text="${conocimiento.inicioPeriodoConocimiento}"></p>-
-                        <p th:text="${conocimiento.finPeriodoConocimiento}"></p>
+                        <p th:text="${conocimiento.parsearFechaInicio()}"></p>-
+                        <p th:text="${conocimiento.parsearFechaFin()}"></p>
                     </li>
                 </ul>    
             </div>
 
-            <p th:if="${#lists.isEmpty(usuarioLogueado.getListaExperiencias())}" class="sinEntidad">
-                No tienes experiencias laborales registradas
-            </p>
-            <div class="contenedorDatos" th:unless="${#lists.isEmpty(usuarioLogueado.getListaExperiencias())}">
+            <div th:if="${#lists.isEmpty(usuarioLogueado.getListaExperiencias())}" class="sinEntidad nube">
+                <h3>No tienes experiencias laborales registradas</h3>
+                <a th:href="@{/miPerfil/nuevaExperiencia}">Añadir una experiencia</a>
+            </div>
+            
+
+            <div class="nube" th:unless="${#lists.isEmpty(usuarioLogueado.getListaExperiencias())}">
                 <div class="cabeceraEntidad">
                     <h2>Experiencia</h2>
                     <a th:href="@{/miPerfil/nuevaExperiencia}">
@@ -89,13 +97,32 @@
                             </a>
                         </div>
                         <p th:text="${experiencia.empresa}"></p>
-                        <p th:text="${experiencia.inicioExperiencia}"></p>-
-                        <p th:text="${experiencia.finExperiencia}"></p>
+                        <p th:text="${experiencia.parsearFechaInicio()}"></p>-
+                        <p th:text="${experiencia.parsearFechaFin()}"></p>
                     </li>
                 </ul>
             </div>
         </section>
+
+        <section id="ofertasSuscrito" th:if="${rolActual.equals('BUSCA')}">
+            <h1>Mis ofertas</h1>
+            <section class="oferta nube" th:each="oferta:${usuarioLogueado.getListaOfertas()}" th:id="${oferta.id}">
+                <div>   
+                    <h4 th:text="${oferta.puesto}"></h4>
+                    <h5 th:text="${oferta.nombreEmpresa}"></h5>
+                </div>
+                
+                <ul>
+                    <li><p th:text="${oferta.tipoContrato}"></p></li>
+                    <li><p th:text="${oferta.modalidadTrabajo}"></p></li>
+                    <li><p th:text="${oferta.ciudad}"></p></li>
+                </ul>
+                <a class="suscrito" th:href="@{/miPerfil/misOfertas/desinscribirse/{ofertaId}(ofertaId=${oferta.id})}">Desinscribirse</a>
+            </section>
+        </section>
     </main>
+
+    
     
     <footer th:insert="~{/fragmentos/pie :: nav}"></footer>
 </body>

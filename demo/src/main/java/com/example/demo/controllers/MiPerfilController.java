@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.config.UsuarioService;
 import com.example.demo.domain.Conocimiento;
 import com.example.demo.domain.Experiencia;
+import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.usuarios.Busca;
-import com.example.demo.domain.usuarios.Rol;
+import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.services.ConocimientoService;
 import com.example.demo.services.ExperienciaService;
+import com.example.demo.services.ofertas.OfertaService;
 import com.example.demo.services.usuarios.BuscaService;
+import com.example.demo.services.usuarios.ContrataService;
 
 @Controller
 @RequestMapping("/miPerfil")
@@ -28,14 +31,20 @@ public class MiPerfilController {
     BuscaService buscaService;
 
     @Autowired
+    ContrataService contrataService;
+
+    @Autowired
     ConocimientoService conocimientoService;
 
     @Autowired
     ExperienciaService experienciaService;
+
+    @Autowired
+    OfertaService ofertaService;
     
     @GetMapping("/")
     public String showUserInfo(Model model){
-        model.addAttribute("usuarioLogueado",buscaService.obtenerBuscaConectado());
+        model.addAttribute("usuarioLogueado",usuarioService.obtenerUsuarioConectado());
         System.out.println(usuarioService.obtenerUsuarioConectado());
 
         return "usuarioPerfil/indexPerfil";
@@ -45,6 +54,12 @@ public class MiPerfilController {
     public String showEditarDatosForm(Model model){
         model.addAttribute("usuarioLogueado", usuarioService.obtenerUsuarioConectado());
         return "usuarioPerfil/editarDatosPerfil";
+    }
+
+    @PostMapping("/editarDatos/CONTRATA/submit")
+    public String showSubmitEditarDatosCONTRATA(Contrata contrata){
+        contrataService.guardarCambios(contrata);
+        return "redirect:/miPerfil/";
     }
 
     @PostMapping("/editarDatos/BUSCA/submit")
@@ -123,6 +138,20 @@ public class MiPerfilController {
         buscaService.obtenerBuscaConectado().getListaExperiencias().remove(experienciaService.obtenerPorId(idExp));
         experienciaService.borrarExperiencia(idExp);
         buscaService.guardarSinEncriptar(buscaService.obtenerBuscaConectado());
+
+        return "redirect:/miPerfil/";
+    }
+
+    @GetMapping("/misOfertas/desinscribirse/{ofertaId}")
+    public String showDesuscribeOferta(@PathVariable Long ofertaId){
+        Busca busca = buscaService.obtenerBuscaConectado();
+        Oferta oferta = ofertaService.obtenerPorId(ofertaId);
+
+        busca.getListaOfertas().remove(oferta);
+        oferta.getListaCandidatos().remove(busca);
+
+        buscaService.guardarSinEncriptar(busca);
+        ofertaService.guardarOferta(oferta);
 
         return "redirect:/miPerfil/";
     }

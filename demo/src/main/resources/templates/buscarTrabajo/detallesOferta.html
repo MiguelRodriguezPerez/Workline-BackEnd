@@ -15,6 +15,7 @@
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
     <body>
         <div id="contenedorDetalles">
+            <a th:href="@{/ofertasDeTrabajo/0}">Volver atrás</a>
             <div class="nube" id="primeraSeccion">
                 <h3 th:text="${oferta.puesto}"></h3>
                 <p th:text="${oferta.parsearFecha()}"></p>

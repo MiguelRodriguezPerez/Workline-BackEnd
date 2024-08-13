@@ -1,6 +1,7 @@
 package com.example.demo.domain;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import com.example.demo.domain.usuarios.Busca;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -55,6 +56,20 @@ public class Conocimiento {
         
     }
 
-    
+    public String parsearFechaInicio(){
+        LocalDate l = this.inicioPeriodoConocimiento;
+        String resultado = DateTimeFormatter.ofPattern("dd-MM-yyyy").format(l).toString();
+        resultado = resultado.replace('-', '/');
+        
+        return resultado;
+    }
+
+    public String parsearFechaFin(){
+        LocalDate l = this.inicioPeriodoConocimiento;
+        String resultado = DateTimeFormatter.ofPattern("dd-MM-yyyy").format(l).toString();
+        resultado = resultado.replace('-', '/');
+        
+        return resultado;
+    }
     
 }

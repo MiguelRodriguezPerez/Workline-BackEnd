@@ -17,7 +17,7 @@ main > h1{
     margin-bottom: 30px;
 }
 
-#cabeceraAjustesPerfil h1{
+#cabeceraAjustesPerfil h1, #ofertasSuscrito h1{
     margin: 0px 0px;
     padding-left: 10px;
     font-weight: normal;
@@ -33,14 +33,14 @@ main > h1{
     float: right;
 }
 
-.contenedorDatos{
+.nube{
     background-color: white;
     margin: 10px;
     padding: 15px 20px;
     border-radius: 15px;
 }
 
-.contenedorDatos h2{
+.nube h2{
     font-weight: normal;
     font-size: 26px;
     margin-top: 0px;
@@ -90,18 +90,18 @@ main > h1{
     align-items: start;
 }
 
-#listasEntidades > div.contenedorDatos > div.cabeceraEntidad{
+#listasEntidades > div.nube > div.cabeceraEntidad{
     display: grid;
     grid-template-columns: 84% 16%;
     margin-bottom: 10px;
 }
 
-#listasEntidades > div.contenedorDatos > div.cabeceraEntidad > a{
+#listasEntidades > div.nube > div.cabeceraEntidad > a{
     justify-self: end;
     align-self: center;
 }
 
-#listasEntidades > div.contenedorDatos > ul{
+#listasEntidades > div.nube > ul{
     list-style: none;
     padding-left: 1%;
     margin: 0px 0px 15px;
@@ -134,16 +134,94 @@ main > h1{
 }
 
 .sinEntidad{
+    display: grid;
+    grid-template-columns: 100%;
+    justify-content: center;
+}
+
+.sinEntidad > *{
     text-align: center;
+}
+
+.sinEntidad h3{
+    margin: 0% 0% 2%;
+    font-weight: normal;
+    font-size: 23px;
+}
+
+.sinEntidad a{
+    font-size: 19px;
+    color: black;
+}
+
+#ofertasSuscrito{
+    margin: 1% 0%;
+
+    display: grid;
+    grid-template-columns: 23% 23% 23% 23%;
+    gap:2.5%
+}
+
+#ofertasSuscrito h1{
+    grid-column: 1/5;
+    text-align: center;
+}
+
+.oferta{
+    padding: 0px;
+    cursor: pointer;
+}
+
+.oferta div{
+    background-color: green;
+    border-radius: 8px 8px 8px 0px;
+    padding: 2% 3%;
+}
+
+.oferta h4, .oferta h5{
+    margin: 0%;
+    font-weight: normal;
+    font-size: 23px;
+    color: white;
+}
+
+.oferta h5{
     font-size: 20px;
 }
+
+.oferta ul{
+    padding-left: 20px;
+    margin-top: 0px;
+    margin-left: 17px;
+    margin-bottom: 0px;
+
+    font-size: 18px;
+}
+
+.oferta li{
+    list-style: url("/images/linea.png");
+}
+
+.suscrito{
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+
+    padding: 8px 25px;
+    background-color: #e52020;
+    border-radius: 5px;
+
+    float: right;
+    margin: 3% 4%;
+}
+
 
 @media screen and (max-width:1200px) {
     main{
         width: 88%;
     }
 
-    #listasEntidades > div.contenedorDatos > div.cabeceraEntidad > img{
+    #listasEntidades > div.nube > div.cabeceraEntidad > img{
         align-self:auto;
     }
 
@@ -153,6 +231,16 @@ main > h1{
 
     .elementoEntidad > div:first-of-type > a{
         justify-self: end;
+    }
+
+    #ofertasSuscrito{
+        grid-template-columns: 48% 48%;
+        gap:4%;
+        margin-bottom: 5%;
+    }
+
+    #ofertasSuscrito h1{
+        grid-column: 1/3;
     }
 }
 
@@ -171,5 +259,14 @@ main > h1{
 
     #listasEntidades{
         grid-template-columns: 100%;
+    }
+
+    #ofertasSuscrito{
+        grid-template-columns:100%;
+        gap:0%;
+    }
+
+    #ofertasSuscrito h1{
+        grid-column: 1/1;
     }
 }

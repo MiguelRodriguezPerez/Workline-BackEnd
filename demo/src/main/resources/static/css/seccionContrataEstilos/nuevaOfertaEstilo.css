@@ -11,7 +11,6 @@ main > a:first-child{
     text-decoration: none;
     color: black;
     font-size: 21px;
-    
 }
 
 main > button:first-of-type{
