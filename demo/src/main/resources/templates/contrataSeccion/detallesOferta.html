@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
     <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
     <link rel="stylesheet" href="/css/seccionContrataEstilos/detallesOfertaEstilo.css">
+    <script src="/js/contratar/detallesOferta.js" defer></script>
 </head>
 <body>
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
@@ -16,6 +17,8 @@
         <main>
             <a th:href="@{/seccionContrata/pagina/{numPag}(numPag=${numPag})}">Volver atrás</a>
             <a th:href="@{/seccionContrata/pagina/{numPag}/oferta/editarOferta/{ofertaId}(numPag=${numPag},ofertaId=${ofertaId})}" id="editar">Editar Oferta</a>
+            
+            <p th:text="${numPag}" hidden id="numPag"></p><p th:text="${oferta.id}" hidden id="ofertaId"></p>
             <section id="contenidoOferta">
                 <section id="infoOferta" class="nube">
                     <div>
@@ -51,7 +54,7 @@
            
             <section th:unless="${#lists.isEmpty(oferta.getListaCandidatos())}" id="candidatos">
                 <h2>Se han inscrito en esta oferta</h2>
-                <div th:each="candidato:${listaCandidatos}" class="nube">
+                <div th:each="candidato:${listaCandidatos}" class="nube candidato" th:id="${candidato.id}">
                     <h3 th:text="${candidato.nombre}"></h3>
                     <ul>
                         <li><p th:text="${candidato.email}"></p></li>

@@ -94,28 +94,34 @@ main > a:last-of-type{
 }
 
 #candidatos > div{
+    cursor: pointer;
+    
     width: 96%;
     background-color: white;
     border-radius: 8px;
 
-    padding: 10px 0px;
+    padding: 0px;
 }
 
 #candidatos h3{
-    border-bottom: solid 1px black;
+    background-color: rgb(29, 119, 214);
+    color:white;
 
     font-weight: normal;
     font-size: 23px;
 
-    margin-top: 0px;
+    margin: 0px;
+    padding-top: 10px;
     padding-left: 15px;
     padding-bottom: 10px;
+
+    border-radius: 8px 8px 8px 0px;
 }
 
 #candidatos ul{
     list-style:url("/images/linea.png");
     padding-top: 0px;
-    padding-left: 20px;
+    padding-left: 7%;
     margin-top: 0px;
     margin-left: 17px;
     margin-right: 15px;

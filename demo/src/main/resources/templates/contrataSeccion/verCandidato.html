@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workline | Mi perfil</title>
+    <script src="/js/desplegableEncabezado.js" defer></script>
+    <link rel="stylesheet" href="/css/fragmentosEstilos/desplegableEncabezado.css">
+    <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
+    <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
+    <link rel="stylesheet" href="/css/usuarioPerfilEstilos/indexPerfilEstilo.css">
+</head>
+<body>
+    <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
+    <main>
+        <a th:href="@{/seccionContrata/pagina/{numPag}/detallesOferta/{ofertaId}(numPag=${numPag},ofertaId=${ofertaId})}" id="volverAtras">Volver atrás</a>
+        <section class="nube" id="perfilNombre">
+            <h2 th:text="${busca.nombre}"></h2>
+            <p th:text="${busca.ciudad}"></p>
+        </section>
+
+        <section class="nube" id="perfilDatos">
+            <h2>Mis datos</h2>
+            <div>
+                <label for="">Email</label>
+                <p th:text="${busca.email}">
+            </div>
+            <div>
+                <label for="">Teléfono</label>
+                <p th:text="${busca.telefono}">
+            </div>
+        </section>
+
+        <section id="listasEntidades">
+            <div th:if="${#lists.isEmpty(busca.getListaConocimientos())}" class="sinEntidad nube">
+                <h3>No tiene estudios registrados</h3>
+            </div>
+            
+
+            <div class="nube" th:unless="${#lists.isEmpty(busca.getListaConocimientos())}">
+                <div class="cabeceraEntidad">
+                    <h2>Estudios</h2>
+                </div>
+                <ul>
+                    <li class="elementoEntidad" th:each="conocimiento:${busca.getListaConocimientos()}">
+                        <div>
+                            <h3 th:text="${conocimiento.titulo}"></h3>
+                        </div>
+                        <p th:text="${conocimiento.centroEducativo}"></p>
+                        <p th:text="${conocimiento.parsearFechaInicio()}"></p>-
+                        <p th:text="${conocimiento.parsearFechaFin()}"></p>
+                    </li>
+                </ul>    
+            </div>
+
+            <div th:if="${#lists.isEmpty(busca.getListaExperiencias())}" class="sinEntidad nube">
+                <h3>No tiene experiencias laborales registradas</h3>
+            </div>
+            
+
+            <div class="nube" th:unless="${#lists.isEmpty(busca.getListaExperiencias())}">
+                <div class="cabeceraEntidad">
+                    <h2>Experiencia</h2>
+
+                </div>
+                <ul>
+                    <li class="elementoEntidad" th:each="experiencia:${busca.getListaExperiencias()}">
+                        <div>
+                            <h3 th:text="${experiencia.puesto}"></h3>
+                        </div>
+                        <p th:text="${experiencia.empresa}"></p>
+                        <p th:text="${experiencia.parsearFechaInicio()}"></p>-
+                        <p th:text="${experiencia.parsearFechaFin()}"></p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer th:insert="~{/fragmentos/pie :: nav}"></footer>
+</body>
+</html>

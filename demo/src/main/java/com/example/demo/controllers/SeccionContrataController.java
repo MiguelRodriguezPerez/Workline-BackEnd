@@ -123,5 +123,16 @@ public class SeccionContrataController {
 
         return "redirect:/seccionContrata/pagina/" + numPag;
     }
+
+    @GetMapping("/pagina/{numPag}/detallesOferta/{ofertaId}/verCandidato/{id}")
+    public String showCandidate(@PathVariable Long numPag, @PathVariable Long ofertaId, @PathVariable Long id, Model model){
+        Busca busca = buscaService.obtenerPorId(id);
+
+        model.addAttribute("busca",busca);
+        model.addAttribute("numPag", numPag);
+        model.addAttribute("ofertaId", ofertaId);
+        
+        return "contrataSeccion/verCandidato";
+    }
     
 }
