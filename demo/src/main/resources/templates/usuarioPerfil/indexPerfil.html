@@ -25,7 +25,6 @@
        
         <section class="nube" id="perfilNombre">
             <h2 th:text="${usuarioLogueado.nombre}"></h2>
-            <p>Puesto actual</p>
             <p th:text="${usuarioLogueado.ciudad}"></p>
         </section>
 
@@ -39,6 +38,7 @@
                 <label for="">Teléfono</label>
                 <p th:text="${usuarioLogueado.telefono}">
             </div>
+            <a th:href="@{/miPerfil/cambiarPassword/primerPaso}">Cambiar Contraseña</a>
         </section>
 
         <section id="listasEntidades" th:if="${rolActual.equals('BUSCA')}">

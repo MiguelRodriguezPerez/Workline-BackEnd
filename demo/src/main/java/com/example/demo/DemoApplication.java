@@ -35,6 +35,7 @@ public class DemoApplication {
 	ConocimientoService conocimientoService, ExperienciaService experienciaService){
 		return args ->{
 			// 1234kasdddddddjfA#
+			// 5678MMsdddddddjfA#
 			// Iconos 24 *24
 			// adminService.guardar(new Admin("raul","aaa@gmail","Jaen","654474733","1234kasdddddddjfA#"));
 			// contrataService.guardar(new Contrata("laura","laura@gmail.com","Jaen","625557811","1234kasdddddddjfA#"));

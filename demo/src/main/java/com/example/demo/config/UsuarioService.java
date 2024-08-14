@@ -5,6 +5,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.usuarios.Admin;
@@ -20,9 +21,6 @@ import com.example.demo.services.usuarios.ContrataService;
 public class UsuarioService {
 
     @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
     ContrataService contrataService;
 
     @Autowired
@@ -31,13 +29,8 @@ public class UsuarioService {
     @Autowired 
     AdminService adminService;
 
-    public void actualizarAuthentication(String username) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        UsernamePasswordAuthenticationToken newAuth = new UsernamePasswordAuthenticationToken(
-                userDetails, null, userDetails.getAuthorities());
-
-        SecurityContextHolder.getContext().setAuthentication(newAuth);
-    }
+    @Autowired
+    PasswordEncoder encoder;
 
     public boolean esNombreRepetido(String nombre){
         // if(obtenerUsuarioConectado().getNombre().equals(nombre)) return false; //Si el usuario envía su propio nombre, no se impedirá la validación
@@ -53,5 +46,9 @@ public class UsuarioService {
         if(buscaService.obtenerBuscaConectado() != null) return (Busca) buscaService.obtenerBuscaConectado();
         if(adminService.obtenerAdminConectado() != null) return (Admin) adminService.obtenerAdminConectado();
         return null;
+    }
+
+    public boolean coincidePassword(String verificarPassword){
+        return encoder.matches(verificarPassword, this.obtenerUsuarioConectado().getPassword());
     }
 }

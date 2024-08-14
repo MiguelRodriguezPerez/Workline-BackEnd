@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.config.UsuarioService;
 import com.example.demo.domain.Conocimiento;
@@ -155,5 +156,42 @@ public class MiPerfilController {
         ofertaService.guardarOferta(oferta);
 
         return "redirect:/miPerfil/";
+    }
+
+    @GetMapping("/cambiarPassword/primerPaso")
+    public String showFirstStepChangePassword(Model model){
+        model.addAttribute("usuarioLogueado",usuarioService.obtenerUsuarioConectado());
+        model.addAttribute("verificarPassword", new String());
+
+        return "usuarioPerfil/confirmarPassword";
+    }
+
+    @PostMapping("/cambiarPassword/segundoPaso")
+    public String showSecondStepChangePassword(@RequestParam String verificarPassword, Model model){
+        if(usuarioService.coincidePassword(verificarPassword)){
+            model.addAttribute("usuarioLogueado", usuarioService.obtenerUsuarioConectado());
+            return "usuarioPerfil/cambiarPassword";
+        } 
+        
+        return "redirect:/miPerfil/cambiarPassword/primerPaso";
+    }
+
+    @PostMapping("/cambiarPassword/tercerPaso")
+    public String showThirdStepChangePassword(@RequestParam String nuevoPassword){
+        
+        switch(usuarioService.obtenerUsuarioConectado().getRol().toString()){
+            case "BUSCA":
+                Busca busca = (Busca) usuarioService.obtenerUsuarioConectado();
+                busca.setPassword(nuevoPassword);
+                buscaService.guardarCambios(busca);
+                break;
+            case "CONTRATA":
+                Contrata contrata = (Contrata) usuarioService.obtenerUsuarioConectado();
+                contrata.setPassword(nuevoPassword);
+                contrataService.guardarCambios(contrata);
+                break;
+        }
+        
+        return "usuarioPerfil/cambioPasswordCorrecto";
     }
 }
