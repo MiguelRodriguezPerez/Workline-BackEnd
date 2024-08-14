@@ -58,7 +58,8 @@ public class MiPerfilController {
 
     @PostMapping("/editarDatos/CONTRATA/submit")
     public String showSubmitEditarDatosCONTRATA(Contrata contrata){
-        contrataService.guardarCambios(contrata);
+        Contrata c2 = contrataService.guardarCambios(contrata);
+        ofertaService.cambiarPropiedadOfertas(c2.getListaOfertas(), c2.getNombre());
         return "redirect:/miPerfil/";
     }
 

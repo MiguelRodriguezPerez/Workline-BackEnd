@@ -225,9 +225,11 @@ public class OfertaServiceImpl implements OfertaService{
     }
 
     @Override
-    public void cambiarPropiedadOfertas() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'cambiarPropiedadOfertas'");
+    public void cambiarPropiedadOfertas(List<Oferta> listaOfertas, String username) {
+        for(Oferta oferta: listaOfertas){
+            oferta.setNombreEmpresa(username);
+            this.guardarCambios(oferta);
+        }
     }
 
     @Override

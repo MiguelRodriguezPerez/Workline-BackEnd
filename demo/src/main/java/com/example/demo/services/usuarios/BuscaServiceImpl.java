@@ -1,12 +1,15 @@
 package com.example.demo.services.usuarios;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.domain.NuevoUsuario;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.repositories.BuscaRepository;
 import com.example.demo.services.ofertas.OfertaService;
 
@@ -44,11 +48,25 @@ public class BuscaServiceImpl implements BuscaService{
     se encriptará solo si la cambia*/
     @Override
     public Busca guardarCambios(Busca busca) {
-        busca.setListaConocimientos(this.obtenerBuscaConectado().getListaConocimientos());
-        busca.setListaExperiencias(this.obtenerBuscaConectado().getListaExperiencias());
+        Busca buscaAntiguo = this.obtenerBuscaConectado();
 
-        if(!busca.getPassword().equals(this.obtenerBuscaConectado().getPassword())) return this.guardar(busca);
-        else return this.guardar(busca);
+        busca.setListaConocimientos(buscaAntiguo.getListaConocimientos());
+        busca.setListaExperiencias(buscaAntiguo.getListaExperiencias());
+        busca.setPassword(passwordEncoder.encode(busca.getPassword()));
+
+        this.guardarSinEncriptar(busca);
+
+        Collection<SimpleGrantedAuthority> nowAuthorities = 
+        (Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext()
+                                                                .getAuthentication()
+                                                                .getAuthorities();
+
+        UsernamePasswordAuthenticationToken authentication = 
+        new UsernamePasswordAuthenticationToken(busca.getNombre(), busca.getPassword(), nowAuthorities);
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        return this.obtenerBuscaConectado();
     }
 
     @Override

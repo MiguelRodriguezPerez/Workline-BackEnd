@@ -105,7 +105,7 @@
         </section>
 
         <section id="ofertasSuscrito" th:if="${rolActual.equals('BUSCA')}">
-            <h1>Mis ofertas</h1>
+            <h1 th:unless="${#lists.isEmpty(usuarioLogueado.getListaOfertas())}">Mis ofertas</h1>
             <section class="oferta nube" th:each="oferta:${usuarioLogueado.getListaOfertas()}" th:id="${oferta.id}">
                 <div>   
                     <h4 th:text="${oferta.puesto}"></h4>

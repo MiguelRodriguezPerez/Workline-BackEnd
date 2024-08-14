@@ -1,5 +1,6 @@
 package com.example.demo.services.usuarios;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,15 +9,17 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.NuevoUsuario;
 import com.example.demo.domain.ofertas.Oferta;
+import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
-import com.example.demo.exceptions.PagContrataIncorrectaException;
 import com.example.demo.repositories.ContrataRepository;
 
 @Service
@@ -50,9 +53,25 @@ public class ContrataServiceImpl implements ContrataService{
 
     @Override
     public Contrata guardarCambios(Contrata contrata) {
-        contrata.setListaOfertas(this.obtenerContrataConectado().getListaOfertas());
-        if(!contrata.getPassword().equals(this.obtenerContrataConectado().getPassword())) return this.guardar(contrata);
-        else return this.guardarSinEncriptar(contrata);
+        Contrata contrataAntiguo = this.obtenerContrataConectado();
+
+        contrata.setListaOfertas(contrataAntiguo.getListaOfertas());
+        
+        contrata.setPassword(passwordEncoder.encode(contrata.getPassword()));
+
+        this.guardarSinEncriptar(contrata);
+
+        Collection<SimpleGrantedAuthority> nowAuthorities = 
+        (Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext()
+                                                                .getAuthentication()
+                                                                .getAuthorities();
+
+        UsernamePasswordAuthenticationToken authentication = 
+        new UsernamePasswordAuthenticationToken(contrata.getNombre(), contrata.getPassword(), nowAuthorities);
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        return this.obtenerContrataConectado();
     }
 
     @Override
