@@ -9,54 +9,40 @@
     <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
     <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
     <link rel="stylesheet" href="/css/inicioEstilo.css">
+    <script src="/js/inicio.js" defer></script>
 </head>
 <body>
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
-    <section id="anuncio">
-        <img src="/images/inicio/cartoon.png" alt="">
-        <div>
-            <h2>
-                Tu futuro <br> comienza hoy 
-            </h2>
-                <p>
-                    Cada día en Workline las empresas publican miles de empleos disponibles 
-                    que son una nueva oportunidad para crecer profesionalmente.
-                </p>
-                <p>
-                    Comienza una nueva etapa en tu vida a través de nuestras
-                    ofertas de trabajo.  
-                </p>
-                <a th:href="@{/ofertasDeTrabajo/0}">Encuentra empleo</a>
-        </div>
-        <div>
-
-        </div>
-    </section>
-    <section id="opciones">
-        <div>
-            <h3>Encuentra tu próximo trabajo</h3>
-            <p>
-                Descubre tu trabajo ideal en Workline
-                con nuestro buscador de trabajo.
-            </p>
-            <a>
-            Buscar ofertas
-            </a>
-        </div>
-        <span>
-
-        </span>
-        <div>
-            <h3>Contrata empleados</h3>
-            <p>
-                Encuentra talento entre nuestros usuarios
-                publicando tus ofertas 
-            </p>
-            <a>
-                Publicar una oferta
-            </a>
-        </div>
-    </section>
+    <main>
+        <section id="anuncio">
+            <div>
+                <h2>
+                    Tu futuro <br> comienza hoy 
+                </h2>
+                    <p>
+                        Cada día en Workline las empresas publican miles de empleos disponibles 
+                        que son una nueva oportunidad para crecer profesionalmente.
+                    </p>
+                    <p>
+                        Comienza una nueva etapa en tu vida a través de nuestras
+                        ofertas de trabajo.  
+                    </p>
+                    <a th:href="@{/ofertasDeTrabajo/0}">Encuentra empleo</a>
+            </div>
+            <img src="/images/inicio/cartoonTelefono.png" alt="">
+        </section>
+        <section id="opciones">
+            <div>
+                <h3>Encuentra tu próximo trabajo</h3>
+                <img src="/images/inicio/cv.png" alt="cv.png"><p>Descubre tu trabajo ideal en Workline con nuestro buscador de trabajo.</p>
+            </div>
+            <div>
+                <h3>Contrata empleados</h3>
+                <img src="/images/inicio/handshake.png" alt="handshake.png"><p>Descubre tu trabajo ideal en Workline con nuestro buscador de trabajo.</p>
+            </div>
+        </section>
+    </main>
+    
     <footer th:insert="~{/fragmentos/pie :: nav}"></footer>
 </body>
 </html>

@@ -163,14 +163,14 @@ public class MiPerfilController {
         model.addAttribute("usuarioLogueado",usuarioService.obtenerUsuarioConectado());
         model.addAttribute("verificarPassword", new String());
 
-        return "usuarioPerfil/confirmarPassword";
+        return "usuarioPerfil/passwords/confirmarPassword";
     }
 
     @PostMapping("/cambiarPassword/segundoPaso")
     public String showSecondStepChangePassword(@RequestParam String verificarPassword, Model model){
         if(usuarioService.coincidePassword(verificarPassword)){
             model.addAttribute("usuarioLogueado", usuarioService.obtenerUsuarioConectado());
-            return "usuarioPerfil/cambiarPassword";
+            return "usuarioPerfil/passwords/cambiarPassword";
         } 
         
         return "redirect:/miPerfil/cambiarPassword/primerPaso";
@@ -192,6 +192,6 @@ public class MiPerfilController {
                 break;
         }
         
-        return "usuarioPerfil/cambioPasswordCorrecto";
+        return "usuarioPerfil/passwords/exitoCambiarPassword";
     }
 }

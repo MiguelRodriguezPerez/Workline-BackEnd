@@ -50,9 +50,9 @@ public class SecurityConfig {
             .logoutSuccessUrl("/")
             .permitAll());
 
-        // http.exceptionHandling(exceptions -> {
-        //     exceptions.accessDeniedPage("/sesion/error");
-        // });
+        http.exceptionHandling(exceptions -> {
+            exceptions.accessDeniedPage("/sesion/error");
+        });
 
         return http.build();
     }
