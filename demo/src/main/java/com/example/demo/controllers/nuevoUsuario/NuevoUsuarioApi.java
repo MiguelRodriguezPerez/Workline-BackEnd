@@ -18,6 +18,7 @@ public class NuevoUsuarioApi {
     UsuarioService usuarioService;
     @GetMapping("/esRepetido/{nombre}")
     public ResponseEntity<Boolean> isUsernameRepeated(@PathVariable String nombre){
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(usuarioService.esNombreRepetido(nombre));

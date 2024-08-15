@@ -23,7 +23,6 @@ export async function esNombreRepetido(nombre) {
     Además esta ruta esta configurada en el SecurityFilterChain para que admita peticiones de usuarios
     sin loguearse*/
     const esNombreRepetido = await peticionNombreRepetido.json();
-    console.log(esNombreRepetido);
     return esNombreRepetido;
 }
 
@@ -41,6 +40,7 @@ export function validarPassword(password) {
 }
 
 export function validarTelefono(telefono) {
+    console.log('AAAAAAAAAAAAAAAAAAAAAAA')
     return (/^(6|7|8|9)\d{8}$/.test(telefono));
 }
 

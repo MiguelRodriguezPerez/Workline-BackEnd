@@ -50,8 +50,21 @@ const valEmail = () =>{
 arrayInputs[1].addEventListener('input',valEmail);
 validacionesArray.push(valEmail);
 
-const valPassword = () =>{
-    if(!funciones.validarPassword(arrayInputs[2].value)){
+// const valPassword = () =>{
+//     if(!funciones.validarPassword(arrayInputs[2].value)){
+//         funciones.mostrarError(arrayFallos[4],arrayInputs[2]);
+//         return false;
+//     }
+//     else{
+//         funciones.limpiarError(arrayFallos[4],arrayInputs[2]);
+//         return true;
+//     }
+// }
+// arrayInputs[2].addEventListener('input',valPassword);
+// validacionesArray.push(valPassword);
+
+const valTelefono = () =>{
+    if(!funciones.validarTelefono(arrayInputs[2].value)){
         funciones.mostrarError(arrayFallos[4],arrayInputs[2]);
         return false;
     }
@@ -60,11 +73,11 @@ const valPassword = () =>{
         return true;
     }
 }
-arrayInputs[2].addEventListener('input',valPassword);
-validacionesArray.push(valPassword);
+arrayInputs[2].addEventListener('input',valTelefono);
+validacionesArray.push(valTelefono);
 
-const valTelefono = () =>{
-    if(!funciones.validarTelefono(arrayInputs[3].value)){
+const valCiudad = () =>{
+    if(!funciones.validarCiudad(arrayInputs[3].value)){
         funciones.mostrarError(arrayFallos[5],arrayInputs[3]);
         return false;
     }
@@ -73,29 +86,16 @@ const valTelefono = () =>{
         return true;
     }
 }
-arrayInputs[3].addEventListener('input',valTelefono);
-validacionesArray.push(valTelefono);
-
-const valCiudad = () =>{
-    if(!funciones.validarCiudad(arrayInputs[4].value)){
-        funciones.mostrarError(arrayFallos[6],arrayInputs[4]);
-        return false;
-    }
-    else{
-        funciones.limpiarError(arrayFallos[6],arrayInputs[4]);
-        return true;
-    }
-}
-arrayInputs[4].addEventListener('input',valCiudad);
+arrayInputs[3].addEventListener('input',valCiudad);
 validacionesArray.push(valCiudad);
 
 const valRol = () =>{
     if(!funciones.validarRol(rolSelect.value)){
-        funciones.mostrarError(arrayFallos[7],rolSelect);
+        funciones.mostrarError(arrayFallos[6],rolSelect);
         return false;
     }
     else{
-        funciones.limpiarError(arrayFallos[7],rolSelect);
+        funciones.limpiarError(arrayFallos[6],rolSelect);
         return true;
     }
 }
