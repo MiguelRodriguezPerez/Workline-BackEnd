@@ -52,9 +52,18 @@ public class BuscaServiceImpl implements BuscaService{
 
         busca.setListaConocimientos(buscaAntiguo.getListaConocimientos());
         busca.setListaExperiencias(buscaAntiguo.getListaExperiencias());
-        busca.setPassword(passwordEncoder.encode(busca.getPassword()));
+
+        /*Este método sirve para cambiar los datos del usuario, pero también la contraseña
+        Como estas dos acciones se realizan por rutas distintas, se comprueba si el contrata nuevo
+        tiene una contraseña fijada. En caso positivo, significa que se accedio a la ruta para
+        cambiar la contraseña, por lo que se encripta. En caso negativo, significa que esta cambiando
+        el resto de datos (nombre,email...) por lo que se le asigna la contraseña antigua*/
+        if(busca.getPassword() != null) busca.setPassword(passwordEncoder.encode(busca.getPassword()));
+        else busca.setPassword(buscaAntiguo.getPassword());
 
         this.guardarSinEncriptar(busca);
+
+        //Estas líneas sirven para cambiar el login actual
 
         Collection<SimpleGrantedAuthority> nowAuthorities = 
         (Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext()

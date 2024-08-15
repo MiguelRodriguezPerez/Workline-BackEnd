@@ -1,6 +1,5 @@
 import * as funciones from '/js/functionSnippets/validarUsuario.js';
 
-document.querySelectorAll('#formularioDatos input:not([hidden]):not([type="submit"])')[3].value = '';
 
 /*El primer indice estaba vacío y como no se puede modificar un NodeList, se pasa a array
 y se modifica*/

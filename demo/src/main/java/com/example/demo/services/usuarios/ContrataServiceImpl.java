@@ -56,8 +56,14 @@ public class ContrataServiceImpl implements ContrataService{
         Contrata contrataAntiguo = this.obtenerContrataConectado();
 
         contrata.setListaOfertas(contrataAntiguo.getListaOfertas());
-        
-        contrata.setPassword(passwordEncoder.encode(contrata.getPassword()));
+
+        /*Este método sirve para cambiar los datos del usuario, pero también la contraseña
+        Como estas dos acciones se realizan por rutas distintas, se comprueba si el contrata nuevo
+        tiene una contraseña fijada. En caso positivo, significa que se accedio a la ruta para
+        cambiar la contraseña, por lo que se encripta. En caso negativo, significa que esta cambiando
+        el resto de datos (nombre,email...) por lo que se le asigna la contraseña antigua*/
+        if(contrata.getPassword() != null) contrata.setPassword(passwordEncoder.encode(contrata.getPassword()));
+        else contrata.setPassword(contrataAntiguo.getPassword());
 
         this.guardarSinEncriptar(contrata);
 

@@ -4,19 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workline | Editar Perfil</title>
+    <link rel="icon" type="image/x-icon" href="/images/fragmentos/Wk.ico">
     <script src="/js/desplegableEncabezado.js" defer></script>
     <link rel="stylesheet" href="/css/fragmentosEstilos/desplegableEncabezado.css">
     <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
     <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
     <link rel="stylesheet" href="/css/usuarioPerfilEstilos/editarPerfilEstilos.css">
-    <script type="module" src="/js/usuarioPerfil/editarDatosPerfil.js" defer></script>
+    <!-- <script type="module" src="/js/usuarioPerfil/editarDatosPerfil.js" defer></script> -->
 </head>
 <body>
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
     <main>
         <h1>Ajustes de Cuenta </h1>
-        <form method="post" id="formularioDatos" th:action="@{/miPerfil/editarDatos/{rol}/submit(rol=${usuarioLogueado.getRol().toString()})}"
-                th:object="${usuarioLogueado}">
+        <form method="post" id="formularioDatos" 
+            th:action="@{/miPerfil/editarDatos/{rol}/submit(rol=${usuarioLogueado.getRol().toString()})}"
+            th:object="${usuarioLogueado}">
 
                 <input type="text" th:field="*{id}" hidden>
                 <input type="text" th:field="*{rol}" hidden>
@@ -31,11 +33,6 @@
                     <input type="text" th:field="*{email}" id="email" maxlength="35">
                     <p class="mensajeError" id="err4">El email tiene más de 35 carácteres</p>
                     <p class="mensajeError" id="err5">Email no válido</p>
-    
-                    <label for="">Contraseña</label>
-                    <input type="text" th:field="*{password}" maxlength="30">
-                    <p class="mensajeError" id="err6">La contraseña debe tener entre 14 y 30 carácteres y combinar mayúsculas, minúsculas
-                        y carácteres especiales</p>
     
                 </div>
                 <!-- <p hidden class="mensajeError" id=""></p> -->
