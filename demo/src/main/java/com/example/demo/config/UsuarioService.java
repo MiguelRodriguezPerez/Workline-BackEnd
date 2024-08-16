@@ -33,6 +33,10 @@ public class UsuarioService {
     PasswordEncoder encoder;
 
     public boolean esNombreRepetido(String nombre){
+        /*El primer if sirve para evitar que el usuario conectado no pueda actualizar sus datos
+        con el mismo username. La comprobación de this.obtenerUsuarioConectado() != null sirve
+        para que no impida la validación de la creación de un nuevo usuario 
+        (Que lógicamente no inicio sesión)*/
         if(this.obtenerUsuarioConectado() != null && obtenerUsuarioConectado().getNombre().equals(nombre)) return false; //Si el usuario envía su propio nombre, no se impedirá la validación
         if(contrataService.esNombreRepetido(nombre)) return true;
         else if(buscaService.esNombreRepetido(nombre)) return true;

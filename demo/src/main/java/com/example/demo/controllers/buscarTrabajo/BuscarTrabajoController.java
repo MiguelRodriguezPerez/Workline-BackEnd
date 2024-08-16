@@ -26,41 +26,20 @@ public class BuscarTrabajoController {
     BuscaService buscaService;
     
     @GetMapping("/{numPag}")
-    public String getOfferJobsPageWithoutSearch(@PathVariable Integer numPag,Model model){
-        model.addAttribute("busquedaOferta", new BusquedaOferta());
-        // model.addAttribute("listaSectores", LeerCSV.procesarCSV("csv/listaSectores.csv"));
-        model.addAttribute("tiposContrato", TipoContrato.values());
-        model.addAttribute("tiposModalidad", ModalidadTrabajo.values());
-
-        model.addAttribute("numOfertas", ofertaService.obtenerTodos().size());
-        model.addAttribute("listaOfertas", ofertaService.obtenerPagina(numPag, null));
-        
-        return "buscarTrabajo/indexBuscarTrabajo";
-    }
-
-    @GetMapping("/resultadosBusqueda/{numPag}")
-    public String showResults(BusquedaOferta busquedaOferta, @PathVariable Integer numPag, Model model){
-        Integer totalPaginas = ofertaService.obtenerNumeroPaginas(busquedaOferta);
-
-        if(busquedaOferta.estaVacio()) return "redirect:/ofertasDeTrabajo/0";
-        if(numPag >= totalPaginas){
-            model.addAttribute("listaOfertas", ofertaService.obtenerPagina(totalPaginas - 1, busquedaOferta));
-        }
-        else{
-            model.addAttribute("listaOfertas", ofertaService.obtenerPagina(numPag, busquedaOferta));
-        }
-
-        model.addAttribute("numOfertas", ofertaService.obtenerResultados(busquedaOferta).size());
-        
+    public String getOfferJobsPageWithoutSearch(BusquedaOferta busquedaOferta,@PathVariable Integer numPag,Model model){
         model.addAttribute("busquedaOferta", busquedaOferta);
-        // model.addAttribute("listaSectores", LeerCSV.procesarCSV("/csv/listaSectores.csv"));
+        model.addAttribute("numPag", numPag);
+        model.addAttribute("numPaginas", ofertaService.obtenerNumeroPaginas(busquedaOferta));
+        model.addAttribute("numOfertas", ofertaService.obtenerTodos().size());
+        model.addAttribute("listaOfertas", ofertaService.obtenerPagina(numPag, busquedaOferta));
+
+         // model.addAttribute("listaSectores", LeerCSV.procesarCSV("csv/listaSectores.csv"));
         model.addAttribute("tiposContrato", TipoContrato.values());
         model.addAttribute("tiposModalidad", ModalidadTrabajo.values());
-
-        
         
         return "buscarTrabajo/indexBuscarTrabajo";
     }
+
 
     @GetMapping("/verOferta/{id}")
     public String showDetallesOferta(@PathVariable Long id,Model model){

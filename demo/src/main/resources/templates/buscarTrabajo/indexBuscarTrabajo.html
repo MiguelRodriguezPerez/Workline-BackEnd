@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/images/fragmentos/Wk.ico">
     <script src="/js/desplegableEncabezado.js" defer></script>
     <link rel="stylesheet" href="/css/fragmentosEstilos/desplegableEncabezado.css">
     <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
@@ -20,7 +21,7 @@
         <a id="cerrarBotonOfertas">&times;</a>
         <form action="#" method="get"
                 th:object="${busquedaOferta}"
-                th:action="@{/ofertasDeTrabajo/resultadosBusqueda/0}">
+                th:action="@{/ofertasDeTrabajo/0}">
 
                 <a th:href="@{/ofertasDeTrabajo/0}">Borrar Filtros</a>
 
@@ -66,7 +67,7 @@
         <aside>
             <form action="#" method="get"
                 th:object="${busquedaOferta}"
-                th:action="@{/ofertasDeTrabajo/resultadosBusqueda/0}">
+                th:action="@{/ofertasDeTrabajo/0}">
                 <a th:href="@{/ofertasDeTrabajo/0}">Borrar Filtros</a>
 
                 <label for="">Puesto</label>
@@ -106,6 +107,7 @@
             </form>
         </aside>
         <div>
+            <p hidden th:text="${numPaginas}" id="numPaginas"></p>
             <h2 th:text="${numOfertas} + ' ofertas disponibles'"></h2>
             <section id="listaOfertas">
                 <div class="oferta" th:if="${listaOfertas != null}"
@@ -126,12 +128,13 @@
                 </div>
             </section>
             <section id="botonesPaginas">
-                <div><button id="anteriorPag">🡐  Anterior Página</button></div>
+                <div><button id="anteriorPag" th:if="${numPag != 0}">🡐  Anterior Página</button></div>
                 <span></span>
-                <div><button id="siguientePag">Siguiente Página  🡒</button></div>
+                <div><button id="siguientePag" >Siguiente Página  🡒</button></div>
             </section>
         </div>
     </section>
     <footer th:insert="~{/fragmentos/pie :: nav}"></footer>
 </body>
 </html>
+<!-- <button id="siguientePag" th:if="${numPag < ${numPaginas}}"></button> -->
