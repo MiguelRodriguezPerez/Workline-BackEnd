@@ -91,11 +91,6 @@ public class OfertaServiceImpl implements OfertaService{
     }
 
     @Override
-    public boolean coincidenEstudios(Oferta oferta, BusquedaOferta busquedaOferta) {
-       return false;
-    }
-
-    @Override
     public List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta) {
         ArrayList<Oferta> listaResultado = new ArrayList<>(repo.findAll());
         // System.out.println(listaResultado);
@@ -246,6 +241,12 @@ public class OfertaServiceImpl implements OfertaService{
     @Override
     public void borrarCandidatosOferta(Long id) {
         
+    }
+
+    @Override
+    public List<Integer> obtenerListaPaginas(BusquedaOferta busquedaOferta,Integer numPag) {
+        Integer totalPaginas = this.obtenerNumeroPaginas(busquedaOferta);
+        return null;
     }
     
 }

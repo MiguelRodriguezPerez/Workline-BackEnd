@@ -64,6 +64,8 @@
     </aside>
     <div id="botonDesplegableOfertas">Filtrar Ofertas</div>
     <section id="origenOfertas">
+        <div></div>
+        <h2 th:text="${numOfertas} + ' ofertas disponibles'"></h2>
         <aside>
             <form action="#" method="get"
                 th:object="${busquedaOferta}"
@@ -108,7 +110,6 @@
         </aside>
         <div>
             <p hidden th:text="${numPaginas}" id="numPaginas"></p>
-            <h2 th:text="${numOfertas} + ' ofertas disponibles'"></h2>
             <section id="listaOfertas">
                 <div class="oferta" th:if="${listaOfertas != null}"
                 th:each="oferta:${listaOfertas}" th:id="${oferta.id}">
@@ -129,7 +130,10 @@
             </section>
             <section id="botonesPaginas">
                 <div><button id="anteriorPag" th:if="${numPag != 0}">🡐  Anterior Página</button></div>
-                <span></span>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
                 <div><button id="siguientePag" >Siguiente Página  🡒</button></div>
             </section>
         </div>

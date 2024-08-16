@@ -20,5 +20,5 @@ public interface OfertaService {
     int existeAnteriorPagina(Integer paginaElecta);
     int obtenerNumeroPaginas(BusquedaOferta busquedaOferta);
     void cambiarPropiedadOfertas(List<Oferta> listaOfertas, String nombre);
-    boolean coincidenEstudios(Oferta oferta, BusquedaOferta busquedaOferta);
+    List<Integer> obtenerListaPaginas(BusquedaOferta busquedaOferta, Integer numPag);
 }
