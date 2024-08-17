@@ -128,13 +128,10 @@
                     </section>
                 </div>
             </section>
-            <section id="botonesPaginas">
-                <div><button id="anteriorPag" th:if="${numPag != 0}">🡐  Anterior Página</button></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div><button id="siguientePag" >Siguiente Página  🡒</button></div>
+            <section id="botonesPaginas" th:if="${numPaginas != 1}">
+                <div><a id="anteriorPag" th:if="${numPag != 0}">&lt;</a></div>
+                <div th:each="num:${listaPag}"><a th:text="${num}" th:href="@{/ofertasDeTrabajo/{num}(num=${num})}"></a></div>
+                <div><a id="siguientePag" th:if="${numPag + 1 != numPaginas}">&#62;</a></div>
             </section>
         </div>
     </section>

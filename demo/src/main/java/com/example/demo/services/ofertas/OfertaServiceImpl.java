@@ -108,52 +108,35 @@ public class OfertaServiceImpl implements OfertaService{
 
         Iterator<Oferta> iter = listaResultado.iterator();
 
-        while (iter.hasNext()) {
+        while(iter.hasNext()) {
             Oferta o = iter.next();
             boolean eliminar = false;
         
-            if (busquedaOferta.getPuestoB() != null && !busquedaOferta.getPuestoB().isEmpty()
+            if(busquedaOferta.getPuestoB() != null && !busquedaOferta.getPuestoB().isEmpty()
                 && !o.getPuesto().equals(busquedaOferta.getPuestoB())) eliminar = true;
-
-        
-            // Segunda condición: Filtrar por SectorB
-            if (!eliminar && busquedaOferta.getSectorB() != null && !busquedaOferta.getSectorB().equals("placeholder")
+     
+            if(!eliminar && busquedaOferta.getSectorB() != null && !busquedaOferta.getSectorB().equals("placeholder")
                 && !busquedaOferta.getSectorB().isEmpty()
                 && !o.getSector().equals(busquedaOferta.getSectorB())) eliminar = true;
- 
-        
-            // Tercera condición: Filtrar por TipoContratoB
-            if (!eliminar && busquedaOferta.getTipoContratoB() != null && !busquedaOferta.getTipoContratoB().isEmpty()
+       
+            if(!eliminar && busquedaOferta.getTipoContratoB() != null && !busquedaOferta.getTipoContratoB().isEmpty()
                 && !o.getTipoContrato().toString().toUpperCase().equals(busquedaOferta.getTipoContratoB().toUpperCase())) { // PELIGRO COMPARANDO ENUMS
                 eliminar = true;
             }
-        
-            // Cuarta condición: Filtrar por CiudadB
-            if (!eliminar && busquedaOferta.getCiudadB() != null && !busquedaOferta.getCiudadB().isEmpty()
-                    && !o.getCiudad().equals(busquedaOferta.getCiudadB())) eliminar = true;
-         
-        
-            // Quinta condición: Filtrar por SalarioAnual
-            if (!eliminar && busquedaOferta.getSalarioAnual() != null
+                  
+            if(!eliminar && busquedaOferta.getCiudadB() != null && !busquedaOferta.getCiudadB().isEmpty()
+                && !o.getCiudad().equals(busquedaOferta.getCiudadB())) eliminar = true;
+                
+            if(!eliminar && busquedaOferta.getSalarioAnual() != null
                     && o.getSalarioAnual() < busquedaOferta.getSalarioAnual()) eliminar = true;
-
-        
-            // Sexta condición: Filtrar por ModalidadB
-            if (!eliminar && busquedaOferta.getModalidadB() != null && !busquedaOferta.getModalidadB().isEmpty()
+         
+            if(!eliminar && busquedaOferta.getModalidadB() != null && !busquedaOferta.getModalidadB().isEmpty()
                     && !o.getModalidadTrabajo().toString().equalsIgnoreCase(busquedaOferta.getModalidadB())) eliminar = true;
-
         
-            // Séptima condición: Comprobar si los estudios requeridos coinciden
-            if (!eliminar && busquedaOferta.getRequisitos() != null
-                    && !coincidenEstudios(o, busquedaOferta)) eliminar = true;
-
-        
-
-            if (eliminar) iter.remove();
+            if(eliminar) iter.remove();
 
         }
         
-
         Collections.sort(listaResultado,(f1,f2) -> f1.getFechaPublicacion().compareTo(f2.getFechaPublicacion()));
         
         return listaResultado;
@@ -245,8 +228,19 @@ public class OfertaServiceImpl implements OfertaService{
 
     @Override
     public List<Integer> obtenerListaPaginas(BusquedaOferta busquedaOferta,Integer numPag) {
-        Integer totalPaginas = this.obtenerNumeroPaginas(busquedaOferta);
-        return null;
+        int totalPaginas = this.obtenerNumeroPaginas(busquedaOferta);
+        ArrayList<Integer> resultado = new ArrayList<>();
+
+        /*Este bucle llenará un arrayList de números, comenzando por la página anterior a la seleccionada
+        y luego para decidir cuantos números pondrá realiza una comprobación mediante Math.min() para que 
+        pare cuando llene tres números o cuando la búsqueda alcance su limite de páginas, lo que ocurra antes*/
+        for(int i = (numPag - 1); i < (int) Math.min((float)totalPaginas, (float) i + 4); i++){
+            resultado.add(i);
+        }
+
+        resultado.removeIf(n -> n < 0);
+
+        return resultado;
     }
     
 }

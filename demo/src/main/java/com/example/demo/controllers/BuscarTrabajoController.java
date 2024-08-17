@@ -32,6 +32,7 @@ public class BuscarTrabajoController {
         model.addAttribute("numPaginas", ofertaService.obtenerNumeroPaginas(busquedaOferta));
         model.addAttribute("numOfertas", ofertaService.obtenerTodos().size());
         model.addAttribute("listaOfertas", ofertaService.obtenerPagina(numPag, busquedaOferta));
+        model.addAttribute("listaPag", ofertaService.obtenerListaPaginas(busquedaOferta, numPag));
 
          // model.addAttribute("listaSectores", LeerCSV.procesarCSV("csv/listaSectores.csv"));
         model.addAttribute("tiposContrato", TipoContrato.values());
