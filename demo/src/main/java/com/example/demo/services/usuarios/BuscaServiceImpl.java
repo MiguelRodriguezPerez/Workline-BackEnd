@@ -139,15 +139,27 @@ public class BuscaServiceImpl implements BuscaService{
 
     @Override
     public void borrarCandidatosOferta(Oferta oferta) {
-    ArrayList<Busca> listaCandidatos = new ArrayList<>(oferta.getListaCandidatos());
-    for (Busca b : listaCandidatos) {
-        b.getListaOfertas().remove(oferta);
-        this.guardarSinEncriptar(b);
+        ArrayList<Busca> listaCandidatos = new ArrayList<>(oferta.getListaCandidatos());
+        for (Busca b : listaCandidatos) {
+            b.getListaOfertas().remove(oferta);
+            this.guardarSinEncriptar(b);
 
-        oferta.getListaCandidatos().remove(b); 
-        ofertaService.guardarOferta(oferta);
+            oferta.getListaCandidatos().remove(b); 
+            ofertaService.guardarOferta(oferta);
+        }
     }
-}
+
+    @Override
+    public boolean coincidePassword(String verificarPassword){
+        return passwordEncoder.matches(verificarPassword, this.obtenerBuscaConectado().getPassword());
+    }
+
+    @Override
+    public void cambiarPassword(String nuevoPassword) {
+        Busca busca = this.obtenerBuscaConectado();
+        busca.setPassword(nuevoPassword);
+        this.guardarCambios(busca);
+    }
     
 
 }

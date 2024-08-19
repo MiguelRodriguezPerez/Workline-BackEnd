@@ -17,8 +17,8 @@
     <main>
         <h1>Ajustes de Cuenta </h1>
         <form method="post" id="formularioDatos" 
-            th:action="@{/miPerfil/editarDatos/{rol}/submit(rol=${usuarioLogueado.getRol().toString()})}"
-            th:object="${usuarioLogueado}">
+            th:action="@{/miPerfil/busca/editarDatos/submit}"
+            th:object="${buscaLogueado}">
 
                 <input type="text" th:field="*{id}" hidden>
                 <input type="text" th:field="*{rol}" hidden>

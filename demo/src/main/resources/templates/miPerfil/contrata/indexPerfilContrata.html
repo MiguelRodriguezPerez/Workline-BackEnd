@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workline | Mi perfil</title>
+    <link rel="icon" type="image/x-icon" href="/images/fragmentos/Wk.ico">
+    <script src="/js/desplegableEncabezado.js" defer></script>
+    <link rel="stylesheet" href="/css/fragmentosEstilos/desplegableEncabezado.css">
+    <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
+    <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
+    <link rel="stylesheet" href="/css/usuarioPerfilEstilos/indexPerfilEstilo.css">
+    <script src="/js/usuarioPerfil/indexPerfil.js" defer></script>
+</head>
+<body>
+    <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
+    <main>
+        <section id="cabeceraAjustesPerfil">
+            <h1>Ajustes de Cuenta</h1>
+            <div>
+                <a th:href="@{/miPerfil/contrata/editarDatos}">
+                    <img src="/images/miPerfil/editar.png" alt="editar">
+                </a>
+            </div>
+        </section>
+       
+        <section class="nube" id="perfilNombre">
+            <h2 th:text="${contrataLogueado.nombre}"></h2>
+            <p th:text="${contrataLogueado.ciudad}"></p>
+        </section>
+
+        <section class="nube" id="perfilDatos">
+            <h2>Mis datos</h2>
+            <div>
+                <label for="">Email</label>
+                <p th:text="${contrataLogueado.email}">
+            </div>
+            <div>
+                <label for="">Teléfono</label>
+                <p th:text="${contrataLogueado.telefono}">
+            </div>
+            <a th:href="@{/miPerfil/contrata/cambiarPassword/primerPaso}">Cambiar Contraseña</a>
+        </section>
+
+    </main>
+    
+    <footer th:insert="~{/fragmentos/pie :: nav}"></footer>
+</body>
+</html>

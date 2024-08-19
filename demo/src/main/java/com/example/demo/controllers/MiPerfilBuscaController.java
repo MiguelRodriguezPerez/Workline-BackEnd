@@ -22,17 +22,11 @@ import com.example.demo.services.usuarios.BuscaService;
 import com.example.demo.services.usuarios.ContrataService;
 
 @Controller
-@RequestMapping("/miPerfil")
-public class MiPerfilController {
-
-    @Autowired
-    UsuarioService usuarioService;
+@RequestMapping("/miPerfil/busca")
+public class MiPerfilBuscaController {
 
     @Autowired
     BuscaService buscaService;
-
-    @Autowired
-    ContrataService contrataService;
 
     @Autowired
     ConocimientoService conocimientoService;
@@ -45,29 +39,27 @@ public class MiPerfilController {
     
     @GetMapping("/")
     public String showUserInfo(Model model){
-        model.addAttribute("usuarioLogueado",usuarioService.obtenerUsuarioConectado());
-        System.out.println(usuarioService.obtenerUsuarioConectado());
-
-        return "usuarioPerfil/indexPerfil";
+        model.addAttribute("buscaLogueado",buscaService.obtenerBuscaConectado());
+        return "miPerfil/busca/indexPerfilBusca";
     }
 
     @GetMapping("/editarDatos")
     public String showEditarDatosForm(Model model){
-        model.addAttribute("usuarioLogueado", usuarioService.obtenerUsuarioConectado());
-        return "usuarioPerfil/editarDatosPerfil";
+        model.addAttribute("buscaLogueado", buscaService.obtenerBuscaConectado());
+        return "miPerfil/busca/editarDatosBusca";
     }
 
-    @PostMapping("/editarDatos/CONTRATA/submit")
-    public String showSubmitEditarDatosCONTRATA(Contrata contrata){
-        Contrata c2 = contrataService.guardarCambios(contrata);
-        ofertaService.cambiarPropiedadOfertas(c2.getListaOfertas(), c2.getNombre());
-        return "redirect:/miPerfil/";
-    }
+    // @PostMapping("/editarDatos/CONTRATA/submit")
+    // public String showSubmitEditarDatosCONTRATA(Contrata contrata){
+    //     Contrata c2 = contrataService.guardarCambios(contrata);
+    //     ofertaService.cambiarPropiedadOfertas(c2.getListaOfertas(), c2.getNombre());
+    //     return "redirect:/miPerfil/";
+    // }
 
-    @PostMapping("/editarDatos/BUSCA/submit")
+    @PostMapping("/editarDatos/submit")
     public String showSubmitEditarDatos(Busca busca){
         buscaService.guardarCambios(busca);
-        return "redirect:/miPerfil/";
+        return "redirect:/miPerfil/busca/";
     }
 
     @GetMapping("/nuevoConocimiento")
@@ -75,7 +67,7 @@ public class MiPerfilController {
         model.addAttribute("conocimiento", new Conocimiento());
         model.addAttribute("buscaLogueado", buscaService.obtenerBuscaConectado());
 
-        return "usuarioPerfil/nuevoConocimiento";
+        return "miPerfil/busca/nuevoConocimiento";
     }
 
     @PostMapping("/nuevoConocimiento/submit")
@@ -84,19 +76,19 @@ public class MiPerfilController {
         buscaService.guardarSinEncriptar(buscaService.obtenerBuscaConectado());
         conocimientoService.guardarConocimiento(conocimiento);
 
-        return "redirect:/miPerfil/";
+        return "redirect:/miPerfil/busca/";
     }
 
     @GetMapping("/editarConocimiento/{idExp}")
     public String showEditConocimiento(@PathVariable Long idExp, Model model){
         model.addAttribute("conocimientoEditar", conocimientoService.obtenerPorId(idExp));
-        return "usuarioPerfil/editarConocimiento";
+        return "miPerfil/busca/editarConocimiento";
     }
 
     @PostMapping("/editarConocimiento/submit")
     public String showSubmitEdittedConocimiento(Conocimiento conocimiento){
         conocimientoService.actualizarConocimiento(conocimiento);
-        return "redirect:/miPerfil/";
+        return "redirect:/miPerfil/busca/";
     }
 
     @GetMapping("/borrarConocimiento/{idCon}")
@@ -105,7 +97,7 @@ public class MiPerfilController {
         buscaService.obtenerBuscaConectado().getListaConocimientos().remove(conocimientoService.obtenerPorId(idCon));
         conocimientoService.borrarConocimiento(idCon);
         buscaService.guardarSinEncriptar(buscaService.obtenerBuscaConectado());
-        return "redirect:/miPerfil/";
+        return "redirect:/miPerfil/busca/";
     }
 
     @GetMapping("/nuevaExperiencia")
@@ -114,7 +106,7 @@ public class MiPerfilController {
         model.addAttribute("experiencia", new Experiencia());
         model.addAttribute("buscaLogueado", buscaService.obtenerBuscaConectado());
 
-        return "usuarioPerfil/nuevaExperiencia";
+        return "miPerfil/busca/nuevaExperiencia";
     }
 
     @PostMapping("/nuevaExperiencia/submit")
@@ -122,7 +114,7 @@ public class MiPerfilController {
         experiencia.setBusca(buscaService.obtenerBuscaConectado());
         experienciaService.guardarExperiencia(experiencia);
 
-        return "redirect:/miPerfil/";
+        return "redirect:/miPerfil/busca/";
     }
 
     @GetMapping("/editarExperiencia/{idExp}")
@@ -131,7 +123,7 @@ public class MiPerfilController {
         model.addAttribute("experiencia", experienciaService.obtenerPorId(idExp));
         model.addAttribute("buscaLogueado", buscaService.obtenerBuscaConectado());
 
-        return "usuarioPerfil/nuevaExperiencia";
+        return "miPerfil/busca/nuevaExperiencia";
     }
 
     @GetMapping("/borrarExperiencia/{idExp}")
@@ -141,7 +133,7 @@ public class MiPerfilController {
         experienciaService.borrarExperiencia(idExp);
         buscaService.guardarSinEncriptar(buscaService.obtenerBuscaConectado());
 
-        return "redirect:/miPerfil/";
+        return "redirect:/miPerfil/busca/";
     }
 
     @GetMapping("/misOfertas/desinscribirse/{ofertaId}")
@@ -155,43 +147,31 @@ public class MiPerfilController {
         buscaService.guardarSinEncriptar(busca);
         ofertaService.guardarOferta(oferta);
 
-        return "redirect:/miPerfil/";
+        return "redirect:/miPerfil/busca/";
     }
 
     @GetMapping("/cambiarPassword/primerPaso")
     public String showFirstStepChangePassword(Model model){
-        model.addAttribute("usuarioLogueado",usuarioService.obtenerUsuarioConectado());
+        model.addAttribute("usuarioLogueado",buscaService.obtenerBuscaConectado());
         model.addAttribute("verificarPassword", new String());
 
-        return "usuarioPerfil/passwords/confirmarPassword";
+        return "miPerfil/busca/passwords/confirmarPassword";
     }
 
     @PostMapping("/cambiarPassword/segundoPaso")
     public String showSecondStepChangePassword(@RequestParam String verificarPassword, Model model){
-        if(usuarioService.coincidePassword(verificarPassword)){
-            model.addAttribute("usuarioLogueado", usuarioService.obtenerUsuarioConectado());
-            return "usuarioPerfil/passwords/cambiarPassword";
+        if(buscaService.coincidePassword(verificarPassword)){
+            model.addAttribute("usuarioLogueado", buscaService.obtenerBuscaConectado());
+            return "miPerfil/busca/passwords/cambiarPassword";
         } 
         
-        return "redirect:/miPerfil/cambiarPassword/primerPaso";
+        return "redirect:/miPerfil/busca/cambiarPassword/primerPaso";
     }
 
     @PostMapping("/cambiarPassword/tercerPaso")
     public String showThirdStepChangePassword(@RequestParam String nuevoPassword){
+        buscaService.cambiarPassword(nuevoPassword);
         
-        switch(usuarioService.obtenerUsuarioConectado().getRol().toString()){
-            case "BUSCA":
-                Busca busca = (Busca) usuarioService.obtenerUsuarioConectado();
-                busca.setPassword(nuevoPassword);
-                buscaService.guardarCambios(busca);
-                break;
-            case "CONTRATA":
-                Contrata contrata = (Contrata) usuarioService.obtenerUsuarioConectado();
-                contrata.setPassword(nuevoPassword);
-                contrataService.guardarCambios(contrata);
-                break;
-        }
-        
-        return "usuarioPerfil/passwords/exitoCambiarPassword";
+        return "miPerfil/busca/passwords/exitoCambiarPassword";
     }
 }

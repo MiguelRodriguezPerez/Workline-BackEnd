@@ -18,51 +18,51 @@
         <section id="cabeceraAjustesPerfil">
             <h1>Ajustes de Cuenta</h1>
             <div>
-                <a th:href="@{/miPerfil/editarDatos}">
+                <a th:href="@{/miPerfil/busca/editarDatos}">
                     <img src="/images/miPerfil/editar.png" alt="editar">
                 </a>
             </div>
         </section>
        
         <section class="nube" id="perfilNombre">
-            <h2 th:text="${usuarioLogueado.nombre}"></h2>
-            <p th:text="${usuarioLogueado.ciudad}"></p>
+            <h2 th:text="${buscaLogueado.nombre}"></h2>
+            <p th:text="${buscaLogueado.ciudad}"></p>
         </section>
 
         <section class="nube" id="perfilDatos">
             <h2>Mis datos</h2>
             <div>
                 <label for="">Email</label>
-                <p th:text="${usuarioLogueado.email}">
+                <p th:text="${buscaLogueado.email}">
             </div>
             <div>
                 <label for="">Teléfono</label>
-                <p th:text="${usuarioLogueado.telefono}">
+                <p th:text="${buscaLogueado.telefono}">
             </div>
-            <a th:href="@{/miPerfil/cambiarPassword/primerPaso}">Cambiar Contraseña</a>
+            <a th:href="@{/miPerfil/busca/cambiarPassword/primerPaso}">Cambiar Contraseña</a>
         </section>
 
-        <section id="listasEntidades" th:if="${rolActual.equals('BUSCA')}">
-            <div th:if="${#lists.isEmpty(usuarioLogueado.getListaConocimientos())}" class="sinEntidad nube">
+        <section id="listasEntidades">
+            <div th:if="${#lists.isEmpty(buscaLogueado.getListaConocimientos())}" class="sinEntidad nube">
                 <h3>No tienes estudios registrados</h3>
-                <a th:href="@{/miPerfil/nuevoConocimiento}">Añadir un estudio</a>
+                <a th:href="@{/miPerfil/busca/nuevoConocimiento}">Añadir un estudio</a>
             </div>
             
 
-            <div class="nube" th:unless="${#lists.isEmpty(usuarioLogueado.getListaConocimientos())}">
+            <div class="nube" th:unless="${#lists.isEmpty(buscaLogueado.getListaConocimientos())}">
                 <div class="cabeceraEntidad">
                     <h2>Estudios</h2>
-                    <a th:href="@{/miPerfil/nuevoConocimiento}">
+                    <a th:href="@{/miPerfil/busca/nuevoConocimiento}">
                         <img src="/images/miPerfil/suma.png" alt="suma.png">
                     </a>
                 </div>
                 <ul>
-                    <li class="elementoEntidad" th:each="conocimiento:${usuarioLogueado.getListaConocimientos()}">
+                    <li class="elementoEntidad" th:each="conocimiento:${buscaLogueado.getListaConocimientos()}">
                         <div>
-                            <h3 th:text="${conocimiento.titulo}"></h3><a th:href="@{/miPerfil/editarConocimiento/{idCon}(idCon=${conocimiento.getId()})}">
+                            <h3 th:text="${conocimiento.titulo}"></h3><a th:href="@{/miPerfil/busca/editarConocimiento/{idCon}(idCon=${conocimiento.getId()})}">
                                 <img src="/images/miPerfil/editar.png" alt="editar">
                             </a>
-                            <a th:href="@{/miPerfil/borrarConocimiento/{idCon}(idCon=${conocimiento.getId()})}">
+                            <a th:href="@{/miPerfil/busca/borrarConocimiento/{idCon}(idCon=${conocimiento.getId()})}">
                                 <img src="/images/miPerfil/borrar.png" alt="borrar.png">
                             </a>
                         </div>
@@ -73,27 +73,27 @@
                 </ul>    
             </div>
 
-            <div th:if="${#lists.isEmpty(usuarioLogueado.getListaExperiencias())}" class="sinEntidad nube">
+            <div th:if="${#lists.isEmpty(buscaLogueado.getListaExperiencias())}" class="sinEntidad nube">
                 <h3>No tienes experiencias laborales registradas</h3>
-                <a th:href="@{/miPerfil/nuevaExperiencia}">Añadir una experiencia</a>
+                <a th:href="@{/miPerfil/busca/nuevaExperiencia}">Añadir una experiencia</a>
             </div>
             
 
-            <div class="nube" th:unless="${#lists.isEmpty(usuarioLogueado.getListaExperiencias())}">
+            <div class="nube" th:unless="${#lists.isEmpty(buscaLogueado.getListaExperiencias())}">
                 <div class="cabeceraEntidad">
                     <h2>Experiencia</h2>
-                    <a th:href="@{/miPerfil/nuevaExperiencia}">
+                    <a th:href="@{/miPerfil/busca/nuevaExperiencia}">
                         <img src="/images/miPerfil/suma.png" alt="suma.png">
                     </a>
                 </div>
                 <ul>
-                    <li class="elementoEntidad" th:each="experiencia:${usuarioLogueado.getListaExperiencias()}">
+                    <li class="elementoEntidad" th:each="experiencia:${buscaLogueado.getListaExperiencias()}">
                         <div>
                             <h3 th:text="${experiencia.puesto}"></h3>
-                            <a th:href="@{/miPerfil/editarExperiencia/{idExp}(idExp=${experiencia.getId()})}">
+                            <a th:href="@{/miPerfil/busca/editarExperiencia/{idExp}(idExp=${experiencia.getId()})}">
                                 <img src="/images/miPerfil/editar.png" alt="editar.png">
                             </a>
-                            <a th:href="@{/miPerfil/borrarExperiencia/{idExp}(idExp=${experiencia.getId()})}">
+                            <a th:href="@{/miPerfil/busca/borrarExperiencia/{idExp}(idExp=${experiencia.getId()})}">
                                 <img src="/images/miPerfil/borrar.png" alt="borrar.png">
                             </a>
                         </div>
@@ -105,9 +105,9 @@
             </div>
         </section>
 
-        <section id="ofertasSuscrito" th:if="${rolActual.equals('BUSCA')}">
-            <h1 th:unless="${#lists.isEmpty(usuarioLogueado.getListaOfertas())}">Mis ofertas</h1>
-            <section class="oferta nube" th:each="oferta:${usuarioLogueado.getListaOfertas()}" th:id="${oferta.id}">
+        <section id="ofertasSuscrito">
+            <h1 th:unless="${#lists.isEmpty(buscaLogueado.getListaOfertas())}">Mis ofertas</h1>
+            <section class="oferta nube" th:each="oferta:${buscaLogueado.getListaOfertas()}" th:id="${oferta.id}">
                 <div>   
                     <h4 th:text="${oferta.puesto}"></h4>
                     <h5 th:text="${oferta.nombreEmpresa}"></h5>
@@ -118,12 +118,10 @@
                     <li><p th:text="${oferta.modalidadTrabajo}"></p></li>
                     <li><p th:text="${oferta.ciudad}"></p></li>
                 </ul>
-                <a class="suscrito" th:href="@{/miPerfil/misOfertas/desinscribirse/{ofertaId}(ofertaId=${oferta.id})}">Desinscribirse</a>
+                <a class="suscrito" th:href="@{/miPerfil/busca/misOfertas/desinscribirse/{ofertaId}(ofertaId=${oferta.id})}">Desinscribirse</a>
             </section>
         </section>
     </main>
-
-    
     
     <footer th:insert="~{/fragmentos/pie :: nav}"></footer>
 </body>

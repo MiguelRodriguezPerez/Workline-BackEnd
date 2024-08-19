@@ -52,7 +52,4 @@ public class UsuarioService {
         return null;
     }
 
-    public boolean coincidePassword(String verificarPassword){
-        return encoder.matches(verificarPassword, this.obtenerUsuarioConectado().getPassword());
-    }
 }

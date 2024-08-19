@@ -23,5 +23,7 @@ public interface ContrataService {
     int existeSiguientePagina(Integer pagina);
     int existeAnteriorPagina(Integer pagina);
     int obtenerNumeroPaginasOfertasPublicadas();
-    
+    boolean coincidePassword(String verificarPassword);
+    void cambiarPassword(String nuevoPassword);
+
 }

@@ -21,4 +21,7 @@ public interface BuscaService {
     Busca obtenerBuscaConectado();
     boolean estaSuscritoOferta(Long id);
     void borrarCandidatosOferta(Oferta oferta);
+    boolean coincidePassword(String verificarPassword);
+    void cambiarPassword(String nuevoPassword);
+    
 }

@@ -78,6 +78,7 @@ public class ConocimientoServiceImpl implements ConocimientoService{
 
     @Override
     public void actualizarConocimiento(Conocimiento conocimiento) {
+        System.out.println(conocimiento + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         Conocimiento cEditar = this.obtenerPorId(conocimiento.getId());
 
         cEditar.setId(conocimiento.getId());

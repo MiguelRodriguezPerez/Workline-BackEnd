@@ -65,7 +65,7 @@ public class Conocimiento {
     }
 
     public String parsearFechaFin(){
-        LocalDate l = this.inicioPeriodoConocimiento;
+        LocalDate l = this.finPeriodoConocimiento;
         String resultado = DateTimeFormatter.ofPattern("dd-MM-yyyy").format(l).toString();
         resultado = resultado.replace('-', '/');
         

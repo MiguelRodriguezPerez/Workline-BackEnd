@@ -16,7 +16,7 @@
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
     <main>
         <form action="#" method="post" id="formNuevoBuscaConocimiento"
-            th:action="@{/miPerfil/nuevoConocimiento/submit}"
+            th:action="@{/miPerfil/busca/nuevoConocimiento/submit}"
             th:object="${conocimiento}">
                 <input type="text" th:field="*{id}" hidden>
                 <h1>Escribe un nuevo conocimiento</h1>

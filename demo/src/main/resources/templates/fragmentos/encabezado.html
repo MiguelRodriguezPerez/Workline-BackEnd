@@ -8,7 +8,7 @@
         <a th:href="@{/seccionContrata/pagina/0}">Contratar</a>
     </section>
     <section id="perfil">
-        <a th:if="${currentUserName != null}"  th:href="@{/miPerfil/}" th:text="${currentUserName}"></a>
+        <a th:if="${currentUserName != null}"  th:href="@{/miPerfil/{rolActual}/(rolActual=${rolActual})}" th:text="${currentUserName}"></a>
         <form th:if="${currentUserName != null}" th:action="@{/logout}" method="post">
             <input type="submit" value="Logout" />
         </form>
@@ -20,7 +20,7 @@
     <section id="menuTelefono">
         <div>
             <a th:if="${currentUserName == null}" th:href="@{/sesion/signin}">Iniciar Sesión</a>
-            <a th:unless="${currentUserName == null}" th:href="@{/miPerfil/}" th:text="${currentUserName}"></a>
+            <a th:unless="${currentUserName == null}" th:href="@{/miPerfil/{rolActual}/(rolActual=${rolActual.toLowerCase()})}" th:text="${rolActual}"></a>
             <a th:href="@{/sesion/signin}" id="loginTelefono">
                 <img src="/images/fragmentos/pfp.png" alt="pfp.png">
             </a>

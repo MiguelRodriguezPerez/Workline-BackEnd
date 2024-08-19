@@ -161,5 +161,17 @@ public class ContrataServiceImpl implements ContrataService{
         return (int) Math.ceil((double) this.obtenerContrataConectado().getListaOfertas().size() / ofertasPorPagina);
     }
 
+    @Override
+    public boolean coincidePassword(String verificarPassword){
+        return passwordEncoder.matches(verificarPassword, this.obtenerContrataConectado().getPassword());
+    }
+
+    @Override
+    public void cambiarPassword(String nuevoPassword) {
+        Contrata contrata = this.obtenerContrataConectado();
+        contrata.setPassword(nuevoPassword);
+        this.guardarCambios(contrata);
+    }
+
 
 }
