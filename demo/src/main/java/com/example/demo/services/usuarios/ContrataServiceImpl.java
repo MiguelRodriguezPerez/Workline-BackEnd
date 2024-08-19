@@ -140,7 +140,7 @@ public class ContrataServiceImpl implements ContrataService{
 
     @Override
     public int existeSiguientePagina(Integer paginaElecta) {
-        if(paginaElecta <= obtenerNumeroPaginasOfertasPublicadas()){
+        if(paginaElecta < this.obtenerNumeroPaginasOfertasPublicadas() - 1){
             paginaElecta++;
             return paginaElecta;
         }
@@ -157,11 +157,8 @@ public class ContrataServiceImpl implements ContrataService{
     }
 
     @Override
-    public int obtenerNumeroPaginasOfertasPublicadas() {
-        Pageable paginable = PageRequest.of(0,ofertasPorPagina);
-        Page<Oferta> resultado = new PageImpl<>(obtenerContrataConectado().getListaOfertas(), paginable, ofertasPorPagina);
-        
-        return resultado.getTotalPages();
+    public int obtenerNumeroPaginasOfertasPublicadas(){
+        return (int) Math.ceil((double) this.obtenerContrataConectado().getListaOfertas().size() / ofertasPorPagina);
     }
 
 

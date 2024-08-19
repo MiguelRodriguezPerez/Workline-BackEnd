@@ -30,7 +30,7 @@ public class BuscarTrabajoController {
         model.addAttribute("busquedaOferta", busquedaOferta);
         model.addAttribute("numPag", numPag);
         model.addAttribute("numPaginas", ofertaService.obtenerNumeroPaginas(busquedaOferta));
-        model.addAttribute("numOfertas", ofertaService.obtenerTodos().size());
+        model.addAttribute("numOfertas", ofertaService.obtenerResultados(busquedaOferta).size());
         model.addAttribute("listaOfertas", ofertaService.obtenerPagina(numPag, busquedaOferta));
         model.addAttribute("listaPag", ofertaService.obtenerListaPaginas(busquedaOferta, numPag));
 

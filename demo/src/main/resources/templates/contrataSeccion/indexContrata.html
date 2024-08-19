@@ -14,7 +14,8 @@
 </head>
 <body>
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
-    <p th:text="${numPag}" id="numPag" hidden></p>
+    <main>
+        <p th:text="${numPag}" id="numPag" hidden></p>
     <h1>Tus ofertas</h1>
     <h2 th:text="${numOfertas} + ' ofertas publicadas'"></h2>
     
@@ -57,6 +58,8 @@
         <span></span>
         <div><a id="siguientePagContrata" th:href="@{/seccionContrata/siguientePag/{numPag}(numPag=${numPag})}">Siguiente Página  🡒</a></div>
     </section>
+    </main>
+    
     <footer th:insert="~{/fragmentos/pie :: nav}"></footer>
 </body>
 </html>
