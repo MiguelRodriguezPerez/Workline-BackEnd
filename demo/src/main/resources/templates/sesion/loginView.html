@@ -6,19 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/loginViewEstilo.css">
     <title>Iniciar Sesión</title>
+    <script src="/js/loginView.js" defer></script>
 </head>
 <body>
-    <div id="primerContenedor">
+    <main>
         <div>
             <h2>Workline</h2>
             <form th:action="@{/login}" method="post">
                 <img src="/images/login/usuario.png" alt=""><input type="text" name="username" placeholder="Nombre de usuario">
                 <img src="/images/login/candado.png" alt=""><input type="password" name="password" placeholder="Contraseña">
-                <span></span><input type="submit" value="Iniciar Sesión">
+                <p th:if="${error != null}" th:text="${error}" id="error"></p>
+                <input type="submit" value="Iniciar Sesión">
             </form>
             <p>¿No tiene cuenta? <a th:href="@{/nuevoUsuario/}">Cree una</a></p>
             <a th:href="@{/}">Volver atrás</a>
         </div>
-    </div>
+    </main>
 </body>
 </html>

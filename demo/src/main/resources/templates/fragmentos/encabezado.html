@@ -1,10 +1,11 @@
 <nav id="cabecera">
     <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
-    <img src="/images/fragmentos/Wk.png" alt="logo.png" id="logo">
+    <a th:href="@{/}">
+        <img src="/images/fragmentos/Wk.png" alt="logo.png" id="logo">
+    </a>
     <section id="pestayas">
         <a th:href="@{/}">Inicio</a>
         <a th:href="@{/ofertasDeTrabajo/0}">Ofertas</a>
-        <!-- th:if user.getRol('CONTRATA') -->
         <a th:href="@{/seccionContrata/pagina/0}">Contratar</a>
     </section>
     <section id="perfil">

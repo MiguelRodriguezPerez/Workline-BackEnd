@@ -18,6 +18,11 @@ footer li{
     margin-bottom: 7px;
 }
 
+footer li a{
+    text-decoration: none;
+    color:white;
+}
+
 @media screen and (max-width:1200px) {
 
     footer > nav > div{

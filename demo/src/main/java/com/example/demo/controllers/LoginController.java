@@ -1,8 +1,10 @@
 package com.example.demo.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequestMapping("/sesion")
 @Controller
@@ -24,7 +26,8 @@ public class LoginController {
     }
 
     @GetMapping("/signin")
-    public String showLogin(){
+    public String showLogin(@RequestParam(required = false) String error, Model model){
+        if(error != null) model.addAttribute("error", "Usuario o contraseña incorrectos");
         return "sesion/logInView";
     }
 

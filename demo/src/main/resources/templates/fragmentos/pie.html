@@ -2,12 +2,12 @@
     <div></div>
     <img src="/images/fragmentos/wkFooter.png" alt="logo.png"><br>
     <ul>
-        <li>Inicio</li>
-        <li>Encuentra trabajo</li>
-        <li>Contrata</li>
+        <li><a th:href="@{/}">Inicio</a></li>
+        <li><a th:href="@{/ofertasDeTrabajo/0}">Encontrar trabajo</a></li>
+        <li><a th:href="@{/seccionContrata/pagina/0}">Contratrar empleados</a></li>
     </ul>
     <ul>
-        <li>Mi perfil</li>
-        <li>Crear cuenta</li>
+        <li><a th:href="@{/miPerfil/{rolActual}(rolActual=${rolActual})}">Mi perfil</a></li>
+        <li><a th:href="@{/nuevoUsuario/}">Crear cuenta</a></li>
     </ul>
 </nav>

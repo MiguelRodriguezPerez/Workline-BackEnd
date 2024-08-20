@@ -17,11 +17,12 @@ footer {
     display: none;
 }
 
+
 header > nav{
     background-color: #333;
     display: grid;
     grid-template-columns: 33% 33% 34%;
-    padding: 20px;
+    padding: 1%;
 }
 
 
@@ -29,6 +30,11 @@ header > nav{
     display: grid;
     grid-template-columns: 20% 20% 20%;
     align-items: center;
+}
+
+
+#pestayas a.seleccionado{
+    color:#6bcb51;
 }
 
 #pestayas a:first-child{
@@ -97,6 +103,7 @@ header > nav{
 @media screen and (max-width:1200px) {
     header > nav{
         grid-template-columns: 20% 55% 25%;
+        padding: 2%;
     }
 
     #pestayas{
