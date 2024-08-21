@@ -98,43 +98,12 @@ public class OfertaServiceImpl implements OfertaService{
 
     @Override
     public void borrarBuscaTodasOfertas(Busca busca) {
-        for(Oferta oferta: repo.findAll()){
-            for(Busca b: oferta.getListaCandidatos()){
-                if(b == busca){//Se comparan por id
-                    oferta.getListaCandidatos().remove(b);
-                    this.guardarOferta(oferta);
-
-                    b.getListaOfertas().remove(oferta);
-                    buscaService.guardarSinEncriptar(busca);
-                } 
-            }
-        }
+        repo.borrarBuscaFromAllOfertas(busca.getId());
     }
 
     @Override
     public void borrarContrataTodasOfertas(Contrata contrata) {
-
-        if(contrata.getListaOfertas() != null){
-            for(Oferta oferta: contrata.getListaOfertas()){
-
-                if(oferta.getListaCandidatos() != null){
-                    for(Busca candidato: oferta.getListaCandidatos()){
-                        candidato.getListaOfertas().remove(oferta);
-                        buscaService.guardarSinEncriptar(candidato);
-                    }
-
-                    oferta.getListaCandidatos().clear();
-                }
-                
-                this.borrarOferta(oferta.getId());
-            }
-    
-            contrata.getListaOfertas().clear();
-            contrataService.guardarSinEncriptar(contrata);
-        }
-
-        
-
+        repo.borrarCandidatosTodasOfertas(contrata.getId());
     }
 
     @Override
