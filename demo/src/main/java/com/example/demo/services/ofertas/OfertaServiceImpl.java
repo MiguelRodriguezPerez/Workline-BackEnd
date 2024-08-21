@@ -15,9 +15,11 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.domain.ofertas.Oferta;
+import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.exceptions.PagOfertasPublicadasIncorrecta;
 import com.example.demo.repositories.OfertaRepository;
+import com.example.demo.services.usuarios.BuscaService;
 import com.example.demo.services.usuarios.ContrataService;
 
 @Service
@@ -28,6 +30,9 @@ public class OfertaServiceImpl implements OfertaService{
 
     @Autowired
     ContrataService contrataService;
+
+    @Autowired
+    BuscaService buscaService;
 
     @Autowired
     BusquedaOfertaService busquedaOfertaService;
@@ -76,6 +81,60 @@ public class OfertaServiceImpl implements OfertaService{
     @Override
     public void borrarOferta(Long id) {
         repo.deleteById(id);
+    }
+
+    @Override
+    public void borrarCandidatosOferta(Long id) {
+        Oferta oferta = this.obtenerPorId(id);
+        ArrayList<Busca> listaCandidatos = new ArrayList<>(oferta.getListaCandidatos());
+        for (Busca b : listaCandidatos) {
+            b.getListaOfertas().remove(oferta);
+            buscaService.guardarSinEncriptar(b);
+
+            oferta.getListaCandidatos().remove(b); 
+            this.guardarOferta(oferta);
+        }
+    }
+
+    @Override
+    public void borrarBuscaTodasOfertas(Busca busca) {
+        for(Oferta oferta: repo.findAll()){
+            for(Busca b: oferta.getListaCandidatos()){
+                if(b == busca){//Se comparan por id
+                    oferta.getListaCandidatos().remove(b);
+                    this.guardarOferta(oferta);
+
+                    b.getListaOfertas().remove(oferta);
+                    buscaService.guardarSinEncriptar(busca);
+                } 
+            }
+        }
+    }
+
+    @Override
+    public void borrarContrataTodasOfertas(Contrata contrata) {
+
+        if(contrata.getListaOfertas() != null){
+            for(Oferta oferta: contrata.getListaOfertas()){
+
+                if(oferta.getListaCandidatos() != null){
+                    for(Busca candidato: oferta.getListaCandidatos()){
+                        candidato.getListaOfertas().remove(oferta);
+                        buscaService.guardarSinEncriptar(candidato);
+                    }
+
+                    oferta.getListaCandidatos().clear();
+                }
+                
+                this.borrarOferta(oferta.getId());
+            }
+    
+            contrata.getListaOfertas().clear();
+            contrataService.guardarSinEncriptar(contrata);
+        }
+
+        
+
     }
 
     @Override
@@ -212,18 +271,12 @@ public class OfertaServiceImpl implements OfertaService{
         else return paginaElecta;
     }
    
-
     @Override
     public void cambiarPropiedadOfertas(List<Oferta> listaOfertas, String username) {
         for(Oferta oferta: listaOfertas){
             oferta.setNombreEmpresa(username);
             this.guardarCambios(oferta);
         }
-    }
-
-    @Override
-    public void borrarCandidatosOferta(Long id) {
-        
     }
 
     @Override
@@ -241,6 +294,16 @@ public class OfertaServiceImpl implements OfertaService{
         resultado.removeIf(n -> n < 0);
 
         return resultado;
+    }
+
+    @Override
+    public boolean estaSuscritoOferta(Long id) {
+        if(buscaService.obtenerBuscaConectado() != null 
+            && this.obtenerPorId(id) != null
+            && buscaService.obtenerBuscaConectado().getListaOfertas().contains(this.obtenerPorId(id))){
+            return true;
+        }
+        return false;
     }
     
 }

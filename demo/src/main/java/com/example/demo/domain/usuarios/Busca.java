@@ -28,8 +28,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Entity
-// @Inheritance(strategy = InheritanceType.JOINED)
-// @DiscriminatorValue("Busca")
 @Table(name="Busca")
 public class Busca extends Usuario{
     

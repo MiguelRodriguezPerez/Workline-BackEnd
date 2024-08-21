@@ -12,7 +12,13 @@ const arrayValidaciones = [];
 const formulario = document.getElementById('formularioEdicion');
 
 console.log(validarInputs)
-
+/*
+    for(let i = 0; i < funcionesPredefinidas.length; i++){
+        validarInputs[i].addEventListener('input',() = >{
+            funcionesPredefinidas[i](validarInputs[i].value, mensajesError[i]);
+        })
+    }
+*/
 
 const valPuesto = () => {
     valFunciones.validarPuesto(validarInputs[0],mensajesError[0]);

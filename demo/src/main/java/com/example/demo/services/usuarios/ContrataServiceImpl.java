@@ -56,7 +56,7 @@ public class ContrataServiceImpl implements ContrataService{
         Contrata contrataAntiguo = this.obtenerContrataConectado();
 
         contrata.setListaOfertas(contrataAntiguo.getListaOfertas());
-
+        
         /*Este método sirve para cambiar los datos del usuario, pero también la contraseña
         Como estas dos acciones se realizan por rutas distintas, se comprueba si el contrata nuevo
         tiene una contraseña fijada. En caso positivo, significa que se accedio a la ruta para

@@ -14,6 +14,7 @@ import com.example.demo.services.usuarios.BuscaService;
 
 @Service
 public class ConocimientoServiceImpl implements ConocimientoService{
+    
     @Autowired
     ConocimientoRepository repo;
 
@@ -60,6 +61,15 @@ public class ConocimientoServiceImpl implements ConocimientoService{
     }
 
     @Override
+    public void borrarTodosPorBusca(Long id) {
+        Busca busca = buscaService.obtenerPorId(id);
+        busca.setListaConocimientos(null);
+        buscaService.guardarSinEncriptar(busca);
+
+        repo.deleteAllByBusca(busca);
+    }
+
+    @Override
     public List<Conocimiento> obtenerTodos() {
         return repo.findAll();
     }
@@ -91,4 +101,6 @@ public class ConocimientoServiceImpl implements ConocimientoService{
 
         this.guardarConocimiento(cEditar);
     }
+
+    
 }

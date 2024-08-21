@@ -45,7 +45,7 @@ public class BuscarTrabajoController {
     @GetMapping("/verOferta/{id}")
     public String showDetallesOferta(@PathVariable Long id,Model model){
         model.addAttribute("oferta", ofertaService.obtenerPorId(id));
-        model.addAttribute("estaInscrito", buscaService.estaSuscritoOferta(id));
+        model.addAttribute("estaInscrito", ofertaService.estaSuscritoOferta(id));
 
         return "buscarTrabajo/detallesOferta";
     }

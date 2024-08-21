@@ -1,7 +1,6 @@
 package com.example.demo.services;
 
 import java.util.List;
-import java.util.Set;
 
 import com.example.demo.domain.Conocimiento;
 import com.example.demo.domain.usuarios.Busca;
@@ -13,6 +12,7 @@ public interface ConocimientoService {
     void guardarListaConocimientos(Busca busca,List <Conocimiento> conocimientos);
     Conocimiento obtenerPorId(Long id);
     void borrarConocimiento(Long id);
+    void borrarTodosPorBusca(Long id);
     List<Conocimiento> obtenerTodos();
     List<Conocimiento> obtenerTodosSet();
 }

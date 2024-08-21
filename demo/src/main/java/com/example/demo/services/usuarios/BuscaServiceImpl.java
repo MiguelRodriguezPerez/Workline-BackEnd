@@ -30,9 +30,6 @@ public class BuscaServiceImpl implements BuscaService{
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @Autowired
-    OfertaService ofertaService;
-
     @Override
     public Busca guardar(Busca busca) {
         busca.setPassword(passwordEncoder.encode(busca.getPassword()));
@@ -80,6 +77,8 @@ public class BuscaServiceImpl implements BuscaService{
 
     @Override
     public void borrar(Long id) {
+        /*Este método solo se llama cuando el propio usuario borra su cuenta, por lo que 
+        se forzará un logout*/
         repo.deleteById(id);
     }
 
@@ -118,35 +117,11 @@ public class BuscaServiceImpl implements BuscaService{
     }
 
     @Override
-    public boolean estaSuscritoOferta(Long id) {
-        if(this.obtenerBuscaConectado() != null 
-            && ofertaService.obtenerPorId(id) != null
-            && this.obtenerBuscaConectado().getListaOfertas().contains(ofertaService.obtenerPorId(id))){
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public Busca guardarBuscaDesdeNuevoUsuario(NuevoUsuario nuevoUsuario) {
         Busca busca = new Busca(nuevoUsuario.getNombre(), nuevoUsuario.getEmail(), nuevoUsuario.getCiudad(), nuevoUsuario.getTelefono(), nuevoUsuario.getPassword());
         Busca busca2 = this.guardar(busca);
-
-        System.out.println(busca2 + "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
         
         return busca2;
-    }
-
-    @Override
-    public void borrarCandidatosOferta(Oferta oferta) {
-        ArrayList<Busca> listaCandidatos = new ArrayList<>(oferta.getListaCandidatos());
-        for (Busca b : listaCandidatos) {
-            b.getListaOfertas().remove(oferta);
-            this.guardarSinEncriptar(b);
-
-            oferta.getListaCandidatos().remove(b); 
-            ofertaService.guardarOferta(oferta);
-        }
     }
 
     @Override

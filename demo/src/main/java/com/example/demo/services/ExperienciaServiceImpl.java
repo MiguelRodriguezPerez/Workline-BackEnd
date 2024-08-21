@@ -16,13 +16,13 @@ import com.example.demo.services.usuarios.BuscaService;
 public class ExperienciaServiceImpl implements ExperienciaService{
 
     @Autowired
-    ExperienciaRepository experienciaRepository;
+    ExperienciaRepository repo;
     @Autowired
     BuscaService buscaService;
 
     @Override
     public Experiencia guardarExperiencia(Experiencia ex) {
-        return experienciaRepository.save(ex);
+        return repo.save(ex);
     }
 
     public Experiencia guardarExperienciaDemoApp(Busca busca, Experiencia experiencia){
@@ -50,17 +50,27 @@ public class ExperienciaServiceImpl implements ExperienciaService{
 
     @Override
     public Experiencia obtenerPorId(Long id) {
-        return experienciaRepository.findById(id).orElse(null);
+        return repo.findById(id).orElse(null);
     }
 
     @Override
     public void borrarExperiencia(Long id) {
-        experienciaRepository.delete(experienciaRepository.findById(id).orElse(null));
+        repo.delete(repo.findById(id).orElse(null));
+    }
+
+    @Override
+    public void borrarTodosPorBusca(Long id) {
+        Busca busca = buscaService.obtenerPorId(id);
+        
+        busca.setListaExperiencias(null);
+        buscaService.guardarSinEncriptar(busca);
+
+        repo.deleteAllByBusca(busca);
     }
 
     @Override
     public List<Experiencia> obtenerTodos() {
-        return experienciaRepository.findAll();
+        return repo.findAll();
     }
 
     @Override
@@ -72,4 +82,5 @@ public class ExperienciaServiceImpl implements ExperienciaService{
         }
         return resultado;
     }
+
 }

@@ -114,7 +114,7 @@ public class SeccionContrataController {
         Contrata contrata = contrataService.obtenerContrataConectado();
         Oferta oferta = ofertaService.obtenerPorId(ofertaId);
 
-        buscaService.borrarCandidatosOferta(oferta);
+        ofertaService.borrarCandidatosOferta(oferta.getId());
 
         contrata.getListaOfertas().remove(oferta);
         contrataService.guardarSinEncriptar(contrata);

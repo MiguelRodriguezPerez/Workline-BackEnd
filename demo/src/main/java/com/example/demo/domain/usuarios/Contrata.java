@@ -20,12 +20,10 @@ import lombok.ToString;
 @NoArgsConstructor
 // @AllArgsConstructor
 @Table(name="Contrata")
-// @DiscriminatorValue("Contrata")
 @Entity
 public class Contrata extends Usuario{
 
     @OneToMany(fetch= FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "contrata")
-    // @JoinColumn(name = "oferta_id")
     @Nullable
     private List <Oferta> listaOfertas;
     

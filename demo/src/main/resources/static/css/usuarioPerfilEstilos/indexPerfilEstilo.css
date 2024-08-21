@@ -92,16 +92,23 @@ main > h1{
 }
 
 #perfilDatos > a{
-    grid-column: 1/3;
-    justify-self: right;
-
+    /* grid-column: 1/3; */
     text-decoration: none;
-    background-color: green;
-    color: white;
     font-size: 18px;
+    color: white;
 
-    padding: 0.7% 1.2%;
+    padding: 1% 1.5%;
     border-radius: 8px;
+}
+
+#perfilDatos > a:first-of-type{
+    background-color: green;
+    justify-self: start;
+}
+
+#perfilDatos > a:last-of-type{
+    background-color: rgb(231, 12, 12);
+    justify-self: end;
 }
 
 #listasEntidades{

@@ -53,7 +53,7 @@
             </section>
         </div>
     </div>
-    <section id="botonesPaginas">
+    <section id="botonesPaginas" th:unless="${numOfertas == 0}">
         <div><a id="anteriorPagContrata" th:href="@{/seccionContrata/anteriorPag/{numPag}(numPag=${numPag})}">🡐  Anterior Página</a></div>
         <span></span>
         <div><a id="siguientePagContrata" th:href="@{/seccionContrata/siguientePag/{numPag}(numPag=${numPag})}">Siguiente Página  🡒</a></div>

@@ -1,6 +1,8 @@
 package com.example.demo.controllers.miPerfil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,9 @@ import com.example.demo.services.ExperienciaService;
 import com.example.demo.services.ofertas.OfertaService;
 import com.example.demo.services.usuarios.BuscaService;
 import com.example.demo.services.usuarios.ContrataService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/miPerfil/busca")
@@ -173,5 +178,22 @@ public class MiPerfilBuscaController {
         buscaService.cambiarPassword(nuevoPassword);
         
         return "miPerfil/busca/passwords/exitoCambiarPassword";
+    }
+
+    @GetMapping("/borrarCuenta")
+    public String deleteAccountBusca(HttpServletRequest request, HttpServletResponse response){
+        Busca busca = buscaService.obtenerBuscaConectado();
+
+        /*Teóricamente al configurar orphan_removal = true debería borrar conocimientos y experiencias
+        de sus tablas correspondientes al borrar las listas. A ver que pasa*/
+        busca.getListaConocimientos().clear();
+        busca.getListaExperiencias().clear();
+        ofertaService.borrarBuscaTodasOfertas(busca);
+        
+        buscaService.borrar(busca.getId());
+
+        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+
+        return "redirect:/";
     }
 }
