@@ -17,7 +17,7 @@
     <body>  
         <main>
             <a th:href="@{/seccionContrata/pagina/{numPag}(numPag=${numPag})}">Volver atrás</a>
-            <form action="" method="post" id="formularioEdicion"
+            <form action="" method="post" id="formularioOferta"
                 th:object="${nuevaOferta}"
                 th:action="@{/seccionContrata/pagina/{numPag}/detallesOferta/{ofertaId}/crearNuevaOferta(numPag=${numPag})}">
 
@@ -28,45 +28,44 @@
                 <section class="nube" id="primeraSeccion">
                     <div>
                         <label for="puesto">Puesto</label>
-                        <input type="text" th:field="*{puesto}" class="validarCampo">
-                        <p class="mensajeError" hidden></p>
+                        <input type="text" th:field="*{puesto}" class="ofertaInput">
+                        <p class="falloOferta"></p>
                         
                         <label for="sector">Sector</label>
-                        <input type="text" th:field="*{sector}" class="validarCampo">
-                        <p class="mensajeError" hidden></p>
+                        <input type="text" th:field="*{sector}">
                         
                         <label for="modalidad">Modalidad de Trabajo</label>
-                        <select name="" id="modalidad" th:field="*{modalidadTrabajo}" class="validarCampo">
+                        <select name="" id="modalidad" th:field="*{modalidadTrabajo}">
                             <option value="default" selected>Selecciona una opción ...</option>
                             <option th:value="${mt}" th:text="${mt}" th:each="mt:${modalidadesTrabajo}"></option>
                         </select>
-                        <p class="mensajeError"></p>
+                        <p class="falloOfertaSelect"></p>
     
                         <label for="ciudad">Ciudad</label>
-                        <input type="text" th:field="*{ciudad}" class="validarCampo">
-                        <p class="mensajeError"></p>
+                        <input type="text" th:field="*{ciudad}" class="ofertaInput">
+                        <p class="falloOferta"></p>
                     </div>
                     <div>
                         <label for="salarioAnual">Salario Anual</label>
                         <input type="text" th:field="*{salarioAnual}">
                         
                         <label for="tipoContrato">Tipo de Contrato</label>
-                        <select name="" id="tipoContrato" th:field="*{tipoContrato}" class="validarCampo">
+                        <select name="" id="tipoContrato" th:field="*{tipoContrato}">
                             <option value="default" selected>Selecciona una opción ...</option>
                             <option th:value="${tc}" th:text="${tc}" th:each="tc:${tiposContrato}"></option>
                         </select>
-                        <p class="mensajeError"></p>
+                        <p class="falloOfertaSelect"></p>
                         
                         <label for="horas">Horas</label>
                         <input type="text" th:field="*{horas}" id="horas">
-
-                        <input type="submit" id="subirCambios" value="Publicar Oferta">
                     </div>
+
+                    <input type="submit" id="subirOferta" value="Publicar Oferta">
                 </section>
                 <section id="segundaSeccion" class="nube">
                     <label for="descripcion">Descripción</label>
-                        <textarea  th:field="*{descripcion}" id="descripcion"></textarea>
-                        <p class="mensajeError"></p>
+                        <textarea  th:field="*{descripcion}" id="descripcion" class="ofertaInput"></textarea>
+                        <p class="falloOferta"></p>
                 </section>
             </form>
         </main>

@@ -43,10 +43,58 @@ main > button:first-of-type{
     display: block;
 }
 
+#primeraSeccion input, #primeraSeccion select{
+    font-size: 16px;
+    border: 0px;
+    border-bottom: solid 1px black;
+
+    color: black;
+    font-size: 18px;
+    width: 60%;
+}
+
+#primeraSeccion label, #segundaSeccion label{
+    font-size: 24px;
+    margin-bottom: 2%;
+    margin-top: 4%;
+}
+
+#primeraSeccion > div > label:first-of-type{
+    margin-top: 0%;
+}
+
+#primeraSeccion > #subirOferta{
+    grid-column: 1/3;
+    width: 25%;
+    justify-self: end;
+
+    background-color: green;
+    color: white !important;
+    font-size: 18px;
+
+    padding:10px 15px;
+    margin: 0px;
+    border: 0px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.falloOferta, .falloOfertaSelect{
+    width: 80%;
+    margin-top: 1%;
+    margin-bottom: 2%;
+
+    font-size: 20px;
+    color:red;
+}
 
 #segundaSeccion{
     display: grid;
     grid-template-columns: 100%;
+}
+
+#segundaSeccion label{
+    margin-top: 0%;
 }
 
 #segundaSeccion textarea{
@@ -55,43 +103,15 @@ main > button:first-of-type{
     width: 100%;
     height: 90px;
     resize: none;
-    font-size: 15px;
-    margin-bottom: 30px
+    font-size: 21px;
 }
 
-main form label{
-    margin-bottom: 5px;
-    font-size: 23px;
-    width: 60%;
+#segundaSeccion .falloOferta{
+    width: 100%;
 }
 
 
-main form input,main form select{
-    font-size: 16px;
-    border: 0px;
-    border-bottom: solid 1px black;
-    margin: 10px 0px 20px;
-    color: black;
-    width: 40%;
-}
 
-main form select{
-    font-size: 16px;
-}
-
-form input#subirCambios{
-    display: none;
-    width: 35%;
-
-    background-color: green;
-    color: white !important;
-    font-size: 18px;
-
-    padding:10px 15px;
-    margin:20px 0px 0px;
-    border: 0px;
-    cursor: pointer;
-}
 
 p.mensajeError{
     margin-top: 0px;
@@ -101,12 +121,8 @@ p.mensajeError{
     display: none;
 }
 
-.descripcionError{
-    border-bottom: solid 1px red;
-}
-
 .inputError{
-    border-bottom: solid 1px rgb(244, 54, 54) !important;
+    border-bottom: solid 1px red;
 }
 
 @media screen and (max-width:1200px) {

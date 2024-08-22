@@ -15,11 +15,13 @@ export function validarPuesto(input, pFallo) {
         pFallo.textContent = 'El puesto no puede tener más de 30 caracteres';
         mostrarError(input);
         return false;
-    } else if (texto === '') {
+    } 
+    else if (texto === '') {
         pFallo.textContent = 'El puesto no puede quedar vacío';
         mostrarError(input);
         return false;
-    } else {
+    } 
+    else {
         pFallo.textContent = '';
         limpiarError(input);
         return true;

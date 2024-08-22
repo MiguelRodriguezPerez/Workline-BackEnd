@@ -96,7 +96,7 @@ public class SeccionContrataController {
         model.addAttribute("tiposContrato", TipoContrato.values());
         model.addAttribute("modalidadesTrabajo", ModalidadTrabajo.values());
 
-        return "contrataSeccion/editarOferta";
+        return "contrataSeccion/nuevaOferta";
     }
 
     @PostMapping("/pagina/{numPag}/detallesOferta/{ofertaId}/editarOfertaSubmit")

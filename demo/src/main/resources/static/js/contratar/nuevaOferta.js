@@ -1,66 +1,51 @@
-import * as valFunciones from '/js/functionSnippets/validarOferta.js'
+import * as valOferta from '/js/functionSnippets/validarOferta.js'
 
 "use strict"
 /*En el css de la edición de estilos, el botón para subir la oferta
 tiene por defecto display:none. Para evitar duplicar dicha hoja de estilos,
 declaro esta línea */
-document.getElementById('subirCambios').style.display = 'block';
+// document.getElementById('subirCambios').style.display = 'block';
 
-const validarInputs = Array.from(document.querySelectorAll('.validarCampo'));
-const mensajesError = Array.from(document.querySelectorAll('.mensajeError'));
-const arrayValidaciones = [];
-const formulario = document.getElementById('formularioEdicion');
+const formulario = document.getElementById('formularioOferta');
+const arrayInputs = Array.from(document.querySelectorAll('.ofertaInput'));
+const arraySelects = Array.from(document.getElementsByTagName('select'));
+const mensajesError = Array.from(document.querySelectorAll('.falloOferta'));
+const mensajesErrorSelect = Array.from(document.querySelectorAll('.falloOfertaSelect'));
+const arrayValidaciones = [
+    valOferta.validarPuesto,
+    valOferta.validarMenorQue20,
+    valOferta.validarDescripcion
+];
 
-console.log(validarInputs)
-/*
-    for(let i = 0; i < funcionesPredefinidas.length; i++){
-        validarInputs[i].addEventListener('input',() = >{
-            funcionesPredefinidas[i](validarInputs[i].value, mensajesError[i]);
-        })
-    }
-*/
-
-const valPuesto = () => {
-    valFunciones.validarPuesto(validarInputs[0],mensajesError[0]);
+for(let i = 0; i < arrayValidaciones.length; i++){
+    arrayInputs[i].addEventListener('input', () => {
+        arrayValidaciones[i](arrayInputs[i], mensajesError[i]);
+    });
 }
-arrayValidaciones.push(valPuesto);
-validarInputs[0].addEventListener('input',valPuesto);
 
-const valSector = () => {
-    valFunciones.valMenorQue20(validarInputs[1],mensajesError[1]);
+for(let i = 0; i < arraySelects.length; i++){
+    arraySelects[i].addEventListener('change', () => {
+        valOferta.validarSelect(arraySelects[i],mensajesErrorSelect[i]);
+    });
 }
-arrayValidaciones.push(valSector);
-validarInputs[1].addEventListener('input',valSector);
 
-
-const valModTrabajo = () => {
-    valFunciones.validarSelect(validarInputs[2],mensajesError[2]);
-}
-arrayValidaciones.push(valModTrabajo);
-validarInputs[2].addEventListener('change',valModTrabajo);
-
-
-const valCiudad = () =>{
-    valFunciones.valMenorQue20(validarInputs[3],mensajesError[3]);
-}
-arrayValidaciones.push(valCiudad);
-validarInputs[3].addEventListener('change',valCiudad);
-
-const valTipoContrato = () =>{
-    valFunciones.validarSelect(validarInputs[4],mensajesError[4]);
-}
-arrayValidaciones.push(valTipoContrato);
-validarInputs[4].addEventListener('change',valTipoContrato);
-
-document.getElementById('subirCambios').addEventListener('click', (e) => {
+document.getElementById('subirOferta').addEventListener('click', (e) => {
     e.preventDefault();
 
-    let confirmarValidaciones = true;
-    for(const val of arrayValidaciones){
-        confirmarValidaciones = val();
+    let confirmarValidacion = true;
+
+    for(let i = 0; i < arrayValidaciones.length && confirmarValidacion === true; i++){
+        confirmarValidacion = arrayValidaciones[i](arrayInputs[i], mensajesError[i]);
+    }
+    
+    for(let i = 0; i < arraySelects.length && confirmarValidacion === true; i++){
+        confirmarValidacion = valOferta.validarSelect(arraySelects[i], mensajesErrorSelect[i]);
     }
 
-    if(!mensajesError.some(p => p.textContent.trim() !== '')) formulario.submit();
-});
+    if(confirmarValidacion === true) formulario.submit();
+})
+
+
+
 
 
