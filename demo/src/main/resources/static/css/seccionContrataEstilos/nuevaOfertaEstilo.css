@@ -98,9 +98,10 @@ main > button:first-of-type{
 }
 
 #segundaSeccion textarea{
-    border: 0px;
-    border-bottom: solid 1px black;
-    width: 100%;
+    border: solid 1px black;
+    border-radius: 8px;
+    padding: 0.5% 1%;
+    width: 97.8%;
     height: 90px;
     resize: none;
     font-size: 21px;

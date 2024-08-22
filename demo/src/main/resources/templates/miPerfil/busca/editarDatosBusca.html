@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
     <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
     <link rel="stylesheet" href="/css/usuarioPerfilEstilos/editarPerfilEstilos.css">
-    <script type="module" src="/js/usuarioPerfil/editarDatosPerfil.js" defer></script>
+    <script type="module" src="/js/usuarioPerfil/actualizarDatosPerfil.js" defer></script>
 </head>
 <body>
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
@@ -25,27 +25,24 @@
         
                 <div>
                     <label for="">Nombre de usuario</label>
-                    <input type="text" th:field="*{nombre}" maxlength="25">
-                    <p class="mensajeError" id="err1">El nombre de usuario tiene más de 25 carácteres o esta vacío</p>
-                    <p class="mensajeError" id="err2">Ya existe un usuario con este nombre</p>
+                    <input type="text" th:field="*{nombre}" class="usuarioInput" maxlength="25">
+                    <p hidden class="usuarioError"></p>
     
                     <label for="">Email</label>
-                    <input type="text" th:field="*{email}" id="email" maxlength="35">
-                    <p class="mensajeError" id="err4">El email tiene más de 35 carácteres</p>
-                    <p class="mensajeError" id="err5">Email no válido</p>
-    
+                    <input type="text" th:field="*{email}" class="usuarioInput" maxlength="35">
+                    <p hidden class="usuarioError"></p>
                 </div>
-                <!-- <p hidden class="mensajeError" id=""></p> -->
+
                 <div>
                     <label for="">Teléfono</label>
-                    <input type="text" th:field="*{telefono}" id="telefono" maxlength="9">
-                    <p class="mensajeError" id="err8">El teléfono debe tener formato español</p>
+                    <input type="text" th:field="*{telefono}" class="usuarioInput" maxlength="9">
+                    <p hidden class="usuarioError"></p>
 
                     <label for="">Ciudad en la que vives</label>
-                    <input type="text" th:field="*{ciudad}">
-                    <p class="mensajeError" id="err8">Introduce una ciudad</p>
-
+                    <input type="text" th:field="*{ciudad}" class="usuarioInput">
+                    <p hidden class="usuarioError"></p>
                 </div>
+                
                 <div>
                     <input type="submit" value="Confirmar cambios" id="editarUsuario">
                 </div>

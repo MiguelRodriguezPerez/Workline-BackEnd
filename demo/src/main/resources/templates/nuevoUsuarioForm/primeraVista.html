@@ -12,48 +12,40 @@
     <main>
         <h2>Crea tu cuenta en Workline</h2>
         <h3>¡Solo te llevará unos segundos!</h3>
-        <form action="" method="post" id="primerFormulario"
+        <form action="" method="post" id="formularioDatos"
             th:object="${nuevoUsuario}"
             th:action="@{/nuevoUsuario/procesarUsuario}">
             <div>
                 <label for="">Nombre de usuario</label>
-                <input type="text" th:field="*{nombre}" id="nombreUsuario" maxlength="25">
-                <p hidden class="mensajeError" id="err1">El nombre de usuario tiene más de 25 carácteres o esta vacío</p>
-                <p hidden class="mensajeError" id="err2">Ya existe un usuario con este nombre</p>
+                <input type="text" th:field="*{nombre}" class="usuarioInput" maxlength="35">
+                <p class="usuarioError"></p>
 
                 <label for="">Email</label>
-                <input type="text" th:field="*{email}" id="email" maxlength="35">
-                <p hidden class="mensajeError" id="err4">El email tiene más de 35 carácteres</p>
-                <p hidden class="mensajeError" id="err5">No has introducido un email válido</p>
+                <input type="text" th:field="*{email}" class="usuarioInput" maxlength="35">
+                <p class="usuarioError"></p>
 
                 <label for="">Contraseña</label>
-                <input type="text" th:field="*{password}" id="password" maxlength="30">
-                <p hidden class="mensajeError" id="err6">La contraseña debe tener entre 14 y 30 carácteres</p>
-                <p hidden class="mensajeError" id="err7">La contaseña debe combinar mayúsculas, minúsculas
-                y carácteres especiales</p>
+                <input type="text" th:field="*{password}" class="usuarioInput" maxlength="32">
+                <p class="usuarioError" ></p>
 
             </div>
-            <!-- <p hidden class="mensajeError" id=""></p> -->
             <div>
                 <label for="">Ciudad en la que vives</label>
-                <input type="text" th:field="*{ciudad}">
-                <p hidden class="mensajeError" id="err8">La ciudad no puede quedar vacía</p>
+                <input type="text" th:field="*{ciudad}" class="usuarioInput">
+                <p class="usuarioError"></p>
   
                 <label for="">Teléfono</label>
-                <input type="text" th:field="*{telefono}" id="telefono" maxlength="9">
-                <p hidden class="mensajeError" id="err8">El teléfono debe tener formato español</p>
+                <input type="text" th:field="*{telefono}" class="usuarioInput"  maxlength="10">
+                <p class="usuarioError"></p>
 
                 <label for="">¿Buscas trabajo o empleados?</label>
                 <select name="" id="rol" th:field="*{rol}" >
                     <option value="Selecciona una opcion" selected>Selecciona una opcion...</option>
                     <option value="contratar" th:text="${rol}" th:value="${rol}" th:each="rol:${listaRoles}"></option>
                 </select>
-                <p hidden class="mensajeError" id="err9">Selecciona una de las dos opciones</p>
+                <p class="usuarioError"></p>
             </div>
-            <div>
-                <input type="submit" value="Crear cuenta" id="editarUsuario">
-            </div>
-            
+                <input type="submit" value="Crear cuenta" id="subirUsuario">
         </form>
     </main>
 </body>

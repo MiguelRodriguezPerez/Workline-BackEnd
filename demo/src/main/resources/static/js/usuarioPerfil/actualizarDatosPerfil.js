@@ -8,9 +8,8 @@ const arrFallos = Array.from(document.querySelectorAll('.usuarioError'));
 const arrFunciones = [
     valBusca.validarNombreUsuario,
     valBusca.validarEmail,
-    valBusca.validarPassword,
-    valBusca.validarCiudad,
-    valBusca.validarTelefono
+    valBusca.validarTelefono,
+    valBusca.validarCiudad
 ];
 
 for(let i = 0; i < arrFunciones.length; i++){
@@ -19,12 +18,8 @@ for(let i = 0; i < arrFunciones.length; i++){
     });
 };
 
-document.getElementById('rol').addEventListener('change', () => {
-    valBusca.validarRol(document.getElementById('rol'), arrFallos[arrFallos.length - 1]);
-});
 
-
-document.getElementById('subirUsuario').addEventListener('click', async (e) => {
+document.getElementById('editarUsuario').addEventListener('click', async (e) => {
     e.preventDefault();
 
     let confirmarValidaciones = true;
@@ -34,9 +29,5 @@ document.getElementById('subirUsuario').addEventListener('click', async (e) => {
         confirmarValidaciones = await arrFunciones[i](arrInputs[i], arrFallos[i]); // Usar await para esperar cada validación
     }
 
-    if(confirmarValidaciones === true){
-        confirmarValidaciones = valBusca.validarRol(document.getElementById('rol'), arrFallos[arrFallos.length - 1]);
-    }
-    
     if(confirmarValidaciones === true) formulario.submit();
 });
