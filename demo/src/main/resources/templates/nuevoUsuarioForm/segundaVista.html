@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workline | Nueva Cuenta</title>
     <link rel="icon" type="image/x-icon" href="/images/fragmentos/Wk.ico">
-    <script type="module" src="/js/nuevoUsuario/segundaVistaConocimiento.js" defer></script>
+    <script type="module" src="/js/usuarioPerfil/nuevoConocimiento.js" defer></script>
     <script type="module" src="/js/nuevoUsuario/segundaVistaExperiencia.js" defer></script>
     <link rel="stylesheet" href="/css/nuevoUsuarioEstilos/segundaVistaEstilo.css">
 </head>
@@ -28,21 +28,20 @@
     
                 <label for="">Titulo</label>
                 <input type="text" th:field="*{titulo}" class="conocimientoInput" maxlength="41">
-                <p class="falloConocimiento" hidden> El título no puede tener más de 40 carácteres y no puede ser nulo</p>
+                <p class="falloConocimiento"></p>
     
                 <label for="">Centro Educativo</label>
                 <input type="text" th:field="*{centroEducativo}" class="conocimientoInput" maxlength="31">
-                <p class="falloConocimiento" hidden> El centro educativo no puede tener más de 30 carácteres y no puede ser nulo</p>
+                <p class="falloConocimiento"></p>
     
                 <label for="">Inicio Estudios</label>
                 <input type="text" th:field="*{inicioPeriodoConocimiento}" class="conocimientoInput">
-                <p class="falloConocimiento" hidden> La fecha debe estar en formato dd/mm/yyyy y no puede ser nulo</p>
+                <p class="falloConocimiento"></p>
                 
     
                 <label for="">Fin Estudios</label>
                 <input type="text" th:field="*{finPeriodoConocimiento}" class="conocimientoInput">
-                <p class="falloConocimiento" hidden> La fecha debe estar en formato dd/mm/yyyy y no puede ser nulo</p>
-                <p class="falloConocimiento" hidden> La fecha de inicio no puede ser superior a la final</p>
+                <p class="falloConocimiento"></p>
             
                 <input type="submit" value="Subir" id="subirConocimiento" class="subirEntidad">
             </form>

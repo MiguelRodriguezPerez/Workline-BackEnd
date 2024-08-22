@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
     <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
     <link rel="stylesheet" href="/css/usuarioPerfilEstilos/nuevoConocimientoEstilo.css">
-    <script type="module" src="/js/nuevoUsuario/segundaVistaConocimiento.js"></script>
+    <script type="module" src="/js/usuarioPerfil/nuevoConocimiento.js"></script>
 </head>
 <body>
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
@@ -23,22 +23,21 @@
                 <div>    
                     <label for="">Titulo</label>
                     <input type="text" th:field="*{titulo}" class="conocimientoInput" maxlength="40">
-                    <p id="tituloFallo" class="falloConocimiento" hidden> El título no puede tener más de 40 carácteres y no puede ser nulo</p>
-        
+                    <p class="falloConocimiento"></p>
+
                     <label for="">Centro Educativo</label>
                     <input type="text" th:field="*{centroEducativo}" class="conocimientoInput" maxlength="40">
-                    <p id="centroFallo" class="falloConocimiento" hidden> El centro educativo no puede tener más de 30 carácteres y no puede ser nulo</p>
+                    <p class="falloConocimiento"></p>
                 </div>
                 <div>
                     <label for="">Inicio Estudios</label>
                     <input type="text" th:field="*{inicioPeriodoConocimiento}" class="conocimientoInput">
-                    <p id="fechaInicioConocimientoFallo" class="falloConocimiento" hidden> La fecha debe estar en formato dd-mm-yyyy y no puede ser nulo</p>
+                    <p class="falloConocimiento"></p>
                     
         
                     <label for="">Fin Estudios</label>
                     <input type="text" th:field="*{finPeriodoConocimiento}" class="conocimientoInput">
-                    <p id="fechaFinConocimientoFallo" class="falloConocimiento" hidden> La fecha debe estar en formato dd-mm-yyyy y no puede ser nulo</p>
-                    <p id="fechaFinConocimientoFalloDos" class="falloConocimiento" hidden> La fecha de inicio no puede ser superior a la final</p>
+                    <p class="falloConocimiento"></p>
                 </div>
                 <div>
                     <input type="submit" value="Subir" id="subirConocimiento" class="subirEntidad">

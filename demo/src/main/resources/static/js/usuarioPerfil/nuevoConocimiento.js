@@ -1,76 +1,52 @@
-import * as validaciones from '/js/functionSnippets/validarConocimiento.js'
+import * as valConocimiento from '/js/functionSnippets/validarConocimiento.js'
 
-"use strict"
+'use strict'
 
-const formulario = document.getElementById('formNuevoConocimiento');
-/*El primer indice estaba vacío y como no se puede modificar un NodeList, se pasa a array
-y se modifica*/
-const arrayInputsNodos = document.querySelectorAll('#formNuevoConocimiento input:not([hidden]):not([type="submit"])');
-const arrayInputs = Array.from(arrayInputsNodos);
-arrayInputs.splice(0,1);
+const formulario = document.getElementById('formNuevoBuscaConocimiento');
+const arrInputs = Array.from(document.querySelectorAll('.conocimientoInput'));
+const arrFallos = Array.from(document.querySelectorAll('.falloConocimiento'));
+const arrFunciones = [
+    valConocimiento.validarTitulo,
+    valConocimiento.validarCentro,
+    valConocimiento.validarFecha,
+    valConocimiento.validarFecha
+]
 
-console.log(arrayInputs);
-
-const arrayFallos = document.querySelectorAll('.mensajeError');
-
-const valTitulo = () =>{
-    console.log('AAAAAAAAAAAAAAAAAAAAAAAA')
-    if(!validaciones.validarTextoConocimiento(arrayInputs[0].value)){
-        validaciones.mostrarError(arrayFallos[0],arrayInputs[0]);
-        return false;
-    }
-    else{
-        validaciones.limpiarError(arrayFallos[0],arrayInputs[0]);
-        return true;
-    }
+for(let i = 0; i < arrFunciones.length; i++){
+    arrInputs[i].addEventListener('input',() => {
+        arrFunciones[i](arrInputs[i],arrFallos[i])
+    });
 }
-arrayInputs[0].addEventListener('input',valTitulo);
 
-const valCentro = () =>{
-    console.log('AAAAAAAAAAAAAAAAAAAAAAAA')
-    if(!validaciones.validarTextoConocimiento(arrayInputs[1].value)){
-        validaciones.mostrarError(arrayFallos[1],arrayInputs[1]);
-        return false;
-    }
-    else{
-        validaciones.limpiarError(arrayFallos[1],arrayInputs[1]);
-        return true;
-    }
-}
-arrayInputs[1].addEventListener('input',valCentro);
+//Realiza la validación de comparar fechas
+arrInputs[arrInputs.length - 1].addEventListener('input', () => {
+    valConocimiento.compararFechas(
+        arrInputs[arrInputs.length - 2],
+        arrInputs[arrInputs.length - 1],
+        arrFallos[arrFallos.length - 2],
+        arrFallos[arrFallos.length - 1]
+    );
+});
 
-const valFechaInicio = () => {
-    console.log(arrayInputs[2].value)
-    if(!validaciones.validarFecha(arrayInputs[2].value)){
-        validaciones.mostrarError(arrayFallos[2],arrayInputs[2]);
-        return false;
-    }
-    else{
-        validaciones.limpiarError(arrayFallos[2],arrayInputs[2]);
-        return true;
-    }
-}
-arrayInputs[2].addEventListener('input',valFechaInicio);
-
-const valFechaFin = () =>{
-    if(!validaciones.validarFecha(arrayInputs[3].value)){
-        validaciones.mostrarError(arrayFallos[3],arrayInputs[3]);
-        return false;
-    }
-    else{
-        validaciones.limpiarError(arrayFallos[3],arrayInputs[3]);
-        return true;
-    }
-}
-arrayInputs[3].addEventListener('input',valFechaFin);
-
-document.getElementById('subirConocimiento').addEventListener('click', (e) =>{
+document.getElementById('subirConocimiento').addEventListener('click' , (e) => {
     e.preventDefault();
-    let confirmarSubmit = true;
-    if(!valTitulo()) confirmarSubmit = false;
-    if(!valCentro()) confirmarSubmit = false;
-    if(!valFechaInicio()) confirmarSubmit = false;
-    if(!valFechaFin()) confirmarSubmit = false;
 
-    if(confirmarSubmit) formulario.submit();
+    let confirmarValidaciones = true;
+    for(let i = 0; i < arrFunciones.length && confirmarValidaciones === true; i++){
+        confirmarValidaciones = arrFunciones[i](arrInputs[i],arrFallos[i]);
+    }
+
+    if(confirmarValidaciones === true){
+        confirmarValidaciones = valConocimiento.compararFechas(
+            arrInputs[arrInputs.length - 2],
+            arrInputs[arrInputs.length - 1],
+            arrFallos[arrFallos.length - 2],
+            arrFallos[arrFallos.length - 1]
+        );
+    }
+
+    if(confirmarValidaciones === true){
+        valConocimiento.prepararFechas(arrInputs);
+        formulario.submit();
+    } 
 });

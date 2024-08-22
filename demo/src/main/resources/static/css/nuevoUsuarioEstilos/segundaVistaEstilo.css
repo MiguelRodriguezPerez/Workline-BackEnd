@@ -44,14 +44,14 @@ body > section:first-child > h1:first-child{
 
 .formularioContenedor > form > label{
     font-size: 23px;
-    margin-top: 10px;
+    margin-top: 0px;
+    margin-bottom: 1.5%;
 }
 
 .formularioContenedor input{
     border: 0px;
     border-bottom: solid 1px black;
     font-size: 15px;
-    margin-bottom: 10px;
 }
 
 .formularioContenedor > form > input.subirEntidad{
@@ -71,7 +71,7 @@ body > section:first-child > h1:first-child{
 }
 
 p.falloConocimiento,p.falloExperiencia{
-    margin-top: 0px;
+    margin-top: 1.5%;
     color: rgb(244, 54, 54);
     font-size: 18px;
     padding-right: 10px;
