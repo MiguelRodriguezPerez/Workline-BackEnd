@@ -1,40 +1,48 @@
 "use strict"
 
-export function mostrarError(fallo,input){
-    fallo.style.display = 'block';
+function mostrarError(input){
     input.classList.add('inputError');
 }
 
-export function limpiarError(fallo,input){
-    fallo.style.display = 'none';
+function limpiarError(input){
     input.classList.remove('inputError');
 }
 
-export function validarPuesto(texto){
-    return (texto.length < 30 && texto !== '');
+export function validarPuesto(input, pFallo) {
+    const texto = input.value;
+
+    if (texto.length > 30) {
+        pFallo.textContent = 'El puesto no puede tener más de 30 caracteres';
+        mostrarError(input);
+        return false;
+    } else if (texto === '') {
+        pFallo.textContent = 'El puesto no puede quedar vacío';
+        mostrarError(input);
+        return false;
+    } else {
+        pFallo.textContent = '';
+        limpiarError(input);
+        return true;
+    }
 }
 
-export function validarEmpresa(texto){
-    return (texto.length < 20 && texto !== '');
-}
 
-export function validarFecha(fecha){
-    return (/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/.test(fecha) && fecha !== '');
-}
+export function validarEmpresa(input, pFallo) {
+    const texto = input.value;
 
-export function convertirFecha(fecha) {
-    const [dia, mes, año] = fecha.split('/').map(Number);
-    return new Date(año, mes - 1, dia); // Los meses en JavaScript van de 0 (enero) a 11 (diciembre)
-}
-
-export function compararFechas(fecha1, fecha2) {
-    const date1 = convertirFecha(fecha1);
-    const date2 = convertirFecha(fecha2);
-
-    return (date1 < date2);
-}
-
-export function convertirFechaJava(fecha){
-    const [dia, mes, año] = fecha.split('/').map(Number);
-    return año + '-' + mes + '-' + dia;
+    if (texto.length > 20) {
+        pFallo.textContent = 'El nombre de la empresa no puede tener más de 20 caracteres';
+        mostrarError(input);
+        return false;
+    } 
+    else if (texto === '') {
+        pFallo.textContent = 'El nombre de la empresa no puede quedar vacío';
+        mostrarError(input);
+        return false;
+    } 
+    else {
+        pFallo.textContent = '';
+        limpiarError(input);
+        return true;
+    }
 }

@@ -28,21 +28,20 @@ main > form > div > input{
 
 main > form label{
     margin-top: 7%;
-    margin-bottom: 5px;
+    margin-bottom: 3%;
     font-size: 23px;
 }
 
-main > form input{
+
+main > form input.conocimientoInput, main > form input.experienciaInput{
+    margin-bottom: 0%;
+    margin-top: 1%;
+
     border: 0px;
     border-bottom: solid 1px black;
     font-size: 15px;
-    width: 50%;
 }
 
-main > form input.conocimientoInput{
-    margin-bottom: 0%;
-    margin-top: 1%;
-}
 
 .falloConocimiento,.falloExperiencia{
     margin-top: 1%;

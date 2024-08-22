@@ -1,4 +1,5 @@
 import * as valConocimiento from '/js/functionSnippets/validarConocimiento.js'
+import * as valFecha from '/js/functionSnippets/validarFechas.js'
 
 'use strict'
 
@@ -8,8 +9,8 @@ const arrFallos = Array.from(document.querySelectorAll('.falloConocimiento'));
 const arrFunciones = [
     valConocimiento.validarTitulo,
     valConocimiento.validarCentro,
-    valConocimiento.validarFecha,
-    valConocimiento.validarFecha
+    valFecha.validarFecha,
+    valFecha.validarFecha
 ]
 
 for(let i = 0; i < arrFunciones.length; i++){
@@ -20,7 +21,7 @@ for(let i = 0; i < arrFunciones.length; i++){
 
 //Realiza la validación de comparar fechas
 arrInputs[arrInputs.length - 1].addEventListener('input', () => {
-    valConocimiento.compararFechas(
+    valFecha.compararFechas(
         arrInputs[arrInputs.length - 2],
         arrInputs[arrInputs.length - 1],
         arrFallos[arrFallos.length - 2],
@@ -37,7 +38,7 @@ document.getElementById('subirConocimiento').addEventListener('click' , (e) => {
     }
 
     if(confirmarValidaciones === true){
-        confirmarValidaciones = valConocimiento.compararFechas(
+        confirmarValidaciones = valFecha.compararFechas(
             arrInputs[arrInputs.length - 2],
             arrInputs[arrInputs.length - 1],
             arrFallos[arrFallos.length - 2],
@@ -46,7 +47,7 @@ document.getElementById('subirConocimiento').addEventListener('click' , (e) => {
     }
 
     if(confirmarValidaciones === true){
-        valConocimiento.prepararFechas(arrInputs);
+        valFecha.prepararFechas(arrInputs);
         formulario.submit();
     } 
 });

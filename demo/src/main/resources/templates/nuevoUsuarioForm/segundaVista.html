@@ -6,7 +6,7 @@
     <title>Workline | Nueva Cuenta</title>
     <link rel="icon" type="image/x-icon" href="/images/fragmentos/Wk.ico">
     <script type="module" src="/js/usuarioPerfil/nuevoConocimiento.js" defer></script>
-    <script type="module" src="/js/nuevoUsuario/segundaVistaExperiencia.js" defer></script>
+    <script type="module" src="/js/usuarioPerfil/nuevaExperiencia.js" defer></script>
     <link rel="stylesheet" href="/css/nuevoUsuarioEstilos/segundaVistaEstilo.css">
 </head>
 <body>
@@ -76,21 +76,20 @@
     
                 <label for="">Puesto</label>
                 <input type="text" th:field="*{puesto}" class="experienciaInput" maxlength="31">
-                <p class="falloExperiencia" hidden>El puesto no puede tener más de 30 carácteres ni ser nulo</p>
+                <p class="falloExperiencia"></p>
     
                 <label for="">Empresa</label>
                 <input type="text" th:field="*{empresa}" class="experienciaInput" maxlength="21">
-                <p class="falloExperiencia" hidden>La empresa no puede tener más de 20 carácteres ni ser nulo</p>
+                <p class="falloExperiencia"></p>
     
                 <label for="">Inicio experiencia</label>
                 <input type="text" th:field="*{inicioExperiencia}" class="experienciaInput" >
-                <p class="falloExperiencia" hidden>La fecha debe estar en formato dd/mm/yyyy y no puede ser nula</p>
+                <p class="falloExperiencia"></p>
                 
     
                 <label for="">Fin experiencia</label>
                 <input type="text" th:field="*{finExperiencia}" class="experienciaInput" >
-                <p id="finfalloExperiencia" class="falloExperiencia" hidden>La fecha debe estar en formato dd/mm/yyyy y no puede ser nula</p>
-                <p id="falloFechasExperiencia" class="falloExperiencia" hidden>La fecha de inicio no puede ser superior a la del fin</p>
+                <p class="falloExperiencia"></p>
     
                 <input type="submit" value="Subir" id="subirExperiencia" class="subirEntidad">
             </form>
