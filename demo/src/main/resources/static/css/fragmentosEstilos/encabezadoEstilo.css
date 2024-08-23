@@ -1,9 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Poppins:wght@300&family=Roboto&family=Tajawal:wght@500&display=swap');
+
 body {
     min-height: 100vh;
     margin: 0;
     display: grid;
     grid-template-rows: auto 1fr auto;
+    font-family: "Tajawal";
 }
+
 
 header {
     min-height: 50px;

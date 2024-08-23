@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Roboto&family=Tajawal:wght@500&display=swap');
+
 body{
     margin: 0px;
     width: 100vw;
@@ -7,6 +9,7 @@ body{
     justify-content: center;
     align-items: center;
     background-color: #F5F5F5;
+    font-family: "Tajawal";
 }
 
 main{
