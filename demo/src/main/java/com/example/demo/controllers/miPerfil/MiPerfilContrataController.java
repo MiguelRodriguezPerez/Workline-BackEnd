@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.services.ofertas.OfertaService;
@@ -57,11 +58,12 @@ public class MiPerfilContrataController {
     }
 
     @PostMapping("/cambiarPassword/segundoPaso")
-    public String showSecondStepChangePassword(@RequestParam String verificarPassword, Model model){
+    public String showSecondStepChangePassword(@RequestParam String verificarPassword, Model model, RedirectAttributes redirectAttributes){
         if(contrataService.coincidePassword(verificarPassword)){
             model.addAttribute("usuarioLogueado", contrataService.obtenerContrataConectado());
             return "miPerfil/contrata/passwords/cambiarPassword";
         } 
+        redirectAttributes.addFlashAttribute("errorConfirmarPassword", "Contraseña incorrecta");
         
         return "redirect:/miPerfil/contrata/cambiarPassword/primerPaso";
     }

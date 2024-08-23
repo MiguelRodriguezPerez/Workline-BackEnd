@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.config.UsuarioService;
 import com.example.demo.domain.Conocimiento;
@@ -164,11 +165,13 @@ public class MiPerfilBuscaController {
     }
 
     @PostMapping("/cambiarPassword/segundoPaso")
-    public String showSecondStepChangePassword(@RequestParam String verificarPassword, Model model){
+    public String showSecondStepChangePassword(@RequestParam String verificarPassword, Model model, RedirectAttributes redirectAttributes){
         if(buscaService.coincidePassword(verificarPassword)){
             model.addAttribute("usuarioLogueado", buscaService.obtenerBuscaConectado());
             return "miPerfil/busca/passwords/cambiarPassword";
         } 
+        redirectAttributes.addFlashAttribute("errorConfirmarPassword", "Contraseña incorrecta");
+
         
         return "redirect:/miPerfil/busca/cambiarPassword/primerPaso";
     }
@@ -184,8 +187,6 @@ public class MiPerfilBuscaController {
     public String deleteAccountBusca(HttpServletRequest request, HttpServletResponse response){
         Busca busca = buscaService.obtenerBuscaConectado();
 
-        /*Teóricamente al configurar orphan_removal = true debería borrar conocimientos y experiencias
-        de sus tablas correspondientes al borrar las listas. A ver que pasa*/
         busca.getListaConocimientos().clear();
         busca.getListaExperiencias().clear();
         ofertaService.borrarBuscaTodasOfertas(busca);

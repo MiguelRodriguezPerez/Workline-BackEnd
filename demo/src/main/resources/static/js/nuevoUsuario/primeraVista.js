@@ -29,13 +29,13 @@ document.getElementById('subirUsuario').addEventListener('click', async (e) => {
 
     let confirmarValidaciones = true;
 
-    // Realiza las validaciones de forma asíncrona
-    for(let i = 0; i < arrFunciones.length && confirmarValidaciones === true; i++){
-        confirmarValidaciones = await arrFunciones[i](arrInputs[i], arrFallos[i]); // Usar await para esperar cada validación
+    for(let i = 0; i < arrFunciones.length; i++){
+        let resultado = await arrFunciones[i](arrInputs[i], arrFallos[i]);
+        if(resultado === false) confirmarValidaciones = false;
     }
 
-    if(confirmarValidaciones === true){
-        confirmarValidaciones = valBusca.validarRol(document.getElementById('rol'), arrFallos[arrFallos.length - 1]);
+    if(valBusca.validarRol(document.getElementById('rol'), arrFallos[arrFallos.length - 1]) === false){
+        confirmarValidaciones = false;
     }
     
     if(confirmarValidaciones === true) formulario.submit();

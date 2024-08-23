@@ -34,7 +34,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> auth
             .requestMatchers("/ofertasDeTrabajo/inscribirse/**", "/ofertasDeTrabajo/desinscribirse/**").hasRole("BUSCA")
             .requestMatchers("/seccionContrata/**").hasRole("CONTRATA")
-            .requestMatchers("/miPerfil/**").authenticated()
+            .requestMatchers("/miPerfil/contrata/**").hasRole("CONTRATA")
+            .requestMatchers("/miPerfil/busca/**").hasRole("BUSCA")
             .requestMatchers("/", "/ofertasDeTrabajo/**", "/solicitudOfertas/**", "/nuevoUsuario/**", "/nuevoUsuarioCreacion/**", "/sesion/**").permitAll()
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
             .anyRequest().authenticated());

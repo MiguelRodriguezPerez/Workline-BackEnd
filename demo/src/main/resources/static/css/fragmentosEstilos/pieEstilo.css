@@ -4,11 +4,11 @@ footer nav br{
 
 footer > nav{
     display: grid;
-    grid-template-columns:310px 310px 310px 310px;
+    grid-template-columns: repeat(4,20%);
     background-color: #333;
     align-content: center;
     justify-content: left;
-    padding-top: 25px;
+    padding: 2% 0%;
 }
 
 footer li{

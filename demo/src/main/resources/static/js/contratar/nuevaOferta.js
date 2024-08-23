@@ -34,15 +34,19 @@ document.getElementById('subirOferta').addEventListener('click', (e) => {
 
     let confirmarValidacion = true;
 
-    for(let i = 0; i < arrayValidaciones.length && confirmarValidacion === true; i++){
-        confirmarValidacion = arrayValidaciones[i](arrayInputs[i], mensajesError[i]);
+    for(let i = 0; i < arrayValidaciones.length; i++){
+        let resultado = arrayValidaciones[i](arrayInputs[i], mensajesError[i]);
+        if(resultado === false) confirmarValidacion = false;
     }
     
-    for(let i = 0; i < arraySelects.length && confirmarValidacion === true; i++){
-        confirmarValidacion = valOferta.validarSelect(arraySelects[i], mensajesErrorSelect[i]);
+    for(let i = 0; i < arraySelects.length; i++){
+        let resultado = valOferta.validarSelect(arraySelects[i], mensajesErrorSelect[i]);
+        if(resultado === false) confirmarValidacion = false;
     }
 
-    if(confirmarValidacion === true) formulario.submit();
+    if(confirmarValidacion === true) {
+        formulario.submit();
+    }
 })
 
 

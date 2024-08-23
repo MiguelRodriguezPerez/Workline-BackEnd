@@ -6,7 +6,7 @@
     <section id="pestayas">
         <a th:href="@{/}">Inicio</a>
         <a th:href="@{/ofertasDeTrabajo/0}">Ofertas</a>
-        <a th:href="@{/seccionContrata/pagina/0}">Contratar</a>
+        <a th:if="${!rolActual.equals('busca')}" th:href="@{/seccionContrata/pagina/0}" >Contratar</a>
     </section>
     <section id="perfil">
         <a th:if="${currentUserName != null}"  th:href="@{/miPerfil/{rolActual}/(rolActual=${rolActual})}" th:text="${currentUserName}"></a>

@@ -58,7 +58,7 @@ main{
 
 #opciones{
     /* width: 75%; */
-    margin: 0px auto;
+    margin: 0% auto 3%;
     display: grid;
     grid-template-columns: 44% 44%;
     gap: 5%;
