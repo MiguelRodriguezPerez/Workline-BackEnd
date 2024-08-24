@@ -161,9 +161,7 @@ main{
     }
 
     #opciones{
-        grid-template-columns: 48% 48%;
-        gap: 4%;
-        
+        grid-template-columns: 100%;
     }
 
     #opciones > div{
@@ -174,6 +172,7 @@ main{
 
     #opciones img{
         width: 95%;
+        height: 100%;
     }
 
     #opciones h3{

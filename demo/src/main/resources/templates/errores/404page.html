@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error 404</title>
+    <script src="/js/desplegableEncabezado.js" defer></script>
+    <link rel="stylesheet" href="/css/fragmentosEstilos/desplegableEncabezado.css">
+    <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
+    <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
+    <link rel="stylesheet" href="/css/errores/404Page.css">
+</head>
+<body>
+    <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
+    <main>
+        <img src="/images/errores/404hd.png" alt="notFound">
+        <h2>¡Vaya! Parece que la página que has buscado no existe</h2>
+        <a th:href="@{/}">Volver al inicio</a>
+    </main>
+    <footer th:insert="~{/fragmentos/pie :: nav}"></footer>
+</body>
+</html>
