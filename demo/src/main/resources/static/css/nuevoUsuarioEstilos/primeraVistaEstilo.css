@@ -95,7 +95,7 @@ main > a:first-child{
     font-size: 20px;
     color: red;
     margin-top: 2%;
-    padding-right: 2%;
+    padding-right: 15%;
 }
 
 .inputError{

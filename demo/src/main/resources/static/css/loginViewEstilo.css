@@ -26,6 +26,7 @@ main > div {
     grid-template-columns: 100%;
     justify-content: center;
     padding: 15px 10px;
+    border-radius: 8px;
 }
 
 h2{

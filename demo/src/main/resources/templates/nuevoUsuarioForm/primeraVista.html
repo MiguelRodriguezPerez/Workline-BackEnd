@@ -7,6 +7,7 @@
     <link rel="icon" type="image/x-icon" href="/images/fragmentos/Wk.ico">
     <link rel="stylesheet" href="/css/nuevoUsuarioEstilos/primeraVistaEstilo.css">
     <script type="module" src="/js/nuevoUsuario/primeraVista.js" defer></script>
+    <script src="/js/eyePassword.js" defer></script>
 </head>
 <body>
     <main>
@@ -28,6 +29,7 @@
     
                     <label for="">Contraseña</label>
                     <input type="password" th:field="*{password}" id="passwordReal" class="verificarPassword" maxlength="32">
+                    <img src="/images/password/show.png" id="eyeImg" alt="show.png">
                     <p class="passwordError"></p>
     
                     <label for="">Repite tu contraseña</label>

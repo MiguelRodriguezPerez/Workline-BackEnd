@@ -6,7 +6,7 @@ const formPassword = document.getElementById('formPassword');
 const passwords = Array.from(document.getElementsByClassName('verificarPassword'));
 
 nuevoPassword.addEventListener('input', () => {
-    valFunciones.validarPassword(nuevoPassword,mensajeError[0]);
+    valFunciones.validarPassword(passwords[0],passwords[1],mensajeError[0]);
 })
 
 document.getElementById('confirmarPassword').addEventListener('click', (e) => {
