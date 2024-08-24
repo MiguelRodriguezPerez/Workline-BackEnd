@@ -10,43 +10,52 @@
 </head>
 <body>
     <main>
-        <h2>Crea tu cuenta en Workline</h2>
-        <h3>¡Solo te llevará unos segundos!</h3>
-        <form action="" method="post" id="formularioDatos"
-            th:object="${nuevoUsuario}"
-            th:action="@{/nuevoUsuario/procesarUsuario}">
-            <div>
-                <label for="">Nombre de usuario</label>
-                <input type="text" th:field="*{nombre}" class="usuarioInput" maxlength="35">
-                <p class="usuarioError"></p>
-
-                <label for="">Email</label>
-                <input type="text" th:field="*{email}" class="usuarioInput" maxlength="35">
-                <p class="usuarioError"></p>
-
-                <label for="">Contraseña</label>
-                <input type="text" th:field="*{password}" class="usuarioInput" maxlength="32">
-                <p class="usuarioError" ></p>
-
-            </div>
-            <div>
-                <label for="">Ciudad en la que vives</label>
-                <input type="text" th:field="*{ciudad}" class="usuarioInput">
-                <p class="usuarioError"></p>
-  
-                <label for="">Teléfono</label>
-                <input type="text" th:field="*{telefono}" class="usuarioInput"  maxlength="10">
-                <p class="usuarioError"></p>
-
-                <label for="">¿Buscas trabajo o empleados?</label>
-                <select name="" id="rol" th:field="*{rol}" >
-                    <option value="Selecciona una opcion" selected>Selecciona una opcion...</option>
-                    <option value="contratar" th:text="${rol}" th:value="${rol}" th:each="rol:${listaRoles}"></option>
-                </select>
-                <p class="usuarioError"></p>
-            </div>
-                <input type="submit" value="Crear cuenta" id="subirUsuario">
-        </form>
+        <a th:href="@{/}">Volver atrás</a>
+        <section id="nuevaCuenta">
+            <h2>Crea tu cuenta en Workline</h2>
+            <h3>¡Solo te llevará unos segundos!</h3>
+            <form action="" method="post" id="formularioDatos"
+                th:object="${nuevoUsuario}"
+                th:action="@{/nuevoUsuario/procesarUsuario}">
+                <div>
+                    <label for="">Nombre de usuario</label>
+                    <input type="text" th:field="*{nombre}" class="usuarioInput" maxlength="35">
+                    <p class="usuarioError"></p>
+    
+                    <label for="">Email</label>
+                    <input type="text" th:field="*{email}" class="usuarioInput" maxlength="35">
+                    <p class="usuarioError"></p>
+    
+                    <label for="">Contraseña</label>
+                    <input type="password" th:field="*{password}" id="passwordReal" class="verificarPassword" maxlength="32">
+                    <p class="passwordError"></p>
+    
+                    <label for="">Repite tu contraseña</label>
+                    <input type="password" class="verificarPassword" maxlength="32">
+    
+                </div>
+                <div>
+                    <label for="">Ciudad en la que vives</label>
+                    <input type="text" th:field="*{ciudad}" class="usuarioInput">
+                    <p class="usuarioError"></p>
+      
+                    <label for="">Teléfono</label>
+                    <input type="text" th:field="*{telefono}" class="usuarioInput"  maxlength="10">
+                    <p class="usuarioError"></p>
+    
+                    <label for="">¿Buscas trabajo o empleados?</label>
+                    <select name="" id="rol" th:field="*{rol}" >
+                        <option value="Selecciona una opcion" selected>Selecciona una opcion...</option>
+                        <option value="contratar" th:text="${rol}" th:value="${rol}" th:each="rol:${listaRoles}"></option>
+                    </select>
+                    <p class="usuarioError"></p>
+    
+                    <input type="submit" value="Crear cuenta" id="subirUsuario">
+                </div>
+                    
+            </form>
+        </section>
     </main>
+    
 </body>
 </html>

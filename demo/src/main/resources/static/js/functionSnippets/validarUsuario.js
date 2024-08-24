@@ -68,28 +68,38 @@ export function validarEmail(input, pFallo){
     }
 }
 
-export function validarPassword(input, pFallo) {
-    const password = input.value;
+export function validarPassword(passwordReal, passwordPrueba, pFallo) {
+    const password = passwordReal.value;
 
     switch (true) {
         case (password.length > 30):
             pFallo.textContent = 'La contraseña no puede tener más de 30 caracteres';
-            input.classList.add('inputError');
+            passwordReal.classList.add('inputError');
+            passwordPrueba.classList.add('inputError');
             return false;
 
         case (password.length < 15):
             pFallo.textContent = 'La contraseña debe tener al menos 15 caracteres';
-            input.classList.add('inputError');
+            passwordReal.classList.add('inputError');
+            passwordPrueba.classList.add('inputError');
+            return false;
+
+        case (password !== passwordPrueba.value):
+            pFallo.textContent = 'Las contraseñas no coinciden';
+            passwordReal.classList.add('inputError');
+            passwordPrueba.classList.add('inputError');
             return false;
 
         case (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).*$/.test(password)):
             pFallo.textContent = 'La contraseña debe contener al menos una letra minúscula, una letra mayúscula, un número y un carácter especial';
-            input.classList.add('inputError');
+            passwordReal.classList.add('inputError');
+            passwordPrueba.classList.add('inputError');
             return false;
 
         default:
             pFallo.textContent = '';
-            input.classList.remove('inputError');
+            passwordReal.classList.remove('inputError');
+            passwordPrueba.classList.remove('inputError');
             return true;
     }
 }

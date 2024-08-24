@@ -1,4 +1,4 @@
-import * as valBusca from '/js/functionSnippets/validarUsuario.js';
+import * as valUsuario from '/js/functionSnippets/validarUsuario.js';
 
 'use strict'
 
@@ -6,12 +6,12 @@ const formulario = document.getElementById('formularioDatos');
 const arrInputs = Array.from(document.querySelectorAll('.usuarioInput'));
 const arrFallos = Array.from(document.querySelectorAll('.usuarioError'));
 const arrFunciones = [
-    valBusca.validarNombreUsuario,
-    valBusca.validarEmail,
-    valBusca.validarPassword,
-    valBusca.validarCiudad,
-    valBusca.validarTelefono
+    valUsuario.validarNombreUsuario,
+    valUsuario.validarEmail,
+    valUsuario.validarCiudad,
+    valUsuario.validarTelefono
 ];
+
 
 for(let i = 0; i < arrFunciones.length; i++){
     arrInputs[i].addEventListener('input', () => {
@@ -19,8 +19,14 @@ for(let i = 0; i < arrFunciones.length; i++){
     });
 };
 
+const arrPasswords = Array.from(document.querySelectorAll('.verificarPassword'));
+
+document.getElementById('passwordReal').addEventListener('input', () =>{
+    valUsuario.validarPassword(arrPasswords[0], arrPasswords[1], document.getElementsByClassName('passwordError')[0]);
+})
+
 document.getElementById('rol').addEventListener('change', () => {
-    valBusca.validarRol(document.getElementById('rol'), arrFallos[arrFallos.length - 1]);
+    valUsuario.validarRol(document.getElementById('rol'), arrFallos[arrFallos.length - 1]);
 });
 
 
@@ -34,7 +40,11 @@ document.getElementById('subirUsuario').addEventListener('click', async (e) => {
         if(resultado === false) confirmarValidaciones = false;
     }
 
-    if(valBusca.validarRol(document.getElementById('rol'), arrFallos[arrFallos.length - 1]) === false){
+    if(!valUsuario.validarPassword(arrPasswords[0], arrPasswords[1], document.getElementsByClassName('passwordError')[0])){
+        confirmarValidaciones = false;
+    }
+
+    if(!valUsuario.validarRol(document.getElementById('rol'), arrFallos[arrFallos.length - 1])){
         confirmarValidaciones = false;
     }
     
