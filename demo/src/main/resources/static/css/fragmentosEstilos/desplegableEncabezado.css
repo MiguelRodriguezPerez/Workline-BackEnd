@@ -14,7 +14,7 @@
     si pones left 0 se abrirá y cerrará desde la izquierda*/
     overflow-x: hidden;
     padding-top: 60px;
-    transition: 0.8s;
+    transition: 0.5s;
 
     padding:0px;
 }

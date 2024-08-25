@@ -8,7 +8,7 @@
     background-color: #111; /* Black*/
     overflow-x: hidden; 
     padding-top: 60px; 
-    transition: 0.8s; 
+    transition: 1s; 
   }
   
   /* Position and style the close button (top right corner) */
@@ -61,7 +61,7 @@
   #desplegableOfertas form input{
     margin-bottom: 10px;
 
-    width: 70%;
+    width: 60%;
     height: 30px;
 
     font-size: 16px;
@@ -69,13 +69,26 @@
   }
 
   #desplegableOfertas form select{
-    width: 71%;
+    width: 61%;
     height: 35px;
     border: 0px;
+  }
+
+  #desplegableOfertas #ejecutarBusqueda {
+    margin-top: 6%;
+    width: 50%;
   }
 
   @media screen and (max-width:700px) {
     #desplegableOfertas form > *{
       margin-left: 35px;
+    }
+
+    #desplegableOfertas form input{
+      width: 75%;
+    }
+
+    #desplegableOfertas form select{
+      width: 76%;
     }
   }

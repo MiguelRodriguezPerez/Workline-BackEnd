@@ -104,8 +104,7 @@ main > #formularioDatos{
 
 #formularioDatos > div:last-of-type > #editarUsuario{
     width: 25%;
-    margin-left: auto;
-    margin-top: 2%;
+    margin: 2% 0% 4% auto;
     padding: 10px;
     border: 0px;
     border-radius: 8px;
@@ -117,6 +116,10 @@ main > #formularioDatos{
 }
 
 @media screen and (max-width:1200px) {
+    main{
+        width: 85%;
+    }
+
     #formularioDatos input{
         width: 75%;
     }
@@ -133,6 +136,7 @@ main > #formularioDatos{
 
     main > #formularioDatos{
         grid-template-columns: 100%;
+        padding: 2% 0% 2% 7%;
     }
 
     #formularioDatos input{

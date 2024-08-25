@@ -99,7 +99,6 @@ main > button:first-of-type{
 
 #segundaSeccion textarea{
     border: solid 1px black;
-    border-radius: 8px;
     padding: 0.5% 1%;
     width: 97.8%;
     height: 90px;
@@ -131,7 +130,8 @@ p.mensajeError{
         width: 90%;
     }
 
-    main form input, main form select{
+    
+    #primeraSeccion input, #primeraSeccion select{
         width: 75%;
     }
 
@@ -145,11 +145,21 @@ p.mensajeError{
 }
 
 @media screen and (max-width:700px) {
-    main form{
-        grid-template-columns: 100%;
+    #primeraSeccion{
+        grid-template-columns: 90%;
+        justify-content: center;
+        padding: 5% 6%;
     }
 
-    #descripcion{
-        margin-bottom: 80px;
+    #primeraSeccion > #subirOferta{
+        grid-column: 1/1;
+        margin-top: 5%;
+        margin-right: auto;
+        width: 50%;
     }
+
+    #primeraSeccion input, #primeraSeccion select{
+        width: 90%;
+    }
+
 }

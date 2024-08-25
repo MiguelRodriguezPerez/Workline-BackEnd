@@ -29,7 +29,7 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http.headers(headersConfigurer -> headersConfigurer.frameOptions(frameOptions -> frameOptions.sameOrigin()));
+    http.headers(headersConfigurer -> headersConfigurer.frameOptions(frameOptions -> frameOptions.sameOrigin()));
 
         http.authorizeHttpRequests(auth -> auth
             .requestMatchers("/ofertasDeTrabajo/inscribirse/**", "/ofertasDeTrabajo/desinscribirse/**").hasRole("BUSCA")
@@ -38,7 +38,8 @@ public class SecurityConfig {
             .requestMatchers("/miPerfil/busca/**").hasRole("BUSCA")
             .requestMatchers("/", "/ofertasDeTrabajo/**", "/solicitudOfertas/**", "/nuevoUsuario/**", "/nuevoUsuarioCreacion/**", "/sesion/**").permitAll()
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-            .anyRequest().authenticated());
+            .anyRequest().permitAll());
+            //.anyRequest().autenticated() impide que los usuarios sin loguearse vean los errores http
 
         http.formLogin(formLogin -> formLogin
             .loginPage("/sesion/signin")
@@ -55,6 +56,8 @@ public class SecurityConfig {
             exceptions.accessDeniedPage("/sesion/error");
         });
 
-        return http.build();
+    return http.build();
+        }   
+
     }
-}
+

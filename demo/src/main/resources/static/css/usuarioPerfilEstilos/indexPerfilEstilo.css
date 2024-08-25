@@ -269,7 +269,7 @@ main{
     }
 
     #perfilDatos a{
-        padding: 1.2% 2%;
+        padding: 3% 4%;
     }
 }
 
@@ -288,6 +288,11 @@ main{
 
     #perfilDatos a{
         padding: 2% 4%;
+    }
+
+    #perfilDatos > a:last-of-type{
+        margin-top: 5%;
+        justify-self: start;
     }
 
     #listasEntidades{

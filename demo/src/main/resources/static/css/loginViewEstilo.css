@@ -130,7 +130,7 @@ main > div > a:last-of-type{
 
 @media screen and (max-width:700px) {
     main{
-        grid-template-columns: 70%;
+        grid-template-columns: 80%;
     }
 
     form input:last-of-type{

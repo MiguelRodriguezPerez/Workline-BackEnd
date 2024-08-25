@@ -30,4 +30,5 @@ public class ControladorErrores implements ErrorController  {
     }
     return "error";
     }
+
 }

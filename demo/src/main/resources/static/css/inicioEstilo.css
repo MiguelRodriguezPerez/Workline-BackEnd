@@ -180,7 +180,6 @@ main{
     }
 
     #opciones p{
-
         padding-right: 0%;
         font-size: 21px;
     }
@@ -203,5 +202,23 @@ main{
    
     #opciones{
         grid-template-columns: 100%;
+    }
+
+    #opciones > div, #opciones > div:nth-child(2){
+        grid-template-columns: 100%;
+    }
+
+    #opciones > div > img{
+        grid-row: 1/2;
+        width: 40%;
+        justify-self: center;
+    }
+
+    #opciones > div:first-child img{
+        width: 50%;
+    }
+
+    #opciones h3{
+        margin-top: 3%;
     }
 }

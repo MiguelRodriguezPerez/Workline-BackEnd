@@ -234,7 +234,7 @@ body{
     }
 
     .oferta > section:nth-child(3){
-        grid-template-columns: 11% 17% 48% 25%;
+        grid-template-columns: 15% 22% 40% 25%;
     }
 
     #botonesPaginas{
@@ -259,11 +259,7 @@ body{
     }
 
     .oferta > section:nth-child(3){
-        grid-template-columns: 21% 59% 20%;
-    }
-
-    .oferta > section:nth-child(3) > p:nth-child(1){
-        border-right: solid 1px black;
+        grid-template-columns: 30% 50% 20%;
     }
 
     .oferta > section:nth-child(3) > p:nth-child(2){

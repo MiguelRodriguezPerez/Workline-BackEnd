@@ -179,6 +179,11 @@ p.mensajeError{
         grid-template-columns: 100%;
     }
 
+    #contenidoOferta > #infoOferta{
+        grid-template-columns: 80%;
+        justify-content: center;
+    }
+
     #contenidoOferta label{
         font-size: 21px;
     }

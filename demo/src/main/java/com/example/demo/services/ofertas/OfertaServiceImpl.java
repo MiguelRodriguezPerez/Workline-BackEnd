@@ -176,7 +176,7 @@ public class OfertaServiceImpl implements OfertaService{
     public List<Oferta> obtenerPagina(Integer numeroPag, BusquedaOferta busquedaOferta) {
         
         if(numeroPag < 0  ||
-         numeroPag > this.obtenerNumeroPaginas(busquedaOferta)) throw new PagOfertasPublicadasIncorrecta();
+         numeroPag > (this.obtenerNumeroPaginas(busquedaOferta) -1)) throw new PagOfertasPublicadasIncorrecta();
         
         Pageable paginable = PageRequest.of(numeroPag,ofertasPorPagina);
         

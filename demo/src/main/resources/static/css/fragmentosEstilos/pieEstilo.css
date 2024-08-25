@@ -30,6 +30,7 @@ footer li a{
     }
     
     footer > nav{
+        padding-top: 5%;
         grid-template-columns: 26% 26% 26%;
         justify-content: center;
     }
@@ -48,6 +49,7 @@ footer li a{
 }
 
 @media screen and (max-width:700px) {
+
 
     footer nav br{
         display: inline;
