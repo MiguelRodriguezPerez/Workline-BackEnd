@@ -93,7 +93,7 @@ header > nav{
     cursor: pointer;
 }
 
-#perfil input{
+#perfil input, #menuTelefono input{
     color:white;
     background-color: inherit;
     border: none;
@@ -103,6 +103,7 @@ header > nav{
 #menuTelefono{
     display: none;
 }
+
 /*Tablet*/
 @media screen and (max-width:1200px) {
     header > nav{
@@ -121,7 +122,12 @@ header > nav{
 
     #perfil{
         display: grid;
-        grid-template-columns: 60% 40%;
+        grid-template-columns: 55% 45%;
+        justify-content: end;
+    }
+
+    #perfil form:last-child{
+        justify-self: end;
     }
 
     #perfil a{
@@ -160,25 +166,21 @@ header > nav{
 
     #menuTelefono{
         display: grid;
-        grid-template-columns: 82% 18%;
+        grid-template-columns: 61% 29% 10%;
         align-content: center;
         justify-content: end;
     }
-
-    #menuTelefono > div{
-        display: grid;
-        grid-template-columns: 80% 20%;
-        align-content: center;
-        justify-content: end;
-    }
-
-    
 
     #menuTelefono a{
         margin: auto 4% auto auto;
         color: white;
         text-decoration: none;
         font-size: 20px;
+    }
+
+    #menuTelefono form{
+        align-self: center;
+        justify-self: center;
     }
 
 }

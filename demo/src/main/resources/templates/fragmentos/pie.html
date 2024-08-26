@@ -4,7 +4,7 @@
     <ul>
         <li><a th:href="@{/}">Inicio</a></li>
         <li><a th:href="@{/ofertasDeTrabajo/0}">Encontrar trabajo</a></li>
-        <li><a th:if="${!rolActual.equals('busca')}" th:href="@{/seccionContrata/pagina/0}">Contratrar empleados</a></li>
+        <li><a th:if="${rolActual.equals('contrata')}"th:href="@{/seccionContrata/pagina/0}">Contratrar empleados</a></li>
     </ul>
     <ul>
         <li><a th:href="@{/miPerfil/{rolActual}(rolActual=${rolActual})}">Mi perfil</a></li>

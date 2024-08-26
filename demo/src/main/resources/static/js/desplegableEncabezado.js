@@ -31,3 +31,9 @@ function obtenerRuta(ruta){
     const resultado = ruta.match(/\/([^\/]*)\//);
     return resultado ? resultado[0] : null;
 }
+
+if(document.getElementById('menuTelefono').children.length === 2){
+    const menuTelefono = document.getElementById('menuTelefono');
+    menuTelefono.style.display = 'grid';
+    menuTelefono.style.gridTemplateColumns = '85% 15%';
+}
