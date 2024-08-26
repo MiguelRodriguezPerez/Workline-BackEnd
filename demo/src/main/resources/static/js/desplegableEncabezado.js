@@ -32,7 +32,7 @@ function obtenerRuta(ruta){
     return resultado ? resultado[0] : null;
 }
 
-if(document.getElementById('menuTelefono').children.length === 2){
+if(document.getElementById('menuTelefono').children.length === 2 && document.getElementById('menuTelefono').display === 'grid'){
     const menuTelefono = document.getElementById('menuTelefono');
     menuTelefono.style.display = 'grid';
     menuTelefono.style.gridTemplateColumns = '85% 15%';
