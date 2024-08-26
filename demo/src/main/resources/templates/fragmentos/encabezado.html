@@ -19,12 +19,12 @@
         </a>
     </section>
     <section id="menuTelefono">
-            <a th:if="${currentUserName == null}" th:href="@{/sesion/signin}">Iniciar Sesión</a>
-            <a th:unless="${currentUserName == null}" th:href="@{/miPerfil/{rolActual}/(rolActual=${rolActual.toLowerCase()})}" th:text="${rolActual}"></a>
+        <a th:if="${currentUserName == null}" th:href="@{/sesion/signin}">Iniciar Sesión</a>
+        <a th:unless="${currentUserName == null}" th:href="@{/miPerfil/{rolActual}/(rolActual=${rolActual.toLowerCase()})}" th:text="${rolActual}"></a>
             <form th:if="${currentUserName != null}" th:action="@{/logout}" method="post">
                 <input type="submit" value="Logout" />
             </form>
-            </a>
+        </a>
         <img src="/images/fragmentos/barras3.png" alt="cerrar.png" id="barrasDesplegableMenu">
     </section>
     
