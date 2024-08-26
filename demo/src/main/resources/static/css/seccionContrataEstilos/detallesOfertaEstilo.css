@@ -75,6 +75,7 @@ main > a:last-of-type{
     width: 100%;
     border: 0px;
 
+    resize: none;
     font-size: 18px;
 }
 

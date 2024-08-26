@@ -104,7 +104,7 @@ main > #formularioDatos{
 
 #formularioDatos > div:last-of-type > #editarUsuario{
     width: 25%;
-    margin: 2% 0% 4% auto;
+    margin: 2% 0% 0% auto;
     padding: 10px;
     border: 0px;
     border-radius: 8px;

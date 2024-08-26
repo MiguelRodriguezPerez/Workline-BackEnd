@@ -255,7 +255,7 @@ body{
     }
 
     .oferta > section:nth-child(1){
-        margin: 3% 0%;
+        margin:0%;
     }
 
     .oferta > section:nth-child(3){
