@@ -31,10 +31,10 @@ public class OfertasApiController {
     public ResponseEntity<List<OfertaApi>> getResults(@RequestBody BusquedaOferta busquedaOferta){
         System.out.println(busquedaOferta + "AAAAAAAAAAAAAAAAAAAAAAAAAA");
         List<OfertaApi> resultado = ofertaService.obtenerResultadosApi(busquedaOferta);
+        System.out.println(resultado.size());
 
-        if(resultado.isEmpty() || resultado == null) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        if(resultado.size() == 0) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         else return new ResponseEntity<>(resultado,HttpStatus.OK);
     }
-
 
 }

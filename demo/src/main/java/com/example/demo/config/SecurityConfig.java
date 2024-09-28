@@ -42,6 +42,9 @@ public class SecurityConfig {
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
             .anyRequest().permitAll());
             //.anyRequest().autenticated() impide que los usuarios sin loguearse vean los errores http
+        
+
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/api/ofertas/**"));
 
 
         http.formLogin(formLogin -> formLogin
