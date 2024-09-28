@@ -16,7 +16,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BusquedaOferta {
-    //Este es el objeto que estoy intentando que reciba la api BuscarTrabajoApi
+    // Este es el objeto que estoy intentando que reciba la api BuscarTrabajoApi
     @Nullable
     private String puestoB;
     @Nullable
@@ -28,21 +28,26 @@ public class BusquedaOferta {
     @Nullable
     private List<String> requisitos;
     @Nullable
-    private Double salarioAnual;
+    private Double salarioAnualMinimo;
     @Nullable
     private String modalidadB;
-    @Nullable
-    private Long numPag;
 
-    public boolean estaVacio(){
-        if(!puestoB.isEmpty()) return false;
-        if(!sectorB.equals("placeholder")) return false;
-        if(!tipoContratoB.isEmpty()) return false;
-        if(!ciudadB.isEmpty()) return false;
-        if(requisitos != null) return false;
-        if(salarioAnual != null) return false;
-        if(!modalidadB.isEmpty()) return false;
+    public boolean estaVacio() {
+        if (!puestoB.isEmpty())
+            return false;
+        if (!sectorB.equals("placeholder"))
+            return false;
+        if (!tipoContratoB.isEmpty())
+            return false;
+        if (!ciudadB.isEmpty())
+            return false;
+        if (requisitos != null)
+            return false;
+        if (salarioAnualMinimo != null)
+            return false;
+        if (!modalidadB.isEmpty())
+            return false;
         return true;
     }
-    
+
 }

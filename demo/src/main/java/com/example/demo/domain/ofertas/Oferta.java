@@ -24,7 +24,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@ToString(exclude = "listaCandidatos")
+@ToString(exclude = {"listaCandidatos", "contrata"})
 @NoArgsConstructor
 
 @EqualsAndHashCode(of="id")
@@ -77,6 +77,10 @@ public class Oferta implements Comparable<Oferta>{
     @Nullable
     private List<Busca> listaCandidatos;
 
+    @ManyToOne
+    @JoinColumn(name = "contrata_id")//Sospechoso de fallar
+    private Contrata contrata;
+
     public Oferta(@NotNull @Size(max = 30) String puesto, @NotNull String sector, @Size(max = 80) String descripcion,
             @NotNull String ciudad, Double salarioAnual, @NotNull TipoContrato tipoContrato, @NotNull Byte horas,
             @NotNull ModalidadTrabajo modalidadTrabajo, Contrata contrata) {
@@ -94,9 +98,7 @@ public class Oferta implements Comparable<Oferta>{
         this.fechaPublicacion = LocalDate.now();
     }
 
-    @ManyToOne
-    @JoinColumn(name = "contrata_id")//Sospechoso de fallar
-    private Contrata contrata;
+    
 
     @Override
     public int compareTo(Oferta o1) {

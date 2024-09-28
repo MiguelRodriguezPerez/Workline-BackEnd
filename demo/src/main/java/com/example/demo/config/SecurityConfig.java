@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -36,10 +37,12 @@ public class SecurityConfig {
             .requestMatchers("/seccionContrata/**").hasRole("CONTRATA")
             .requestMatchers("/miPerfil/contrata/**").hasRole("CONTRATA")
             .requestMatchers("/miPerfil/busca/**").hasRole("BUSCA")
-            .requestMatchers("/", "/ofertasDeTrabajo/**", "/solicitudOfertas/**", "/nuevoUsuario/**", "/nuevoUsuarioCreacion/**", "/sesion/**").permitAll()
+            .requestMatchers("/", "/ofertasDeTrabajo/**", "/solicitudOfertas/**", "/nuevoUsuario/**", 
+            "/nuevoUsuarioCreacion/**", "/sesion/**", "/api/ofertas/**").permitAll()
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
             .anyRequest().permitAll());
             //.anyRequest().autenticated() impide que los usuarios sin loguearse vean los errores http
+
 
         http.formLogin(formLogin -> formLogin
             .loginPage("/sesion/signin")

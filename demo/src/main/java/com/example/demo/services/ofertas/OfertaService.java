@@ -2,6 +2,7 @@ package com.example.demo.services.ofertas;
 
 import java.util.List;
 
+import com.example.demo.domain.entidadesApi.OfertaApi;
 import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.usuarios.Busca;
@@ -16,9 +17,12 @@ public interface OfertaService {
     void borrarCandidatosOferta(Long id);
     void borrarBuscaTodasOfertas(Busca busca);
     void borrarContrataTodasOfertas(Contrata contrata);
+    OfertaApi convertirOfertaAOfertaApi(Oferta oferta);
     Oferta obtenerPorId(Long id);
     List<Oferta> obtenerTodos();
+    List<OfertaApi> obtenerTodosApi();
     List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta);
+    List<OfertaApi> obtenerResultadosApi(BusquedaOferta busquedaOferta);
     List<Oferta> obtenerPagina(Integer paginaElecta, BusquedaOferta busquedaOferta);
     boolean existeSiguientePagina(Integer paginaElecta, String busquedaOferta);
     int existeAnteriorPagina(Integer paginaElecta);
