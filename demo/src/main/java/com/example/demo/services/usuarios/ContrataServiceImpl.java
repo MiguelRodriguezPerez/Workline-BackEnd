@@ -2,6 +2,7 @@ package com.example.demo.services.usuarios;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -171,6 +172,20 @@ public class ContrataServiceImpl implements ContrataService{
         Contrata contrata = this.obtenerContrataConectado();
         contrata.setPassword(nuevoPassword);
         this.guardarCambios(contrata);
+    }
+
+    @Override
+    public void generarApiKey() {
+        Contrata contrata = this.obtenerContrataConectado();
+        contrata.setApiKey(UUID.randomUUID().toString());
+        this.guardarSinEncriptar(contrata);
+    }
+
+    @Override
+    public void borrarApiKey() {
+        Contrata contrata = this.obtenerContrataConectado();
+        contrata.setApiKey(null);
+        this.guardarSinEncriptar(contrata);
     }
 
 

@@ -23,6 +23,8 @@ import lombok.ToString;
 @Entity
 public class Contrata extends Usuario{
 
+
+    private String apiKey;
     @OneToMany(fetch= FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "contrata")
     @Nullable
     private List <Oferta> listaOfertas;

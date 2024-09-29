@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/fragmentosEstilos/encabezadoEstilo.css">
     <link rel="stylesheet" href="/css/fragmentosEstilos/pieEstilo.css">
     <link rel="stylesheet" href="/css/usuarioPerfilEstilos/indexPerfilEstilo.css">
-    <script src="/js/usuarioPerfil/indexPerfil.js" defer></script>
+    <script defer src="/js/usuarioPerfil/indexContrata.js"></script>
 </head>
 <body>
     <header th:insert="~{/fragmentos/encabezado :: nav}"></header>
@@ -26,6 +26,13 @@
        
         <section class="nube" id="perfilNombre">
             <h2 th:text="${contrataLogueado.nombre}"></h2>
+            <div th:if="${contrataLogueado.apiKey == null || contrataLogueado.apiKey == ''}">
+                <p>No tienes una api key</p>
+                <button class="botonCrear" id="generarApiKey">Generar api key</button>
+            </div>
+            <div th:unless="${contrataLogueado.apiKey == null}">
+                <p th:text="${contrataLogueado.apiKey}"></p>
+            </div>
             <p th:text="${contrataLogueado.ciudad}"></p>
         </section>
 
@@ -39,7 +46,7 @@
                 <label for="">Teléfono</label>
                 <p th:text="${contrataLogueado.telefono}">
             </div>
-            <a th:href="@{/miPerfil/contrata/cambiarPassword/primerPaso}">Cambiar Contraseña</a>
+            <a th:href="@{/miPerfil/contrata/cambiarPassword/primerPaso}" class="botonCrear">Cambiar Contraseña</a>
             <a th:href="@{/miPerfil/contrata/borrarCuenta}">Borrar cuenta</a>
         </section>
 

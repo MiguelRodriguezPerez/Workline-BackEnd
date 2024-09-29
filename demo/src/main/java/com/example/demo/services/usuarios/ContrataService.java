@@ -25,5 +25,6 @@ public interface ContrataService {
     int obtenerNumeroPaginasOfertasPublicadas();
     boolean coincidePassword(String verificarPassword);
     void cambiarPassword(String nuevoPassword);
-
+    void generarApiKey();
+    void borrarApiKey();
 }
