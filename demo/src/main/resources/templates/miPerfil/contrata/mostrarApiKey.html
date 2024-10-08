@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/usuarioPerfilEstilos/mostrarApiKey.css">
+    <script src="/js/contratar/mostrarApiKey.js" defer></script>
+</head>
+<body>
+    <main>
+        <div>
+            <div>
+                <h2 th:text="${key}" id="key"></h2>
+                <img src="/images/copiar.png" alt="copiar" id="copy">
+            </div>
+            
+            <h3 id="tiempo">15 segundos restantes</h3>
+            <p>Esta es tu api key. Copiela y guardela en un lugar seguro,
+                porque no volverá a visualizarla</p>
+            
+            <a th:href="@{/miPerfil/contrata/}">Salir</a>
+        </div>
+    </main>
+</body>
+</html>

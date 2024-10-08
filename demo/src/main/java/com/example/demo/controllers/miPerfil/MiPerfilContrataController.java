@@ -1,6 +1,8 @@
 package com.example.demo.controllers.miPerfil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -85,5 +87,11 @@ public class MiPerfilContrataController {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
 
         return "redirect:/";
+    }
+
+    @GetMapping("/generarApiKey")
+    public String generateApiKey(Model model){
+        model.addAttribute("key",contrataService.generarApiKey());
+        return "miPerfil/contrata/mostrarApiKey" ;
     }
 }

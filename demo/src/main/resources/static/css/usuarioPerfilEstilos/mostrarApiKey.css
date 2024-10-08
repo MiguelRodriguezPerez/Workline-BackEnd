@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Roboto&family=Tajawal&display=swap');
+
+body{
+    margin: 0px;
+}
+
+body > *{
+    font-family: "Tajawal";
+}
+
+main{
+    width: 100vw;
+    height: 100vh;
+    background-color: #F5F5F5;
+    margin: 0px;
+
+    display: grid;
+    grid-template-columns: 50%;
+    justify-content: center;
+    align-items: center;
+}
+
+main > div {
+    background-color: white;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    justify-content: center;
+    padding: 15px 10px;
+    border-radius: 8px;
+}
+
+h2{
+    text-align: center;
+    font-weight: normal;
+    font-size: 35px;
+    margin: 2% 0%;
+}
+
+h3{
+    font-size: 25px;
+    margin-left: 20%;
+}
+
+
+main p{
+    margin: 2% 10%;
+    font-size: 19px;
+}
+
+main img{
+    display: block;
+    margin-left: auto;
+    margin-top: -2%;
+    margin-right: 8%;
+    cursor: pointer;
+}
+
+main > div > a{
+    text-align: right;
+    text-decoration: none;
+    
+    margin: auto 10% 5%;
+    font-size: 20px;
+    color: #0097b2;
+}
+
+@media screen and (max-width:1200px) {
+    main{
+        grid-template-columns: 50%;
+    }
+
+    input[type=text], input[type=password]{
+        font-size: 16px;
+    }
+
+    input[type=submit]{
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width:700px) {
+    main{
+        grid-template-columns: 80%;
+    }
+
+    form input:last-of-type{
+        width: 80%;
+    }
+
+    main > div > a:last-of-type{
+        margin-right: 30px;
+        margin-top: 0px;
+    }
+}

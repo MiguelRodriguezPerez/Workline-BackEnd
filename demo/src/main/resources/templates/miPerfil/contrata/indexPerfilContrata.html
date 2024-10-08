@@ -28,7 +28,7 @@
             <h2 th:text="${contrataLogueado.nombre}"></h2>
             <div th:if="${contrataLogueado.apiKey == null || contrataLogueado.apiKey == ''}">
                 <p>No tienes una api key</p>
-                <button class="botonCrear" id="generarApiKey">Generar api key</button>
+                <a class="botonCrear"  th:href="@{/miPerfil/contrata/generarApiKey}">Generar api key</a>
             </div>
             <div th:unless="${contrataLogueado.apiKey == null}">
                 <p th:text="${contrataLogueado.apiKey}"></p>

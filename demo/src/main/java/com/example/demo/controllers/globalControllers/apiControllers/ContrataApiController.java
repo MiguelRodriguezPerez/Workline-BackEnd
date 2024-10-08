@@ -16,10 +16,6 @@ public class ContrataApiController {
     @Autowired
     ContrataService contrataService;
     
-    @GetMapping("/generarApiKey")
-    public ResponseEntity<Boolean> generateApiKey(){
-        if(contrataService.obtenerContrataConectado() == null) return new ResponseEntity<>(false,HttpStatus.UNAUTHORIZED);
-        contrataService.generarApiKey();
-        return new ResponseEntity<>(true,HttpStatus.OK);
-    }
+    
+    
 }

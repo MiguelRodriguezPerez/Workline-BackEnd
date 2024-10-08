@@ -175,10 +175,14 @@ public class ContrataServiceImpl implements ContrataService{
     }
 
     @Override
-    public void generarApiKey() {
+    public String generarApiKey() {
         Contrata contrata = this.obtenerContrataConectado();
-        contrata.setApiKey(UUID.randomUUID().toString());
+        String key = UUID.randomUUID().toString();
+
+        contrata.setApiKey(passwordEncoder.encode(key));
         this.guardarSinEncriptar(contrata);
+
+        return key;
     }
 
     @Override
