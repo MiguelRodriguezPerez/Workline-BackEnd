@@ -122,7 +122,7 @@ body{
 }
 
 .oferta > section:nth-child(2) p{
-    font-size: 22px;
+    font-size: 26px;
 }
 
 .oferta > section:nth-child(3){
@@ -148,7 +148,7 @@ body{
 }
 
 .oferta > section:nth-child(3) p{
-    font-size: 18px;
+    font-size: 24px;
 }
 
 .oferta > section:nth-child(3) p:last-child{

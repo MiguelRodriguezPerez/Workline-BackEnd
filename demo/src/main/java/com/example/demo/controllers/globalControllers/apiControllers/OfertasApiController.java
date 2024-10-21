@@ -15,7 +15,7 @@ import com.example.demo.domain.entidadesApi.OfertaApi;
 import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.services.ofertas.OfertaService;
 
-@RequestMapping("/api/ofertas")
+@RequestMapping("/internal-api/ofertas")
 @RestController
 public class OfertasApiController {
 
@@ -29,8 +29,9 @@ public class OfertasApiController {
 
     @PostMapping("/search")
     public ResponseEntity<List<OfertaApi>> getResults(@RequestBody BusquedaOferta busquedaOferta){
+        System.out.println(busquedaOferta);
         List<OfertaApi> resultado = ofertaService.obtenerResultadosApi(busquedaOferta);
-
+        System.out.println(resultado.size() + "aaaaaaaaaaa");
         if(resultado.size() == 0) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         else return new ResponseEntity<>(resultado,HttpStatus.OK);
     }

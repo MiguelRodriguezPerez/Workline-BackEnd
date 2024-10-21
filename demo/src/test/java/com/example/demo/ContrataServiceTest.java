@@ -63,24 +63,25 @@ public class ContrataServiceTest {
         "aaaa", Rol.CONTRATA));
 
         assertNotNull(c1);
+        
     }
 
     @Test
     public void guardarCambiosNombre(){
-        Contrata contrataEjemplo = new Contrata("Mar", 
+        Contrata contrataConectado = new Contrata("Mar", 
         "maria@example.com", "Madrid", "612345678", "securePassword123");
 
         when(repo.save(any(Contrata.class))).thenAnswer(invocation -> invocation.getArgument(0));
         when(securityContext.getAuthentication()).thenReturn(authentication);
-        when(contrataService.obtenerContrataConectado()).thenReturn(contrataEjemplo);
+        when(contrataService.obtenerContrataConectado()).thenReturn(contrataConectado);
 
-        Contrata contrataEjemplo2 = contrataEjemplo;
+        Contrata contrataEjemplo2 = contrataConectado;
         contrataEjemplo2.setNombre("Mar2");
 
         Contrata resultado = contrataService.guardarCambios(contrataEjemplo2);
 
         assert(resultado.getNombre()).equals("Mar2");
-        assert(resultado.getEmail()).equals(contrataEjemplo.getEmail());
+        assert(resultado.getEmail()).equals(contrataConectado.getEmail());
     }
 
     @Test

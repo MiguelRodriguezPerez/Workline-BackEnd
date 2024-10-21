@@ -31,6 +31,7 @@ function obtenerRuta(ruta){
     const resultado = ruta.match(/\/([^\/]*)\//);
     return resultado ? resultado[0] : null;
 }
+
 window.addEventListener('DOMContentLoaded', () => {
     const menuTelefono = document.getElementById('menuTelefono');
     const displayValue = window.getComputedStyle(menuTelefono).display;

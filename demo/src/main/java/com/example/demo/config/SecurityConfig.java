@@ -4,7 +4,6 @@ import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -27,6 +29,21 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
+
+    /*DISCLAIMER: Esto esta desactivando csrf para todas las solicitudes del lado cliente. Evítalo */
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("http://localhost:5173"); // Aquí pones el origen de tu frontend (ajustar según sea necesario)
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
+    }
+
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
@@ -44,7 +61,7 @@ public class SecurityConfig {
             //.anyRequest().autenticated() impide que los usuarios sin loguearse vean los errores http
         
 
-        http.csrf(csrf -> csrf.ignoringRequestMatchers("/api/ofertas/**"));
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/internal-api/ofertas/**"));
 
 
         http.formLogin(formLogin -> formLogin
@@ -61,6 +78,9 @@ public class SecurityConfig {
         http.exceptionHandling(exceptions -> {
             exceptions.accessDeniedPage("/sesion/error");
         });
+
+        // http.csrf(csrf -> csrf.csrfTokenRepository
+        //     (CookieCsrfTokenRepository.withHttpOnlyFalse()));
 
     return http.build();
         }   

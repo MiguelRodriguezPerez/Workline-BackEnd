@@ -42,7 +42,7 @@ main{
 }
 
 #anuncio p{
-    font-size: 25px;
+    font-size: 29px;
 
     line-height: 1.1;
 }
@@ -52,7 +52,7 @@ main{
 }
 
 #anuncio a{
-    font-size: 21px;
+    font-size: 24px;
     text-decoration: none;
     color: black;
 
@@ -113,7 +113,7 @@ main{
 
 #opciones p{
     margin: 0px;
-    font-size: 22px;
+    font-size: 27px;
 }
 
 
