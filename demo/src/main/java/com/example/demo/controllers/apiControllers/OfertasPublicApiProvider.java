@@ -1,4 +1,4 @@
-package com.example.demo.controllers.globalControllers.apiControllers;
+package com.example.demo.controllers.apiControllers;
 
 import java.util.List;
 
@@ -15,25 +15,27 @@ import com.example.demo.domain.entidadesApi.OfertaApi;
 import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.services.ofertas.OfertaService;
 
-@RequestMapping("/internal-api/ofertas")
+@RequestMapping("/internal-api/public/ofertas")
 @RestController
-public class OfertasApiController {
+public class OfertasPublicApiProvider {
 
     @Autowired
     OfertaService ofertaService;
-    
+
     @GetMapping("/all")
-    public ResponseEntity<List<OfertaApi>> getAllOfertas(){
-        return new ResponseEntity<>(ofertaService.obtenerTodosApi(),HttpStatus.OK);
+    public ResponseEntity<List<OfertaApi>> getAllOfertas() {
+        return new ResponseEntity<>(ofertaService.obtenerTodosApi(), HttpStatus.OK);
     }
 
     @PostMapping("/search")
-    public ResponseEntity<List<OfertaApi>> getResults(@RequestBody BusquedaOferta busquedaOferta){
+    public ResponseEntity<List<OfertaApi>> getResults(@RequestBody BusquedaOferta busquedaOferta) {
         System.out.println(busquedaOferta);
         List<OfertaApi> resultado = ofertaService.obtenerResultadosApi(busquedaOferta);
         System.out.println(resultado.size() + "aaaaaaaaaaa");
-        if(resultado.size() == 0) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        else return new ResponseEntity<>(resultado,HttpStatus.OK);
+        if (resultado.size() == 0)
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        else
+            return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
 
 }

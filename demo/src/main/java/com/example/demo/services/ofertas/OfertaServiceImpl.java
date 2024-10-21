@@ -103,7 +103,7 @@ public class OfertaServiceImpl implements OfertaService {
 
     @Override
     public OfertaApi convertirOfertaAOfertaApi(Oferta oferta) {
-        return new OfertaApi(oferta.getPuesto(), oferta.getSector(), oferta.getDescripcion(),
+        return new OfertaApi(oferta.getId(),oferta.getPuesto(), oferta.getSector(), oferta.getDescripcion(),
                 oferta.getCiudad(), oferta.getSalarioAnual(), oferta.getTipoContrato(),
                 oferta.getHoras(), oferta.getModalidadTrabajo(), oferta.getNombreEmpresa(),
                 oferta.getFechaPublicacion());

@@ -31,7 +31,9 @@ public class SecurityConfig {
     }
 
 
-    /*DISCLAIMER: Esto esta desactivando csrf para todas las solicitudes del lado cliente. Evítalo */
+    /*DISCLAIMER: Téoricamente esto evita los problemas relacionados con CORS entre el lado
+    cliente y el lado servidor. Pero no estoy convencido
+    */
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -40,7 +42,7 @@ public class SecurityConfig {
         config.addAllowedOrigin("http://localhost:5173"); // Aquí pones el origen de tu frontend (ajustar según sea necesario)
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
-        source.registerCorsConfiguration("/**", config);
+        source.registerCorsConfiguration("/internal-api/public/**", config);
         return new CorsFilter(source);
     }
 
@@ -55,13 +57,13 @@ public class SecurityConfig {
             .requestMatchers("/miPerfil/contrata/**").hasRole("CONTRATA")
             .requestMatchers("/miPerfil/busca/**").hasRole("BUSCA")
             .requestMatchers("/", "/ofertasDeTrabajo/**", "/solicitudOfertas/**", "/nuevoUsuario/**", 
-            "/nuevoUsuarioCreacion/**", "/sesion/**", "/api/ofertas/**").permitAll()
+            "/nuevoUsuarioCreacion/**", "/sesion/**", "/internal-api/public/**").permitAll()
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
             .anyRequest().permitAll());
             //.anyRequest().autenticated() impide que los usuarios sin loguearse vean los errores http
         
 
-        http.csrf(csrf -> csrf.ignoringRequestMatchers("/internal-api/ofertas/**"));
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/internal-api/public/**"));
 
 
         http.formLogin(formLogin -> formLogin

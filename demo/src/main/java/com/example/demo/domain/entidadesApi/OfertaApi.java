@@ -19,6 +19,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class OfertaApi {
     @NotNull
+    private Long id;
+
+    @NotNull
     @Size(max = 30)
     private String puesto;
 

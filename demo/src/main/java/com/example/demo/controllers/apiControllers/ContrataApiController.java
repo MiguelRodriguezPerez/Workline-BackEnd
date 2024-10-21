@@ -1,4 +1,4 @@
-package com.example.demo.controllers.globalControllers.apiControllers;
+package com.example.demo.controllers.apiControllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
