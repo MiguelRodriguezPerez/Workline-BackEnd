@@ -79,6 +79,7 @@ public class Oferta implements Comparable<Oferta>{
 
     @ManyToOne
     @JoinColumn(name = "contrata_id")//Sospechoso de fallar
+    @JsonBackReference
     private Contrata contrata;
 
     public Oferta(@NotNull @Size(max = 30) String puesto, @NotNull String sector, @Size(max = 80) String descripcion,

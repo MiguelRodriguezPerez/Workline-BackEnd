@@ -2,6 +2,8 @@ package com.example.demo.services.ofertas;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.example.demo.domain.entidadesApi.OfertaApi;
 import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.domain.ofertas.Oferta;
@@ -21,9 +23,10 @@ public interface OfertaService {
     Oferta obtenerPorId(Long id);
     List<Oferta> obtenerTodos();
     List<OfertaApi> obtenerTodosApi();
+    Page<Oferta> obtenerPaginaApi(int pagina, BusquedaOferta busquedaOferta);
     List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta);
-    List<OfertaApi> obtenerResultadosApi(BusquedaOferta busquedaOferta);
-    List<Oferta> obtenerPagina(Integer paginaElecta, BusquedaOferta busquedaOferta);
+    Page<Oferta> obtenerResultadosApi(BusquedaOferta busquedaOferta);
+    Page<Oferta> obtenerPagina(Integer paginaElecta, BusquedaOferta busquedaOferta);
     boolean existeSiguientePagina(Integer paginaElecta, String busquedaOferta);
     int existeAnteriorPagina(Integer paginaElecta);
     int obtenerNumeroPaginas(BusquedaOferta busquedaOferta);

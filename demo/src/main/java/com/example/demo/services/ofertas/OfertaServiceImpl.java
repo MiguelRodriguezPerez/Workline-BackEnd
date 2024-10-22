@@ -143,6 +143,18 @@ public class OfertaServiceImpl implements OfertaService {
     }
 
     @Override
+    public Page<Oferta> obtenerPaginaApi(int pagina, BusquedaOferta busquedaOferta){
+        // List<OfertaApi> resultado = new ArrayList<>();
+        // List<Oferta> listaProvisional = this.obtenerPagina(pagina ,busquedaOferta);
+
+        // for(Oferta oferta: listaProvisional){
+        //     resultado.add(this.convertirOfertaAOfertaApi(oferta));
+        // }
+
+        throw new RuntimeException("KE PASA PARGUELA");
+    }
+
+    @Override
     public List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta) {
         ArrayList<Oferta> listaResultado = new ArrayList<>(repo.findAll());
         // System.out.println(listaResultado);
@@ -212,20 +224,14 @@ public class OfertaServiceImpl implements OfertaService {
     }
 
     @Override
-    public List<OfertaApi> obtenerResultadosApi(BusquedaOferta busquedaOferta) {
-        List<OfertaApi> resultado = new ArrayList<>();
-
-        for (Oferta o : this.obtenerResultados(busquedaOferta)) {
-            resultado.add(this.convertirOfertaAOfertaApi(o));
-        }
-
-        return resultado;
+    public Page<Oferta> obtenerResultadosApi(BusquedaOferta busquedaOferta) {    
+        return this.obtenerPagina(ofertasPorPagina, busquedaOferta);
     }
 
     private final Integer ofertasPorPagina = 10;
 
     @Override
-    public List<Oferta> obtenerPagina(Integer numeroPag, BusquedaOferta busquedaOferta) {
+    public Page<Oferta> obtenerPagina(Integer numeroPag, BusquedaOferta busquedaOferta) {
 
         if (numeroPag < 0 ||
                 numeroPag > (this.obtenerNumeroPaginas(busquedaOferta) - 1))
@@ -235,7 +241,7 @@ public class OfertaServiceImpl implements OfertaService {
 
         if (busquedaOferta == null) {
             Page<Oferta> resultado = repo.findAll(paginable);
-            return resultado.getContent();
+            return resultado;
         } else {
             List<Oferta> listaOfertas = this.obtenerResultados(busquedaOferta);
             if (listaOfertas.isEmpty())
@@ -248,7 +254,7 @@ public class OfertaServiceImpl implements OfertaService {
                     listaOfertas.size());
 
             // if(resultado.hasContent())
-            return resultado.getContent();
+            return resultado;
         }
     }
 

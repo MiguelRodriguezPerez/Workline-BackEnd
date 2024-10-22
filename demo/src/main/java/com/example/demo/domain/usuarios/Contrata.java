@@ -3,6 +3,7 @@ package com.example.demo.domain.usuarios;
 import java.util.List;
 
 import com.example.demo.domain.ofertas.Oferta;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.CascadeType;
@@ -25,6 +26,7 @@ public class Contrata extends Usuario{
 
 
     private String apiKey;
+    @JsonManagedReference
     @OneToMany(fetch= FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "contrata")
     @Nullable
     private List <Oferta> listaOfertas;
