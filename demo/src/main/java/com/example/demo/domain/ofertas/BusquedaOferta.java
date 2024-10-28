@@ -25,29 +25,29 @@ public class BusquedaOferta {
     private String tipoContratoB;
     @Nullable
     private String ciudadB;
-    @Nullable
-    private List<String> requisitos;
+    // @Nullable
+    // private List<String> requisitos;
     @Nullable
     private Double salarioAnualMinimo;
     @Nullable
     private String modalidadB;
 
-    public boolean estaVacio() {
-        if (!puestoB.isEmpty())
-            return false;
-        if (!sectorB.equals("placeholder"))
-            return false;
-        if (!tipoContratoB.isEmpty())
-            return false;
-        if (!ciudadB.isEmpty())
-            return false;
-        if (requisitos != null)
-            return false;
-        if (salarioAnualMinimo != null)
-            return false;
-        if (!modalidadB.isEmpty())
-            return false;
-        return true;
-    }
+    // public boolean estaVacio() {
+    //     if (!puestoB.isEmpty())
+    //         return false;
+    //     if (!sectorB.equals("placeholder"))
+    //         return false;
+    //     if (!tipoContratoB.isEmpty())
+    //         return false;
+    //     if (!ciudadB.isEmpty())
+    //         return false;
+    //     // if (requisitos != null)
+    //     //     return false;
+    //     if (salarioAnualMinimo != null)
+    //         return false;
+    //     if (!modalidadB.isEmpty())
+    //         return false;
+    //     return true;
+    // }
 
 }

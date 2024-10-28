@@ -26,10 +26,16 @@ public class OfertasPublicApiProvider {
     @Autowired
     OfertaService ofertaService;
 
-    @PostMapping("/pagina")
+    @PostMapping("/busqueda")
     public ResponseEntity<Page<Oferta>> getAllOfertas(@RequestBody PaginaJobSearchRequest paginaJobSearchRequest) {
-        return new ResponseEntity<>(ofertaService.obtenerPagina(paginaJobSearchRequest.getPagina(), 
-        paginaJobSearchRequest.getBusquedaOferta()), HttpStatus.OK);
+        if(paginaJobSearchRequest.getBusquedaOferta() != null){
+            return new ResponseEntity<>(ofertaService.obtenerPaginaApi(paginaJobSearchRequest.getPagina(), 
+            paginaJobSearchRequest.getBusquedaOferta()), HttpStatus.OK);
+        }
+        else{
+            System.out.println("LA BUSQUEDA OFERTA SI ES NULL");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/modalidades")
@@ -43,16 +49,5 @@ public class OfertasPublicApiProvider {
         List<TipoContrato> resultado = Arrays.asList(TipoContrato.values());
         return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
-
-    // @PostMapping("/search")
-    // public ResponseEntity<List<OfertaApi>> getResults(@RequestBody BusquedaOferta busquedaOferta) {
-    //     System.out.println(busquedaOferta);
-    //     List<OfertaApi> resultado = ofertaService.obtenerResultadosApi(busquedaOferta);
-    //     System.out.println(resultado.size() + "aaaaaaaaaaa");
-    //     if (resultado.size() == 0)
-    //         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    //     else
-    //         return new ResponseEntity<>(resultado, HttpStatus.OK);
-    // }
 
 }

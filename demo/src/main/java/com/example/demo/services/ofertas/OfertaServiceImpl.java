@@ -102,14 +102,6 @@ public class OfertaServiceImpl implements OfertaService {
     }
 
     @Override
-    public OfertaApi convertirOfertaAOfertaApi(Oferta oferta) {
-        return new OfertaApi(oferta.getId(),oferta.getPuesto(), oferta.getSector(), oferta.getDescripcion(),
-                oferta.getCiudad(), oferta.getSalarioAnual(), oferta.getTipoContrato(),
-                oferta.getHoras(), oferta.getModalidadTrabajo(), oferta.getNombreEmpresa(),
-                oferta.getFechaPublicacion());
-    }
-
-    @Override
     public void borrarBuscaTodasOfertas(Busca busca) {
         repo.borrarBuscaFromAllOfertas(busca.getId());
     }
@@ -131,176 +123,77 @@ public class OfertaServiceImpl implements OfertaService {
         return resultado;
     }
 
-    @Override
-    public List<OfertaApi> obtenerTodosApi() {
-        List<OfertaApi> resultado = new ArrayList<>();
 
-        for (Oferta o : this.obtenerTodos()) {
-            resultado.add(this.convertirOfertaAOfertaApi(o));
-        }
-
-        return resultado;
-    }
-
-    @Override
-    public Page<Oferta> obtenerPaginaApi(int pagina, BusquedaOferta busquedaOferta){
-        // List<OfertaApi> resultado = new ArrayList<>();
-        // List<Oferta> listaProvisional = this.obtenerPagina(pagina ,busquedaOferta);
-
-        // for(Oferta oferta: listaProvisional){
-        //     resultado.add(this.convertirOfertaAOfertaApi(oferta));
-        // }
-
-        throw new RuntimeException("KE PASA PARGUELA");
-    }
-
-    @Override
-    public List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta) {
-        ArrayList<Oferta> listaResultado = new ArrayList<>(repo.findAll());
-        // System.out.println(listaResultado);
-        // System.out.println(busquedaOferta + "AAAAAAAAAAAAAAAAAAAAAAAA");
-
-        /*
-         * NOTA: Al filtrar cada campo, la primera condición tiene que ser que ese
-         * campo no sea null para evitar una nullPointerException
-         */
-
-        /*
-         * Originalmente filtrabas las ofertas con varios removeIf, pero esto realizaba
-         * demasiados bucles,
-         * y en mi opinión, los streams son ilegibles, por lo que use un iterator que
-         * funciona de la siguiente manera.
-         * Por cada oferta en la lista, el iterador obtiene esa oferta y declara un
-         * valor booleano false para determinar
-         * si esta oferta se borra de la lista de resultados o no. Después cada if en la
-         * misma vuelta evalúa si se
-         * cumple cada condición de la búsqueda y, en caso negativo, cambia el valor
-         * booleano eliminar a true para evitar
-         * que se siga evaluando la oferta y confirmar al final del bucle que la oferta
-         * debe ser borrada de los resultados
-         */
-
-        Iterator<Oferta> iter = listaResultado.iterator();
-
-        while (iter.hasNext()) {
-            Oferta o = iter.next();
-            boolean eliminar = false;
-
-            if (busquedaOferta.getPuestoB() != null && !busquedaOferta.getPuestoB().isEmpty()
-                    && !o.getPuesto().equals(busquedaOferta.getPuestoB()))
-                eliminar = true;
-
-            if (!eliminar && busquedaOferta.getSectorB() != null && !busquedaOferta.getSectorB().equals("placeholder")
-                    && !busquedaOferta.getSectorB().isEmpty()
-                    && !o.getSector().equals(busquedaOferta.getSectorB()))
-                eliminar = true;
-
-            if (!eliminar && busquedaOferta.getTipoContratoB() != null && !busquedaOferta.getTipoContratoB().isEmpty()
-                    && !o.getTipoContrato().toString().toUpperCase()
-                            .equals(busquedaOferta.getTipoContratoB().toUpperCase())) { // PELIGRO COMPARANDO ENUMS
-                eliminar = true;
-            }
-
-            if (!eliminar && busquedaOferta.getCiudadB() != null && !busquedaOferta.getCiudadB().isEmpty()
-                    && !o.getCiudad().equals(busquedaOferta.getCiudadB()))
-                eliminar = true;
-
-            if (!eliminar && busquedaOferta.getSalarioAnualMinimo() != null
-                    && o.getSalarioAnual() < busquedaOferta.getSalarioAnualMinimo())
-                eliminar = true;
-
-            if (!eliminar && busquedaOferta.getModalidadB() != null && !busquedaOferta.getModalidadB().isEmpty()
-                    && !o.getModalidadTrabajo().toString().equalsIgnoreCase(busquedaOferta.getModalidadB()))
-                eliminar = true;
-
-            if (eliminar)
-                iter.remove();
-
-        }
-
-        Collections.sort(listaResultado, (f1, f2) -> f1.getFechaPublicacion().compareTo(f2.getFechaPublicacion()));
-
-        return listaResultado;
-    }
-
-    @Override
-    public Page<Oferta> obtenerResultadosApi(BusquedaOferta busquedaOferta) {    
-        return this.obtenerPagina(ofertasPorPagina, busquedaOferta);
-    }
 
     private final Integer ofertasPorPagina = 10;
 
     @Override
-    public Page<Oferta> obtenerPagina(Integer numeroPag, BusquedaOferta busquedaOferta) {
+    public Page<Oferta> obtenerPaginaApi(int numPag, BusquedaOferta busquedaOferta) {
+        List<Oferta> resultadosBusqueda = this.obtenerResultados(busquedaOferta);
+        if (resultadosBusqueda.isEmpty()) return null;
 
-        if (numeroPag < 0 ||
-                numeroPag > (this.obtenerNumeroPaginas(busquedaOferta) - 1))
-            throw new PagOfertasPublicadasIncorrecta();
-
-        Pageable paginable = PageRequest.of(numeroPag, ofertasPorPagina);
-
-        if (busquedaOferta == null) {
-            Page<Oferta> resultado = repo.findAll(paginable);
-            return resultado;
-        } else {
-            List<Oferta> listaOfertas = this.obtenerResultados(busquedaOferta);
-            if (listaOfertas.isEmpty())
-                return null;
-
-            int primeraOferta = (int) paginable.getOffset();
-            int ultimaOferta = Math.min(primeraOferta + paginable.getPageSize(), listaOfertas.size());
-
-            Page<Oferta> resultado = new PageImpl<>(listaOfertas.subList(primeraOferta, ultimaOferta), paginable,
-                    listaOfertas.size());
-
-            // if(resultado.hasContent())
-            return resultado;
-        }
-    }
-
-    @Override
-    public int obtenerNumeroPaginas(BusquedaOferta busquedaOferta) {
-        if (busquedaOferta == null) {
-            Pageable paginable = PageRequest.of(0, ofertasPorPagina);
-            Page<Oferta> resultado = repo.findAll(paginable);
-
-            return resultado.getTotalPages();
-        }
-
-        Pageable paginable = PageRequest.of(0, ofertasPorPagina);
-        List<Oferta> listaOfertas = obtenerResultados(busquedaOferta);
-
+        Pageable paginable = PageRequest.of(numPag, ofertasPorPagina);
         int primeraOferta = (int) paginable.getOffset();
-        int ultimaOferta = Math.min(primeraOferta + paginable.getPageSize(), listaOfertas.size());
+        int ultimaOferta = Math.min(primeraOferta + paginable.getPageSize(), resultadosBusqueda.size());
 
-        Page<Oferta> resultado = new PageImpl<>(listaOfertas.subList(primeraOferta, ultimaOferta), paginable,
-                listaOfertas.size());
-
-        return resultado.getTotalPages();
+        Page<Oferta> resultado = new PageImpl<>(resultadosBusqueda.subList(primeraOferta, ultimaOferta), paginable,
+                resultadosBusqueda.size());
+        return resultado;
     }
 
     @Override
-    public boolean existeSiguientePagina(Integer paginaElecta, String busquedaOferta) {
-        if (busquedaOferta == null) {
-            if (obtenerNumeroPaginas(null) - 1 > paginaElecta)
-                return true;
-            else
-                return false;
-        } else {
-            busquedaOfertaService.obtenerBusquedaDesdeUrl(busquedaOferta);
-            return false;
+    public List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta) {
+        System.out.println(busquedaOferta + "AAAAAAAAAAAAAAAAAAAAAAAAA");
+        System.out.println(busquedaOferta.getPuestoB());
+
+        List<Oferta> resultado = this.obtenerTodos();
+
+        // Use an iterator to avoid ConcurrentModificationException
+        Iterator<Oferta> iterator = resultado.iterator();
+
+        while (iterator.hasNext()) {
+            Oferta ofertaIteracion = iterator.next();
+    
+            if (!busquedaOferta.getPuestoB().equalsIgnoreCase("")
+                && !busquedaOferta.getPuestoB().equalsIgnoreCase(ofertaIteracion.getPuesto())) {
+                iterator.remove();
+                continue;
+            }
+    
+            if (!busquedaOferta.getSectorB().equalsIgnoreCase("") 
+                && !busquedaOferta.getSectorB().equalsIgnoreCase(ofertaIteracion.getSector())) {
+                iterator.remove();
+                continue;
+            }
+    
+            if (!busquedaOferta.getTipoContratoB().equalsIgnoreCase("")
+                && !busquedaOferta.getTipoContratoB().equalsIgnoreCase(ofertaIteracion.getTipoContrato().toString())) {
+                iterator.remove();
+                continue;
+            }
+    
+            if (!busquedaOferta.getCiudadB().equalsIgnoreCase("")
+                && !busquedaOferta.getCiudadB().equalsIgnoreCase(ofertaIteracion.getCiudad())) {
+                iterator.remove();
+                continue;
+            }
+    
+            if (busquedaOferta.getSalarioAnualMinimo() != 0 
+                && ofertaIteracion.getSalarioAnual() < busquedaOferta.getSalarioAnualMinimo()) {
+                iterator.remove();
+                continue;
+            }
+    
+            if (!busquedaOferta.getModalidadB().equalsIgnoreCase("")
+                && !busquedaOferta.getModalidadB().equalsIgnoreCase(ofertaIteracion.getModalidadTrabajo().toString())) {
+                iterator.remove();
+            }
         }
+        return resultado;
+        
     }
 
-    @Override
-    public int existeAnteriorPagina(Integer paginaElecta) {
-        if (paginaElecta > 0) {
-            paginaElecta--;
-            return paginaElecta;
-        } else
-            return paginaElecta;
-    }
-
+   
     @Override
     public void cambiarPropiedadOfertas(List<Oferta> listaOfertas, String username) {
         for (Oferta oferta : listaOfertas) {
@@ -309,27 +202,6 @@ public class OfertaServiceImpl implements OfertaService {
         }
     }
 
-    @Override
-    public List<Integer> obtenerListaPaginas(BusquedaOferta busquedaOferta, Integer numPag) {
-        int totalPaginas = this.obtenerNumeroPaginas(busquedaOferta);
-        ArrayList<Integer> resultado = new ArrayList<>();
-
-        /*
-         * Este bucle llenará un arrayList de números, comenzando por la página anterior
-         * a la seleccionada
-         * y luego para decidir cuantos números pondrá realiza una comprobación mediante
-         * Math.min() para que
-         * pare cuando llene tres números o cuando la búsqueda alcance su limite de
-         * páginas, lo que ocurra antes
-         */
-        for (int i = (numPag - 1); i < (int) Math.min((float) totalPaginas, (float) i + 4); i++) {
-            resultado.add(i);
-        }
-
-        resultado.removeIf(n -> n < 0);
-
-        return resultado;
-    }
 
     @Override
     public boolean estaSuscritoOferta(Long id) {

@@ -19,19 +19,11 @@ public interface OfertaService {
     void borrarCandidatosOferta(Long id);
     void borrarBuscaTodasOfertas(Busca busca);
     void borrarContrataTodasOfertas(Contrata contrata);
-    OfertaApi convertirOfertaAOfertaApi(Oferta oferta);
     Oferta obtenerPorId(Long id);
     List<Oferta> obtenerTodos();
-    List<OfertaApi> obtenerTodosApi();
     Page<Oferta> obtenerPaginaApi(int pagina, BusquedaOferta busquedaOferta);
     List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta);
-    Page<Oferta> obtenerResultadosApi(BusquedaOferta busquedaOferta);
-    Page<Oferta> obtenerPagina(Integer paginaElecta, BusquedaOferta busquedaOferta);
-    boolean existeSiguientePagina(Integer paginaElecta, String busquedaOferta);
-    int existeAnteriorPagina(Integer paginaElecta);
-    int obtenerNumeroPaginas(BusquedaOferta busquedaOferta);
     void cambiarPropiedadOfertas(List<Oferta> listaOfertas, String nombre);
-    List<Integer> obtenerListaPaginas(BusquedaOferta busquedaOferta, Integer numPag);
     boolean estaSuscritoOferta(Long id);
     
 }
