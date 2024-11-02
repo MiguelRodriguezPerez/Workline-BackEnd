@@ -1,4 +1,4 @@
-package com.example.demo.controllers.apiControllers;
+package com.example.demo.controllers;
 
 import java.util.Arrays;
 import java.util.List;

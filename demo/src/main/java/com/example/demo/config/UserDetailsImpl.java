@@ -54,15 +54,5 @@ public class UserDetailsImpl implements UserDetailsService {
         else throw new UsernameNotFoundException("Usuario no encontrado");
 
     }
-
-
-
-        // Usuario usuario = usuarioRepository.findByNombre(username);
-        // if(usuario == null) throw new UsernameNotFoundException("Usuario no encontrado");
-        // return User
-        // .withUsername(username)
-        // .roles(usuario.getRol().toString())
-        // .password(usuario.getPassword())
-        // .build();
-    }
+}
 

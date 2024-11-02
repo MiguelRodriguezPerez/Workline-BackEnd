@@ -8,9 +8,11 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -30,10 +32,8 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-
     /*DISCLAIMER: Téoricamente esto evita los problemas relacionados con CORS entre el lado
-    cliente y el lado servidor. Pero no estoy convencido
-    */
+    cliente y el lado servidor. Pero no estoy convencido. Esto anula cors*/
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -42,14 +42,14 @@ public class SecurityConfig {
         config.addAllowedOrigin("http://localhost:5173"); // Aquí pones el origen de tu frontend (ajustar según sea necesario)
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
-        source.registerCorsConfiguration("/internal-api/public/**", config);
+        source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
 
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-    http.headers(headersConfigurer -> headersConfigurer.frameOptions(frameOptions -> frameOptions.sameOrigin()));
+        http.headers(headersConfigurer -> headersConfigurer.frameOptions(frameOptions -> frameOptions.sameOrigin()));
 
         http.authorizeHttpRequests(auth -> auth
             .requestMatchers("/ofertasDeTrabajo/inscribirse/**", "/ofertasDeTrabajo/desinscribirse/**").hasRole("BUSCA")
@@ -57,15 +57,11 @@ public class SecurityConfig {
             .requestMatchers("/miPerfil/contrata/**").hasRole("CONTRATA")
             .requestMatchers("/miPerfil/busca/**").hasRole("BUSCA")
             .requestMatchers("/", "/ofertasDeTrabajo/**", "/solicitudOfertas/**", "/nuevoUsuario/**", 
-            "/nuevoUsuarioCreacion/**", "/sesion/**", "/internal-api/public/**").permitAll()
+            "/nuevoUsuarioCreacion/**", "/sesion/**", "/internal-api/public/**","/api/logins/**", "/get-csrf-token").permitAll()
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-            .anyRequest().permitAll());
-            //.anyRequest().autenticated() impide que los usuarios sin loguearse vean los errores http
+            .anyRequest().authenticated());
         
-
-        http.csrf(csrf -> csrf.ignoringRequestMatchers("/internal-api/public/**"));
-
-
+        
         http.formLogin(formLogin -> formLogin
             .loginPage("/sesion/signin")
             .loginProcessingUrl("/login")
@@ -81,11 +77,12 @@ public class SecurityConfig {
             exceptions.accessDeniedPage("/sesion/error");
         });
 
-        // http.csrf(csrf -> csrf.csrfTokenRepository
-        //     (CookieCsrfTokenRepository.withHttpOnlyFalse()));
+        http.csrf(csrf -> csrf.disable());
 
-    return http.build();
-        }   
+        return http.build();
+    } 
+    
 
-    }
+}
+
 
