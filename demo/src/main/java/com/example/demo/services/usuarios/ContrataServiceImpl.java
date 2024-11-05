@@ -123,7 +123,7 @@ public class ContrataServiceImpl implements ContrataService{
     private final int ofertasPorPagina = 8;
 
     @Override
-    public List<Oferta> obtenerPaginaOfertasPublicadas(Integer paginaElecta) {
+    public Page<Oferta> obtenerPaginaOfertasPublicadas(Integer paginaElecta) {
         // if(paginaElecta < 0 || paginaElecta > this.obtenerNumeroPaginasOfertasPublicadas()){
         //     throw new PagContrataIncorrectaException();
         // }
@@ -136,31 +136,9 @@ public class ContrataServiceImpl implements ContrataService{
 
         Page<Oferta> resultado = new PageImpl<>(listaOfertas.subList(inicio, fin), paginable, listaOfertas.size());
 
-        return resultado.getContent();
+        return resultado;
     }
 
-    @Override
-    public int existeSiguientePagina(Integer paginaElecta) {
-        if(paginaElecta < this.obtenerNumeroPaginasOfertasPublicadas() - 1){
-            paginaElecta++;
-            return paginaElecta;
-        }
-        else return paginaElecta;
-    }
-
-    @Override
-    public int existeAnteriorPagina(Integer paginaElecta) {
-        if(paginaElecta > 0){
-            paginaElecta--;
-            return paginaElecta;
-        }
-        else return paginaElecta;
-    }
-
-    @Override
-    public int obtenerNumeroPaginasOfertasPublicadas(){
-        return (int) Math.ceil((double) this.obtenerContrataConectado().getListaOfertas().size() / ofertasPorPagina);
-    }
 
     @Override
     public boolean coincidePassword(String verificarPassword){

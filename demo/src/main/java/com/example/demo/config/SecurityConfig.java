@@ -8,11 +8,12 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -46,6 +47,10 @@ public class SecurityConfig {
         return new CorsFilter(source);
     }
 
+    @Bean 
+    public SecurityContextRepository securityContextRepository() { 
+        return new HttpSessionSecurityContextRepository(); // O cualquier implementación que necesites
+    }
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
@@ -60,6 +65,11 @@ public class SecurityConfig {
             "/nuevoUsuarioCreacion/**", "/sesion/**", "/internal-api/public/**","/api/logins/**", "/get-csrf-token").permitAll()
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
             .anyRequest().authenticated());
+
+
+        http.securityContext((securityContext) -> securityContext
+            .securityContextRepository(securityContextRepository())
+            .requireExplicitSave(true));
         
         
         http.formLogin(formLogin -> formLogin

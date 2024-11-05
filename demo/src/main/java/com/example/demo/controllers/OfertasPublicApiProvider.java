@@ -35,7 +35,7 @@ public class OfertasPublicApiProvider {
         }
         else{
             System.out.println("LA BUSQUEDA OFERTA SI ES NULL");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 
@@ -54,7 +54,7 @@ public class OfertasPublicApiProvider {
     @GetMapping("/getOfertaById/{id}")
     public ResponseEntity<Oferta> getOfertaByIdApi(@PathVariable Long id){
         Oferta resultado = ofertaService.obtenerPorId(id);
-        if(resultado == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
+        if(resultado == null) return new ResponseEntity<>(HttpStatus.NO_CONTENT); 
         return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
 

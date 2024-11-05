@@ -1,29 +1,28 @@
 package com.example.demo.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.context.HttpRequestResponseHolder;
+import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.entidadesApi.UserLoginRequest;
 import com.example.demo.domain.usuarios.Admin;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
-import com.example.demo.domain.usuarios.Rol;
 import com.example.demo.domain.usuarios.Usuario;
 import com.example.demo.services.usuarios.AdminService;
 import com.example.demo.services.usuarios.BuscaService;
 import com.example.demo.services.usuarios.ContrataService;
 
-import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Service
 public class UsuarioService {
@@ -43,6 +42,9 @@ public class UsuarioService {
     @Autowired
     private AuthenticationManager authenticationManager; 
 
+    @Autowired
+    private SecurityContextRepository securityContextRepository;
+
     public boolean esNombreRepetido(String nombre){
         /*El primer if sirve para evitar que el usuario conectado no pueda actualizar sus datos
         con el mismo username. La comprobación de this.obtenerUsuarioConectado() != null sirve
@@ -57,21 +59,25 @@ public class UsuarioService {
 
     //Devuelve la instancia hija de usuario
     public Usuario obtenerUsuarioConectado(){
+        System.out.println(SecurityContextHolder.getContext().getAuthentication() + "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
         if(contrataService.obtenerContrataConectado() != null) return (Contrata) contrataService.obtenerContrataConectado();
         if(buscaService.obtenerBuscaConectado() != null) return (Busca) buscaService.obtenerBuscaConectado();
         if(adminService.obtenerAdminConectado() != null) return (Admin) adminService.obtenerAdminConectado();
         return null;
     }
 
-    public Usuario loginUsuario(UserLoginRequest userLoginRequest){
+    public Usuario loginUsuario(UserLoginRequest userLoginRequest, HttpServletRequest request, HttpServletResponse response){
 
         try {
             Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(userLoginRequest.getUsername(), userLoginRequest.getPassword()));
             if(authentication.isAuthenticated()) {
                 System.out.println("BIIIIIIIEEEEEEN");
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-                Usuario usuario = this.obtenerUsuarioConectado();
+                SecurityContext securityContext = SecurityContextHolder.getContext(); 
+                securityContext.setAuthentication(authentication); 
+                securityContextRepository.saveContext(securityContext, request, response); 
+                
+                Usuario usuario = this.obtenerUsuarioConectado(); 
                 return usuario;
             }
             

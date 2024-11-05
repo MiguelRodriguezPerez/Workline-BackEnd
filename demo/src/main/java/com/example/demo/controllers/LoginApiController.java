@@ -13,6 +13,9 @@ import com.example.demo.config.UsuarioService;
 import com.example.demo.domain.entidadesApi.UserLoginRequest;
 import com.example.demo.domain.usuarios.Usuario;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 @RequestMapping("/api/logins")
 @RestController
 public class LoginApiController {
@@ -21,8 +24,8 @@ public class LoginApiController {
     UsuarioService usuarioService;
     
     @PostMapping("/login")
-    public ResponseEntity<Usuario> postMethodName(@RequestBody UserLoginRequest user) {
-        Usuario usuario = usuarioService.loginUsuario(user);
+    public ResponseEntity<Usuario> postMethodName(@RequestBody UserLoginRequest user, HttpServletRequest request, HttpServletResponse response) {
+        Usuario usuario = usuarioService.loginUsuario(user,request,response);
         if(usuario == null) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         return new ResponseEntity<>(usuario,HttpStatus.OK);
     } 
@@ -36,8 +39,8 @@ public class LoginApiController {
     @GetMapping("/currentUser")
     public ResponseEntity<Usuario> getCurrentUser(){
         Usuario usuario = usuarioService.obtenerUsuarioConectado();
-        //Es una mala idea, pero evita errores en la consola del navegador
-        if(usuario == null) return new ResponseEntity<>(null,HttpStatus.OK);
+        System.out.println(usuario);
+        if(usuario == null) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         else return new ResponseEntity<>(usuario,HttpStatus.OK);
     }
 }

@@ -2,6 +2,8 @@ package com.example.demo.services.usuarios;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.example.demo.domain.NuevoUsuario;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.usuarios.Contrata;
@@ -19,10 +21,7 @@ public interface ContrataService {
     boolean esNombreRepetido(String nombre);
     String obtenerNombre();
     Contrata obtenerContrataConectado();
-    List<Oferta> obtenerPaginaOfertasPublicadas(Integer paginaElecta);
-    int existeSiguientePagina(Integer pagina);
-    int existeAnteriorPagina(Integer pagina);
-    int obtenerNumeroPaginasOfertasPublicadas();
+    Page<Oferta> obtenerPaginaOfertasPublicadas(Integer paginaElecta);
     boolean coincidePassword(String verificarPassword);
     void cambiarPassword(String nuevoPassword);
     String generarApiKey();
