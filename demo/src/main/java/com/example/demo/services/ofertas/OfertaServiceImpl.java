@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.domain.ofertas.Oferta;
-import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.domain.usuarios.Busca;  
 import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.repositories.OfertaRepository;
 import com.example.demo.services.usuarios.BuscaService;
@@ -141,9 +141,6 @@ public class OfertaServiceImpl implements OfertaService {
 
     @Override
     public List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta) {
-        System.out.println(busquedaOferta + "AAAAAAAAAAAAAAAAAAAAAAAAA");
-        System.out.println(busquedaOferta.getPuestoB());
-
         List<Oferta> resultado = this.obtenerTodos();
 
         // Use an iterator to avoid ConcurrentModificationException

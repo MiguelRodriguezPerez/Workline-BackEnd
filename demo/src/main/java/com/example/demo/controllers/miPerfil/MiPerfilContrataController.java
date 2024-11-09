@@ -59,23 +59,23 @@ public class MiPerfilContrataController {
         return "miPerfil/contrata/passwords/confirmarPassword";
     }
 
-    @PostMapping("/cambiarPassword/segundoPaso")
-    public String showSecondStepChangePassword(@RequestParam String verificarPassword, Model model, RedirectAttributes redirectAttributes){
-        if(contrataService.coincidePassword(verificarPassword)){
-            model.addAttribute("usuarioLogueado", contrataService.obtenerContrataConectado());
-            return "miPerfil/contrata/passwords/cambiarPassword";
-        } 
-        redirectAttributes.addFlashAttribute("errorConfirmarPassword", "Contraseña incorrecta");
+    // @PostMapping("/cambiarPassword/segundoPaso")
+    // public String showSecondStepChangePassword(@RequestParam String verificarPassword, Model model, RedirectAttributes redirectAttributes){
+    //     if(contrataService.coincidePassword(verificarPassword)){
+    //         model.addAttribute("usuarioLogueado", contrataService.obtenerContrataConectado());
+    //         return "miPerfil/contrata/passwords/cambiarPassword";
+    //     } 
+    //     redirectAttributes.addFlashAttribute("errorConfirmarPassword", "Contraseña incorrecta");
         
-        return "redirect:/miPerfil/contrata/cambiarPassword/primerPaso";
-    }
+    //     return "redirect:/miPerfil/contrata/cambiarPassword/primerPaso";
+    // }
 
-    @PostMapping("/cambiarPassword/tercerPaso")
-    public String showThirdStepChangePassword(@RequestParam String nuevoPassword){
-        contrataService.cambiarPassword(nuevoPassword);
+    // @PostMapping("/cambiarPassword/tercerPaso")
+    // public String showThirdStepChangePassword(@RequestParam String nuevoPassword){
+    //     contrataService.cambiarPassword(nuevoPassword);
         
-        return "miPerfil/contrata/passwords/exitoCambiarPassword";
-    }
+    //     return "miPerfil/contrata/passwords/exitoCambiarPassword";
+    // }
 
     @GetMapping("/borrarCuenta")
     public String deleteCuentaContrata(HttpServletRequest request, HttpServletResponse response){

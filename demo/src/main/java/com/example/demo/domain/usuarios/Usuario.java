@@ -1,15 +1,18 @@
 package com.example.demo.domain.usuarios;
 
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.lang.Nullable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -27,8 +30,8 @@ import lombok.NoArgsConstructor;
 // @Entity
 @DiscriminatorColumn(name = "dtype")
 @MappedSuperclass
-public abstract class Usuario {
-    
+public abstract class Usuario implements UserDetails{
+    //Sospechoso de fallar (la clase entera)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
@@ -70,6 +73,47 @@ public abstract class Usuario {
         this.telefono = telefono;
         this.password = password;
         this.rol = rol;
+    }
+
+
+    public Usuario setNombreJwt(String nombre) { 
+        this.nombre = nombre; 
+        return this; 
+    } 
+
+    public Usuario setEmail(String email) { 
+        this.email = email; 
+        return this; 
+    } 
+
+
+    public Usuario setPassword(String password) { 
+        this.password = password; 
+        return this; 
+    } 
+
+    @Override
+    public String getUsername(){
+        return nombre;
+    }
+
+    @Override 
+    public Collection<? extends GrantedAuthority> getAuthorities() { 
+        return List.of(); 
+    } 
+    @Override 
+    public boolean isAccountNonExpired() { 
+        return true; 
+    } 
+    @Override public boolean isAccountNonLocked() { 
+        return true; 
+    } 
+    
+    @Override public boolean isCredentialsNonExpired() { 
+        return true; 
+    } 
+    @Override public boolean isEnabled() { 
+        return true; 
     }
 
      

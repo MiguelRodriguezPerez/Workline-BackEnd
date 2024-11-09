@@ -1,10 +1,20 @@
 package com.example.demo;
 
+import java.time.LocalDate;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.example.demo.domain.Conocimiento;
+import com.example.demo.domain.Experiencia;
+import com.example.demo.domain.ofertas.ModalidadTrabajo;
+import com.example.demo.domain.ofertas.Oferta;
+import com.example.demo.domain.ofertas.TipoContrato;
+import com.example.demo.domain.usuarios.Admin;
+import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.services.ConocimientoService;
 import com.example.demo.services.ExperienciaService;
 import com.example.demo.services.ofertas.OfertaService;

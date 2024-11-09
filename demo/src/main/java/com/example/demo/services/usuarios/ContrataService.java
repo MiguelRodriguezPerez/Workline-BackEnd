@@ -22,8 +22,8 @@ public interface ContrataService {
     String obtenerNombre();
     Contrata obtenerContrataConectado();
     Page<Oferta> obtenerPaginaOfertasPublicadas(Integer paginaElecta);
-    boolean coincidePassword(String verificarPassword);
-    void cambiarPassword(String nuevoPassword);
+    // boolean coincidePassword(String verificarPassword);
+    // void cambiarPassword(String nuevoPassword);
     String generarApiKey();
     void borrarApiKey();
 }

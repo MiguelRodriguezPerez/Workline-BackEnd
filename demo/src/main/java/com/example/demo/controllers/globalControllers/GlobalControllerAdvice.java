@@ -40,11 +40,4 @@ public class GlobalControllerAdvice {
         }
     }
 
-    @ModelAttribute("rolActual")
-    public String addActualRol() {
-        if(usuarioService.obtenerUsuarioConectado() != null){
-            return usuarioService.obtenerUsuarioConectado().getRol().toString().toLowerCase();
-        }
-        else return "null";
-    }
 }

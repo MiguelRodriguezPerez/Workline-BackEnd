@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.NuevoUsuario;
 import com.example.demo.domain.ofertas.Oferta;
-import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.repositories.ContrataRepository;
 
@@ -114,10 +112,10 @@ public class ContrataServiceImpl implements ContrataService{
 
     @Override
     public Contrata obtenerContrataConectado() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth instanceof AnonymousAuthenticationToken) return null;
-        Contrata contrata = obtenerPorNombre(auth.getName());
-        return contrata;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Contrata currentUsuario = this.obtenerPorNombre(authentication.getName());
+        return currentUsuario;
+        // if (auth instanceof AnonymousAuthenticationToken) return null;
     }
 
     private final int ofertasPorPagina = 8;
@@ -140,17 +138,17 @@ public class ContrataServiceImpl implements ContrataService{
     }
 
 
-    @Override
-    public boolean coincidePassword(String verificarPassword){
-        return passwordEncoder.matches(verificarPassword, this.obtenerContrataConectado().getPassword());
-    }
+    // @Override
+    // public boolean coincidePassword(String verificarPassword){
+    //     return passwordEncoder.matches(verificarPassword, this.obtenerContrataConectado().getPassword());
+    // }
 
-    @Override
-    public void cambiarPassword(String nuevoPassword) {
-        Contrata contrata = this.obtenerContrataConectado();
-        contrata.setPassword(nuevoPassword);
-        this.guardarCambios(contrata);
-    }
+    // @Override
+    // public void cambiarPassword(String nuevoPassword) {
+    //     Contrata contrata = this.obtenerContrataConectado();
+    //     contrata.setPassword(nuevoPassword);
+    //     this.guardarCambios(contrata);
+    // }
 
     @Override
     public String generarApiKey() {
