@@ -64,8 +64,8 @@ public class AuthenticationService {
     public Cookie generateCookieToken(Usuario usuario){
         String token = jwtService.generateToken(usuario);
         Cookie cookie = new Cookie("jwtToken", token); 
-        cookie.setHttpOnly(false); 
-        cookie.setSecure(false); 
+        cookie.setHttpOnly(true); 
+        cookie.setSecure(true); 
         // Asegúrate de que sea segura, especialmente en producción 
         cookie.setPath("/"); cookie.setMaxAge(3600);
 

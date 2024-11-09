@@ -67,32 +67,41 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http, AuthenticationProvider authenticationProvider,
         JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
+
         http.headers(headersConfigurer -> headersConfigurer.frameOptions(frameOptions -> frameOptions.sameOrigin()));
+
         http.authenticationProvider(authenticationProvider)
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
         http.sessionManagement(httpSecuritySessionManagementConfigurer -> 
             httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
+
         http.authorizeHttpRequests(auth -> auth
             .requestMatchers("/ofertasDeTrabajo/inscribirse/**", "/ofertasDeTrabajo/desinscribirse/**").hasRole("BUSCA")
             .requestMatchers("/contrata/api/**").hasRole("CONTRATA")
-            .requestMatchers("/miPerfil/busca/**").hasRole("BUSCA")
+            .requestMatchers("/user/**").authenticated()
             .requestMatchers("/", "/ofertasDeTrabajo/**", "/solicitudOfertas/**", "/nuevoUsuario/**", 
             "/nuevoUsuarioCreacion/**", "/sesion/**", "/internal-api/public/**","/auth/**", "/get-csrf-token").permitAll()
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
             .anyRequest().authenticated());
+
         http.formLogin(formLogin -> formLogin
             .loginPage("/sesion/signin")
             .loginProcessingUrl("/login")
             .failureUrl("/sesion/signin?error=true")
             .defaultSuccessUrl("/", false)
             .permitAll());
+
         http.logout(logout -> logout
             .logoutSuccessUrl("/")
             .permitAll());
+
         http.exceptionHandling(exceptions -> {
             exceptions.accessDeniedPage("/sesion/error");
         });
+
         http.csrf(csrf -> csrf.disable());
+
         return http.build();
     } 
 }

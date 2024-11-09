@@ -122,12 +122,9 @@ public class ContrataServiceImpl implements ContrataService{
 
     @Override
     public Page<Oferta> obtenerPaginaOfertasPublicadas(Integer paginaElecta) {
-        // if(paginaElecta < 0 || paginaElecta > this.obtenerNumeroPaginasOfertasPublicadas()){
-        //     throw new PagContrataIncorrectaException();
-        // }
 
         Pageable paginable = PageRequest.of(paginaElecta,ofertasPorPagina);
-        List<Oferta> listaOfertas = obtenerContrataConectado().getListaOfertas();
+        List<Oferta> listaOfertas = this.obtenerContrataConectado().getListaOfertas();
 
         int inicio = (int) paginable.getOffset();
         int fin = Math.min(inicio + paginable.getPageSize(),listaOfertas.size());
