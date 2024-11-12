@@ -36,16 +36,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
         this.handlerExceptionResolver = handlerExceptionResolver;
     }
 
-    @Override protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException { 
+    @Override 
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, 
+        FilterChain filterChain) throws ServletException, IOException { 
+        /*Esta parte es solo para obtener el token de la cookie httpOnly jwtToken */
         String jwtToken = null; 
         Cookie[] cookies = request.getCookies(); 
         if (cookies != null) { 
             for (Cookie cookie : cookies) { 
                 if ("jwtToken".equals(cookie.getName())) { 
                     jwtToken = cookie.getValue(); 
-                    break; } 
+                    break; 
                 } 
-            } if (jwtToken != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            } 
+        } 
+        
+        if (jwtToken != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 String username = jwtService.extractUsername(jwtToken); 
                 if (username != null) { 
                     UserDetails userDetails = userDetailsService.loadUserByUsername(username); 

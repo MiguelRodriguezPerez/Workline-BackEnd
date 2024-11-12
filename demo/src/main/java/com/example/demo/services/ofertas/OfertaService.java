@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 
 import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.domain.ofertas.Oferta;
+import com.example.demo.domain.ofertas.OfertaDtoApi;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
 
@@ -14,11 +15,12 @@ public interface OfertaService {
     Oferta guardarOferta(Oferta oferta);
     Oferta guardarOfertaFromContrata(Oferta oferta);
     Oferta guardarCambios(Oferta oferta);
+    Oferta obtenerPorId(Long id);
+    Oferta convertirOfertaDtoApiAOferta(OfertaDtoApi ofertaDtoApi);
     void borrarOferta(Long id);
     void borrarCandidatosOferta(Long id);
     void borrarBuscaTodasOfertas(Busca busca);
     void borrarContrataTodasOfertas(Contrata contrata);
-    Oferta obtenerPorId(Long id);
     List<Oferta> obtenerTodos();
     Page<Oferta> obtenerPaginaApi(int pagina, BusquedaOferta busquedaOferta);
     List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta);

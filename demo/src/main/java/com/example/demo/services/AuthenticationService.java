@@ -3,6 +3,8 @@ package com.example.demo.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.config.UsuarioService;
@@ -25,23 +27,6 @@ public class AuthenticationService {
     
     @Autowired
     JwtService jwtService;
-    // private final ContrataRepository contrataRepository;
-    // private final BuscaRepository buscaRepository;
-    // private final AdminRepository adminRepository;
-    
-    // private final PasswordEncoder passwordEncoder;
-    
-   
-
-    // public AuthenticationService(ContrataRepository contrataRepo, BuscaRepository buscaRepo,
-    //     AdminRepository adminRepo, AuthenticationManager authenticationManager, 
-    //     PasswordEncoder passwordEncoder) {
-    //         this.authenticationManager = authenticationManager;
-    //         this.contrataRepository = contrataRepo;
-    //         this.buscaRepository = buscaRepo;
-    //         this.adminRepository = adminRepo;
-    //         this.passwordEncoder = passwordEncoder;
-    // }
 
     public Usuario signup(RegisterUserDto input) {
         //TODO: Creación usuarios
@@ -66,8 +51,8 @@ public class AuthenticationService {
         Cookie cookie = new Cookie("jwtToken", token); 
         cookie.setHttpOnly(true); 
         cookie.setSecure(true); 
-        // Asegúrate de que sea segura, especialmente en producción 
-        cookie.setPath("/"); cookie.setMaxAge(3600);
+        cookie.setPath("/"); 
+        cookie.setMaxAge(3600);
 
         return cookie;
     }
@@ -76,5 +61,9 @@ public class AuthenticationService {
     en vez de authenticationService y usuarioService*/
     public UsuarioView getUsuarioViewClientContext(Usuario usuario){
         return usuarioService.convertirUsuarioAUsuarioView(usuario);
+    }
+
+    public void logout(){
+        SecurityContextHolder.clearContext();
     }
 }

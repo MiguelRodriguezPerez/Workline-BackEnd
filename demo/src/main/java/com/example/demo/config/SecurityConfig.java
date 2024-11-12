@@ -92,9 +92,9 @@ public class SecurityConfig {
             .defaultSuccessUrl("/", false)
             .permitAll());
 
-        http.logout(logout -> logout
-            .logoutSuccessUrl("/")
-            .permitAll());
+        // http.logout(logout -> logout
+        //     .logoutUrl("/auth/logout")
+        //     .deleteCookies("jwtToken"));
 
         http.exceptionHandling(exceptions -> {
             exceptions.accessDeniedPage("/sesion/error");

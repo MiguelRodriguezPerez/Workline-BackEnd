@@ -20,9 +20,8 @@ public class MiPerfilController {
     UsuarioService usuarioService;
     
     @GetMapping("/getCurrentUser")
-    public ResponseEntity<UsuarioView> getLoggedUser(
-        @CookieValue(defaultValue = "no-cookie-found") String jwtToken){
-        //El token llega
+    public ResponseEntity<UsuarioView> getLoggedUser(){
+        //El token llega){
         Usuario usuario = usuarioService.obtenerUsuarioLogueado();
         UsuarioView usuarioView = usuarioService.convertirUsuarioAUsuarioView(usuario);
 

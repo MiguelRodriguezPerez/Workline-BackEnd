@@ -14,7 +14,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.ofertas.BusquedaOferta;
+import com.example.demo.domain.ofertas.ModalidadTrabajo;
 import com.example.demo.domain.ofertas.Oferta;
+import com.example.demo.domain.ofertas.OfertaDtoApi;
+import com.example.demo.domain.ofertas.TipoContrato;
 import com.example.demo.domain.usuarios.Busca;  
 import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.repositories.OfertaRepository;
@@ -43,6 +46,8 @@ public class OfertaServiceImpl implements OfertaService {
 
     @Override
     public Oferta guardarOfertaFromContrata(Oferta oferta) {
+
+        //Sospechoso de fallar con jwt
         Contrata contrataConectado = contrataService.obtenerContrataConectado();
 
         oferta.setNombreEmpresa(contrataConectado.getNombre());
@@ -51,11 +56,9 @@ public class OfertaServiceImpl implements OfertaService {
         /*
          * Como este método sirve para guardar nuevas ofertas, pero también sirve
          * para editar las ofertas, se comprueba si la fecha es nula para evitar que en
-         * caso
-         * de que se edite una oferta la fecha no cambie
+         * caso de que se edite una oferta la fecha no cambie
          */
-        if (oferta.getFechaPublicacion() == null)
-            oferta.setFechaPublicacion(LocalDate.now());
+        if (oferta.getFechaPublicacion() == null) oferta.setFechaPublicacion(LocalDate.now());
 
         this.guardarOferta(oferta);
         contrataConectado.getListaOfertas().add(oferta);
@@ -206,6 +209,29 @@ public class OfertaServiceImpl implements OfertaService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Oferta convertirOfertaDtoApiAOferta(OfertaDtoApi ofertaDtoApi) {
+        TipoContrato t1 = null;
+        ModalidadTrabajo m1 = null;
+
+        for(ModalidadTrabajo m: ModalidadTrabajo.values()){
+            if(ofertaDtoApi.getModalidadTrabajo().equalsIgnoreCase(m.toString())) m1 = m;
+        }
+
+        for(TipoContrato t: TipoContrato.values()){
+            if(ofertaDtoApi.getTipoContrato().equalsIgnoreCase(t.toString())) t1 = t;
+        }
+
+        return new Oferta(ofertaDtoApi.getPuesto(),
+            ofertaDtoApi.getSector(), 
+            ofertaDtoApi.getDescripcion(), 
+            ofertaDtoApi.getCiudad(),
+            ofertaDtoApi.getSalarioAnual(), 
+            t1,
+            ofertaDtoApi.getHoras(), 
+            m1);
     }
 
 }

@@ -81,10 +81,13 @@ public class Oferta implements Comparable<Oferta>{
     @JoinColumn(name = "contrata_id")//Sospechoso de fallar
     @JsonBackReference
     private Contrata contrata;
-
+    /*Este constructor esta diseñado para recibir ofertasDtoApi.
+    Los campos que queden nulos (contrata y nombreEmpresa los gestiona el método
+    ofertaService.guardarOfertaFromContrata())
+    */
     public Oferta(@NotNull @Size(max = 30) String puesto, @NotNull String sector, @Size(max = 80) String descripcion,
             @NotNull String ciudad, Double salarioAnual, @NotNull TipoContrato tipoContrato, @NotNull Byte horas,
-            @NotNull ModalidadTrabajo modalidadTrabajo, Contrata contrata) {
+            @NotNull ModalidadTrabajo modalidadTrabajo) {
         this.puesto = puesto;
         this.sector = sector;
         this.descripcion = descripcion;
@@ -93,9 +96,6 @@ public class Oferta implements Comparable<Oferta>{
         this.tipoContrato = tipoContrato;
         this.horas = horas;
         this.modalidadTrabajo = modalidadTrabajo;
-        this.contrata = contrata;
-
-        this.nombreEmpresa = contrata.getNombre();
         this.fechaPublicacion = LocalDate.now();
     }
 
