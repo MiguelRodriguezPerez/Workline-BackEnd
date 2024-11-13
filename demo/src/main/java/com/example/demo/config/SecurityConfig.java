@@ -74,6 +74,7 @@ public class SecurityConfig {
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         http.sessionManagement(httpSecuritySessionManagementConfigurer -> 
+            //Averigua como borrar la cookie jwtToken y cambia este parámetro a STATELESS
             httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
 
         http.authorizeHttpRequests(auth -> auth

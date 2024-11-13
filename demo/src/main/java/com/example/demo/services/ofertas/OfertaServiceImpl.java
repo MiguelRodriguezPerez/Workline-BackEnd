@@ -89,6 +89,20 @@ public class OfertaServiceImpl implements OfertaService {
         repo.deleteById(id);
     }
 
+    /*Necesitas este método para garantizar que en la sesión ambas entidades de la relacón se borren*/
+    @Override
+    public void borrarOfertaWrapper(Long id){
+        Contrata contrata = contrataService.obtenerContrataConectado();
+        contrata.getListaOfertas().removeIf(oferta -> oferta.getId() == id);
+
+        Oferta oferta = this.obtenerPorId(id);
+        oferta.setContrata(null);
+
+        contrataService.guardarSinEncriptar(contrata);
+
+        this.borrarOferta(id);
+    }
+
     @Override
     public void borrarCandidatosOferta(Long id) {
         Oferta oferta = this.obtenerPorId(id);
@@ -123,8 +137,6 @@ public class OfertaServiceImpl implements OfertaService {
         Collections.sort(resultado, (f1, f2) -> f1.getFechaPublicacion().compareTo(f2.getFechaPublicacion()));
         return resultado;
     }
-
-
 
     private final Integer ofertasPorPagina = 10;
 

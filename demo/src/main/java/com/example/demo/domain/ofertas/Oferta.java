@@ -16,9 +16,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PreRemove;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -26,7 +28,7 @@ import lombok.ToString;
 
 @ToString(exclude = {"listaCandidatos", "contrata"})
 @NoArgsConstructor
-
+@AllArgsConstructor
 @EqualsAndHashCode(of="id")
 @Data
 @Entity
@@ -81,10 +83,10 @@ public class Oferta implements Comparable<Oferta>{
     @JoinColumn(name = "contrata_id")//Sospechoso de fallar
     @JsonBackReference
     private Contrata contrata;
+
     /*Este constructor esta diseñado para recibir ofertasDtoApi.
-    Los campos que queden nulos (contrata y nombreEmpresa los gestiona el método
-    ofertaService.guardarOfertaFromContrata())
-    */
+    Los campos que queden nulos (contrata y nombreEmpresa) los gestiona el método
+    ofertaService.guardarOfertaFromContrata()*/
     public Oferta(@NotNull @Size(max = 30) String puesto, @NotNull String sector, @Size(max = 80) String descripcion,
             @NotNull String ciudad, Double salarioAnual, @NotNull TipoContrato tipoContrato, @NotNull Byte horas,
             @NotNull ModalidadTrabajo modalidadTrabajo) {
@@ -98,6 +100,11 @@ public class Oferta implements Comparable<Oferta>{
         this.modalidadTrabajo = modalidadTrabajo;
         this.fechaPublicacion = LocalDate.now();
     }
+
+    // @PreRemove Esta anotación define una función a ejecutar antes de borrar esta instancia de entidad
+    // public void preRemove(){
+    //     setContrata(null);
+    // }
 
     
 
@@ -128,6 +135,24 @@ public class Oferta implements Comparable<Oferta>{
         resultado = resultado.replace('-', '/');
         
         return resultado;
+    }
+
+
+    //Constructor para el commandLineRunner
+    public Oferta(@NotNull @Size(max = 30) String puesto, @NotNull String sector, @Size(max = 80) String descripcion,
+            @NotNull String ciudad, Double salarioAnual, @NotNull TipoContrato tipoContrato, @NotNull Byte horas,
+            @NotNull ModalidadTrabajo modalidadTrabajo,Contrata contrata) {
+        this.puesto = puesto;
+        this.sector = sector;
+        this.descripcion = descripcion;
+        this.ciudad = ciudad;
+        this.salarioAnual = salarioAnual;
+        this.tipoContrato = tipoContrato;
+        this.horas = horas;
+        this.modalidadTrabajo = modalidadTrabajo;
+        this.fechaPublicacion = LocalDate.now();
+        this.nombreEmpresa = contrata.getNombre();
+        this.contrata = contrata;
     }
 
     

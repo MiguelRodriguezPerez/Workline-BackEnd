@@ -22,7 +22,7 @@ import com.example.demo.services.ofertas.OfertaService;
 
 @RequestMapping("/internal-api/public/ofertas")
 @RestController
-public class OfertasPublicApiProvider {
+public class OfertasController {
 
     @Autowired
     OfertaService ofertaService;
@@ -53,6 +53,8 @@ public class OfertasPublicApiProvider {
 
     @GetMapping("/getOfertaById/{id}")
     public ResponseEntity<Oferta> getOfertaByIdApi(@PathVariable Long id){
+        if(id == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+        
         Oferta resultado = ofertaService.obtenerPorId(id);
         if(resultado == null) return new ResponseEntity<>(HttpStatus.NO_CONTENT); 
         return new ResponseEntity<>(resultado, HttpStatus.OK);

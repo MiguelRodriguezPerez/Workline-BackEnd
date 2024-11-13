@@ -18,6 +18,7 @@ public interface OfertaService {
     Oferta obtenerPorId(Long id);
     Oferta convertirOfertaDtoApiAOferta(OfertaDtoApi ofertaDtoApi);
     void borrarOferta(Long id);
+    void borrarOfertaWrapper(Long id);
     void borrarCandidatosOferta(Long id);
     void borrarBuscaTodasOfertas(Busca busca);
     void borrarContrataTodasOfertas(Contrata contrata);
