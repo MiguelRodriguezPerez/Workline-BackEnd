@@ -1,4 +1,4 @@
-package com.example.demo.controllers.globalControllers;
+package com.example.demo.controllers;
 
 import java.io.IOException;
 

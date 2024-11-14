@@ -1,7 +1,5 @@
 package com.example.demo.controllers;
 
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.security.SignatureException;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
 import org.springframework.security.access.AccessDeniedException;
@@ -9,6 +7,9 @@ import org.springframework.security.authentication.AccountStatusException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.security.SignatureException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     
@@ -16,6 +17,9 @@ public class GlobalExceptionHandler {
     public ProblemDetail handleSecurityException(Exception exception) {
         ProblemDetail errorDetail = null;
 
+        // @ExceptionHandler(PagContrataIncorrectaException.class)
+        // public void handleWrongContrataPag(HttpServletResponse http){
+        // Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         // TODO send this stack trace to an observability tool
         exception.printStackTrace();
 

@@ -14,8 +14,8 @@ import org.springframework.web.client.RestClient.ResponseSpec;
 import com.example.demo.domain.dtos.LoginUserDto;
 import com.example.demo.domain.dtos.RegisterUserDto;
 import com.example.demo.domain.usuarios.Usuario;
-import com.example.demo.domain.usuarios.UsuarioView;
-import com.example.demo.services.AuthenticationService;
+import com.example.demo.domain.usuarios.UsuarioContext;
+import com.example.demo.services.auth.AuthenticationService;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,11 +25,10 @@ import jakarta.servlet.http.HttpServletResponse;
 @RestController
 public class AuthenticationController {
 
-    //TODO: Mover creación usuarios
+    // TODO: Mover creación usuarios
 
     @Autowired
     AuthenticationService authenticationService;
-
 
     @PostMapping("/signup")
     public ResponseEntity<Usuario> register(@RequestBody RegisterUserDto registerUserDto) {
@@ -39,21 +38,20 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UsuarioView> authenticate(@RequestBody LoginUserDto loginUserDto, 
-        HttpServletResponse response) {
+    public ResponseEntity<UsuarioContext> authenticate(@RequestBody LoginUserDto loginUserDto,
+            HttpServletResponse response) {
         Usuario authenticatedUser = authenticationService.authenticate(loginUserDto);
         response.addCookie(authenticationService.generateCookieToken(authenticatedUser));
 
-        UsuarioView usuarioView = authenticationService.getUsuarioViewClientContext(authenticatedUser);
+        UsuarioContext usuarioView = authenticationService.getUsuarioViewClientContext(authenticatedUser);
 
         return ResponseEntity.ok(usuarioView);
     }
 
     @GetMapping("/logout")
-    public ResponseEntity<?> triggerLogout(HttpServletRequest request){
+    public ResponseEntity<?> triggerLogout(HttpServletRequest request) {
         System.out.println(request.getCookies());
         authenticationService.logout();
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
-

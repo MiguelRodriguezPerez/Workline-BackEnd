@@ -1,4 +1,4 @@
-package com.example.demo.services;
+package com.example.demo.services.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,7 +11,7 @@ import com.example.demo.config.UsuarioService;
 import com.example.demo.domain.dtos.LoginUserDto;
 import com.example.demo.domain.dtos.RegisterUserDto;
 import com.example.demo.domain.usuarios.Usuario;
-import com.example.demo.domain.usuarios.UsuarioView;
+import com.example.demo.domain.usuarios.UsuarioContext;
 
 import io.jsonwebtoken.UnsupportedJwtException;
 import jakarta.servlet.http.Cookie;
@@ -24,46 +24,49 @@ public class AuthenticationService {
 
     @Autowired
     AuthenticationManager authenticationManager;
-    
+
     @Autowired
     JwtService jwtService;
 
     public Usuario signup(RegisterUserDto input) {
-        //TODO: Creación usuarios
+        // TODO: Creación usuarios
         throw new UnsupportedJwtException("AAAAAAAAAAAAAAAAAAAAAAAA");
     }
 
     public Usuario authenticate(LoginUserDto input) {
         Usuario usuario = usuarioService.encontrarUsuarioPorNombre(input.getUsername());
-        if(usuario == null) return null;
+        if (usuario == null)
+            return null;
 
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         input.getUsername(),
-                        input.getPassword()
-                ));
+                        input.getPassword()));
 
         return usuario;
     }
 
-    public Cookie generateCookieToken(Usuario usuario){
+    public Cookie generateCookieToken(Usuario usuario) {
         String token = jwtService.generateToken(usuario);
-        Cookie cookie = new Cookie("jwtToken", token); 
-        cookie.setHttpOnly(true); 
-        cookie.setSecure(true); 
-        cookie.setPath("/"); 
+        Cookie cookie = new Cookie("jwtToken", token);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
         cookie.setMaxAge(3600);
 
         return cookie;
     }
 
-    /*Este método se hizo para que AuthenticationController solo inyectará authenticationService
-    en vez de authenticationService y usuarioService*/
-    public UsuarioView getUsuarioViewClientContext(Usuario usuario){
+    /*
+     * Este método se hizo para que AuthenticationController solo inyectará
+     * authenticationService
+     * en vez de authenticationService y usuarioService
+     */
+    public UsuarioContext getUsuarioViewClientContext(Usuario usuario) {
         return usuarioService.convertirUsuarioAUsuarioView(usuario);
     }
 
-    public void logout(){
+    public void logout() {
         SecurityContextHolder.clearContext();
     }
 }
