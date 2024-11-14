@@ -27,11 +27,10 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(of="id")
 @NoArgsConstructor
 @AllArgsConstructor
-// @Entity
 @DiscriminatorColumn(name = "dtype")
 @MappedSuperclass
 public abstract class Usuario implements UserDetails{
-    //Sospechoso de fallar (la clase entera)
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
@@ -75,7 +74,6 @@ public abstract class Usuario implements UserDetails{
         this.rol = rol;
     }
 
-
     public Usuario setNombreJwt(String nombre) { 
         this.nombre = nombre; 
         return this; 
@@ -85,7 +83,6 @@ public abstract class Usuario implements UserDetails{
         this.email = email; 
         return this; 
     } 
-
 
     public Usuario setPassword(String password) { 
         this.password = password; 
@@ -101,20 +98,25 @@ public abstract class Usuario implements UserDetails{
     public Collection<? extends GrantedAuthority> getAuthorities() { 
         return List.of(); 
     } 
+
     @Override 
     public boolean isAccountNonExpired() { 
         return true; 
     } 
-    @Override public boolean isAccountNonLocked() { 
+
+    @Override 
+    public boolean isAccountNonLocked() { 
         return true; 
     } 
     
-    @Override public boolean isCredentialsNonExpired() { 
+    @Override 
+    public boolean isCredentialsNonExpired() { 
         return true; 
     } 
-    @Override public boolean isEnabled() { 
+
+    @Override 
+    public boolean isEnabled() { 
         return true; 
     }
-
-     
+ 
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.config.UsuarioService;
 import com.example.demo.domain.usuarios.Usuario;
+import com.example.demo.domain.usuarios.UsuarioDto;
 import com.example.demo.domain.usuarios.UsuarioView;
 
 @RequestMapping("/user")
@@ -21,10 +22,16 @@ public class MiPerfilController {
     
     @GetMapping("/getCurrentUser")
     public ResponseEntity<UsuarioView> getLoggedUser(){
-        //El token llega){
+        //El token llega
         Usuario usuario = usuarioService.obtenerUsuarioLogueado();
         UsuarioView usuarioView = usuarioService.convertirUsuarioAUsuarioView(usuario);
 
         return new ResponseEntity<>(usuarioView,HttpStatus.OK);
+    }
+
+    @GetMapping("/getUserData")
+    public ResponseEntity<UsuarioDto> getUserData(){
+        UsuarioDto usuarioDto = usuarioService.convertirUsuarioAUsuarioDto(usuarioService.obtenerUsuarioLogueado());
+        return new ResponseEntity<>(usuarioDto,HttpStatus.OK);
     }
 }

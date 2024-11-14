@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.usuarios.Usuario;
+import com.example.demo.domain.usuarios.UsuarioDto;
 import com.example.demo.domain.usuarios.UsuarioView;
 import com.example.demo.services.usuarios.AdminService;
 import com.example.demo.services.usuarios.BuscaService;
@@ -34,6 +35,10 @@ public class UsuarioService {
 
     public UsuarioView convertirUsuarioAUsuarioView(Usuario usuario){
         return new UsuarioView(usuario.getNombre(), usuario.getEmail(), usuario.getRol().toString());
+    }
+
+    public UsuarioDto convertirUsuarioAUsuarioDto(Usuario usuario){
+        return new UsuarioDto(usuario.getNombre(),usuario.getEmail(),usuario.getTelefono(),usuario.getCiudad());
     }
 
     public Usuario obtenerUsuarioLogueado(){
