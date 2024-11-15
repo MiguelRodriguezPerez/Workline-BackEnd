@@ -51,7 +51,6 @@ public class ContrataController {
 
     @DeleteMapping("/borrarOferta/{id}")
     public ResponseEntity<Void> borrarOferta(@PathVariable Long id){
-        System.out.println(ofertaService.obtenerPorId(id));
         ofertaService.borrarOfertaWrapper(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

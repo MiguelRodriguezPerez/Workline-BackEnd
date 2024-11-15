@@ -158,7 +158,6 @@ public class OfertaServiceImpl implements OfertaService {
     public List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta) {
         List<Oferta> resultado = this.obtenerTodos();
 
-        // Use an iterator to avoid ConcurrentModificationException
         Iterator<Oferta> iterator = resultado.iterator();
 
         while (iterator.hasNext()) {

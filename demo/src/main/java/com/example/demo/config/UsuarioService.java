@@ -9,6 +9,7 @@ import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.domain.usuarios.Usuario;
 import com.example.demo.domain.usuarios.UsuarioDto;
 import com.example.demo.domain.usuarios.UsuarioContext;
+import com.example.demo.services.ofertas.OfertaService;
 import com.example.demo.services.usuarios.AdminService;
 import com.example.demo.services.usuarios.BuscaService;
 import com.example.demo.services.usuarios.ContrataService;
@@ -24,6 +25,9 @@ public class UsuarioService {
 
     @Autowired
     AdminService adminService;
+
+    @Autowired
+    OfertaService ofertaService;
 
     public Usuario encontrarUsuarioPorNombre(String nombre) {
 
@@ -66,6 +70,7 @@ public class UsuarioService {
             case CONTRATA:
                 Contrata contrata = (Contrata) currentUsuario;
                 contrataService.guardarCambios(contrata);
+                ofertaService.cambiarPropiedadOfertas(contrata.getListaOfertas(), contrata.getNombre());
                 break;
 
         }

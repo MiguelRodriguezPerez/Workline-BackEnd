@@ -86,12 +86,12 @@ public class SecurityConfig {
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
             .anyRequest().authenticated());
 
-        http.formLogin(formLogin -> formLogin
-            .loginPage("/sesion/signin")
-            .loginProcessingUrl("/login")
-            .failureUrl("/sesion/signin?error=true")
-            .defaultSuccessUrl("/", false)
-            .permitAll());
+        // http.formLogin(formLogin -> formLogin
+        //     .loginPage("/sesion/signin")
+        //     .loginProcessingUrl("/login")
+        //     .failureUrl("/sesion/signin?error=true")
+        //     .defaultSuccessUrl("/", false)
+        //     .permitAll());
 
         // http.logout(logout -> logout
         //     .logoutUrl("/auth/logout")
