@@ -78,7 +78,7 @@ public class SecurityConfig {
             httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
 
         http.authorizeHttpRequests(auth -> auth
-            .requestMatchers("/ofertasDeTrabajo/inscribirse/**", "/ofertasDeTrabajo/desinscribirse/**").hasRole("BUSCA")
+            .requestMatchers("/busca/api/**").hasRole("BUSCA")
             .requestMatchers("/contrata/api/**").hasRole("CONTRATA")
             .requestMatchers("/user/**").authenticated()
             .requestMatchers("/", "/ofertasDeTrabajo/**", "/solicitudOfertas/**", "/nuevoUsuario/**", 
