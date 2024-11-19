@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Experiencia;
+import com.example.demo.domain.dtos.ExperienciaDto;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.repositories.ExperienciaRepository;
 import com.example.demo.services.usuarios.BuscaService;
@@ -17,6 +18,7 @@ public class ExperienciaServiceImpl implements ExperienciaService{
 
     @Autowired
     ExperienciaRepository repo;
+
     @Autowired
     BuscaService buscaService;
 
@@ -25,6 +27,7 @@ public class ExperienciaServiceImpl implements ExperienciaService{
         return repo.save(ex);
     }
 
+    @Override
     public Experiencia guardarExperienciaDemoApp(Busca busca, Experiencia experiencia){
         experiencia.setBusca(busca);
         busca.getListaExperiencias().add(experiencia);
@@ -33,6 +36,18 @@ public class ExperienciaServiceImpl implements ExperienciaService{
         this.guardarExperiencia(experiencia);
 
         return experiencia;
+    }
+
+    @Override
+    public Experiencia guardarCambios(ExperienciaDto experienciaDto, Long id){
+        Experiencia exp = this.obtenerPorId(id);
+
+        exp.setPuesto(experienciaDto.getPuesto());
+        exp.setEmpresa(experienciaDto.getEmpresa());
+        exp.setInicioExperiencia(experienciaDto.getInicioExperiencia());
+        exp.setFinExperiencia(experienciaDto.getFinExperiencia());
+
+        return this.guardarExperiencia(exp);
     }
 
     @Override
@@ -49,6 +64,20 @@ public class ExperienciaServiceImpl implements ExperienciaService{
     }
 
     @Override
+    public Experiencia guardarExperienciaFromBusca(Experiencia experiencia){
+
+        Busca busca = buscaService.obtenerBuscaConectado();
+
+        experiencia.setBusca(busca);
+        busca.getListaExperiencias().add(experiencia);
+
+        this.guardarExperiencia(experiencia);
+        buscaService.guardarSinEncriptar(busca);
+
+        return experiencia;
+    }
+
+    @Override
     public Experiencia obtenerPorId(Long id) {
         return repo.findById(id).orElse(null);
     }
@@ -56,6 +85,16 @@ public class ExperienciaServiceImpl implements ExperienciaService{
     @Override
     public void borrarExperiencia(Long id) {
         repo.delete(repo.findById(id).orElse(null));
+    }
+
+    @Override
+    public void borrarExperienciaWrapper(Long id){
+        Busca buscaConectado = buscaService.obtenerBuscaConectado();
+        buscaConectado.getListaExperiencias().removeIf(experiencia -> experiencia.getId() == id);
+        buscaService.guardarSinEncriptar(buscaConectado);
+
+        /*No llamas a this.borrarExperiencia porque la entidad experiencia esta configurada
+        para que se borre si queda huérfana*/
     }
 
     @Override
@@ -81,6 +120,13 @@ public class ExperienciaServiceImpl implements ExperienciaService{
             resultado.add(exp);
         }
         return resultado;
+    }
+
+    @Override
+    public Experiencia convertirExperienciaDtoAExperiencia(ExperienciaDto dto) {
+        return new Experiencia(null, 
+            dto.getPuesto(), dto.getEmpresa(), 
+            dto.getInicioExperiencia(), dto.getFinExperiencia(), null);
     }
 
 }

@@ -89,7 +89,7 @@ public class OfertaServiceImpl implements OfertaService {
         repo.deleteById(id);
     }
 
-    /*Necesitas este método para garantizar que en la sesión ambas entidades de la relacón se borren*/
+    /*Necesitas este método para garantizar que en la sesión ambas entidades de la relación se borren*/
     @Override
     public void borrarOfertaWrapper(Long id){
         Contrata contrata = contrataService.obtenerContrataConectado();

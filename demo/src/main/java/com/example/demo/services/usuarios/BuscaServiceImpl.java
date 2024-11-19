@@ -1,8 +1,6 @@
 package com.example.demo.services.usuarios;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.NuevoUsuario;
-import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.usuarios.Busca;
-import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.repositories.BuscaRepository;
-import com.example.demo.services.ofertas.OfertaService;
 
 @Service
 public class BuscaServiceImpl implements BuscaService{

@@ -6,7 +6,9 @@ import java.util.Set;
 import com.example.demo.domain.Conocimiento;
 import com.example.demo.domain.Experiencia;
 import com.example.demo.domain.ofertas.Oferta;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -29,19 +31,20 @@ import lombok.ToString;
 @EqualsAndHashCode(of = "id")
 @Entity
 @Table(name="Busca")
+// @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class Busca extends Usuario{
     
     @OneToMany(fetch= FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "busca")
-    @JsonManagedReference
+    @JsonManagedReference(value = "busca-experiencia")
     private List<Experiencia> listaExperiencias;//Cambiar por hashset???
 
     @OneToMany(fetch= FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "busca")
-    @JsonManagedReference
+    @JsonManagedReference(value = "busca-conocimiento")
     private List<Conocimiento> listaConocimientos;
 
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(name="busca_oferta",joinColumns = @JoinColumn(name="busca_id"),inverseJoinColumns = @JoinColumn(name="oferta_id"))
-    @JsonManagedReference
+    @JsonManagedReference(value = "busca-oferta")
     private List<Oferta> listaOfertas;
 
     /*Busca es la entidad propietaria porque cada vez que se añada

@@ -43,7 +43,7 @@ public class Conocimiento {
 
     @ManyToOne
     @JoinColumn(name = "busca_id")
-    @JsonBackReference
+    @JsonBackReference(value = "busca-conocimiento")
     private Busca busca;
 
     public Conocimiento(Long id, @NotNull @Size(max = 40, message = "Máximo 40 carácteres") String centroEducativo,

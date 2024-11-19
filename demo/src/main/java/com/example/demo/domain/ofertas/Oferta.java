@@ -75,7 +75,7 @@ public class Oferta implements Comparable<Oferta>{
     private LocalDate fechaPublicacion;
 
     @ManyToMany(mappedBy = "listaOfertas")
-    @JsonBackReference
+    @JsonBackReference(value = "busca-oferta")
     @Nullable
     private List<Busca> listaCandidatos;
 
