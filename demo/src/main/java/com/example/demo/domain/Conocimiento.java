@@ -46,14 +46,12 @@ public class Conocimiento {
     @JsonBackReference(value = "busca-conocimiento")
     private Busca busca;
 
-    public Conocimiento(Long id, @NotNull @Size(max = 40, message = "Máximo 40 carácteres") String centroEducativo,
-            @NotNull @Size(max = 40, message = "Máximo 40 carácteres") String titulo, String f1, String f2) {
-        this.id = id;
+    public Conocimiento(@NotNull @Size(max = 40, message = "Máximo 40 carácteres") String centroEducativo,
+        @NotNull @Size(max = 40, message = "Máximo 40 carácteres") String titulo, LocalDate fechaInicio, LocalDate fechaFin) {
         this.centroEducativo = centroEducativo;
-        this.titulo = titulo;
-        this.busca = busca;
-
-        
+        this.titulo = titulo;      
+        this.inicioPeriodoConocimiento = fechaInicio;
+        this.finPeriodoConocimiento = fechaFin;  
     }
 
     public String parsearFechaInicio(){

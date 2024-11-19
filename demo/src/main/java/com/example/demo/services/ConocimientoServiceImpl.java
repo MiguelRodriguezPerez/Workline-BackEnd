@@ -1,13 +1,13 @@
 package com.example.demo.services;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Conocimiento;
+import com.example.demo.domain.dtos.ConocimientoDto;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.repositories.ConocimientoRepository;
 import com.example.demo.services.usuarios.BuscaService;
@@ -51,6 +51,28 @@ public class ConocimientoServiceImpl implements ConocimientoService{
     }
 
     @Override
+    public Conocimiento guardarCambios(ConocimientoDto dto, Long id){
+
+        Conocimiento conocimiento = this.obtenerPorId(id);
+
+        conocimiento.setCentroEducativo(dto.getCentroEducativo());
+        conocimiento.setTitulo(dto.getTitulo());
+        conocimiento.setInicioPeriodoConocimiento(dto.getInicioPeriodoConocimiento());
+        conocimiento.setFinPeriodoConocimiento(dto.getFinPeriodoConocimiento());
+
+        return this.guardarConocimiento(conocimiento);
+    }
+
+    @Override
+    public Conocimiento guardarConocimientoFromContrata(Conocimiento conocimiento){
+        Busca buscaConectado = buscaService.obtenerBuscaConectado();
+        conocimiento.setBusca(buscaConectado);
+        buscaConectado.getListaConocimientos().add(conocimiento);
+
+        return this.guardarConocimiento(conocimiento);
+    }
+
+    @Override
     public Conocimiento obtenerPorId(Long id) {
         return repo.findById(id).orElse(null);
     }
@@ -58,6 +80,13 @@ public class ConocimientoServiceImpl implements ConocimientoService{
     @Override
     public void borrarConocimiento(Long id) {
         repo.delete(this.obtenerPorId(id));
+    }
+
+    @Override
+    public void borrarConocimientoWrapper(Long id){
+        Busca buscaConectado = buscaService.obtenerBuscaConectado();
+        buscaConectado.getListaConocimientos().removeIf(conocimiento -> conocimiento.getId() == id);
+        buscaService.guardarSinEncriptar(buscaConectado);
     }
 
     @Override
@@ -88,7 +117,6 @@ public class ConocimientoServiceImpl implements ConocimientoService{
 
     @Override
     public void actualizarConocimiento(Conocimiento conocimiento) {
-        System.out.println(conocimiento + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         Conocimiento cEditar = this.obtenerPorId(conocimiento.getId());
 
         cEditar.setId(conocimiento.getId());
@@ -100,6 +128,12 @@ public class ConocimientoServiceImpl implements ConocimientoService{
         cEditar.setFinPeriodoConocimiento(conocimiento.getFinPeriodoConocimiento());
 
         this.guardarConocimiento(cEditar);
+    }
+
+    @Override
+    public Conocimiento convertirConocimientoDtoAConocimiento(ConocimientoDto dto) {
+       return new Conocimiento(dto.getCentroEducativo(), dto.getTitulo(), 
+            dto.getInicioPeriodoConocimiento(), dto.getFinPeriodoConocimiento());
     }
 
     
