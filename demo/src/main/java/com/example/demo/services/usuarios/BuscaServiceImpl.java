@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.NuevoUsuario;
+import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.repositories.BuscaRepository;
 
@@ -99,11 +100,6 @@ public class BuscaServiceImpl implements BuscaService{
     }
 
     @Override
-    public String obtenerNombre() {
-       return obtenerBuscaConectado().getNombre();
-    }
-
-    @Override
     public Busca obtenerBuscaConectado() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth instanceof AnonymousAuthenticationToken) return null;
@@ -131,5 +127,14 @@ public class BuscaServiceImpl implements BuscaService{
         this.guardarCambios(busca);
     }
     
+    @Override
+    public Boolean estaInscritoOferta(Long id){
+
+        for(Oferta oferta: this.obtenerBuscaConectado().getListaOfertas()){
+            if(oferta.getId() == id) return true;
+        }
+
+        return false;
+    }
 
 }

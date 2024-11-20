@@ -18,7 +18,7 @@ import com.example.demo.domain.ofertas.ModalidadTrabajo;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.ofertas.OfertaDtoApi;
 import com.example.demo.domain.ofertas.TipoContrato;
-import com.example.demo.domain.usuarios.Busca;  
+import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.repositories.OfertaRepository;
 import com.example.demo.services.usuarios.BuscaService;
@@ -47,7 +47,7 @@ public class OfertaServiceImpl implements OfertaService {
     @Override
     public Oferta guardarOfertaFromContrata(Oferta oferta) {
 
-        //Sospechoso de fallar con jwt
+        // Sospechoso de fallar con jwt
         Contrata contrataConectado = contrataService.obtenerContrataConectado();
 
         oferta.setNombreEmpresa(contrataConectado.getNombre());
@@ -58,7 +58,8 @@ public class OfertaServiceImpl implements OfertaService {
          * para editar las ofertas, se comprueba si la fecha es nula para evitar que en
          * caso de que se edite una oferta la fecha no cambie
          */
-        if (oferta.getFechaPublicacion() == null) oferta.setFechaPublicacion(LocalDate.now());
+        if (oferta.getFechaPublicacion() == null)
+            oferta.setFechaPublicacion(LocalDate.now());
 
         this.guardarOferta(oferta);
         contrataConectado.getListaOfertas().add(oferta);
@@ -89,9 +90,12 @@ public class OfertaServiceImpl implements OfertaService {
         repo.deleteById(id);
     }
 
-    /*Necesitas este método para garantizar que en la sesión ambas entidades de la relación se borren*/
+    /*
+     * Necesitas este método para garantizar que en la sesión ambas entidades de la
+     * relación se borren
+     */
     @Override
-    public void borrarOfertaWrapper(Long id){
+    public void borrarOfertaWrapper(Long id) {
         Contrata contrata = contrataService.obtenerContrataConectado();
         contrata.getListaOfertas().removeIf(oferta -> oferta.getId() == id);
 
@@ -143,7 +147,8 @@ public class OfertaServiceImpl implements OfertaService {
     @Override
     public Page<Oferta> obtenerPaginaApi(int numPag, BusquedaOferta busquedaOferta) {
         List<Oferta> resultadosBusqueda = this.obtenerResultados(busquedaOferta);
-        if (resultadosBusqueda.isEmpty()) return null;
+        if (resultadosBusqueda.isEmpty())
+            return null;
 
         Pageable paginable = PageRequest.of(numPag, ofertasPorPagina);
         int primeraOferta = (int) paginable.getOffset();
@@ -162,47 +167,48 @@ public class OfertaServiceImpl implements OfertaService {
 
         while (iterator.hasNext()) {
             Oferta ofertaIteracion = iterator.next();
-    
+
             if (!busquedaOferta.getPuestoB().equalsIgnoreCase("")
-                && !busquedaOferta.getPuestoB().equalsIgnoreCase(ofertaIteracion.getPuesto())) {
+                    && !busquedaOferta.getPuestoB().equalsIgnoreCase(ofertaIteracion.getPuesto())) {
                 iterator.remove();
                 continue;
             }
-    
-            if (!busquedaOferta.getSectorB().equalsIgnoreCase("") 
-                && !busquedaOferta.getSectorB().equalsIgnoreCase(ofertaIteracion.getSector())) {
+
+            if (!busquedaOferta.getSectorB().equalsIgnoreCase("")
+                    && !busquedaOferta.getSectorB().equalsIgnoreCase(ofertaIteracion.getSector())) {
                 iterator.remove();
                 continue;
             }
-    
+
             if (!busquedaOferta.getTipoContratoB().equalsIgnoreCase("")
-                && !busquedaOferta.getTipoContratoB().equalsIgnoreCase(ofertaIteracion.getTipoContrato().toString())) {
+                    && !busquedaOferta.getTipoContratoB()
+                            .equalsIgnoreCase(ofertaIteracion.getTipoContrato().toString())) {
                 iterator.remove();
                 continue;
             }
-    
+
             if (!busquedaOferta.getCiudadB().equalsIgnoreCase("")
-                && !busquedaOferta.getCiudadB().equalsIgnoreCase(ofertaIteracion.getCiudad())) {
+                    && !busquedaOferta.getCiudadB().equalsIgnoreCase(ofertaIteracion.getCiudad())) {
                 iterator.remove();
                 continue;
             }
-    
-            if (busquedaOferta.getSalarioAnualMinimo() != 0 
-                && ofertaIteracion.getSalarioAnual() < busquedaOferta.getSalarioAnualMinimo()) {
+
+            if (busquedaOferta.getSalarioAnualMinimo() != 0
+                    && ofertaIteracion.getSalarioAnual() < busquedaOferta.getSalarioAnualMinimo()) {
                 iterator.remove();
                 continue;
             }
-    
+
             if (!busquedaOferta.getModalidadB().equalsIgnoreCase("")
-                && !busquedaOferta.getModalidadB().equalsIgnoreCase(ofertaIteracion.getModalidadTrabajo().toString())) {
+                    && !busquedaOferta.getModalidadB()
+                            .equalsIgnoreCase(ofertaIteracion.getModalidadTrabajo().toString())) {
                 iterator.remove();
             }
         }
         return resultado;
-        
+
     }
 
-   
     @Override
     public void cambiarPropiedadOfertas(List<Oferta> listaOfertas, String username) {
         for (Oferta oferta : listaOfertas) {
@@ -210,7 +216,6 @@ public class OfertaServiceImpl implements OfertaService {
             this.guardarCambios(oferta);
         }
     }
-
 
     @Override
     public boolean estaSuscritoOferta(Long id) {
@@ -227,22 +232,49 @@ public class OfertaServiceImpl implements OfertaService {
         TipoContrato t1 = null;
         ModalidadTrabajo m1 = null;
 
-        for(ModalidadTrabajo m: ModalidadTrabajo.values()){
-            if(ofertaDtoApi.getModalidadTrabajo().equalsIgnoreCase(m.toString())) m1 = m;
+        for (ModalidadTrabajo m : ModalidadTrabajo.values()) {
+            if (ofertaDtoApi.getModalidadTrabajo().equalsIgnoreCase(m.toString()))
+                m1 = m;
         }
 
-        for(TipoContrato t: TipoContrato.values()){
-            if(ofertaDtoApi.getTipoContrato().equalsIgnoreCase(t.toString())) t1 = t;
+        for (TipoContrato t : TipoContrato.values()) {
+            if (ofertaDtoApi.getTipoContrato().equalsIgnoreCase(t.toString()))
+                t1 = t;
         }
 
         return new Oferta(ofertaDtoApi.getPuesto(),
-            ofertaDtoApi.getSector(), 
-            ofertaDtoApi.getDescripcion(), 
-            ofertaDtoApi.getCiudad(),
-            ofertaDtoApi.getSalarioAnual(), 
-            t1,
-            ofertaDtoApi.getHoras(), 
-            m1);
+                ofertaDtoApi.getSector(),
+                ofertaDtoApi.getDescripcion(),
+                ofertaDtoApi.getCiudad(),
+                ofertaDtoApi.getSalarioAnual(),
+                t1,
+                ofertaDtoApi.getHoras(),
+                m1);
+    }
+
+    @Override
+    public void inscribirBuscaConectadoWrapper(Long id) {
+        Busca buscaConectado = buscaService.obtenerBuscaConectado();
+        Oferta oferta = this.obtenerPorId(id);
+
+        oferta.getListaCandidatos().add(buscaConectado);
+        buscaConectado.getListaOfertas().add(oferta);
+
+        this.guardarOferta(oferta);
+        buscaService.guardarSinEncriptar(buscaConectado);
+    }
+
+    @Override
+    public void desinscribirBuscaConectadoWrapper(Long id) {
+        Busca buscaConectado = buscaService.obtenerBuscaConectado();
+        Oferta oferta = this.obtenerPorId(id);
+
+        //Sospechoso de fallar
+        oferta.getListaCandidatos().remove(buscaConectado);
+        buscaConectado.getListaOfertas().remove(oferta);
+
+        this.guardarOferta(oferta);
+        buscaService.guardarSinEncriptar(buscaConectado);
     }
 
 }

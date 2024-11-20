@@ -16,9 +16,9 @@ public interface BuscaService {
     Busca obtenerPorId(Long id);
     Busca obtenerPorNombre(String nombre);
     boolean esNombreRepetido(String nombre);
-    String obtenerNombre();
     Busca obtenerBuscaConectado();
     boolean coincidePassword(String verificarPassword);
     void cambiarPassword(String nuevoPassword);
+    Boolean estaInscritoOferta(Long id);
     
 }

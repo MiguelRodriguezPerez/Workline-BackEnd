@@ -81,17 +81,10 @@ public class SecurityConfig {
             .requestMatchers("/busca/api/**").hasRole("BUSCA")
             .requestMatchers("/contrata/api/**").hasRole("CONTRATA")
             .requestMatchers("/user/**").authenticated()
-            .requestMatchers("/", "/ofertasDeTrabajo/**", "/solicitudOfertas/**", "/nuevoUsuario/**", 
-            "/nuevoUsuarioCreacion/**", "/sesion/**", "/internal-api/public/**","/auth/**", "/get-csrf-token").permitAll()
+            .requestMatchers("/", "/ofertasDeTrabajo/**", "/sesion/**", 
+            "/ofertas/api/**","/auth/**", "/get-csrf-token").permitAll()
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
             .anyRequest().authenticated());
-
-        // http.formLogin(formLogin -> formLogin
-        //     .loginPage("/sesion/signin")
-        //     .loginProcessingUrl("/login")
-        //     .failureUrl("/sesion/signin?error=true")
-        //     .defaultSuccessUrl("/", false)
-        //     .permitAll());
 
         // http.logout(logout -> logout
         //     .logoutUrl("/auth/logout")

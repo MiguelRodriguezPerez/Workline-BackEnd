@@ -91,4 +91,9 @@ public class BuscaController {
         conocimientoService.borrarConocimientoWrapper(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/estaInscritoOferta/{id}")
+    public ResponseEntity<Boolean> getListOfertaId(@PathVariable Long id){
+        return new ResponseEntity<>(buscaService.estaInscritoOferta(id),HttpStatus.OK);
+    }
 }

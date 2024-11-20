@@ -27,5 +27,7 @@ public interface OfertaService {
     List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta);
     void cambiarPropiedadOfertas(List<Oferta> listaOfertas, String nombre);
     boolean estaSuscritoOferta(Long id);
+    void inscribirBuscaConectadoWrapper(Long id);
+    void desinscribirBuscaConectadoWrapper(Long id);
     
 }
