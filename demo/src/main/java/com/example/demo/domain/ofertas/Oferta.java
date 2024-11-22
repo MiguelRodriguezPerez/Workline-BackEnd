@@ -1,15 +1,18 @@
 package com.example.demo.domain.ofertas;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -24,13 +27,16 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@ToString(exclude = {"listaCandidatos", "contrata"})
+@ToString(exclude = {"contrata"})
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of="id")
 @Data
 @Entity
 @Table(name="ofertas")
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class, 
+  property = "id")
 public class Oferta implements Comparable<Oferta>{
     
     @GeneratedValue
@@ -72,8 +78,7 @@ public class Oferta implements Comparable<Oferta>{
 
     private LocalDate fechaPublicacion;
 
-    @ManyToMany(mappedBy = "listaOfertas")
-    @JsonBackReference(value = "busca-oferta")
+    @ManyToMany(mappedBy = "listaOfertas", fetch = FetchType.EAGER)
     @Nullable
     private List<Busca> listaCandidatos;
 
@@ -113,27 +118,6 @@ public class Oferta implements Comparable<Oferta>{
         else return -1;
     }
 
-    public String convertirMayus(String s){
-        s = s.toLowerCase();
-        s = Character.toString(s.charAt(0)).toUpperCase() + s.substring(1);
-        return s;
-    }
-
-    public String parsearTipoContrato(){
-        return convertirMayus(this.tipoContrato.toString());
-    }
-
-    public String parsearModalidadTrabajo(){
-        return convertirMayus(this.modalidadTrabajo.toString());
-    }
-
-    public String parsearFecha(){
-        LocalDate l = this.fechaPublicacion;
-        String resultado = DateTimeFormatter.ofPattern("dd-MM-yyyy").format(l).toString();
-        resultado = resultado.replace('-', '/');
-        
-        return resultado;
-    }
 
 
     //Constructor para el commandLineRunner

@@ -57,14 +57,6 @@ public class ContrataController {
         ofertaService.borrarOfertaWrapper(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    
 
-    /*Tuviste que diseñar un nuevo endpoint para obtener la lista de candidatos porque
-    al obtenerlos por id de la manera habitual en el método toString excluías la lista 
-    de candidatos por problemas de recursión*/
-    @GetMapping("/obtenerListaCandidatos/{id}")
-    public ResponseEntity<List<Busca>> getListBusca(@PathVariable Long id){
-        List<Busca> resultado = ofertaService.obtenerPorId(id).getListaCandidatos();
-        if(resultado.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        return new ResponseEntity<>(resultado,HttpStatus.OK);
-    }
 }
