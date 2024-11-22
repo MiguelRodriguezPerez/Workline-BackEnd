@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.ofertas.OfertaDtoApi;
+import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.services.ofertas.OfertaService;
 import com.example.demo.services.usuarios.ContrataService;
 
@@ -53,5 +56,15 @@ public class ContrataController {
     public ResponseEntity<Void> borrarOferta(@PathVariable Long id){
         ofertaService.borrarOfertaWrapper(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    /*Tuviste que diseñar un nuevo endpoint para obtener la lista de candidatos porque
+    al obtenerlos por id de la manera habitual en el método toString excluías la lista 
+    de candidatos por problemas de recursión*/
+    @GetMapping("/obtenerListaCandidatos/{id}")
+    public ResponseEntity<List<Busca>> getListBusca(@PathVariable Long id){
+        List<Busca> resultado = ofertaService.obtenerPorId(id).getListaCandidatos();
+        if(resultado.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(resultado,HttpStatus.OK);
     }
 }

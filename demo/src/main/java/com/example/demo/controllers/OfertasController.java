@@ -19,6 +19,7 @@ import com.example.demo.domain.entidadesApi.PaginaJobSearchRequest;
 import com.example.demo.domain.ofertas.ModalidadTrabajo;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.ofertas.TipoContrato;
+import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.services.ofertas.OfertaService;
 
 @RequestMapping("/ofertas/api")
@@ -30,13 +31,11 @@ public class OfertasController {
 
     @PostMapping("/busqueda")
     public ResponseEntity<Page<Oferta>> getAllOfertas(@RequestBody PaginaJobSearchRequest paginaJobSearchRequest) {
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         if(paginaJobSearchRequest.getBusquedaOferta() != null){
             return new ResponseEntity<>(ofertaService.obtenerPaginaApi(paginaJobSearchRequest.getPagina(), 
             paginaJobSearchRequest.getBusquedaOferta()), HttpStatus.OK);
         }
         else{
-            System.out.println("LA BUSQUEDA OFERTA SI ES NULL");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }

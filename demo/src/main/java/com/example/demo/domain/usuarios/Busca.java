@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@ToString(exclude = "{listaOfertas,listaConocimientos,listaExperiencias}")
+@ToString(exclude = "{listaOfertas}")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")

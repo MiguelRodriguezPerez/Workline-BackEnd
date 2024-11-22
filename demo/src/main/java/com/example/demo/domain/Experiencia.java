@@ -27,7 +27,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-// @JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class Experiencia {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
