@@ -3,6 +3,7 @@ package com.example.demo.services.usuarios;
 import java.util.List;
 
 import com.example.demo.domain.NuevoUsuario;
+import com.example.demo.domain.modelView.BuscaView;
 import com.example.demo.domain.usuarios.Busca;
 
 public interface BuscaService {
@@ -20,5 +21,7 @@ public interface BuscaService {
     boolean coincidePassword(String verificarPassword);
     void cambiarPassword(String nuevoPassword);
     Boolean estaInscritoOferta(Long id);
+    BuscaView convertirBuscaABuscaView(Busca busca);
+
     
 }

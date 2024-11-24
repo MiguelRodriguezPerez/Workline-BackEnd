@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.NuevoUsuario;
+import com.example.demo.domain.modelView.BuscaView;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.repositories.BuscaRepository;
@@ -135,6 +136,12 @@ public class BuscaServiceImpl implements BuscaService{
         }
 
         return false;
+    }
+
+    @Override
+    public BuscaView convertirBuscaABuscaView(Busca busca) {
+        return new BuscaView(busca.getNombre(), busca.getEmail(), busca.getTelefono(), 
+        busca.getCiudad(), busca.getListaConocimientos(), busca.getListaExperiencias());
     }
 
 }
