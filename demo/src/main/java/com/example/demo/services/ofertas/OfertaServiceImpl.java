@@ -277,4 +277,10 @@ public class OfertaServiceImpl implements OfertaService {
         buscaService.guardarSinEncriptar(buscaConectado);
     }
 
+    @Override
+    public int obtenerNumeroCandidatos(Long id) {
+        Oferta oferta = this.obtenerPorId(id);
+        return oferta.getListaCandidatos().size();
+    }
+
 }

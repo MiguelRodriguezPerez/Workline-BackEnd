@@ -29,5 +29,6 @@ public interface OfertaService {
     boolean estaSuscritoOferta(Long id);
     void inscribirBuscaConectadoWrapper(Long id);
     void desinscribirBuscaConectadoWrapper(Long id);
+    int obtenerNumeroCandidatos(Long id);
     
 }

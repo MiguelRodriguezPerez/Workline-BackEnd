@@ -78,17 +78,14 @@ public class SecurityConfig {
             httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
 
         http.authorizeHttpRequests(auth -> auth
-            .requestMatchers("/busca/api/**").hasRole("BUSCA")
+            .requestMatchers("/busca/api/**", "/ofertas/api/inscribirBusca/**",
+            "/ofertas/api/desinscribirBusca/**").hasRole("BUSCA")
             .requestMatchers("/contrata/api/**").hasRole("CONTRATA")
             .requestMatchers("/user/**").authenticated()
             .requestMatchers("/", "/ofertasDeTrabajo/**", "/sesion/**", 
             "/ofertas/api/**","/auth/**", "/get-csrf-token").permitAll()
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
             .anyRequest().authenticated());
-
-        // http.logout(logout -> logout
-        //     .logoutUrl("/auth/logout")
-        //     .deleteCookies("jwtToken"));
 
         http.exceptionHandling(exceptions -> {
             exceptions.accessDeniedPage("/sesion/error");

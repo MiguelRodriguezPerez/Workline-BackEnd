@@ -1,15 +1,15 @@
 package com.example.demo.domain.ofertas;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -24,15 +24,17 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@ToString(exclude = {"listaCandidatos", "contrata"})
+@ToString(exclude = {"listaCandidatos", "contrata"}) // Excluir las colecciones relacionadas
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of="id")
+@EqualsAndHashCode(of = "id")
 @Data
 @Entity
-@Table(name="ofertas")
-public class Oferta implements Comparable<Oferta>{
-    
+@Table(name = "ofertas")
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class, 
+  property = "id")
+public class Oferta implements Comparable<Oferta> {
     @GeneratedValue
     @Id
     private Long id;
@@ -52,10 +54,6 @@ public class Oferta implements Comparable<Oferta>{
     @NotNull
     private String ciudad;
 
-    /*requisito y valorable será el valor que se introducirá en el input text,
-    luego habrá un postMapping que obtendrá el valor de ese input, lo añadirá 
-    a su lista correspondiente y se borrará después del campo del input*/
-
     @Nullable
     private Double salarioAnual;
 
@@ -72,39 +70,12 @@ public class Oferta implements Comparable<Oferta>{
 
     private LocalDate fechaPublicacion;
 
-    @ManyToMany(mappedBy = "listaOfertas")
-    @JsonBackReference(value = "busca-oferta")
-    @Nullable
+    @ManyToMany(mappedBy = "listaOfertas", fetch = FetchType.EAGER)
     private List<Busca> listaCandidatos;
 
     @ManyToOne
-    @JoinColumn(name = "contrata_id")//Sospechoso de fallar
-    @JsonBackReference
+    @JoinColumn(name = "contrata_id")
     private Contrata contrata;
-
-    /*Este constructor esta diseñado para recibir ofertasDtoApi.
-    Los campos que queden nulos (contrata y nombreEmpresa) los gestiona el método
-    ofertaService.guardarOfertaFromContrata()*/
-    public Oferta(@NotNull @Size(max = 30) String puesto, @NotNull String sector, @Size(max = 80) String descripcion,
-            @NotNull String ciudad, Double salarioAnual, @NotNull TipoContrato tipoContrato, @NotNull Byte horas,
-            @NotNull ModalidadTrabajo modalidadTrabajo) {
-        this.puesto = puesto;
-        this.sector = sector;
-        this.descripcion = descripcion;
-        this.ciudad = ciudad;
-        this.salarioAnual = salarioAnual;
-        this.tipoContrato = tipoContrato;
-        this.horas = horas;
-        this.modalidadTrabajo = modalidadTrabajo;
-        this.fechaPublicacion = LocalDate.now();
-    }
-
-    // @PreRemove Esta anotación define una función a ejecutar antes de borrar esta instancia de entidad
-    // public void preRemove(){
-    //     setContrata(null);
-    // }
-
-    
 
     @Override
     public int compareTo(Oferta o1) {
@@ -113,33 +84,9 @@ public class Oferta implements Comparable<Oferta>{
         else return -1;
     }
 
-    public String convertirMayus(String s){
-        s = s.toLowerCase();
-        s = Character.toString(s.charAt(0)).toUpperCase() + s.substring(1);
-        return s;
-    }
-
-    public String parsearTipoContrato(){
-        return convertirMayus(this.tipoContrato.toString());
-    }
-
-    public String parsearModalidadTrabajo(){
-        return convertirMayus(this.modalidadTrabajo.toString());
-    }
-
-    public String parsearFecha(){
-        LocalDate l = this.fechaPublicacion;
-        String resultado = DateTimeFormatter.ofPattern("dd-MM-yyyy").format(l).toString();
-        resultado = resultado.replace('-', '/');
-        
-        return resultado;
-    }
-
-
-    //Constructor para el commandLineRunner
     public Oferta(@NotNull @Size(max = 30) String puesto, @NotNull String sector, @Size(max = 80) String descripcion,
-            @NotNull String ciudad, Double salarioAnual, @NotNull TipoContrato tipoContrato, @NotNull Byte horas,
-            @NotNull ModalidadTrabajo modalidadTrabajo,Contrata contrata) {
+                  @NotNull String ciudad, Double salarioAnual, @NotNull TipoContrato tipoContrato, @NotNull Byte horas,
+                  @NotNull ModalidadTrabajo modalidadTrabajo, Contrata contrata) {
         this.puesto = puesto;
         this.sector = sector;
         this.descripcion = descripcion;
@@ -153,7 +100,8 @@ public class Oferta implements Comparable<Oferta>{
         this.contrata = contrata;
     }
 
-    
-
-    
+    public Oferta(String puesto2, String sector2, String descripcion2, String ciudad2, Double salarioAnual2,
+            TipoContrato t1, Byte horas2, ModalidadTrabajo m1) {
+        //TODO Auto-generated constructor stub
+    }
 }
