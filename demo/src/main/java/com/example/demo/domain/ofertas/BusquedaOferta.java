@@ -1,7 +1,5 @@
 package com.example.demo.domain.ofertas;
 
-import java.util.List;
-
 import org.springframework.lang.Nullable;
 
 import lombok.AllArgsConstructor;

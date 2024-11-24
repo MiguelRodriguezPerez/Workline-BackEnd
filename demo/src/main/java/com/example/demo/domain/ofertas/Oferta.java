@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.util.List;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Entity;
@@ -31,9 +33,7 @@ import lombok.ToString;
 @Data
 @Entity
 @Table(name = "ofertas")
-@JsonIdentityInfo(
-  generator = ObjectIdGenerators.PropertyGenerator.class, 
-  property = "id")
+
 public class Oferta implements Comparable<Oferta> {
     @GeneratedValue
     @Id
@@ -70,11 +70,13 @@ public class Oferta implements Comparable<Oferta> {
 
     private LocalDate fechaPublicacion;
 
-    @ManyToMany(mappedBy = "listaOfertas", fetch = FetchType.EAGER)
+    @JsonManagedReference("busca-oferta") 
+    @ManyToMany(mappedBy = "listaOfertas", fetch = FetchType.EAGER) 
     private List<Busca> listaCandidatos;
 
     @ManyToOne
     @JoinColumn(name = "contrata_id")
+    @JsonBackReference("contrata-oferta")
     private Contrata contrata;
 
     @Override

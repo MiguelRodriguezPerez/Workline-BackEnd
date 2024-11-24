@@ -19,7 +19,6 @@ import com.example.demo.domain.entidadesApi.PaginaJobSearchRequest;
 import com.example.demo.domain.ofertas.ModalidadTrabajo;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.ofertas.TipoContrato;
-import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.services.ofertas.OfertaService;
 
 @RequestMapping("/ofertas/api")
@@ -32,6 +31,8 @@ public class OfertasController {
     @PostMapping("/busqueda")
     public ResponseEntity<Page<Oferta>> getAllOfertas(@RequestBody PaginaJobSearchRequest paginaJobSearchRequest) {
         if(paginaJobSearchRequest.getBusquedaOferta() != null){
+            System.out.println(ofertaService.obtenerPaginaApi(paginaJobSearchRequest.getPagina(), 
+            paginaJobSearchRequest.getBusquedaOferta()).getContent() + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             return new ResponseEntity<>(ofertaService.obtenerPaginaApi(paginaJobSearchRequest.getPagina(), 
             paginaJobSearchRequest.getBusquedaOferta()), HttpStatus.OK);
         }

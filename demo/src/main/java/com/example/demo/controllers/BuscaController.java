@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +18,8 @@ import com.example.demo.domain.Conocimiento;
 import com.example.demo.domain.Experiencia;
 import com.example.demo.domain.dtos.ConocimientoDto;
 import com.example.demo.domain.dtos.ExperienciaDto;
+import com.example.demo.domain.ofertas.Oferta;
+import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.services.ConocimientoService;
 import com.example.demo.services.ExperienciaService;
 import com.example.demo.services.usuarios.BuscaService;
@@ -95,5 +96,12 @@ public class BuscaController {
     @GetMapping("/estaInscritoOferta/{id}")
     public ResponseEntity<Boolean> getListOfertaId(@PathVariable Long id){
         return new ResponseEntity<>(buscaService.estaInscritoOferta(id),HttpStatus.OK);
+    }
+
+    @GetMapping("/miListaOfertas")
+    public ResponseEntity<List<Oferta>> getMyListOfertas(){
+        List<Oferta> resultado = buscaService.obtenerBuscaConectado().getListaOfertas();
+        if(resultado.size() == 0) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        else return new ResponseEntity<>(resultado,HttpStatus.OK);
     }
 }
