@@ -12,7 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.domain.NuevoUsuario;
 import com.example.demo.domain.modelView.BuscaView;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.usuarios.Busca;
@@ -106,14 +105,6 @@ public class BuscaServiceImpl implements BuscaService{
         if (auth instanceof AnonymousAuthenticationToken) return null;
         Busca busca = obtenerPorNombre(auth.getName());
         return busca;
-    }
-
-    @Override
-    public Busca guardarBuscaDesdeNuevoUsuario(NuevoUsuario nuevoUsuario) {
-        Busca busca = new Busca(nuevoUsuario.getNombre(), nuevoUsuario.getEmail(), nuevoUsuario.getCiudad(), nuevoUsuario.getTelefono(), nuevoUsuario.getPassword());
-        Busca busca2 = this.guardar(busca);
-        
-        return busca2;
     }
 
     @Override

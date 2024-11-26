@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.example.demo.domain.NuevoUsuario;
+import com.example.demo.domain.dtos.NuevoUsuarioDto;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.usuarios.Contrata;
 
@@ -12,8 +12,9 @@ public interface ContrataService {
     
     Contrata guardar(Contrata contrata);
     Contrata guardarSinEncriptar(Contrata contrata);
-    Contrata guardarContrataDesdeNuevoUsuario(NuevoUsuario nuevoUsuario);
     Contrata guardarCambios(Contrata contrata);
+    Contrata guardarNuevoUsuarioFromDto(NuevoUsuarioDto dto);
+    Contrata convertirNuevoUsuarioDtoAContrata(NuevoUsuarioDto dto);
     void borrarContrata(Long id);
     List<Contrata> obtenerTodos();
     Contrata obtenerPorId(Long id);

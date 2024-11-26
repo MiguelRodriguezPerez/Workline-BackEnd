@@ -16,7 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.domain.NuevoUsuario;
+import com.example.demo.domain.dtos.NuevoUsuarioDto;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.repositories.ContrataRepository;
@@ -38,15 +38,6 @@ public class ContrataServiceImpl implements ContrataService{
 
     @Override
     public Contrata guardarSinEncriptar(Contrata contrata) {
-        return repo.save(contrata);
-    }
-
-    @Override
-    public Contrata guardarContrataDesdeNuevoUsuario(NuevoUsuario nuevoUsuario) {
-        Contrata contrata = new Contrata(nuevoUsuario.getNombre(), nuevoUsuario.getEmail()
-        , nuevoUsuario.getCiudad(), nuevoUsuario.getTelefono(), nuevoUsuario.getPassword());
-        contrata.setPassword(passwordEncoder.encode(contrata.getPassword()));
-
         return repo.save(contrata);
     }
 
@@ -77,6 +68,21 @@ public class ContrataServiceImpl implements ContrataService{
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return this.obtenerContrataConectado();
+    }
+
+    @Override
+    public Contrata guardarNuevoUsuarioFromDto(NuevoUsuarioDto dto){
+        //WARNING : Contraseña sin encriptar
+        Contrata contrataFromDto = this.convertirNuevoUsuarioDtoAContrata(dto);
+        Contrata resultado = this.guardar(contrataFromDto);
+
+        return resultado;
+    }
+
+    @Override
+    public Contrata convertirNuevoUsuarioDtoAContrata(NuevoUsuarioDto dto){
+        return new Contrata(dto.getNombre(), dto.getEmail(), 
+            dto.getCiudad(), dto.getTelefono(), dto.getPassword());
     }
 
     @Override

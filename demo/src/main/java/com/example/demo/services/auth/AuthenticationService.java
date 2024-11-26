@@ -28,11 +28,6 @@ public class AuthenticationService {
     @Autowired
     JwtService jwtService;
 
-    public Usuario signup(RegisterUserDto input) {
-        // TODO: Creación usuarios
-        throw new UnsupportedJwtException("AAAAAAAAAAAAAAAAAAAAAAAA");
-    }
-
     public Usuario authenticate(LoginUserDto input) {
         Usuario usuario = usuarioService.encontrarUsuarioPorNombre(input.getUsername());
         if (usuario == null)

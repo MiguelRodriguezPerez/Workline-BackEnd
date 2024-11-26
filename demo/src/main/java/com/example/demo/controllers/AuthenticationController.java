@@ -3,13 +3,11 @@ package com.example.demo.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestClient.ResponseSpec;
 
 import com.example.demo.domain.dtos.LoginUserDto;
 import com.example.demo.domain.dtos.RegisterUserDto;
@@ -17,7 +15,6 @@ import com.example.demo.domain.usuarios.Usuario;
 import com.example.demo.domain.usuarios.UsuarioContext;
 import com.example.demo.services.auth.AuthenticationService;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -25,17 +22,8 @@ import jakarta.servlet.http.HttpServletResponse;
 @RestController
 public class AuthenticationController {
 
-    // TODO: Mover creación usuarios
-
     @Autowired
     AuthenticationService authenticationService;
-
-    @PostMapping("/signup")
-    public ResponseEntity<Usuario> register(@RequestBody RegisterUserDto registerUserDto) {
-        Usuario registeredUser = authenticationService.signup(registerUserDto);
-
-        return ResponseEntity.ok(registeredUser);
-    }
 
     @PostMapping("/login")
     public ResponseEntity<UsuarioContext> authenticate(@RequestBody LoginUserDto loginUserDto,

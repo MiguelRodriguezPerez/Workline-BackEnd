@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -20,9 +19,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.example.demo.domain.NuevoUsuario;
 import com.example.demo.domain.usuarios.Contrata;
-import com.example.demo.domain.usuarios.Rol;
 import com.example.demo.repositories.ContrataRepository;
 import com.example.demo.services.usuarios.ContrataServiceImpl;
 @SpringBootTest
@@ -54,17 +51,6 @@ public class ContrataServiceTest {
         SecurityContextHolder.setContext(securityContext);
     }
 
-    @Test
-    public void guardarContrataDesdeNuevoUsuarioTest(){
-        when(repo.save(any(Contrata.class))).thenAnswer(invocation -> invocation.getArgument(0));
-        when(passwordEncoder.encode(anyString())).thenReturn("encodedPassword");
-
-        Contrata c1 = contrataService.guardarContrataDesdeNuevoUsuario(new NuevoUsuario("Juan", "juan@juan.com", "Soria", "6879789779",
-        "aaaa", Rol.CONTRATA));
-
-        assertNotNull(c1);
-        
-    }
 
     @Test
     public void guardarCambiosNombre(){
