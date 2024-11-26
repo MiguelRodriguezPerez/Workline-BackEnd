@@ -45,6 +45,7 @@ public class ContrataController {
 
     @PostMapping("/nuevaOferta")
     public ResponseEntity<Oferta> registrarOferta(@RequestBody OfertaDtoApi ofertaDtoApi){
+        
         Oferta oferta = ofertaService.convertirOfertaDtoApiAOferta(ofertaDtoApi);
         ofertaService.guardarOfertaFromContrata(oferta);
         return new ResponseEntity<>(oferta,HttpStatus.CREATED);

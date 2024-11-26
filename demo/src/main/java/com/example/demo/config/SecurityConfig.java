@@ -26,8 +26,6 @@ import org.springframework.web.filter.CorsFilter;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-
-
     
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception{
@@ -82,14 +80,14 @@ public class SecurityConfig {
             "/ofertas/api/desinscribirBusca/**").hasRole("BUSCA")
             .requestMatchers("/contrata/api/**").hasRole("CONTRATA")
             .requestMatchers("/user/**").authenticated()
-            .requestMatchers("/", "/ofertasDeTrabajo/**", "/sesion/**", 
+            .requestMatchers("/", "/nuevaCuenta/**",
             "/ofertas/api/**","/auth/**", "/get-csrf-token").permitAll()
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
             .anyRequest().authenticated());
 
-        http.exceptionHandling(exceptions -> {
-            exceptions.accessDeniedPage("/sesion/error");
-        });
+        // http.exceptionHandling(exceptions -> {
+        //     exceptions.accessDeniedPage("/sesion/error");
+        // });
 
         http.csrf(csrf -> csrf.disable());
 

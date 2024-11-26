@@ -102,8 +102,16 @@ public class Oferta implements Comparable<Oferta> {
         this.contrata = contrata;
     }
 
-    public Oferta(String puesto2, String sector2, String descripcion2, String ciudad2, Double salarioAnual2,
-            TipoContrato t1, Byte horas2, ModalidadTrabajo m1) {
-        //TODO Auto-generated constructor stub
+    public Oferta(String puesto2, String sector2, String descripcion2, String ciudad2, Double salarioAnual2, TipoContrato t1, Byte horas2, ModalidadTrabajo m1) { 
+        this.puesto = puesto2; 
+        this.sector = sector2; 
+        this.descripcion = descripcion2; 
+        this.ciudad = ciudad2; 
+        this.salarioAnual = salarioAnual2; 
+        this.tipoContrato = t1; 
+        this.horas = horas2; 
+        this.modalidadTrabajo = m1; 
+        this.fechaPublicacion = LocalDate.now();
+        this.nombreEmpresa = ""; 
     }
 }

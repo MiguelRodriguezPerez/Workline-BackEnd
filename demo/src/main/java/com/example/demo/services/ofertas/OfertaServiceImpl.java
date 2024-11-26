@@ -229,6 +229,7 @@ public class OfertaServiceImpl implements OfertaService {
 
     @Override
     public Oferta convertirOfertaDtoApiAOferta(OfertaDtoApi ofertaDtoApi) {
+        
         TipoContrato t1 = null;
         ModalidadTrabajo m1 = null;
 
@@ -242,14 +243,18 @@ public class OfertaServiceImpl implements OfertaService {
                 t1 = t;
         }
 
-        return new Oferta(ofertaDtoApi.getPuesto(),
-                ofertaDtoApi.getSector(),
-                ofertaDtoApi.getDescripcion(),
-                ofertaDtoApi.getCiudad(),
-                ofertaDtoApi.getSalarioAnual(),
-                t1,
-                ofertaDtoApi.getHoras(),
-                m1);
+        Oferta resultado = new Oferta(ofertaDtoApi.getPuesto(),
+        ofertaDtoApi.getSector(),
+        ofertaDtoApi.getDescripcion(),
+        ofertaDtoApi.getCiudad(),
+        ofertaDtoApi.getSalarioAnual(),
+        t1,
+        ofertaDtoApi.getHoras(),
+        m1);
+
+        System.out.println(resultado + "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+
+        return resultado;
     }
 
     @Override

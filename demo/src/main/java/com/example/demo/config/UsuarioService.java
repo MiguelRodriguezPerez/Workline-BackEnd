@@ -42,6 +42,10 @@ public class UsuarioService {
 
     }
 
+    public boolean esNombreRepetido(String nombre) {
+        return this.encontrarUsuarioPorNombre(nombre) != null;
+    }
+
     public UsuarioContext convertirUsuarioAUsuarioView(Usuario usuario) {
         return new UsuarioContext(usuario.getNombre(), usuario.getEmail(), usuario.getRol().toString());
     }
