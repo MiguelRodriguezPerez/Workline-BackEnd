@@ -91,6 +91,11 @@ public class ContrataServiceImpl implements ContrataService{
     }
 
     @Override
+    public void borrarContrataWrapper(){
+        this.borrarContrata(this.obtenerContrataConectado().getId());
+    }
+
+    @Override
     public List<Contrata> obtenerTodos() {
         return repo.findAll();
     }

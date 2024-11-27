@@ -114,13 +114,13 @@ public class OfertaServiceImpl implements OfertaService {
     }
 
     @Override
-    public void borrarBuscaTodasOfertas(Busca busca) {
+    public void borrarBuscaDeTodasLasOfertas(Busca busca) {
         repo.borrarBuscaFromAllOfertas(busca.getId());
     }
 
     @Override
-    public void borrarContrataTodasOfertas(Contrata contrata) {
-        repo.borrarCandidatosTodasOfertas(contrata.getId());
+    public void borrarTodasLasOfertasDeUnContrata(Contrata contrata) {
+        repo.deleteAllOfertasOfContrata(contrata.getId());
     }
 
     @Override

@@ -5,10 +5,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.domain.usuarios.Usuario;
-import com.example.demo.domain.usuarios.UsuarioDto;
 import com.example.demo.domain.usuarios.UsuarioContext;
+import com.example.demo.domain.usuarios.UsuarioDto;
 import com.example.demo.services.ofertas.OfertaService;
 import com.example.demo.services.usuarios.AdminService;
 import com.example.demo.services.usuarios.BuscaService;
@@ -81,6 +82,21 @@ public class UsuarioService {
 
         return this.obtenerUsuarioLogueado();
 
+    }
+
+    public void borrarCuentaUsuarioLogueado() {
+        Usuario usuarioConectado = this.obtenerUsuarioLogueado();
+
+        switch (usuarioConectado.getRol()) {
+            case BUSCA:
+                ofertaService.borrarBuscaDeTodasLasOfertas((Busca) usuarioConectado);
+                buscaService.borrarCuentaWrapper();
+                break;
+            case CONTRATA:
+                ofertaService.borrarTodasLasOfertasDeUnContrata((Contrata) usuarioConectado);
+                contrataService.borrarContrataWrapper();
+                break;
+        }
     }
 
 }

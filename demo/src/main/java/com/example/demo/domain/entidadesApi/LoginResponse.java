@@ -18,7 +18,8 @@ public class LoginResponse {
     public LoginResponse setToken(String token){
         Cookie cookie = new Cookie("jwtToken", token); 
         cookie.setHttpOnly(true); 
-        cookie.setSecure(true); 
+        //Teóricamente setSecure impide leer cookies si no vienen de un https
+        cookie.setSecure(false); 
         cookie.setMaxAge(3600);
         this.token = cookie; 
         return this;

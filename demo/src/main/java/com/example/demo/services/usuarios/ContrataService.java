@@ -16,6 +16,7 @@ public interface ContrataService {
     Contrata guardarNuevoUsuarioFromDto(NuevoUsuarioDto dto);
     Contrata convertirNuevoUsuarioDtoAContrata(NuevoUsuarioDto dto);
     void borrarContrata(Long id);
+    void borrarContrataWrapper();
     List<Contrata> obtenerTodos();
     Contrata obtenerPorId(Long id);
     Contrata obtenerPorNombre(String nombre);

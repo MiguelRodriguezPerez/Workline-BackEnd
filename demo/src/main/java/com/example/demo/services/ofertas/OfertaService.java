@@ -28,9 +28,9 @@ public interface OfertaService {
 
     void borrarTodosCandidatosDeUnaOferta(Long id);
 
-    void borrarBuscaTodasOfertas(Busca busca);
+    void borrarBuscaDeTodasLasOfertas(Busca busca);
 
-    void borrarContrataTodasOfertas(Contrata contrata);
+    void borrarTodasLasOfertasDeUnContrata(Contrata contrata);
 
     List<Oferta> obtenerTodos();
 

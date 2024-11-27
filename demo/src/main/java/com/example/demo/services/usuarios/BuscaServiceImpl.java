@@ -101,8 +101,13 @@ public class BuscaServiceImpl implements BuscaService {
 
     @Override
     public void borrarCuentaWrapper(){
+        //Asume que ya se desinscribio de todas las ofertas
         Busca busca = this.obtenerBuscaConectado();
         
+        /*Recuerda que conocimientos y experiencias estan configuradas para borrarse
+        si su busca desaparece*/
+
+        this.borrar(busca.getId());
     }
 
     @Override

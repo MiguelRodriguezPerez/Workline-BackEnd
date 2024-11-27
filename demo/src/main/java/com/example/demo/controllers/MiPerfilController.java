@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import com.example.demo.config.UsuarioService;
 import com.example.demo.domain.usuarios.Usuario;
 import com.example.demo.domain.usuarios.UsuarioContext;
 import com.example.demo.domain.usuarios.UsuarioDto;
+import com.example.demo.services.auth.AuthenticationService;
 import com.example.demo.services.usuarios.BuscaService;
 
 @RequestMapping("/user")
@@ -24,6 +26,9 @@ public class MiPerfilController {
 
     @Autowired
     BuscaService buscaService;
+
+    @Autowired
+    AuthenticationService authenticationService;
 
     @GetMapping("/getCurrentUser")
     public ResponseEntity<UsuarioContext> getLoggedUser() {
@@ -48,5 +53,13 @@ public class MiPerfilController {
         return new ResponseEntity<>(resultado, HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/borrarCuentaUsuarioLogueado")
+    public ResponseEntity<Void> deleteLoggedUserEndpoint() {
+        usuarioService.borrarCuentaUsuarioLogueado();
+        authenticationService.logout();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    
 
 }
