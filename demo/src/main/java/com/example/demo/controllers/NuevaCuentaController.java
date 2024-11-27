@@ -16,6 +16,7 @@ import com.example.demo.domain.dtos.NuevoUsuarioDto;
 import com.example.demo.domain.usuarios.Usuario;
 import com.example.demo.domain.usuarios.UsuarioContext;
 import com.example.demo.services.auth.AuthenticationService;
+import com.example.demo.services.usuarios.BuscaService;
 import com.example.demo.services.usuarios.ContrataService;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,29 +27,48 @@ import jakarta.servlet.http.HttpServletResponse;
 public class NuevaCuentaController {
 
     @Autowired
-    UsuarioService usuarioService;
-
-    @Autowired
     AuthenticationService authenticationService;
 
     @Autowired
+    UsuarioService usuarioService;
+
+    @Autowired
     ContrataService contrataService;
+
+    @Autowired
+    BuscaService buscaService;
 
 
     @GetMapping("/esNombreRepetido/{nombre}")
     public ResponseEntity<Boolean> isUserRepeated(@PathVariable String nombre){
         //Sospechoso de fallar
         Boolean resultado = usuarioService.esNombreRepetido(nombre);
-        System.out.println(resultado + "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
         return new ResponseEntity<>(resultado,HttpStatus.OK);
     }
     
 
     //Discutiblemente podría ser PutMapping
     @PostMapping("/nuevoContrata")
-    public ResponseEntity<UsuarioContext> postMethodName(@RequestBody NuevoUsuarioDto dto, HttpServletResponse response) {
+    public ResponseEntity<UsuarioContext> createNewContrataEndpoint(@RequestBody NuevoUsuarioDto dto, HttpServletResponse response) {
 
         contrataService.guardarNuevoUsuarioFromDto(dto);
+        //Asumiendo que todo vaya bien
+        //Usas la contraseña del dto sin encriptar. La encriptada no serviría
+        Usuario authenticatedUser = authenticationService.authenticate( 
+            new LoginUserDto(dto.getNombre(), dto.getPassword())
+        );
+        response.addCookie(authenticationService.generateCookieToken(authenticatedUser));
+
+        UsuarioContext usuarioContext = authenticationService.getUsuarioViewClientContext(authenticatedUser);
+        
+        return new ResponseEntity<>(usuarioContext, HttpStatus.OK);
+    }
+
+    //Discutiblemente podría ser PutMapping
+    @PostMapping("/nuevoBusca")
+    public ResponseEntity<UsuarioContext> createNewBuscaEndpoint(@RequestBody NuevoUsuarioDto dto, HttpServletResponse response) {
+
+        buscaService.guardarNuevoUsuarioFromDto(dto);
         //Asumiendo que todo vaya bien
         //Usas la contraseña del dto sin encriptar. La encriptada no serviría
         Usuario authenticatedUser = authenticationService.authenticate( 

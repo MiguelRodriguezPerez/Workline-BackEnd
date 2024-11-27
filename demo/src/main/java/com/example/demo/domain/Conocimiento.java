@@ -30,14 +30,18 @@ public class Conocimiento {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
+
     @NotNull
     @Size(max = 40, message = "Máximo 40 carácteres")
     private String centroEducativo;
+
     @NotNull
     @Size(max = 40, message = "Máximo 40 carácteres")
     private String titulo;
+
     @NotNull
     private LocalDate inicioPeriodoConocimiento;
+    
     @NotNull
     private LocalDate finPeriodoConocimiento;
 
@@ -52,22 +56,6 @@ public class Conocimiento {
         this.titulo = titulo;      
         this.inicioPeriodoConocimiento = fechaInicio;
         this.finPeriodoConocimiento = fechaFin;  
-    }
-
-    public String parsearFechaInicio(){
-        LocalDate l = this.inicioPeriodoConocimiento;
-        String resultado = DateTimeFormatter.ofPattern("dd-MM-yyyy").format(l).toString();
-        resultado = resultado.replace('-', '/');
-        
-        return resultado;
-    }
-
-    public String parsearFechaFin(){
-        LocalDate l = this.finPeriodoConocimiento;
-        String resultado = DateTimeFormatter.ofPattern("dd-MM-yyyy").format(l).toString();
-        resultado = resultado.replace('-', '/');
-        
-        return resultado;
     }
     
 }

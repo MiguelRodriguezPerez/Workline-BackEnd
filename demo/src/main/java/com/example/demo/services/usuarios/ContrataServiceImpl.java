@@ -76,7 +76,7 @@ public class ContrataServiceImpl implements ContrataService{
         Contrata contrataFromDto = this.convertirNuevoUsuarioDtoAContrata(dto);
         Contrata resultado = this.guardar(contrataFromDto);
 
-        return resultado;
+        return resultado;   
     }
 
     @Override
