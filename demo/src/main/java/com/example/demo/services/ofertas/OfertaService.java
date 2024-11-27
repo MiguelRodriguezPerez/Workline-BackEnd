@@ -11,24 +11,41 @@ import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
 
 public interface OfertaService {
-    
+
     Oferta guardarOferta(Oferta oferta);
+
     Oferta guardarOfertaFromContrata(Oferta oferta);
+
     Oferta guardarCambios(Oferta oferta);
+
     Oferta obtenerPorId(Long id);
+
     Oferta convertirOfertaDtoApiAOferta(OfertaDtoApi ofertaDtoApi);
+
     void borrarOferta(Long id);
+
     void borrarOfertaWrapper(Long id);
-    void borrarCandidatosOferta(Long id);
+
+    void borrarTodosCandidatosDeUnaOferta(Long id);
+
     void borrarBuscaTodasOfertas(Busca busca);
+
     void borrarContrataTodasOfertas(Contrata contrata);
+
     List<Oferta> obtenerTodos();
+
     Page<Oferta> obtenerPaginaApi(int pagina, BusquedaOferta busquedaOferta);
+
     List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta);
+
     void cambiarPropiedadOfertas(List<Oferta> listaOfertas, String nombre);
+
     boolean estaSuscritoOferta(Long id);
+
     void inscribirBuscaConectadoWrapper(Long id);
+
     void desinscribirBuscaConectadoWrapper(Long id);
+
     int obtenerNumeroCandidatos(Long id);
-    
+
 }

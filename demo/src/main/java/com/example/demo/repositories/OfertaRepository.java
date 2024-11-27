@@ -37,6 +37,9 @@ public interface OfertaRepository extends JpaRepository<Oferta, Long> {
     @Query("DELETE FROM Oferta o WHERE o.id IN (SELECT o2.id FROM Oferta o2 JOIN o2.listaCandidatos b WHERE b.id = :buscaId)")
     void borrarBuscaFromAllOfertas(@Param("buscaId") Long buscaId);
     
-
+    @Modifying 
+    @Transactional 
+    @Query("DELETE FROM Busca b WHERE b IN (SELECT b2 FROM Busca b2 JOIN b2.listaOfertas o WHERE o.id = :ofertaId)") 
+    void removeAllCandidatesFromOferta(@Param("ofertaId") Long ofertaId);
 
 }

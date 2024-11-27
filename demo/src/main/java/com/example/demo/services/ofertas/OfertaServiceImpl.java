@@ -104,20 +104,13 @@ public class OfertaServiceImpl implements OfertaService {
 
         contrataService.guardarSinEncriptar(contrata);
 
+        this.borrarTodosCandidatosDeUnaOferta(id);
         this.borrarOferta(id);
     }
 
     @Override
-    public void borrarCandidatosOferta(Long id) {
-        Oferta oferta = this.obtenerPorId(id);
-        ArrayList<Busca> listaCandidatos = new ArrayList<>(oferta.getListaCandidatos());
-        for (Busca b : listaCandidatos) {
-            b.getListaOfertas().remove(oferta);
-            buscaService.guardarSinEncriptar(b);
-
-            oferta.getListaCandidatos().remove(b);
-            this.guardarOferta(oferta);
-        }
+    public void borrarTodosCandidatosDeUnaOferta(Long id) {
+        repo.removeAllCandidatesFromOferta(id);
     }
 
     @Override
@@ -229,7 +222,7 @@ public class OfertaServiceImpl implements OfertaService {
 
     @Override
     public Oferta convertirOfertaDtoApiAOferta(OfertaDtoApi ofertaDtoApi) {
-        
+
         TipoContrato t1 = null;
         ModalidadTrabajo m1 = null;
 
@@ -244,13 +237,13 @@ public class OfertaServiceImpl implements OfertaService {
         }
 
         Oferta resultado = new Oferta(ofertaDtoApi.getPuesto(),
-        ofertaDtoApi.getSector(),
-        ofertaDtoApi.getDescripcion(),
-        ofertaDtoApi.getCiudad(),
-        ofertaDtoApi.getSalarioAnual(),
-        t1,
-        ofertaDtoApi.getHoras(),
-        m1);
+                ofertaDtoApi.getSector(),
+                ofertaDtoApi.getDescripcion(),
+                ofertaDtoApi.getCiudad(),
+                ofertaDtoApi.getSalarioAnual(),
+                t1,
+                ofertaDtoApi.getHoras(),
+                m1);
 
         System.out.println(resultado + "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
 
@@ -274,7 +267,7 @@ public class OfertaServiceImpl implements OfertaService {
         Busca buscaConectado = buscaService.obtenerBuscaConectado();
         Oferta oferta = this.obtenerPorId(id);
 
-        //Sospechoso de fallar
+        // Sospechoso de fallar
         oferta.getListaCandidatos().remove(buscaConectado);
         buscaConectado.getListaOfertas().remove(oferta);
 

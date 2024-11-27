@@ -93,11 +93,16 @@ public class BuscaServiceImpl implements BuscaService {
     @Override
     public void borrar(Long id) {
         /*
-         * Este método solo se llama cuando el propio usuario borra su cuenta, por lo
-         * que
+         * Este método solo se llama cuando el propio usuario borra su cuenta, por lo que
          * se forzará un logout
          */
         repo.deleteById(id);
+    }
+
+    @Override
+    public void borrarCuentaWrapper(){
+        Busca busca = this.obtenerBuscaConectado();
+        
     }
 
     @Override
