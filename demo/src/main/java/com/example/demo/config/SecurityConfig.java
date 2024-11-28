@@ -73,7 +73,7 @@ public class SecurityConfig {
 
         http.sessionManagement(httpSecuritySessionManagementConfigurer -> 
             //Averigua como borrar la cookie jwtToken y cambia este parámetro a STATELESS
-            httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
+            httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         http.authorizeHttpRequests(auth -> auth
             .requestMatchers("/busca/api/**", "/ofertas/api/inscribirBusca/**",
