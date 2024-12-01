@@ -50,10 +50,13 @@ public class GlobalExceptionHandler {
             errorDetail.setProperty("description", "The JWT token has expired");
         }
 
-        if (errorDetail == null) {
-            errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(500), exception.getMessage());
-            errorDetail.setProperty("description", "Unknown internal server error.");
-        }
+        /*Comentaste este globalHandler porque cuando una oferta no daba resultados, este handler impedía
+        que llegase al lado cliente la respuesta de que no había ofertas disponibles
+         */
+        // if (errorDetail == null) {
+        //     errorDetail = ProblemDetail.forStatusAndDetail(HttpStatusCode.valueOf(500), exception.getMessage());
+        //     errorDetail.setProperty("description", "Unknown internal server error.");
+        // }
 
         return errorDetail;
     }

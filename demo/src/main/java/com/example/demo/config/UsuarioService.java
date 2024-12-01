@@ -3,6 +3,7 @@ package com.example.demo.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.usuarios.Busca;
@@ -29,6 +30,9 @@ public class UsuarioService {
 
     @Autowired
     OfertaService ofertaService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     public Usuario encontrarUsuarioPorNombre(String nombre) {
 
@@ -95,6 +99,31 @@ public class UsuarioService {
             case CONTRATA:
                 ofertaService.borrarTodasLasOfertasDeUnContrata((Contrata) usuarioConectado);
                 contrataService.borrarContrataWrapper();
+                break;
+        }
+    }
+
+    public boolean comprobarPasswordUsuarioLogueado(String comprobar){
+        /*usuarioConectado te esta devolviendo bien la contraseña encriptada. 
+        No es problema de la clase padre */
+        Usuario usuarioConectado = this.obtenerUsuarioLogueado();
+        System.out.println(comprobar);
+        System.out.println(usuarioConectado.getPassword());
+        System.out.println(passwordEncoder.matches(comprobar, usuarioConectado.getPassword()));
+
+        return passwordEncoder.matches(comprobar, usuarioConectado.getPassword());
+    }
+
+    public void cambiarPasswordWrapper(String newPassword){
+        Usuario usuarioConectado = this.obtenerUsuarioLogueado();
+        usuarioConectado.setPassword(newPassword);
+
+        switch (usuarioConectado.getRol()) {
+            case BUSCA:
+                buscaService.guardar((Busca) usuarioConectado);
+                break;
+            case CONTRATA:
+                contrataService.guardar((Contrata) usuarioConectado);
                 break;
         }
     }

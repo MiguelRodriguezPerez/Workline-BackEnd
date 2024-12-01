@@ -1,7 +1,6 @@
 package com.example.demo.domain;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import com.example.demo.domain.usuarios.Busca;
 import com.fasterxml.jackson.annotation.JsonBackReference;

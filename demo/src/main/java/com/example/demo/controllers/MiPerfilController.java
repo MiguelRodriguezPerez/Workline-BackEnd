@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,6 +61,16 @@ public class MiPerfilController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    
+    @PostMapping("/confirmarPassword")
+    public ResponseEntity<Boolean> checkPasswordEndpoint(@RequestBody String password){
+        Boolean resultado = usuarioService.comprobarPasswordUsuarioLogueado(password);
+        
+        return new ResponseEntity<>(resultado, HttpStatus.OK);
+    }
 
+    @PutMapping("/cambiarPassword")
+    public ResponseEntity<Void> changePasswordEndpoint(@RequestBody String newPassword){
+        usuarioService.cambiarPasswordWrapper(newPassword);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

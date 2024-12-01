@@ -30,15 +30,15 @@ public class OfertasController {
 
     @PostMapping("/busqueda")
     public ResponseEntity<Page<Oferta>> getAllOfertas(@RequestBody PaginaJobSearchRequest paginaJobSearchRequest) {
-        if(paginaJobSearchRequest.getBusquedaOferta() != null){
-            System.out.println(ofertaService.obtenerPaginaApi(paginaJobSearchRequest.getPagina(), 
-            paginaJobSearchRequest.getBusquedaOferta()).getContent() + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            return new ResponseEntity<>(ofertaService.obtenerPaginaApi(paginaJobSearchRequest.getPagina(), 
-            paginaJobSearchRequest.getBusquedaOferta()), HttpStatus.OK);
-        }
-        else{
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
+        if (paginaJobSearchRequest.getBusquedaOferta() != null) {
+            Page<Oferta> resultado = ofertaService.obtenerPaginaApi(
+                paginaJobSearchRequest.getPagina(), 
+                paginaJobSearchRequest.getBusquedaOferta()
+            );
+            return new ResponseEntity<>(resultado, HttpStatus.OK);
+        } 
+        else return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
+
     }
 
     @GetMapping("/modalidades")

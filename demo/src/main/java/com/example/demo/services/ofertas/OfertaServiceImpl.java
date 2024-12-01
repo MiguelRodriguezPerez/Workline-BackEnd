@@ -140,8 +140,7 @@ public class OfertaServiceImpl implements OfertaService {
     @Override
     public Page<Oferta> obtenerPaginaApi(int numPag, BusquedaOferta busquedaOferta) {
         List<Oferta> resultadosBusqueda = this.obtenerResultados(busquedaOferta);
-        if (resultadosBusqueda.isEmpty())
-            return null;
+        if (resultadosBusqueda.isEmpty()) return null;
 
         Pageable paginable = PageRequest.of(numPag, ofertasPorPagina);
         int primeraOferta = (int) paginable.getOffset();
@@ -161,39 +160,33 @@ public class OfertaServiceImpl implements OfertaService {
         while (iterator.hasNext()) {
             Oferta ofertaIteracion = iterator.next();
 
-            if (!busquedaOferta.getPuestoB().equalsIgnoreCase("")
-                    && !busquedaOferta.getPuestoB().equalsIgnoreCase(ofertaIteracion.getPuesto())) {
+            if (!busquedaOferta.getPuesto().equalsIgnoreCase("")
+                    && !busquedaOferta.getPuesto().equalsIgnoreCase(ofertaIteracion.getPuesto())) {
                 iterator.remove();
                 continue;
             }
 
-            if (!busquedaOferta.getSectorB().equalsIgnoreCase("")
-                    && !busquedaOferta.getSectorB().equalsIgnoreCase(ofertaIteracion.getSector())) {
-                iterator.remove();
-                continue;
-            }
-
-            if (!busquedaOferta.getTipoContratoB().equalsIgnoreCase("")
-                    && !busquedaOferta.getTipoContratoB()
+            if (!busquedaOferta.getTipoContrato().equalsIgnoreCase("")
+                    && !busquedaOferta.getTipoContrato()
                             .equalsIgnoreCase(ofertaIteracion.getTipoContrato().toString())) {
                 iterator.remove();
                 continue;
             }
 
-            if (!busquedaOferta.getCiudadB().equalsIgnoreCase("")
-                    && !busquedaOferta.getCiudadB().equalsIgnoreCase(ofertaIteracion.getCiudad())) {
+            if (!busquedaOferta.getCiudad().equalsIgnoreCase("")
+                    && !busquedaOferta.getCiudad().equalsIgnoreCase(ofertaIteracion.getCiudad())) {
                 iterator.remove();
                 continue;
             }
 
-            if (busquedaOferta.getSalarioAnualMinimo() != 0
+            if (busquedaOferta.getSalarioAnualMinimo() != null && busquedaOferta.getSalarioAnualMinimo() != 0
                     && ofertaIteracion.getSalarioAnual() < busquedaOferta.getSalarioAnualMinimo()) {
                 iterator.remove();
                 continue;
             }
 
-            if (!busquedaOferta.getModalidadB().equalsIgnoreCase("")
-                    && !busquedaOferta.getModalidadB()
+            if (!busquedaOferta.getModalidad().equalsIgnoreCase("")
+                    && !busquedaOferta.getModalidad()
                             .equalsIgnoreCase(ofertaIteracion.getModalidadTrabajo().toString())) {
                 iterator.remove();
             }
