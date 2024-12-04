@@ -78,13 +78,16 @@ public class UsuarioService {
 
             case CONTRATA:
                 Contrata contrata = (Contrata) currentUsuario;
-                contrataService.guardarCambios(contrata);
+                contrataService.guardarSinEncriptar(contrata);
                 ofertaService.cambiarPropiedadOfertas(contrata.getListaOfertas(), contrata.getNombre());
-                break;
-
+                return contrata;
+            case BUSCA:
+                Busca busca = (Busca) currentUsuario;
+                buscaService.guardarSinEncriptar(busca);
+                return busca;
         }
 
-        return this.obtenerUsuarioLogueado();
+        return null;
 
     }
 
