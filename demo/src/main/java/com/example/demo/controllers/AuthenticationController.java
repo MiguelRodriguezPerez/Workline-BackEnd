@@ -30,9 +30,9 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<UsuarioContext> authenticate(@RequestBody LoginUserDto loginUserDto,
-            HttpServletResponse response) {
+        HttpServletResponse response) {
+            
         Usuario authenticatedUser = authenticationService.authenticate(loginUserDto);
-        System.out.println(authenticatedUser + "AAAAAAAAAAAAAAAAAAAAAAAAAAA");
         response.addCookie(authenticationService.generateCookieToken(authenticatedUser));
 
         UsuarioContext usuarioView = authenticationService.getUsuarioViewClientContext(authenticatedUser);

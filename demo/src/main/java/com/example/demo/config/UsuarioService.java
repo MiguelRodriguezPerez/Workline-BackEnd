@@ -117,18 +117,29 @@ public class UsuarioService {
         return passwordEncoder.matches(comprobar, usuarioConectado.getPassword());
     }
 
-    public void cambiarPasswordWrapper(String newPassword){
+    public Usuario cambiarPasswordWrapper(String newPassword){
         Usuario usuarioConectado = this.obtenerUsuarioLogueado();
         usuarioConectado.setPassword(newPassword);
 
         switch (usuarioConectado.getRol()) {
             case BUSCA:
-                buscaService.guardar((Busca) usuarioConectado);
-                break;
+                Busca newBusca = buscaService.guardar((Busca) usuarioConectado);
+                return newBusca;
             case CONTRATA:
-                contrataService.guardar((Contrata) usuarioConectado);
-                break;
+                Contrata newContrata = contrataService.guardar((Contrata) usuarioConectado);
+                return newContrata;
+                
+            default: return null;
         }
+    }
+
+    /*Cuando enviabas tu contraseña para cambiarla, el lado cliente le añadía " al principio y final
+    del string password que provocaba que el método que comparaba las contraseñas diera como falso
+    una contraseña que se envío bien.
+    Este método sirve para quitar dichas contraseñas y que el método que comprueba si una contraseña
+    es correcta de true*/
+    public String quitarComillasPassword(String oldPassword){
+        return oldPassword.replace("\"", "");
     }
 
 }
