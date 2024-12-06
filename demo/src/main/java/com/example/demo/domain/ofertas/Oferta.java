@@ -8,7 +8,10 @@ import com.example.demo.domain.usuarios.Contrata;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import io.micrometer.common.lang.Nullable;
+import jakarta.annotation.Nullable;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +35,6 @@ import lombok.ToString;
 @Data
 @Entity
 @Table(name = "ofertas")
-
 public class Oferta implements Comparable<Oferta> {
     @GeneratedValue
     @Id
@@ -69,6 +71,16 @@ public class Oferta implements Comparable<Oferta> {
 
     private LocalDate fechaPublicacion;
 
+    @ElementCollection
+    @CollectionTable(name = "lista_valorables", joinColumns = @JoinColumn(name = "oferta_id")) 
+    @Column(name = "valorable")
+    private List<String> listaValorables;
+
+    @ElementCollection
+    @CollectionTable(name = "lista_requisitos", joinColumns = @JoinColumn(name = "oferta_id")) 
+    @Column(name = "requisito")
+    private List<String> listaRequisitos;
+
     @JsonManagedReference("busca-oferta") 
     @ManyToMany(mappedBy = "listaOfertas", fetch = FetchType.EAGER) 
     private List<Busca> listaCandidatos;
@@ -80,8 +92,8 @@ public class Oferta implements Comparable<Oferta> {
 
     @Override
     public int compareTo(Oferta o1) {
-        if(o1.getFechaPublicacion().isAfter(this.fechaPublicacion)) return 1;
-        else if(o1.getFechaPublicacion() == this.fechaPublicacion) return 0;
+        if (o1.getFechaPublicacion().isAfter(this.fechaPublicacion)) return 1;
+        else if (o1.getFechaPublicacion().equals(this.fechaPublicacion)) return 0;
         else return -1;
     }
 
@@ -101,7 +113,9 @@ public class Oferta implements Comparable<Oferta> {
         this.contrata = contrata;
     }
 
-    public Oferta(String puesto2, String sector2, String descripcion2, String ciudad2, Double salarioAnual2, TipoContrato t1, Byte horas2, ModalidadTrabajo m1) { 
+    public Oferta(String puesto2, String sector2, String descripcion2, String ciudad2, 
+                  Double salarioAnual2, TipoContrato t1, Byte horas2, ModalidadTrabajo m1, 
+                  List<String> listaValorables, List<String> listaRequisitos) { 
         this.puesto = puesto2; 
         this.sector = sector2; 
         this.descripcion = descripcion2; 
@@ -112,5 +126,8 @@ public class Oferta implements Comparable<Oferta> {
         this.modalidadTrabajo = m1; 
         this.fechaPublicacion = LocalDate.now();
         this.nombreEmpresa = ""; 
+
+        this.listaValorables = listaValorables;
+        this.listaRequisitos = listaRequisitos;
     }
 }

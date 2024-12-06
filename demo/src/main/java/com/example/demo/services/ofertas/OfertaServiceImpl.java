@@ -140,7 +140,8 @@ public class OfertaServiceImpl implements OfertaService {
     @Override
     public Page<Oferta> obtenerPaginaApi(int numPag, BusquedaOferta busquedaOferta) {
         List<Oferta> resultadosBusqueda = this.obtenerResultados(busquedaOferta);
-        if (resultadosBusqueda.isEmpty()) return null;
+        if (resultadosBusqueda.isEmpty())
+            return null;
 
         Pageable paginable = PageRequest.of(numPag, ofertasPorPagina);
         int primeraOferta = (int) paginable.getOffset();
@@ -236,7 +237,9 @@ public class OfertaServiceImpl implements OfertaService {
                 ofertaDtoApi.getSalarioAnual(),
                 t1,
                 ofertaDtoApi.getHoras(),
-                m1);
+                m1,
+                ofertaDtoApi.getListaValorables(),
+                ofertaDtoApi.getListaRequisitos());
 
         System.out.println(resultado + "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
 

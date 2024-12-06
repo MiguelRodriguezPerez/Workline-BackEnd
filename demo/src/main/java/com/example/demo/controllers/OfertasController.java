@@ -59,6 +59,7 @@ public class OfertasController {
         
         Oferta resultado = ofertaService.obtenerPorId(id);
         if(resultado == null) return new ResponseEntity<>(HttpStatus.NO_CONTENT); 
+        
         return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
 
