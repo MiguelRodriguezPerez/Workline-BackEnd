@@ -100,8 +100,9 @@ public class UsuarioService {
                 buscaService.borrarCuentaWrapper();
                 break;
             case CONTRATA:
+                ofertaService.borrarTodosCandidatosTodasOfertasFromContrataId((Contrata) usuarioConectado);
                 ofertaService.borrarTodasLasOfertasDeUnContrata((Contrata) usuarioConectado);
-                contrataService.borrarContrataWrapper();
+                contrataService.borrarContrata(usuarioConectado.getId());
                 break;
         }
     }

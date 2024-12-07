@@ -92,7 +92,7 @@ public class ContrataServiceImpl implements ContrataService{
 
     @Override
     public void borrarContrataWrapper(){
-        this.borrarContrata(this.obtenerContrataConectado().getId());
+
     }
 
     @Override
@@ -144,19 +144,6 @@ public class ContrataServiceImpl implements ContrataService{
 
         return resultado;
     }
-
-
-    // @Override
-    // public boolean coincidePassword(String verificarPassword){
-    //     return passwordEncoder.matches(verificarPassword, this.obtenerContrataConectado().getPassword());
-    // }
-
-    // @Override
-    // public void cambiarPassword(String nuevoPassword) {
-    //     Contrata contrata = this.obtenerContrataConectado();
-    //     contrata.setPassword(nuevoPassword);
-    //     this.guardarCambios(contrata);
-    // }
 
     @Override
     public String generarApiKey() {

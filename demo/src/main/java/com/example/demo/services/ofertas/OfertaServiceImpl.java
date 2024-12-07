@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.ofertas.BusquedaOferta;
@@ -23,6 +25,8 @@ import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.repositories.OfertaRepository;
 import com.example.demo.services.usuarios.BuscaService;
 import com.example.demo.services.usuarios.ContrataService;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class OfertaServiceImpl implements OfertaService {
@@ -86,8 +90,14 @@ public class OfertaServiceImpl implements OfertaService {
     }
 
     @Override
+    @Transactional
     public void borrarOferta(Long id) {
         repo.deleteById(id);
+    }
+
+    @Override
+    public void borrarTodosCandidatosTodasOfertasFromContrataId(Contrata contrata){
+        repo.deleteAllCandidatosFromContrataId(contrata.getId());
     }
 
     /*
@@ -120,7 +130,7 @@ public class OfertaServiceImpl implements OfertaService {
 
     @Override
     public void borrarTodasLasOfertasDeUnContrata(Contrata contrata) {
-        repo.deleteAllOfertasOfContrata(contrata.getId());
+        repo.deleteAllOfertasByContrataId(contrata.getId());
     }
 
     @Override

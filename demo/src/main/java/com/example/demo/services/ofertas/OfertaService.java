@@ -31,7 +31,7 @@ public interface OfertaService {
     void borrarBuscaDeTodasLasOfertas(Busca busca);
 
     void borrarTodasLasOfertasDeUnContrata(Contrata contrata);
-
+    void borrarTodosCandidatosTodasOfertasFromContrataId(Contrata contrata);
     List<Oferta> obtenerTodos();
 
     Page<Oferta> obtenerPaginaApi(int pagina, BusquedaOferta busquedaOferta);

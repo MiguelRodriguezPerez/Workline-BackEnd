@@ -10,6 +10,11 @@ import com.example.demo.domain.ofertas.Oferta;
 
 public interface OfertaRepository extends JpaRepository<Oferta, Long> {
 
+    @Modifying 
+    @Transactional 
+    @Query(value = "DELETE FROM busca_oferta WHERE oferta_id IN (" + "SELECT o.id FROM ofertas o WHERE o.contrata_id = :contrataId)", nativeQuery = true) 
+    void deleteAllCandidatosFromContrataId(@Param("contrataId") Long contrataId);
+
     /*
      * Esta consulta sirve para borrar las ofertas de un Contrata cuando borra su
      * cuenta.
@@ -25,10 +30,13 @@ public interface OfertaRepository extends JpaRepository<Oferta, Long> {
      * ofertas
      */
 
-    @Modifying
-    @Transactional
-    @Query("DELETE FROM Busca b WHERE b IN (SELECT b2 FROM Busca b2 JOIN b2.listaOfertas o WHERE o.contrata.id = :contrataId)")
-    void deleteAllOfertasOfContrata(@Param("contrataId") Long contrataId);
+     @Modifying 
+     @Transactional 
+     @Query
+     (value = "DELETE FROM ofertas WHERE contrata_id = :contrataId", nativeQuery = true) 
+     void deleteAllOfertasByContrataId(@Param("contrataId") Long contrataId);
+
+     
 
     /*
      * Esta consulta sirve para borrar todas las inscripciones en ofertas de un
@@ -47,9 +55,10 @@ public interface OfertaRepository extends JpaRepository<Oferta, Long> {
     @Query("DELETE FROM Oferta o WHERE o.id IN (SELECT o2.id FROM Oferta o2 JOIN o2.listaCandidatos b WHERE b.id = :buscaId)")
     void borrarBuscaFromAllOfertas(@Param("buscaId") Long buscaId);
 
-    @Modifying
-    @Transactional
-    @Query("DELETE FROM Busca b WHERE b IN (SELECT b2 FROM Busca b2 JOIN b2.listaOfertas o WHERE o.id = :ofertaId)")
+    //DONE
+    @Modifying 
+    @Transactional 
+    @Query(value = "DELETE FROM busca_oferta WHERE oferta_id = :ofertaId", nativeQuery = true) 
     void removeAllCandidatesFromOferta(@Param("ofertaId") Long ofertaId);
 
 }
