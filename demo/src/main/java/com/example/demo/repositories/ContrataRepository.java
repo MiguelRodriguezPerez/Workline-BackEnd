@@ -13,6 +13,11 @@ import jakarta.transaction.Transactional;
 public interface ContrataRepository extends JpaRepository<Contrata,Long>{
     Contrata findByNombre(String nombre);
 
+    /*Por razones relacionadas con las transacciones de mysql no puedes borrar
+    un contrata por id mediante los métodos por palabras del jpa repository, a pesar
+    de que se hayan borrado el resto de relaciones con las entidades. 
+
+    Tienes que hacerlo mediante una consulta mysql*/
     @Modifying 
     @Transactional 
     @Query(value = "DELETE FROM Contrata WHERE id = :id", nativeQuery = true) 

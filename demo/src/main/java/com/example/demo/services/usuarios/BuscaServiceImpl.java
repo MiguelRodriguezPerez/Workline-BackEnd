@@ -18,6 +18,8 @@ import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.repositories.BuscaRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class BuscaServiceImpl implements BuscaService {
 
@@ -38,51 +40,6 @@ public class BuscaServiceImpl implements BuscaService {
         return repo.save(busca);
     }
 
-    /*
-     * Este método sirve para actualizar los datos del usuario. Su contraseña
-     * se encriptará solo si la cambia
-     */
-    @Override
-    public Busca guardarCambios(Busca busca) {
-        Busca buscaAntiguo = this.obtenerBuscaConectado();
-
-        busca.setListaConocimientos(buscaAntiguo.getListaConocimientos());
-        busca.setListaExperiencias(buscaAntiguo.getListaExperiencias());
-
-        /*
-         * Este método sirve para cambiar los datos del usuario, pero también la
-         * contraseña
-         * Como estas dos acciones se realizan por rutas distintas, se comprueba si el
-         * contrata nuevo
-         * tiene una contraseña fijada. En caso positivo, significa que se accedio a la
-         * ruta para
-         * cambiar la contraseña, por lo que se encripta. En caso negativo, significa
-         * que esta cambiando
-         * el resto de datos (nombre,email...) por lo que se le asigna la contraseña
-         * antigua
-         */
-        if (busca.getPassword() != null)
-            busca.setPassword(passwordEncoder.encode(busca.getPassword()));
-        else
-            busca.setPassword(buscaAntiguo.getPassword());
-
-        this.guardarSinEncriptar(busca);
-
-        // Estas líneas sirven para cambiar el login actual
-
-        Collection<SimpleGrantedAuthority> nowAuthorities = (Collection<SimpleGrantedAuthority>) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getAuthorities();
-
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(busca.getNombre(),
-                busca.getPassword(), nowAuthorities);
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        return this.obtenerBuscaConectado();
-    }
-
     @Override
     public Busca guardarNuevoUsuarioFromDto(NuevoUsuarioDto dto) {
         Busca busca = this.convertirNuevoUsuarioDtoABusca(dto);
@@ -92,10 +49,8 @@ public class BuscaServiceImpl implements BuscaService {
 
     @Override
     public void borrar(Long id) {
-        /*
-         * Este método solo se llama cuando el propio usuario borra su cuenta, por lo que
-         * se forzará un logout
-         */
+        /*Este método solo se llama cuando el propio usuario borra su cuenta, por lo que
+        se forzará un logout*/
         repo.deleteById(id);
     }
 
@@ -103,10 +58,8 @@ public class BuscaServiceImpl implements BuscaService {
     public void borrarCuentaWrapper(){
         //Asume que ya se desinscribio de todas las ofertas
         Busca busca = this.obtenerBuscaConectado();
-        
         /*Recuerda que conocimientos y experiencias estan configuradas para borrarse
         si su busca desaparece*/
-
         this.borrar(busca.getId());
     }
 
@@ -140,18 +93,6 @@ public class BuscaServiceImpl implements BuscaService {
             return null;
         Busca busca = obtenerPorNombre(auth.getName());
         return busca;
-    }
-
-    @Override
-    public boolean coincidePassword(String verificarPassword) {
-        return passwordEncoder.matches(verificarPassword, this.obtenerBuscaConectado().getPassword());
-    }
-
-    @Override
-    public void cambiarPassword(String nuevoPassword) {
-        Busca busca = this.obtenerBuscaConectado();
-        busca.setPassword(nuevoPassword);
-        this.guardarCambios(busca);
     }
 
     @Override

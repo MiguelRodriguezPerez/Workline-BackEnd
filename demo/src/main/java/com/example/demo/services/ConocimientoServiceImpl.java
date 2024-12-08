@@ -79,15 +79,9 @@ public class ConocimientoServiceImpl implements ConocimientoService{
 
     @Override
     public void borrarConocimiento(Long id) {
-        repo.delete(this.obtenerPorId(id));
+        repo.deleteById(id);
     }
 
-    @Override
-    public void borrarConocimientoWrapper(Long id){
-        Busca buscaConectado = buscaService.obtenerBuscaConectado();
-        buscaConectado.getListaConocimientos().removeIf(conocimiento -> conocimiento.getId() == id);
-        buscaService.guardarSinEncriptar(buscaConectado);
-    }
 
     @Override
     public void borrarTodosPorBusca(Long id) {
@@ -95,7 +89,7 @@ public class ConocimientoServiceImpl implements ConocimientoService{
         busca.setListaConocimientos(null);
         buscaService.guardarSinEncriptar(busca);
 
-        repo.deleteAllByBusca(busca);
+        repo.deleteAllConocimientoFromBuscaId(busca.getId());
     }
 
     @Override

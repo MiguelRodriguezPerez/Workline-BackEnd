@@ -90,13 +90,12 @@ public class OfertaServiceImpl implements OfertaService {
     }
 
     @Override
-    @Transactional
     public void borrarOferta(Long id) {
         repo.deleteById(id);
     }
 
     @Override
-    public void borrarTodosCandidatosTodasOfertasFromContrataId(Contrata contrata){
+    public void borrarTodosCandidatosTodasOfertasFromContrataId(Contrata contrata) {
         repo.deleteAllCandidatosFromContrataId(contrata.getId());
     }
 
@@ -125,7 +124,7 @@ public class OfertaServiceImpl implements OfertaService {
 
     @Override
     public void borrarBuscaDeTodasLasOfertas(Busca busca) {
-        repo.borrarBuscaFromAllOfertas(busca.getId());
+        repo.deleteBuscaFromAllOfertas(busca.getId());
     }
 
     @Override

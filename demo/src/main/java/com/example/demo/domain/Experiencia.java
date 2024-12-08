@@ -49,6 +49,5 @@ public class Experiencia {
     @JoinColumn(name = "busca_id")
     @JsonBackReference(value = "busca-experiencia")
     private Busca busca;
-    
-    
+ 
 }

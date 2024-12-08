@@ -6,11 +6,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.domain.Conocimiento;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.domain.usuarios.Usuario;
 import com.example.demo.domain.usuarios.UsuarioContext;
 import com.example.demo.domain.usuarios.UsuarioDto;
+import com.example.demo.services.ConocimientoService;
+import com.example.demo.services.ExperienciaService;
 import com.example.demo.services.ofertas.OfertaService;
 import com.example.demo.services.usuarios.AdminService;
 import com.example.demo.services.usuarios.BuscaService;
@@ -24,6 +27,12 @@ public class UsuarioService {
 
     @Autowired
     BuscaService buscaService;
+
+    @Autowired
+    ConocimientoService conocimientoService;
+
+    @Autowired
+    ExperienciaService experienciaService;
 
     @Autowired
     AdminService adminService;
@@ -97,6 +106,8 @@ public class UsuarioService {
         switch (usuarioConectado.getRol()) {
             case BUSCA:
                 ofertaService.borrarBuscaDeTodasLasOfertas((Busca) usuarioConectado);
+                conocimientoService.borrarTodosPorBusca(usuarioConectado.getId());
+                experienciaService.borrarTodosPorBusca(usuarioConectado.getId());
                 buscaService.borrarCuentaWrapper();
                 break;
             case CONTRATA:

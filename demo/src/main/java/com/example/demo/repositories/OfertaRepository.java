@@ -10,55 +10,54 @@ import com.example.demo.domain.ofertas.Oferta;
 
 public interface OfertaRepository extends JpaRepository<Oferta, Long> {
 
-    @Modifying 
-    @Transactional 
-    @Query(value = "DELETE FROM busca_oferta WHERE oferta_id IN (" + "SELECT o.id FROM ofertas o WHERE o.contrata_id = :contrataId)", nativeQuery = true) 
+    /* MySql no te deja usar correctamente los métodos por palabras del jpaRepository
+    (problemas relacionados con la transacción en la base de datos)*/
+
+    /* ------------------------- Querys relacionadas con la entidad contrata ------------------------------- */
+
+    /*Este método sirve para borrar todas las inscripciones de todas las ofertas de un contrata determinado.
+    Es la primera query que se ejecuta cuando un contrata borra su cuenta*/
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM busca_oferta WHERE oferta_id IN ("
+            + "SELECT o.id FROM ofertas o WHERE o.contrata_id = :contrataId)", nativeQuery = true)
     void deleteAllCandidatosFromContrataId(@Param("contrataId") Long contrataId);
 
-    /*
-     * Esta consulta sirve para borrar las ofertas de un Contrata cuando borra su
-     * cuenta.
-     * No entiendo porque funciona, pero te doy una serie de explicaciones:
-     * - La consulta solicita borrar los Busca de la tabla de Busca que estuvieran
-     * inscritos en cualquier
-     * oferta del contrata que esta borrando su cuenta, pero como el ManyToMany no
-     * tiene puesto cascade = CascadeType.REMOVE
-     * no borra el busca
-     * - Las ofertas se borran porque en la entidad Contrata la colección de ofertas
-     * tiene declarado orphanRemoval = true,
-     * lo que indica que si el usuario Contrata se borra, también se borren sus
-     * ofertas
-     */
+    /* Este método borra todas las ofertas de un contrata. Para que funcione
+    correctamente es necesario que antes se ejecute bien el anterior método. Si no, no funcionara
 
-     @Modifying 
-     @Transactional 
-     @Query
-     (value = "DELETE FROM ofertas WHERE contrata_id = :contrataId", nativeQuery = true) 
-     void deleteAllOfertasByContrataId(@Param("contrataId") Long contrataId);
-
-     
-
-    /*
-     * Esta consulta sirve para borrar todas las inscripciones en ofertas de un
-     * candidato. Se utiliza cuando borra su cuenta
-     * y tampoco entiendo como funciona. Aquí van otras explicaciones
-     * - Esta solicitud esta intentando borrar la oferta a la que se inscribio el
-     * candidato, pero solo borra la relación
-     * entre ambas entidades
-     * - Sospecho que lo que esta impidiendo que se borre la oferta también es la
-     * relación con la entidad Contrata, la cual
-     * únicamente se borraría en el supuesto de que eliminase su cuenta
-     */
+    Esta es la segunda query que se ejecuta cuando un contrata borra su cuenta*/
 
     @Modifying
     @Transactional
-    @Query("DELETE FROM Oferta o WHERE o.id IN (SELECT o2.id FROM Oferta o2 JOIN o2.listaCandidatos b WHERE b.id = :buscaId)")
-    void borrarBuscaFromAllOfertas(@Param("buscaId") Long buscaId);
+    @Query(value = "DELETE FROM ofertas WHERE contrata_id = :contrataId", nativeQuery = true)
+    void deleteAllOfertasByContrataId(@Param("contrataId") Long contrataId);
 
-    //DONE
+    /*Este método sirve para borrar la relación que tengan todos los busca con una
+    oferta determinada. Es el primer método que se ejecuta cuando un contrata quiere
+    borrar una oferta*/
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM busca_oferta WHERE oferta_id = :ofertaId", nativeQuery = true)
+    void removeAllCandidatesFromOferta(@Param("ofertaId") Long ofertaId);
+
+    /*Para borrar una entidad a través de mysql siempre SIEMPRE tienes que borrarla por id
+    a través de una consulta mysql.
+    
+    Si no ejecutas este método al borrar una oferta se quedará guardada sin tener relaciones con
+    otra entidad, y por la razón que sea orphanRemoval = true no va aquí (No funciono con busca y sus
+    conocimientos y experiencias)*/
     @Modifying 
     @Transactional 
-    @Query(value = "DELETE FROM busca_oferta WHERE oferta_id = :ofertaId", nativeQuery = true) 
-    void removeAllCandidatesFromOferta(@Param("ofertaId") Long ofertaId);
+    @Query(value = "DELETE FROM ofertas WHERE id = :id", nativeQuery = true) 
+    void deleteById(@Param("id") Long id);
+
+    /*------------------------- Querys relacionadas con la entidad busca -------------------------------*/
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM busca_oferta WHERE busca_id = :buscaId", nativeQuery = true)
+    void deleteBuscaFromAllOfertas(@Param("buscaId") Long buscaId);
+
 
 }

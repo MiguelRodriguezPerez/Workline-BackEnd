@@ -12,7 +12,6 @@ public interface ContrataService {
     
     Contrata guardar(Contrata contrata);
     Contrata guardarSinEncriptar(Contrata contrata);
-    Contrata guardarCambios(Contrata contrata);
     Contrata guardarNuevoUsuarioFromDto(NuevoUsuarioDto dto);
     Contrata convertirNuevoUsuarioDtoAContrata(NuevoUsuarioDto dto);
     void borrarContrata(Long id);
@@ -24,8 +23,7 @@ public interface ContrataService {
     String obtenerNombre();
     Contrata obtenerContrataConectado();
     Page<Oferta> obtenerPaginaOfertasPublicadas(Integer paginaElecta);
-    // boolean coincidePassword(String verificarPassword);
-    // void cambiarPassword(String nuevoPassword);
     String generarApiKey();
     void borrarApiKey();
+    
 }

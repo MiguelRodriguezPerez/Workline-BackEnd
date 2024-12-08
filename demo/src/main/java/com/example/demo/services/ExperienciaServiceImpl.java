@@ -84,7 +84,7 @@ public class ExperienciaServiceImpl implements ExperienciaService{
 
     @Override
     public void borrarExperiencia(Long id) {
-        repo.delete(repo.findById(id).orElse(null));
+        repo.deleteById(id);
     }
 
     @Override
@@ -104,7 +104,7 @@ public class ExperienciaServiceImpl implements ExperienciaService{
         busca.setListaExperiencias(null);
         buscaService.guardarSinEncriptar(busca);
 
-        repo.deleteAllByBusca(busca);
+        repo.deleteAllExperienciaByBuscaId(busca.getId());
     }
 
     @Override

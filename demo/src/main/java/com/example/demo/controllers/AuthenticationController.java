@@ -47,6 +47,8 @@ public class AuthenticationController {
         jwtToken.setMaxAge(0);
         response.addCookie(jwtToken);
 
+        authenticationService.logout();
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

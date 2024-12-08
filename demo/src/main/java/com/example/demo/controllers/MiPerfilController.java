@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.config.UsuarioService;
@@ -88,7 +87,6 @@ public class MiPerfilController {
     public ResponseEntity<Void> changePasswordEndpoint(@RequestBody String newPassword,
         HttpServletResponse response){
         newPassword = usuarioService.quitarComillasPassword(newPassword);
-        System.out.println(newPassword);
         Usuario newUsuario = usuarioService.cambiarPasswordWrapper(newPassword);
 
         Cookie jwtToken = authenticationService.generateCookieToken(newUsuario);

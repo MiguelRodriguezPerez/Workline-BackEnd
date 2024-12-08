@@ -60,7 +60,7 @@ public class BuscaController {
 
     @DeleteMapping("/borrarExperiencia/{id}")
     public ResponseEntity<Void> deleteExperienciaEndpoint(@PathVariable Long id){
-        experienciaService.borrarExperienciaWrapper(id);
+        experienciaService.borrarExperiencia(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -89,7 +89,7 @@ public class BuscaController {
 
     @DeleteMapping("/borrarConocimiento/{id}")
     public ResponseEntity<Void> deleteConocimientoEndpoint(@PathVariable Long id){
-        conocimientoService.borrarConocimientoWrapper(id);
+        conocimientoService.borrarConocimiento(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

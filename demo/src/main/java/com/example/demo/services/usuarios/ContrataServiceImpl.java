@@ -41,34 +41,6 @@ public class ContrataServiceImpl implements ContrataService{
         return repo.save(contrata);
     }
 
-    @Override
-    public Contrata guardarCambios(Contrata contrata) {
-        Contrata contrataAntiguo = this.obtenerContrataConectado();
-
-        contrata.setListaOfertas(contrataAntiguo.getListaOfertas());
-        
-        /*Este método sirve para cambiar los datos del usuario, pero también la contraseña
-        Como estas dos acciones se realizan por rutas distintas, se comprueba si el contrata nuevo
-        tiene una contraseña fijada. En caso positivo, significa que se accedio a la ruta para
-        cambiar la contraseña, por lo que se encripta. En caso negativo, significa que esta cambiando
-        el resto de datos (nombre,email...) por lo que se le asigna la contraseña antigua*/
-        if(contrata.getPassword() != null) contrata.setPassword(passwordEncoder.encode(contrata.getPassword()));
-        else contrata.setPassword(contrataAntiguo.getPassword());
-
-        this.guardarSinEncriptar(contrata);
-
-        Collection<SimpleGrantedAuthority> nowAuthorities = 
-        (Collection<SimpleGrantedAuthority>)SecurityContextHolder.getContext()
-                                                                .getAuthentication()
-                                                                .getAuthorities();
-
-        UsernamePasswordAuthenticationToken authentication = 
-        new UsernamePasswordAuthenticationToken(contrata.getNombre(), contrata.getPassword(), nowAuthorities);
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        return this.obtenerContrataConectado();
-    }
 
     @Override
     public Contrata guardarNuevoUsuarioFromDto(NuevoUsuarioDto dto){

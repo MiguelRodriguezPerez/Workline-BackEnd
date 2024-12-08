@@ -15,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PreRemove;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,13 +32,12 @@ import lombok.ToString;
 @Table(name = "Busca")
 public class Busca extends Usuario{
     
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "busca")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "busca")
     private List<Experiencia> listaExperiencias;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "busca")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "busca")
     private List<Conocimiento> listaConocimientos;
-
-    
+ 
     @JsonBackReference("busca-oferta") 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) 
     @JoinTable(name = "busca_oferta", joinColumns = @JoinColumn(name = "busca_id"), inverseJoinColumns = @JoinColumn(name = "oferta_id")) 

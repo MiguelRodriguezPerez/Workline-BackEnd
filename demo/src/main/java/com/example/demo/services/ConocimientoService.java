@@ -16,7 +16,6 @@ public interface ConocimientoService {
     void guardarListaConocimientos(Busca busca,List <Conocimiento> conocimientos);
     Conocimiento obtenerPorId(Long id);
     void borrarConocimiento(Long id);
-    void borrarConocimientoWrapper(Long id);
     void borrarTodosPorBusca(Long id);
     List<Conocimiento> obtenerTodos();
     List<Conocimiento> obtenerTodosSet();
