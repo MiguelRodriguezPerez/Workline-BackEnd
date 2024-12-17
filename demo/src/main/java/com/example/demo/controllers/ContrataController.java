@@ -45,14 +45,15 @@ public class ContrataController {
 
     @PostMapping("/nuevaOferta")
     public ResponseEntity<Oferta> registrarOferta(@RequestBody OfertaDtoApi ofertaDtoApi){
-        
         Oferta oferta = ofertaService.convertirOfertaDtoApiAOferta(ofertaDtoApi);
         ofertaService.guardarOfertaFromContrata(oferta);
         return new ResponseEntity<>(oferta,HttpStatus.CREATED);
     }
 
-    @PutMapping("/editarOferta/{id}")//Recibe el id por separado para saber que oferta editar
-    public ResponseEntity<Oferta> actualizarOferta(@PathVariable Long id, @RequestBody OfertaDtoApi ofertaDtoApi){
+
+    @PutMapping("/editarOferta/{id}")
+    public ResponseEntity<Oferta> actualizarOferta(@PathVariable Long id, 
+        @RequestBody OfertaDtoApi ofertaDtoApi){
         Oferta o1 = ofertaService.convertirOfertaDtoApiAOferta(ofertaDtoApi);
         o1.setId(id);
         Oferta ofertaDef = ofertaService.guardarCambios(o1);

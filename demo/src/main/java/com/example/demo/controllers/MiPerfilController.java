@@ -36,7 +36,6 @@ public class MiPerfilController {
 
     @GetMapping("/getCurrentUser")
     public ResponseEntity<UsuarioContext> getLoggedUser() {
-        // El token llega
         Usuario usuario = usuarioService.obtenerUsuarioLogueado();
         UsuarioContext usuarioView = usuarioService.convertirUsuarioAUsuarioView(usuario);
 

@@ -101,7 +101,6 @@ public class BuscaController {
     @GetMapping("/miListaOfertas")
     public ResponseEntity<List<Oferta>> getMyListOfertas(){
         List<Oferta> resultado = buscaService.obtenerBuscaConectado().getListaOfertas();
-        System.out.println(resultado);
         if(resultado.size() == 0) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         else return new ResponseEntity<>(resultado,HttpStatus.OK);
     }

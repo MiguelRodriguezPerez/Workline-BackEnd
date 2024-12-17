@@ -54,6 +54,8 @@ public interface OfertaRepository extends JpaRepository<Oferta, Long> {
 
     /*------------------------- Querys relacionadas con la entidad busca -------------------------------*/
 
+    /*Esta consulta sirve para borrar un busca de todas las ofertas en las que se ha inscrito.
+    Se utiliza cuando un usuario busca borra su cuenta*/
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM busca_oferta WHERE busca_id = :buscaId", nativeQuery = true)
