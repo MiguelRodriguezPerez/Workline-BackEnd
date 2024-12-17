@@ -37,42 +37,6 @@ public class DemoApplication {
 			// 1234kasdddddddjfA#
 			// 5678MMsdddddddjfA# 
 			// Iconos 24 *24
-			// adminService.guardar(new Admin("raul","aaa@gmail","Jaen","654474733","1234kasdddddddjfA#"));
-			// contrataService.guardar(new Contrata("laura","laura@gmail.com","Jaen","625557811","1234kasdddddddjfA#"));
-			// ofertaService.guardarOferta(new Oferta("Camarero", "Hosteleria", "Servir copas", "Jaen", 15000d, TipoContrato.TEMPORAL, (byte)12, ModalidadTrabajo.PRESENCIAL, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Cocinero", "Hosteleria", "Preparar alimentos", "Soria",  18000d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.HIBRIDO, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Recepcionista", "Hosteleria", "Atender a los clientes", "Jaen", 1500d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.TELETRABAJO, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Mantenimiento", "Hosteleria", "Reparaciones generales", "Jaen", 15000d, TipoContrato.DISCONTINUO, (byte)12, ModalidadTrabajo.PRESENCIAL, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Animador", "Hosteleria", "Organizar actividades", "Jaen",  15000d, TipoContrato.TEMPORAL, (byte)12, ModalidadTrabajo.HIBRIDO, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Limpieza", "Hosteleria", "Limpieza de habitaciones", "Jaen",  15000d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.TELETRABAJO, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Portero", "Hosteleria", "Vigilar entrada", "Jaen",  15000d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.PRESENCIAL, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Conserje", "Hosteleria", "Atender a los huéspedes", "Jaen",  15000d, TipoContrato.DISCONTINUO, (byte)12, ModalidadTrabajo.HIBRIDO, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Mozo de equipaje", "Hosteleria", "Trasladar equipajes", "Jaen",  15000d, TipoContrato.TEMPORAL, (byte)12, ModalidadTrabajo.TELETRABAJO, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Jardinero", "Hosteleria", "Cuidado de jardines", "Jaen",  15000d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.PRESENCIAL, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Valet", "Hosteleria", "Servicio de valet", "Jaen",  15000d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.HIBRIDO, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Sommelier", "Hosteleria", "Recomendar vinos", "Jaen",  15000d, TipoContrato.DISCONTINUO, (byte)12, ModalidadTrabajo.TELETRABAJO, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Barman", "Hosteleria", "Preparar bebidas", "Jaen",  15000d, TipoContrato.TEMPORAL, (byte)12, ModalidadTrabajo.PRESENCIAL, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Guía turístico", "Hosteleria", "Guiar turistas", "Jaen",  15000d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.HIBRIDO, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Chef", "Hosteleria", "Cocinar platos", "Jaen",  15000d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.TELETRABAJO, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Supervisor", "Hosteleria", "Supervisar personal", "Jaen",  15000d, TipoContrato.DISCONTINUO, (byte)12, ModalidadTrabajo.PRESENCIAL, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Administrador", "Hosteleria", "Administrar recursos", "Jaen",  15000d, TipoContrato.TEMPORAL, (byte)12, ModalidadTrabajo.HIBRIDO, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Guardia de seguridad", "Hosteleria", "Seguridad del hotel", "Jaen",  15000d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.TELETRABAJO, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Encargado de almacén", "Hosteleria", "Gestionar almacén", "Jaen",  15000d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.PRESENCIAL, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Técnico de mantenimiento", "Hosteleria", "Mantenimiento técnico", "Jaen",  15000d, TipoContrato.DISCONTINUO, (byte)12, ModalidadTrabajo.HIBRIDO, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Asistente de eventos", "Hosteleria", "Ayudar en eventos", "Jaen",  15000d, TipoContrato.TEMPORAL, (byte)12, ModalidadTrabajo.TELETRABAJO, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Director de hotel", "Hosteleria", "Gestionar el hotel", "Jaen",  15000d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.PRESENCIAL, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Operador de centralita", "Hosteleria", "Atender llamadas", "Jaen",  15000d, TipoContrato.INDEFINIDO, (byte)12, ModalidadTrabajo.HIBRIDO, contrataService.obtenerTodos().get(0)));
-			// ofertaService.guardarOferta(new Oferta("Chef pastelero", "Hosteleria", "Preparar postres", "Jaen",  15000d, TipoContrato.DISCONTINUO, (byte)12, ModalidadTrabajo.TELETRABAJO, contrataService.obtenerTodos().get(0)));
-
-			// buscaService.guardar(new Busca("roberto","manuel@gmail.com","Cordoba","654344512","1234kasdddddddjfA#"));
-			// buscaService.guardar(new Busca("manuel","manuel@gmail.com","Soria","654344512","1234kasdddddddjfA#"));
-
-			// conocimientoService.guardarConocimientoDemoApp(buscaService.obtenerTodos().get(0),new Conocimiento(0l, "Liceo Maria", "barrendero", LocalDate.of(2006,10,11), LocalDate.of(2008, 11, 12), buscaService.obtenerTodos().get(0)));
-
-			// conocimientoService.guardarConocimientoDemoApp(buscaService.obtenerTodos().get(0),new Conocimiento(0l, "Barreiros Lopez", "Técnico en técnicos", LocalDate.of(2009,10,11), LocalDate.of(2011, 11, 12), buscaService.obtenerTodos().get(0)));
-
-			// experienciaService.guardarExperienciaDemoApp(buscaService.obtenerTodos().get(0),new Experiencia(0l, "Sumiller", "AirEuropa", LocalDate.of(2008, 10, 11), LocalDate.of(2010,10, 02),buscaService.obtenerTodos().get(0)));
-			// experienciaService.guardarExperienciaDemoApp(buscaService.obtenerTodos().get(0),new Experiencia(0l, "Zapatero", "Rebook", LocalDate.of(2014, 10, 11), LocalDate.of(2018,10, 02),buscaService.obtenerTodos().get(0)));
 
 			// contrataService.guardar(new Contrata("TechCorp", "techcorp@gmail.com", "Madrid", "623456789", "1234kasdddddddjfA#"));
 			// contrataService.guardar(new Contrata("InnovateCo", "innovateco@gmail.com", "Barcelona", "624567890", "1234kasdddddddjfA#"));
