@@ -25,11 +25,11 @@ import jakarta.servlet.http.HttpServletResponse;
 @RestController
 public class MiPerfilController {
 
-    @Autowired
-    UsuarioService usuarioService;
+    /*Este controlador contiene los endpoints de acciones comunes de usuarios logueados que realizan
+    acciones sobre su propia cuenta*/
 
     @Autowired
-    BuscaService buscaService;
+    UsuarioService usuarioService;
 
     @Autowired
     AuthenticationService authenticationService;

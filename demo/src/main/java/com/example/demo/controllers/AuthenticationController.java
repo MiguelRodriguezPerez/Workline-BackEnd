@@ -31,7 +31,6 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<UsuarioContext> authenticate(@RequestBody LoginUserDto loginUserDto,
         HttpServletResponse response) {
-            
         Usuario authenticatedUser = authenticationService.authenticate(loginUserDto);
         response.addCookie(authenticationService.generateCookieToken(authenticatedUser));
 
@@ -43,9 +42,9 @@ public class AuthenticationController {
     @GetMapping("/logout")
     public ResponseEntity<?> triggerLogout(HttpServletResponse response) {
         // authenticationService.logout();
-        Cookie jwtToken = authenticationService.generateCookieToken(usuarioService.obtenerUsuarioLogueado());
-        jwtToken.setMaxAge(0);
-        response.addCookie(jwtToken);
+        // Cookie jwtToken = authenticationService.generateCookieToken(usuarioService.obtenerUsuarioLogueado());
+        // jwtToken.setMaxAge(0);
+        // response.addCookie(jwtToken);
 
         authenticationService.logout();
 

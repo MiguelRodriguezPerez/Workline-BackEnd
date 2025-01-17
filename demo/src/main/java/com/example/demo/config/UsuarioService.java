@@ -118,13 +118,14 @@ public class UsuarioService {
         }
     }
 
+
+    /*Este método sirve para comprobar si la contraseña del usuario que esta logueado coincide
+    con la que el propio usuario logueado esta introduciendo. Esta función se utiliza cuando el 
+    usuario desea cambiar su contraseña*/
     public boolean comprobarPasswordUsuarioLogueado(String comprobar){
         /*usuarioConectado te esta devolviendo bien la contraseña encriptada. 
         No es problema de la clase padre */
         Usuario usuarioConectado = this.obtenerUsuarioLogueado();
-        System.out.println(comprobar);
-        System.out.println(usuarioConectado.getPassword());
-        System.out.println(passwordEncoder.matches(comprobar, usuarioConectado.getPassword()));
 
         return passwordEncoder.matches(comprobar, usuarioConectado.getPassword());
     }
