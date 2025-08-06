@@ -26,7 +26,7 @@ public class Contrata extends Usuario{
 
     private String apiKey;
     @JsonManagedReference("contrata-oferta")
-    @OneToMany(fetch= FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "contrata")
+    @OneToMany(fetch= FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "contrata")
     @Nullable
     private List <Oferta> listaOfertas;
     

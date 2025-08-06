@@ -246,9 +246,7 @@ public class OfertaServiceImpl implements OfertaService {
                 ofertaDtoApi.getSalarioAnual(),
                 t1,
                 ofertaDtoApi.getHoras(),
-                m1,
-                ofertaDtoApi.getListaValorables(),
-                ofertaDtoApi.getListaRequisitos());
+                m1);
 
         System.out.println(resultado + "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
 

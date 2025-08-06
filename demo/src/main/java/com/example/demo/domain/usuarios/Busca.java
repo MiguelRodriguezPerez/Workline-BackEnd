@@ -30,16 +30,16 @@ import lombok.ToString;
 @EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "Busca")
-public class Busca extends Usuario{
+public class Busca extends Usuario {
     
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "busca")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "busca")
     private List<Experiencia> listaExperiencias;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "busca")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "busca")
     private List<Conocimiento> listaConocimientos;
  
     @JsonBackReference("busca-oferta") 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY) 
     @JoinTable(name = "busca_oferta", joinColumns = @JoinColumn(name = "busca_id"), inverseJoinColumns = @JoinColumn(name = "oferta_id")) 
     @JsonIgnoreProperties("busca_id") 
     private List<Oferta> listaOfertas;
