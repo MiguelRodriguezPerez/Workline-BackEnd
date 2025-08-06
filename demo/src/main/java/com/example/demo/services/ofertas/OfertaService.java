@@ -1,6 +1,7 @@
 package com.example.demo.services.ofertas;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 
@@ -38,7 +39,7 @@ public interface OfertaService {
 
     List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta);
 
-    void cambiarPropiedadOfertas(List<Oferta> listaOfertas, String nombre);
+    void cambiarPropiedadOfertas(Set<Oferta> listaOfertas, String nombre);
 
     boolean estaSuscritoOferta(Long id);
 

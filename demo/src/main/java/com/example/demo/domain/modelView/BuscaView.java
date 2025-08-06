@@ -1,6 +1,7 @@
 package com.example.demo.domain.modelView;
 
 import java.util.List;
+import java.util.Set;
 
 import com.example.demo.domain.Conocimiento;
 import com.example.demo.domain.Experiencia;
@@ -21,6 +22,6 @@ public class BuscaView {
     private String email;
     private String telefono;
     private String ciudad;
-    private List<Conocimiento> listaConocimientos;
-    private List<Experiencia> listaExperiencias;
+    private Set<Conocimiento> listaConocimientos;
+    private Set<Experiencia> listaExperiencias;
 }

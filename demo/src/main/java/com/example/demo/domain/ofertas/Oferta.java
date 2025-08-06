@@ -71,18 +71,18 @@ public class Oferta implements Comparable<Oferta> {
 
     private LocalDate fechaPublicacion;
 
-    @ElementCollection
-    @CollectionTable(name = "lista_valorables", joinColumns = @JoinColumn(name = "oferta_id")) 
-    @Column(name = "valorable")
-    private List<String> listaValorables;
+    // @ElementCollection
+    // @CollectionTable(name = "lista_valorables", joinColumns = @JoinColumn(name = "oferta_id")) 
+    // @Column(name = "valorable")
+    // private List<String> listaValorables;
 
-    @ElementCollection
-    @CollectionTable(name = "lista_requisitos", joinColumns = @JoinColumn(name = "oferta_id")) 
-    @Column(name = "requisito")
-    private List<String> listaRequisitos;
+    // @ElementCollection
+    // @CollectionTable(name = "lista_requisitos", joinColumns = @JoinColumn(name = "oferta_id")) 
+    // @Column(name = "requisito")
+    // private List<String> listaRequisitos;
 
     @JsonManagedReference("busca-oferta") 
-    @ManyToMany(mappedBy = "listaOfertas", fetch = FetchType.EAGER) 
+    @ManyToMany(mappedBy = "listaOfertas", fetch = FetchType.LAZY) 
     private List<Busca> listaCandidatos;
 
     @ManyToOne
@@ -114,8 +114,7 @@ public class Oferta implements Comparable<Oferta> {
     }
 
     public Oferta(String puesto2, String sector2, String descripcion2, String ciudad2, 
-                  Double salarioAnual2, TipoContrato t1, Byte horas2, ModalidadTrabajo m1, 
-                  List<String> listaValorables, List<String> listaRequisitos) { 
+                  Double salarioAnual2, TipoContrato t1, Byte horas2, ModalidadTrabajo m1) { 
         this.puesto = puesto2; 
         this.sector = sector2; 
         this.descripcion = descripcion2; 
@@ -127,7 +126,7 @@ public class Oferta implements Comparable<Oferta> {
         this.fechaPublicacion = LocalDate.now();
         this.nombreEmpresa = ""; 
 
-        this.listaValorables = listaValorables;
-        this.listaRequisitos = listaRequisitos;
+        // this.listaValorables = listaValorables;
+        // this.listaRequisitos = listaRequisitos;
     }
 }

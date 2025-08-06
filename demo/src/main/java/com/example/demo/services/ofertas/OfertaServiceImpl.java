@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -205,8 +206,10 @@ public class OfertaServiceImpl implements OfertaService {
 
     }
 
+    /* TODO: Realizar este método por consulta precompilada */
+
     @Override
-    public void cambiarPropiedadOfertas(List<Oferta> listaOfertas, String username) {
+    public void cambiarPropiedadOfertas(Set<Oferta> listaOfertas, String username) {
         for (Oferta oferta : listaOfertas) {
             oferta.setNombreEmpresa(username);
             this.guardarCambios(oferta);
@@ -246,9 +249,7 @@ public class OfertaServiceImpl implements OfertaService {
                 ofertaDtoApi.getSalarioAnual(),
                 t1,
                 ofertaDtoApi.getHoras(),
-                m1,
-                ofertaDtoApi.getListaValorables(),
-                ofertaDtoApi.getListaRequisitos());
+                m1);
 
         System.out.println(resultado + "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
 

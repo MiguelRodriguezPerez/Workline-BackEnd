@@ -1,5 +1,6 @@
 package com.example.demo.services.usuarios;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -107,7 +108,7 @@ public class ContrataServiceImpl implements ContrataService{
     public Page<Oferta> obtenerPaginaOfertasPublicadas(Integer paginaElecta) {
 
         Pageable paginable = PageRequest.of(paginaElecta,ofertasPorPagina);
-        List<Oferta> listaOfertas = this.obtenerContrataConectado().getListaOfertas();
+        List<Oferta> listaOfertas = new ArrayList<Oferta>(this.obtenerContrataConectado().getListaOfertas());
 
         int inicio = (int) paginable.getOffset();
         int fin = Math.min(inicio + paginable.getPageSize(),listaOfertas.size());
@@ -117,23 +118,23 @@ public class ContrataServiceImpl implements ContrataService{
         return resultado;
     }
 
-    @Override
-    public String generarApiKey() {
-        Contrata contrata = this.obtenerContrataConectado();
-        String key = UUID.randomUUID().toString();
+    // @Override
+    // public String generarApiKey() {
+    //     Contrata contrata = this.obtenerContrataConectado();
+    //     String key = UUID.randomUUID().toString();
 
-        contrata.setApiKey(passwordEncoder.encode(key));
-        this.guardarSinEncriptar(contrata);
+    //     contrata.setApiKey(passwordEncoder.encode(key));
+    //     this.guardarSinEncriptar(contrata);
 
-        return key;
-    }
+    //     return key;
+    // }
 
-    @Override
-    public void borrarApiKey() {
-        Contrata contrata = this.obtenerContrataConectado();
-        contrata.setApiKey(null);
-        this.guardarSinEncriptar(contrata);
-    }
+    // @Override
+    // public void borrarApiKey() {
+    //     Contrata contrata = this.obtenerContrataConectado();
+    //     contrata.setApiKey(null);
+    //     this.guardarSinEncriptar(contrata);
+    // }
 
 
 }

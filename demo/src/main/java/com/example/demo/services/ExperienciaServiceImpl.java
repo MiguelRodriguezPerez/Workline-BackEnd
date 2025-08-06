@@ -51,19 +51,6 @@ public class ExperienciaServiceImpl implements ExperienciaService{
     }
 
     @Override
-    public void guardarListaExperiencias(Busca busca, List<Experiencia> experiencias) {
-        
-        busca.setListaExperiencias(experiencias);
-        buscaService.guardarSinEncriptar(busca);
-
-        for(Experiencia exp: experiencias){
-            exp.setBusca(busca);
-            guardarExperiencia(exp);
-        }
-
-    }
-
-    @Override
     public Experiencia guardarExperienciaFromBusca(Experiencia experiencia){
 
         Busca busca = buscaService.obtenerBuscaConectado();

@@ -13,7 +13,6 @@ public interface ConocimientoService {
     Conocimiento guardarCambios(ConocimientoDto conocimientoDto, Long id);
     Conocimiento guardarConocimientoFromContrata(Conocimiento conocimiento);
     void actualizarConocimiento(Conocimiento conocimiento);
-    void guardarListaConocimientos(Busca busca,List <Conocimiento> conocimientos);
     Conocimiento obtenerPorId(Long id);
     void borrarConocimiento(Long id);
     void borrarTodosPorBusca(Long id);

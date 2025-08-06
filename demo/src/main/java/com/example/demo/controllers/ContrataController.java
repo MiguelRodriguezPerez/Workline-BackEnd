@@ -93,9 +93,7 @@ public class ContrataController {
     
     @GetMapping("/obtenerBuscaPorNombre/{nombre}")
     public ResponseEntity<Busca> getBuscaByName(@PathVariable String nombre){
-        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         Busca resultado = buscaService.obtenerPorNombre(nombre);
-        System.out.println(resultado + "AAAAAAAAAAAAAAAAAAAAAA");
         if(resultado == null) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(resultado,HttpStatus.OK);
     }

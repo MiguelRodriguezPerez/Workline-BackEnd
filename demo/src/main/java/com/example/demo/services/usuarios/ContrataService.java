@@ -23,7 +23,7 @@ public interface ContrataService {
     String obtenerNombre();
     Contrata obtenerContrataConectado();
     Page<Oferta> obtenerPaginaOfertasPublicadas(Integer paginaElecta);
-    String generarApiKey();
-    void borrarApiKey();
+    // String generarApiKey();
+    // void borrarApiKey();
     
 }
