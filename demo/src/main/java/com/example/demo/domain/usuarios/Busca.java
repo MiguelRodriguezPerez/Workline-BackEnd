@@ -1,6 +1,7 @@
 package com.example.demo.domain.usuarios;
 
 import java.util.List;
+import java.util.Set;
 
 import com.example.demo.domain.Conocimiento;
 import com.example.demo.domain.Experiencia;
@@ -33,16 +34,16 @@ import lombok.ToString;
 public class Busca extends Usuario {
     
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "busca")
-    private List<Experiencia> listaExperiencias;
+    private Set<Experiencia> listaExperiencias;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "busca")
-    private List<Conocimiento> listaConocimientos;
+    private Set<Conocimiento> listaConocimientos;
  
     @JsonBackReference("busca-oferta") 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY) 
     @JoinTable(name = "busca_oferta", joinColumns = @JoinColumn(name = "busca_id"), inverseJoinColumns = @JoinColumn(name = "oferta_id")) 
     @JsonIgnoreProperties("busca_id") 
-    private List<Oferta> listaOfertas;
+    private Set<Oferta> listaOfertas;
 
     public Busca(String nombre, String email, String ciudad, String telefono, String password) {
         super(nombre, email, ciudad, telefono, password, Rol.BUSCA);

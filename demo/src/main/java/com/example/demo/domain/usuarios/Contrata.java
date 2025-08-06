@@ -1,6 +1,7 @@
 package com.example.demo.domain.usuarios;
 
 import java.util.List;
+import java.util.Set;
 
 import com.example.demo.domain.ofertas.Oferta;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -24,11 +25,11 @@ import lombok.ToString;
 public class Contrata extends Usuario{
 
 
-    private String apiKey;
+    // private String apiKey;
     @JsonManagedReference("contrata-oferta")
     @OneToMany(fetch= FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "contrata")
     @Nullable
-    private List <Oferta> listaOfertas;
+    private Set<Oferta> listaOfertas;
     
     public Contrata(String nombre, String email, String ciudad, String telefono, String password) {
         super(nombre, email, ciudad, telefono, password,Rol.CONTRATA);

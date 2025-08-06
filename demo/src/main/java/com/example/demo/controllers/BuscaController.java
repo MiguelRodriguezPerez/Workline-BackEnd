@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,8 +39,8 @@ public class BuscaController {
     ConocimientoService conocimientoService;
 
     @GetMapping("/misExperiencias")
-    public ResponseEntity<List<Experiencia>> getMyExperiencias(){
-        List<Experiencia> resultado = buscaService.obtenerBuscaConectado().getListaExperiencias();
+    public ResponseEntity<Set<Experiencia>> getMyExperiencias(){
+        Set<Experiencia> resultado = buscaService.obtenerBuscaConectado().getListaExperiencias();
         if(resultado.isEmpty() || resultado == null) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
@@ -66,8 +67,8 @@ public class BuscaController {
     }
 
     @GetMapping("/misConocimientos")
-    public ResponseEntity<List<Conocimiento>> getMyConocimientos(){
-        List<Conocimiento> resultado = buscaService.obtenerBuscaConectado().getListaConocimientos();
+    public ResponseEntity<Set<Conocimiento>> getMyConocimientos(){
+        Set<Conocimiento> resultado = buscaService.obtenerBuscaConectado().getListaConocimientos();
         if(resultado.isEmpty() || resultado == null) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
@@ -99,8 +100,8 @@ public class BuscaController {
     }
 
     @GetMapping("/miListaOfertas")
-    public ResponseEntity<List<Oferta>> getMyListOfertas(){
-        List<Oferta> resultado = buscaService.obtenerBuscaConectado().getListaOfertas();
+    public ResponseEntity<Set<Oferta>> getMyListOfertas(){
+        Set<Oferta> resultado = buscaService.obtenerBuscaConectado().getListaOfertas();
         if(resultado.size() == 0) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         else return new ResponseEntity<>(resultado,HttpStatus.OK);
     }

@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,20 +35,6 @@ public class ConocimientoServiceImpl implements ConocimientoService{
         buscaService.guardarSinEncriptar(busca);
         
         return c;
-    }
-
-    @Override
-    public void guardarListaConocimientos(Busca busca, List<Conocimiento> conocimientos) {
-
-        busca.setListaConocimientos(conocimientos);
-        buscaService.guardarSinEncriptar(busca);
-       
-        for(Conocimiento con: conocimientos){
-
-            con.setBusca(busca);
-            guardarConocimiento(con);
-            
-        }
     }
 
     @Override
