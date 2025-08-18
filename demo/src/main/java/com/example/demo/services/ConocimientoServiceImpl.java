@@ -36,19 +36,6 @@ public class ConocimientoServiceImpl implements ConocimientoService{
         return c;
     }
 
-    @Override
-    public void guardarListaConocimientos(Busca busca, List<Conocimiento> conocimientos) {
-
-        busca.setListaConocimientos(conocimientos);
-        buscaService.guardarSinEncriptar(busca);
-       
-        for(Conocimiento con: conocimientos){
-
-            con.setBusca(busca);
-            guardarConocimiento(con);
-            
-        }
-    }
 
     @Override
     public Conocimiento guardarCambios(ConocimientoDto dto, Long id){

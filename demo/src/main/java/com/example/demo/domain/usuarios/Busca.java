@@ -1,6 +1,7 @@
 package com.example.demo.domain.usuarios;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.example.demo.domain.Conocimiento;
 import com.example.demo.domain.Experiencia;
@@ -15,34 +16,32 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.PreRemove;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Data
+
 @ToString(exclude = {"listaOfertas"}) // Excluir las colecciones relacionadas
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "Busca")
-public class Busca extends Usuario{
+@Data
+public class Busca extends Usuario {
     
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "busca")
-    private List<Experiencia> listaExperiencias;
+    private Set<Experiencia> listaExperiencias = new HashSet<Experiencia>();
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "busca")
-    private List<Conocimiento> listaConocimientos;
+    private Set<Conocimiento> listaConocimientos = new HashSet<Conocimiento>();
  
     @JsonBackReference("busca-oferta") 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) 
     @JoinTable(name = "busca_oferta", joinColumns = @JoinColumn(name = "busca_id"), inverseJoinColumns = @JoinColumn(name = "oferta_id")) 
     @JsonIgnoreProperties("busca_id") 
-    private List<Oferta> listaOfertas;
+    private Set<Oferta> listaOfertas = new HashSet<Oferta>();
 
     public Busca(String nombre, String email, String ciudad, String telefono, String password) {
         super(nombre, email, ciudad, telefono, password, Rol.BUSCA);

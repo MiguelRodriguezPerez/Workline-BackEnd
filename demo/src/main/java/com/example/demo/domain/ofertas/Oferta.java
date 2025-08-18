@@ -1,7 +1,9 @@
 package com.example.demo.domain.ofertas;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
@@ -81,9 +83,13 @@ public class Oferta implements Comparable<Oferta> {
     @Column(name = "requisito")
     private List<String> listaRequisitos;
 
+    /* La documentación de Hibernate detalla que solo instancia colecciones en campos si estas vienen de la 
+    bd. Si creas una nueva entidad en el backend, no la instanciará. Por eso es estándar instanciarlas en la
+    declaración de la propia entidad */
+
     @JsonManagedReference("busca-oferta") 
     @ManyToMany(mappedBy = "listaOfertas", fetch = FetchType.EAGER) 
-    private List<Busca> listaCandidatos;
+    private Set<Busca> listaCandidatos = new HashSet<Busca>();
 
     @ManyToOne
     @JoinColumn(name = "contrata_id")

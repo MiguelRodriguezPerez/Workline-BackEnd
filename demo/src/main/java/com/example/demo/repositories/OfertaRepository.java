@@ -33,9 +33,9 @@ public interface OfertaRepository extends JpaRepository<Oferta, Long> {
     @Query(value = "DELETE FROM ofertas WHERE contrata_id = :contrataId", nativeQuery = true)
     void deleteAllOfertasByContrataId(@Param("contrataId") Long contrataId);
 
-    /*Este método sirve para borrar la relación que tengan todos los busca con una
+    /* Este método sirve para borrar la relación que tengan todos los busca con una
     oferta determinada. Es el primer método que se ejecuta cuando un contrata quiere
-    borrar una oferta*/
+    borrar una oferta */
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM busca_oferta WHERE oferta_id = :ofertaId", nativeQuery = true)

@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -76,8 +77,8 @@ public class ContrataController {
     }
 
     @GetMapping("/obtenerListaCandidatos/{id}")
-    public ResponseEntity<List<Busca>> getListBusca(@PathVariable Long id){
-        List<Busca> resultado = ofertaService.obtenerPorId(id).getListaCandidatos();
+    public ResponseEntity<Set<Busca>> getListBusca(@PathVariable Long id){
+        Set<Busca> resultado = ofertaService.obtenerPorId(id).getListaCandidatos();
         if(resultado.size() == 0) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(resultado,HttpStatus.OK);
     }

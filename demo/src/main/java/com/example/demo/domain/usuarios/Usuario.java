@@ -24,13 +24,15 @@ import lombok.NoArgsConstructor;
 
 
 @Data
-@EqualsAndHashCode(of="id")
+// Las clases hijas heredaran dicha igualdad
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @DiscriminatorColumn(name = "dtype")
 @MappedSuperclass
-public abstract class Usuario implements UserDetails{
+public abstract class Usuario implements UserDetails {
 
+    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
