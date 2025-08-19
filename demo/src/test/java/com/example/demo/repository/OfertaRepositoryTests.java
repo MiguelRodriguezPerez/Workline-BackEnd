@@ -101,6 +101,16 @@ public class OfertaRepositoryTests {
     }
 
     @Test
+    public void OfertaRepository_deleteAllOfertasByContrataId_checkContrataDeletesAllHisOfertas() {
+        ofertaRepository.deleteAllCandidatosFromContrataId(contrata.getId());
+        ofertaRepository.deleteAllOfertasByContrataId(contrata.getId());
+
+        Contrata contrataActualizado = contrataRepository.findById(contrata.getId()).orElseThrow();
+
+        Assertions.assertThat(contrataActualizado.getListaOfertas().isEmpty());
+    }
+
+    @Test
     public void OfertaRepository_removeAllCandidatesFromOferta_checkOfertaLosesAllBusca() {
         Oferta oferta = listaOfertas.get(0);
 
@@ -120,14 +130,21 @@ public class OfertaRepositoryTests {
     }
 
     @Test
-    public void OfertaRepository_removeAllOfertasFromContrata_checkContrataDeletesAllHisOfertas() {
-        ofertaRepository.deleteAllCandidatosFromContrataId(contrata.getId());
-        ofertaRepository.deleteAllOfertasByContrataId(contrata.getId());
+    public void OfertaRepository_deleteBuscaFromAllOfertas_checkBuscaIsRemovedFromAllHisOfertas () {
+        Busca busca = listaBusca.get(0);
 
-        Contrata contrataActualizado = contrataRepository.findById(contrata.getId()).orElseThrow();
+        listaOfertas.forEach(oferta -> {
+            busca.getListaOfertas().add(oferta);
+            oferta.getListaCandidatos().add(busca);
 
-        Assertions.assertThat(contrataActualizado.getListaOfertas().isEmpty());
+            ofertaRepository.save(oferta);
+            buscaRepository.save(busca);
+        });
+
+        ofertaRepository.deleteBuscaFromAllOfertas(busca.getId());
+
+        Busca buscaUpdated = buscaRepository.findById(busca.getId()).orElseThrow();
+
+        Assertions.assertThat(buscaUpdated.getListaOfertas().isEmpty());
     }
-
-
 }
