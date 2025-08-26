@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Experiencia;
-import com.example.demo.domain.dtos.ExperienciaDto;
+import com.example.demo.domain.dtos.usuarios.busca.ExperienciaDto;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.repositories.ExperienciaRepository;
 import com.example.demo.services.usuarios.BuscaService;

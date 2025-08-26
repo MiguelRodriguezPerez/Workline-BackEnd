@@ -1,4 +1,4 @@
-package com.example.demo.domain.dtos;
+package com.example.demo.domain.dtos.usuarios.busca;
 
 import java.time.LocalDate;
 

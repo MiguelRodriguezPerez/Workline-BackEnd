@@ -6,7 +6,7 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Experiencia;
-import com.example.demo.domain.dtos.ExperienciaDto;
+import com.example.demo.domain.dtos.usuarios.busca.ExperienciaDto;
 import com.example.demo.domain.usuarios.Busca;
 
 @Service

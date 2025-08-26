@@ -1,24 +1,22 @@
 package com.example.demo.services.usuarios;
 
-import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.domain.Conocimiento;
+import com.example.demo.domain.Experiencia;
 import com.example.demo.domain.dtos.NuevoUsuarioDto;
 import com.example.demo.domain.modelView.BuscaView;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.repositories.BuscaRepository;
-
-import jakarta.transaction.Transactional;
 
 @Service
 public class BuscaServiceImpl implements BuscaService {
@@ -96,6 +94,21 @@ public class BuscaServiceImpl implements BuscaService {
     }
 
     @Override
+    public Set<Experiencia> obtenerExperienciasBuscaConectado() {
+        return this.obtenerBuscaConectado().getListaExperiencias();
+    }
+
+    @Override
+    public Set<Conocimiento> obtenerConocimientosBuscaConectado() {
+        return this.obtenerBuscaConectado().getListaConocimientos();
+    }
+
+    @Override
+    public Set<Oferta> obtenerOfertasBuscaConectado() {
+        return this.obtenerBuscaConectado().getListaOfertas();
+    }
+
+    @Override
     public Boolean estaInscritoOferta(Long id) {
 
         for (Oferta oferta : this.obtenerBuscaConectado().getListaOfertas()) {
@@ -118,5 +131,7 @@ public class BuscaServiceImpl implements BuscaService {
         return new Busca(dto.getNombre(), dto.getEmail(),
                 dto.getCiudad(), dto.getTelefono(), dto.getPassword());
     }
+
+    
 
 }

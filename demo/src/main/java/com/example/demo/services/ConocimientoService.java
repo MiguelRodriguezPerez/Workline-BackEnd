@@ -3,7 +3,7 @@ package com.example.demo.services;
 import java.util.List;
 
 import com.example.demo.domain.Conocimiento;
-import com.example.demo.domain.dtos.ConocimientoDto;
+import com.example.demo.domain.dtos.usuarios.busca.ConocimientoDto;
 import com.example.demo.domain.usuarios.Busca;
 
 public interface ConocimientoService {

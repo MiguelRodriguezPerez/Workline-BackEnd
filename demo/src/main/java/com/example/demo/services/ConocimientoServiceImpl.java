@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Conocimiento;
-import com.example.demo.domain.dtos.ConocimientoDto;
+import com.example.demo.domain.dtos.usuarios.busca.ConocimientoDto;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.repositories.ConocimientoRepository;
 import com.example.demo.services.usuarios.BuscaService;

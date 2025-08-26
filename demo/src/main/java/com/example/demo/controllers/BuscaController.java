@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Conocimiento;
 import com.example.demo.domain.Experiencia;
-import com.example.demo.domain.dtos.ConocimientoDto;
-import com.example.demo.domain.dtos.ExperienciaDto;
+import com.example.demo.domain.dtos.usuarios.busca.ConocimientoDto;
+import com.example.demo.domain.dtos.usuarios.busca.ExperienciaDto;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.services.ConocimientoService;
@@ -40,9 +40,9 @@ public class BuscaController {
 
     @GetMapping("/misExperiencias")
     public ResponseEntity<Set<Experiencia>> getMyExperiencias(){
-        Set<Experiencia> resultado = buscaService.obtenerBuscaConectado().getListaExperiencias();
+        Set<Experiencia> resultado = buscaService.obtenerExperienciasBuscaConectado();
         if(resultado.isEmpty() || resultado == null) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        return new ResponseEntity<>(resultado, HttpStatus.OK);
+        else return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
 
     @PostMapping("/nuevaExperiencia")
@@ -68,9 +68,10 @@ public class BuscaController {
 
     @GetMapping("/misConocimientos")
     public ResponseEntity<Set<Conocimiento>> getMyConocimientos(){
-        Set<Conocimiento> resultado = buscaService.obtenerBuscaConectado().getListaConocimientos();
+        Set<Conocimiento> resultado = buscaService.obtenerConocimientosBuscaConectado();
+
         if(resultado.isEmpty() || resultado == null) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        return new ResponseEntity<>(resultado, HttpStatus.OK);
+        else return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
     
     @PostMapping("/nuevoConocimiento")
@@ -102,7 +103,8 @@ public class BuscaController {
     @GetMapping("/miListaOfertas")
     public ResponseEntity<Set<Oferta>> getMyListOfertas(){
         Set<Oferta> resultado = buscaService.obtenerBuscaConectado().getListaOfertas();
-        if(resultado.size() == 0) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        if(resultado.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         else return new ResponseEntity<>(resultado,HttpStatus.OK);
     }
 }
