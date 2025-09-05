@@ -47,7 +47,7 @@ public class Experiencia {
 
     @ManyToOne
     @JoinColumn(name = "busca_id")
-    @JsonBackReference(value = "busca-experiencia")
+    @JsonBackReference(value = "busca_experiencia")
     private Busca busca;
  
 }

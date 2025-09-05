@@ -20,13 +20,12 @@ import lombok.ToString;
 @ToString(exclude = "listaOfertas")
 @NoArgsConstructor
 // @AllArgsConstructor
-@Table(name="Contrata")
 @Entity
 public class Contrata extends Usuario{
 
 
     // private String apiKey;
-    @JsonManagedReference("contrata-oferta")
+    @JsonManagedReference("contrata_oferta")
     @OneToMany(fetch= FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "contrata")
     @Nullable
     private Set<Oferta> listaOfertas;

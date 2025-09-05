@@ -30,7 +30,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Entity
-@Table(name = "Busca")
 public class Busca extends Usuario {
     
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "busca")
@@ -39,7 +38,7 @@ public class Busca extends Usuario {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "busca")
     private Set<Conocimiento> listaConocimientos;
  
-    @JsonBackReference("busca-oferta") 
+    @JsonBackReference("busca_oferta") 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY) 
     @JoinTable(name = "busca_oferta", joinColumns = @JoinColumn(name = "busca_id"), inverseJoinColumns = @JoinColumn(name = "oferta_id")) 
     @JsonIgnoreProperties("busca_id") 

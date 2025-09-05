@@ -34,7 +34,6 @@ import lombok.ToString;
 @EqualsAndHashCode(of = "id")
 @Data
 @Entity
-@Table(name = "ofertas")
 public class Oferta implements Comparable<Oferta> {
     @GeneratedValue
     @Id
@@ -81,13 +80,13 @@ public class Oferta implements Comparable<Oferta> {
     // @Column(name = "requisito")
     // private List<String> listaRequisitos;
 
-    @JsonManagedReference("busca-oferta") 
+    @JsonManagedReference("busca_oferta") 
     @ManyToMany(mappedBy = "listaOfertas", fetch = FetchType.LAZY) 
     private List<Busca> listaCandidatos;
 
     @ManyToOne
     @JoinColumn(name = "contrata_id")
-    @JsonBackReference("contrata-oferta")
+    @JsonBackReference("contrata_oferta")
     private Contrata contrata;
 
     @Override
