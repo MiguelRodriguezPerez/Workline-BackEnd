@@ -13,10 +13,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.domain.dtos.usuarios.oferta.OfertaDto;
 import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.domain.ofertas.ModalidadTrabajo;
 import com.example.demo.domain.ofertas.Oferta;
-import com.example.demo.domain.ofertas.OfertaDtoApi;
 import com.example.demo.domain.ofertas.TipoContrato;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
@@ -45,13 +45,13 @@ public class OfertaServiceImpl implements OfertaService {
     }
 
     @Override
-    public Oferta guardarOfertaFromContrata(Oferta oferta) {
+    public Oferta guardarOfertaFromContrata(OfertaDto ofertaDto) {
 
         // Sospechoso de fallar con jwt
         Contrata contrataConectado = contrataService.obtenerContrataConectado();
+        Oferta ofertaEntity = this.convertirOfertaDtoAOferta(ofertaDto);
 
-        oferta.setNombreEmpresa(contrataConectado.getNombre());
-        oferta.setContrata(contrataConectado);
+        if (ofertaEntity.getContrata() == null) ofertaEntity.setContrata(contrataConectado);
 
         /*
          * Como este método sirve para guardar nuevas ofertas, pero también sirve
@@ -220,35 +220,26 @@ public class OfertaServiceImpl implements OfertaService {
     }
 
     @Override
-    public Oferta convertirOfertaDtoApiAOferta(OfertaDtoApi ofertaDtoApi) {
+    public Oferta convertirOfertaDtoAOferta(OfertaDto ofertaDto) {
 
-        TipoContrato t1 = null;
-        ModalidadTrabajo m1 = null;
-
-        for (ModalidadTrabajo m : ModalidadTrabajo.values()) {
-            if (ofertaDtoApi.getModalidadTrabajo().equalsIgnoreCase(m.toString()))
-                m1 = m;
-        }
-
-        for (TipoContrato t : TipoContrato.values()) {
-            if (ofertaDtoApi.getTipoContrato().equalsIgnoreCase(t.toString()))
-                t1 = t;
-        }
-
-        Oferta resultado = new Oferta(ofertaDtoApi.getPuesto(),
-                ofertaDtoApi.getSector(),
-                ofertaDtoApi.getDescripcion(),
-                ofertaDtoApi.getCiudad(),
-                ofertaDtoApi.getSalarioAnual(),
-                t1,
-                ofertaDtoApi.getHoras(),
-                m1,
-                ofertaDtoApi.getListaValorables(),
-                ofertaDtoApi.getListaRequisitos());
-
-        System.out.println(resultado + "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-
-        return resultado;
+        return Oferta.builder()
+                .puesto(ofertaDto.getPuesto())
+                .sector(ofertaDto.getSector())
+                .descripcion(ofertaDto.getDescripcion())
+                .ciudad(ofertaDto.getCiudad())
+                .salarioAnual(ofertaDto.getSalarioAnual())
+                .tipoContrato(
+                    TipoContrato.valueOf(ofertaDto.getTipoContrato().toUpperCase())
+                )
+                .horas(ofertaDto.getHoras())
+                .modalidadTrabajo(
+                    ModalidadTrabajo.valueOf(ofertaDto.getModalidadTrabajo().toUpperCase())
+                )
+                .fechaPublicacion(LocalDate.now())
+                .nombreEmpresa(
+                    contrataService.obtenerContrataConectado().getNombre()
+                ) 
+                .build();
     }
 
     @Override

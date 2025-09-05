@@ -25,6 +25,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -37,7 +38,8 @@ import lombok.ToString;
 @Data
 @Entity
 @Table(name = "ofertas")
-public class Oferta implements Comparable<Oferta> {
+@Builder
+public class Oferta implements Comparable <Oferta> {
     @GeneratedValue
     @Id
     private Long id;
@@ -72,16 +74,6 @@ public class Oferta implements Comparable<Oferta> {
     private String nombreEmpresa;
 
     private LocalDate fechaPublicacion;
-
-    @ElementCollection
-    @CollectionTable(name = "lista_valorables", joinColumns = @JoinColumn(name = "oferta_id")) 
-    @Column(name = "valorable")
-    private List<String> listaValorables;
-
-    @ElementCollection
-    @CollectionTable(name = "lista_requisitos", joinColumns = @JoinColumn(name = "oferta_id")) 
-    @Column(name = "requisito")
-    private List<String> listaRequisitos;
 
     /* La documentación de Hibernate detalla que solo instancia colecciones en campos si estas vienen de la 
     bd. Si creas una nueva entidad en el backend, no la instanciará. Por eso es estándar instanciarlas en la
@@ -120,8 +112,7 @@ public class Oferta implements Comparable<Oferta> {
     }
 
     public Oferta(String puesto2, String sector2, String descripcion2, String ciudad2, 
-                  Double salarioAnual2, TipoContrato t1, Byte horas2, ModalidadTrabajo m1, 
-                  List<String> listaValorables, List<String> listaRequisitos) { 
+                  Double salarioAnual2, TipoContrato t1, Byte horas2, ModalidadTrabajo m1) { 
         this.puesto = puesto2; 
         this.sector = sector2; 
         this.descripcion = descripcion2; 
@@ -132,8 +123,5 @@ public class Oferta implements Comparable<Oferta> {
         this.modalidadTrabajo = m1; 
         this.fechaPublicacion = LocalDate.now();
         this.nombreEmpresa = ""; 
-
-        this.listaValorables = listaValorables;
-        this.listaRequisitos = listaRequisitos;
     }
 }

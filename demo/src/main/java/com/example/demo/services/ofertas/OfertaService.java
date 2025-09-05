@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
+import com.example.demo.domain.dtos.usuarios.oferta.OfertaDto;
 import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.domain.ofertas.Oferta;
-import com.example.demo.domain.ofertas.OfertaDtoApi;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
 
@@ -14,13 +14,13 @@ public interface OfertaService {
 
     Oferta guardarOferta(Oferta oferta);
 
-    Oferta guardarOfertaFromContrata(Oferta oferta);
+    Oferta guardarOfertaFromContrata(OfertaDto ofertaDto);
 
     Oferta guardarCambios(Oferta oferta);
 
     Oferta obtenerPorId(Long id);
 
-    Oferta convertirOfertaDtoApiAOferta(OfertaDtoApi ofertaDtoApi);
+    Oferta convertirOfertaDtoAOferta(OfertaDto ofertaDtoApi);
 
     void borrarOferta(Long id);
 
@@ -31,7 +31,9 @@ public interface OfertaService {
     void borrarBuscaDeTodasLasOfertas(Busca busca);
 
     void borrarTodasLasOfertasDeUnContrata(Contrata contrata);
+
     void borrarTodosCandidatosTodasOfertasFromContrataId(Contrata contrata);
+
     List<Oferta> obtenerTodos();
 
     Page<Oferta> obtenerPaginaApi(int pagina, BusquedaOferta busquedaOferta);
