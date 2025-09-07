@@ -1,6 +1,9 @@
 package com.example.demo.config;
 
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,8 +22,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+
+import io.github.cdimascio.dotenv.Dotenv;
 
 @Configuration
 @EnableWebSecurity
@@ -28,38 +34,43 @@ import org.springframework.web.filter.CorsFilter;
 public class SecurityConfig {
     
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception{
+    AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception{
         return configuration.getAuthenticationManager();
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider(UserDetailsImpl userDetailsImpl) {
+    AuthenticationProvider authenticationProvider(UserDetailsImpl userDetailsImpl) {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsImpl);
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
 
+    @Bean 
+    SecurityContextRepository securityContextRepository() { 
+        return new HttpSessionSecurityContextRepository();
+    }
+
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:5173");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
-    }
+    CorsConfigurationSource corsConfigurationSource() {        
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 
-    @Bean 
-    public SecurityContextRepository securityContextRepository() { 
-        return new HttpSessionSecurityContextRepository();
+        corsConfiguration.setAllowedOrigins(Arrays.asList(dotenv.get("CLIENT_ALLOWED")));
+        corsConfiguration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
+        /* TODO: Decidir jwt token en cookies o headers*/ 
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setAllowedHeaders(Arrays.asList("Authorization","Content-Type"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration);
+
+        return source;
     }
 
     @Bean
@@ -85,9 +96,7 @@ public class SecurityConfig {
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
             .anyRequest().authenticated());
 
-        // http.exceptionHandling(exceptions -> {
-        //     exceptions.accessDeniedPage("/sesion/error");
-        // });
+        http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
         http.csrf(csrf -> csrf.disable());
 
