@@ -47,6 +47,8 @@ public class DemoApplication {
 	// 		contrataService.guardar(new Contrata("Reformas López", "info@rlopez.es", "Barcelona", "611987654", "passReformas456"));
 	// 		contrataService.guardar(new Contrata("Obras Martínez", "obras@martinez.com", "Valencia", "622555444", "construir789"));
 
+	// contrataService.guardar(new Contrata("DIESEL4LIFE", "obras@martinez.com", "Valencia", "622555444", "1234kasdddddddjfA#"));
+
 	// 		buscaService.guardar(new Busca("Juan Pérez", "juan.perez@mail.com", "Madrid", "600111222", "passwordJuan123"));
 	// 		buscaService.guardar(new Busca("María López", "maria.lopez@mail.com", "Barcelona", "611333444", "claveMaria456"));
 	// 		buscaService.guardar(new Busca("Carlos Sánchez", "carlos.sanchez@mail.com", "Valencia", "622555666", "passCarlos789"));
