@@ -12,6 +12,7 @@ import com.example.demo.domain.usuarios.Usuario;
 import com.example.demo.domain.usuarios.UsuarioContext;
 import com.example.demo.exceptions.loginExceptions.UsernameNoEncontradoException;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import jakarta.servlet.http.Cookie;
 
 @Service
@@ -38,12 +39,28 @@ public class AuthenticationService {
         return usuario;
     }
 
-    public Cookie generateCookieToken(Usuario usuario) {
+    public Cookie generateCookieToken (Usuario usuario) {
+        Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
+
         String token = jwtService.generateToken(usuario);
         Cookie cookie = new Cookie("jwtToken", token);
-        cookie.setHttpOnly(false);
-        cookie.setSecure(false);
+        cookie.setHttpOnly(true);
+        /* POTENCIAL FALLO EN PROD. TODO COMPROBAR */
+        cookie.setSecure(Boolean.parseBoolean(dotenv.get("SHOULD_JWT_COOKIE_BE_SECURE")));
         cookie.setPath("/");
+        cookie.setMaxAge(60 * 60);
+
+        return cookie;
+    }
+
+    public Cookie logoutWrapper () {
+        Cookie cookie = new Cookie("jwtToken", null);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(false); // si usas HTTPS
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+
+        SecurityContextHolder.clearContext();
 
         return cookie;
     }
