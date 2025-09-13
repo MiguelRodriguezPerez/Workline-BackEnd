@@ -51,7 +51,9 @@ public class AuthenticationService {
                 .maxAge(60 * 60)
                 /* Si la cookie es segura, significa que estas en prod. Si estas en prod
                 tienes que poner SameSite=none porque si no el navegador rechazará cookies que no 
-                van al mismo dominio del que vinieron si son secure */
+                van al mismo dominio del que vinieron si son secure
+                
+                Jakarta Cookie no permite esta configuración */
                 .sameSite(
                     Boolean.parseBoolean(dotenv.get("SHOULD_JWT_COOKIE_BE_SECURE")) ?
                         "None" : "Lax"

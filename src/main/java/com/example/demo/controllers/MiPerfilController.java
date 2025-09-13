@@ -20,7 +20,6 @@ import com.example.demo.domain.usuarios.Usuario;
 import com.example.demo.domain.usuarios.UsuarioContext;
 import com.example.demo.domain.usuarios.UsuarioDto;
 import com.example.demo.services.auth.AuthenticationService;
-import com.example.demo.services.usuarios.BuscaService;
 
 @RequestMapping("/user")
 @RestController
@@ -51,7 +50,6 @@ public class MiPerfilController {
 
     @PutMapping("/updateUserData")
     public ResponseEntity<UsuarioContext> updateUserData(@RequestBody UsuarioDto usuarioDto) {
-            
         Usuario usuario = usuarioService.guardarCambios(usuarioDto);
         ResponseCookie jwtToken = authenticationService.generateCookieToken(usuario);
         UsuarioContext resultado = usuarioService.convertirUsuarioAUsuarioView(usuario);
@@ -85,13 +83,14 @@ public class MiPerfilController {
     }
 
     @PutMapping("/cambiarPassword")
-    public ResponseEntity<Void> changePasswordEndpoint(@RequestBody String newPassword,
-        HttpServletResponse response){
+    public ResponseEntity<Void> changePasswordEndpoint(@RequestBody String newPassword){
         newPassword = usuarioService.quitarComillasPassword(newPassword);
         Usuario newUsuario = usuarioService.cambiarPasswordWrapper(newPassword);
-
-        Cookie jwtToken = authenticationService.generateCookieToken(newUsuario);
-        response.addCookie(jwtToken);
-        return new ResponseEntity<>(HttpStatus.OK);
+        ResponseCookie jwtToken = authenticationService.generateCookieToken(newUsuario);
+        
+        return ResponseEntity
+            .ok()
+            .header(HttpHeaders.SET_COOKIE, jwtToken.toString())
+            .body(null);
     }
 }

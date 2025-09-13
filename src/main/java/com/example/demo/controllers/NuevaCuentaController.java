@@ -1,7 +1,11 @@
 package com.example.demo.controllers;
 
+import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,7 +53,7 @@ public class NuevaCuentaController {
 
     //Discutiblemente podría ser PutMapping
     @PostMapping("/nuevoContrata")
-    public ResponseEntity<UsuarioContext> createNewContrataEndpoint(@RequestBody NuevoUsuarioDto dto, HttpServletResponse response) {
+    public ResponseEntity<UsuarioContext> createNewContrataEndpoint(@RequestBody NuevoUsuarioDto dto) {
 
         contrataService.guardarNuevoUsuarioFromDto(dto);
         //Asumiendo que todo vaya bien
@@ -57,28 +61,37 @@ public class NuevaCuentaController {
         Usuario authenticatedUser = authenticationService.authenticate( 
             new LoginUserDto(dto.getNombre(), dto.getPassword())
         );
-        response.addCookie(authenticationService.generateCookieToken(authenticatedUser));
-
+        ResponseCookie cookie = authenticationService.generateCookieToken(authenticatedUser);
         UsuarioContext usuarioContext = authenticationService.getUsuarioViewClientContext(authenticatedUser);
         
-        return new ResponseEntity<>(usuarioContext, HttpStatus.OK);
+        /* TODO: Averiguar si tendría que existir un enpoint específico para cada usuario para indicar en el URI
+        Ejemplo: /contrata/user/1 */
+
+        return ResponseEntity
+                .created(URI.create("/user/getCurrentUser"))
+                .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .body(usuarioContext);
     }
 
     //Discutiblemente podría ser PutMapping
     @PostMapping("/nuevoBusca")
     public ResponseEntity<UsuarioContext> createNewBuscaEndpoint(@RequestBody NuevoUsuarioDto dto, HttpServletResponse response) {
-
         buscaService.guardarNuevoUsuarioFromDto(dto);
         //Asumiendo que todo vaya bien
         //Usas la contraseña del dto sin encriptar. La encriptada no serviría
         Usuario authenticatedUser = authenticationService.authenticate( 
             new LoginUserDto(dto.getNombre(), dto.getPassword())
         );
-        response.addCookie(authenticationService.generateCookieToken(authenticatedUser));
-
+        ResponseCookie cookie = authenticationService.generateCookieToken(authenticatedUser);
         UsuarioContext usuarioContext = authenticationService.getUsuarioViewClientContext(authenticatedUser);
         
-        return new ResponseEntity<>(usuarioContext, HttpStatus.OK);
+        /* TODO: Averiguar si tendría que existir un enpoint específico para cada usuario para indicar en el URI
+        Ejemplo: /contrata/user/1 */
+
+        return ResponseEntity
+                .created(URI.create("/user/getCurrentUser"))
+                .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .body(usuarioContext);
     }
     
 }
