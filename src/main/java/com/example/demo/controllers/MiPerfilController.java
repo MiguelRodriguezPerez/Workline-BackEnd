@@ -1,7 +1,11 @@
 package com.example.demo.controllers;
 
+import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +20,6 @@ import com.example.demo.domain.usuarios.Usuario;
 import com.example.demo.domain.usuarios.UsuarioContext;
 import com.example.demo.domain.usuarios.UsuarioDto;
 import com.example.demo.services.auth.AuthenticationService;
-import com.example.demo.services.usuarios.BuscaService;
-
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
 
 @RequestMapping("/user")
 @RestController
@@ -49,29 +49,29 @@ public class MiPerfilController {
     }
 
     @PutMapping("/updateUserData")
-    public ResponseEntity<UsuarioContext> updateUserData(@RequestBody UsuarioDto usuarioDto, 
-        HttpServletResponse response) {
-            
+    public ResponseEntity<UsuarioContext> updateUserData(@RequestBody UsuarioDto usuarioDto) {
         Usuario usuario = usuarioService.guardarCambios(usuarioDto);
-        Cookie jwtToken = authenticationService.generateCookieToken(usuario);
-        response.addCookie(jwtToken);
+        ResponseCookie jwtToken = authenticationService.generateCookieToken(usuario);
         UsuarioContext resultado = usuarioService.convertirUsuarioAUsuarioView(usuario);
-
-        return new ResponseEntity<>(resultado, HttpStatus.CREATED);
+        return ResponseEntity
+        /* Esta considerado una buena práctica que cuando creas o actualizas un recurso en el servidor decirle 
+         * al cliente a través de una URI en que subruta se encuentra dicho recurso. 
+         * Además spring la fuerza de todas maneras 
+        */
+            .created(URI.create("/user/getCurrentUser"))
+            .header(HttpHeaders.SET_COOKIE, jwtToken.toString())
+            .body(resultado);
     }
 
     @DeleteMapping("/borrarCuentaUsuarioLogueado")
-    public ResponseEntity<Void> deleteLoggedUserEndpoint(HttpServletResponse response) {
-
-        Usuario usuario = usuarioService.obtenerUsuarioLogueado();
-        Cookie cookie = authenticationService.generateCookieToken(usuario);
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
-
+    public ResponseEntity<Void> deleteLoggedUserEndpoint() {
+        ResponseCookie jwtToken = authenticationService.logoutWrapper();
         usuarioService.borrarCuentaUsuarioLogueado();
-        authenticationService.logout();
         
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity
+            .ok()
+            .header(HttpHeaders.SET_COOKIE, jwtToken.toString())
+            .body(null);
     }
 
     @PostMapping("/confirmarPassword")
@@ -83,13 +83,14 @@ public class MiPerfilController {
     }
 
     @PutMapping("/cambiarPassword")
-    public ResponseEntity<Void> changePasswordEndpoint(@RequestBody String newPassword,
-        HttpServletResponse response){
+    public ResponseEntity<Void> changePasswordEndpoint(@RequestBody String newPassword){
         newPassword = usuarioService.quitarComillasPassword(newPassword);
         Usuario newUsuario = usuarioService.cambiarPasswordWrapper(newPassword);
-
-        Cookie jwtToken = authenticationService.generateCookieToken(newUsuario);
-        response.addCookie(jwtToken);
-        return new ResponseEntity<>(HttpStatus.OK);
+        ResponseCookie jwtToken = authenticationService.generateCookieToken(newUsuario);
+        
+        return ResponseEntity
+            .ok()
+            .header(HttpHeaders.SET_COOKIE, jwtToken.toString())
+            .body(null);
     }
 }

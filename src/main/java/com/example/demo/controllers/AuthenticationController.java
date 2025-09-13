@@ -1,7 +1,10 @@
 package com.example.demo.controllers;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +18,6 @@ import com.example.demo.domain.usuarios.Usuario;
 import com.example.demo.domain.usuarios.UsuarioContext;
 import com.example.demo.services.auth.AuthenticationService;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
-
 @RequestMapping("/auth")
 @RestController
 public class AuthenticationController {
@@ -29,20 +29,23 @@ public class AuthenticationController {
     UsuarioService usuarioService;
 
     @PostMapping("/login")
-    public ResponseEntity<UsuarioContext> authenticate(@RequestBody LoginUserDto loginUserDto,
-        HttpServletResponse response) {
+    public ResponseEntity<UsuarioContext> authenticate(@RequestBody LoginUserDto loginUserDto) {
         Usuario authenticatedUser = authenticationService.authenticate(loginUserDto);
-        response.addCookie(authenticationService.generateCookieToken(authenticatedUser));
-
         UsuarioContext usuarioView = authenticationService.getUsuarioViewClientContext(authenticatedUser);
+        ResponseCookie cookie = authenticationService.generateCookieToken(authenticatedUser);
 
-        return ResponseEntity.ok(usuarioView);
+        return ResponseEntity
+            .ok()
+            .header(HttpHeaders.SET_COOKIE, cookie.toString()) 
+            .body(usuarioView); 
     }
 
     @GetMapping("/logout")
-    public ResponseEntity<?> triggerLogout(HttpServletResponse response) {
-        Cookie logoutCookie = authenticationService.logoutWrapper();
-        response.addCookie(logoutCookie);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<?> triggerLogout() {
+        ResponseCookie logoutCookie = authenticationService.logoutWrapper();
+        return ResponseEntity
+            .ok()
+            .header(HttpHeaders.SET_COOKIE, logoutCookie.toString())
+            .body(null);
     }
 }

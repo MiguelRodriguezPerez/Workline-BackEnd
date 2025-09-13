@@ -1,13 +1,10 @@
 package com.example.demo.services.usuarios;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,8 +14,6 @@ import com.example.demo.domain.modelView.BuscaView;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.repositories.BuscaRepository;
-
-import jakarta.transaction.Transactional;
 
 @Service
 public class BuscaServiceImpl implements BuscaService {
@@ -49,17 +44,22 @@ public class BuscaServiceImpl implements BuscaService {
 
     @Override
     public void borrar(Long id) {
-        /*Este método solo se llama cuando el propio usuario borra su cuenta, por lo que
-        se forzará un logout*/
+        /*
+         * Este método solo se llama cuando el propio usuario borra su cuenta, por lo
+         * que
+         * se forzará un logout
+         */
         repo.deleteById(id);
     }
 
     @Override
-    public void borrarCuentaWrapper(){
-        //Asume que ya se desinscribio de todas las ofertas
+    public void borrarCuenta() {
+        // Asume que ya se desinscribio de todas las ofertas
         Busca busca = this.obtenerBuscaConectado();
-        /*Recuerda que conocimientos y experiencias estan configuradas para borrarse
-        si su busca desaparece*/
+        /*
+         * Recuerda que conocimientos y experiencias estan configuradas para borrarse
+         * si su busca desaparece
+         */
         this.borrar(busca.getId());
     }
 
