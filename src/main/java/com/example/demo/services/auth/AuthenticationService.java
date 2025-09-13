@@ -1,6 +1,7 @@
 package com.example.demo.services.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,30 +40,42 @@ public class AuthenticationService {
         return usuario;
     }
 
-    public Cookie generateCookieToken (Usuario usuario) {
+    public ResponseCookie generateCookieToken(Usuario usuario) {
         Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
-
         String token = jwtService.generateToken(usuario);
-        Cookie cookie = new Cookie("jwtToken", token);
-        cookie.setHttpOnly(true);
-        /* POTENCIAL FALLO EN PROD. TODO COMPROBAR */
-        cookie.setSecure(Boolean.parseBoolean(dotenv.get("SHOULD_JWT_COOKIE_BE_SECURE")));
-        cookie.setPath("/");
-        cookie.setMaxAge(60 * 60);
 
-        return cookie;
+        return ResponseCookie.from("jwtToken", token)
+                .httpOnly(true)
+                .secure(Boolean.parseBoolean(dotenv.get("SHOULD_JWT_COOKIE_BE_SECURE")))
+                .path("/")
+                .maxAge(60 * 60)
+                /* Si la cookie es segura, significa que estas en prod. Si estas en prod
+                tienes que poner SameSite=none porque si no el navegador rechazará cookies que no 
+                van al mismo dominio del que vinieron si son secure */
+                .sameSite(
+                    Boolean.parseBoolean(dotenv.get("SHOULD_JWT_COOKIE_BE_SECURE")) ?
+                        "None" : "Lax"
+                )
+                .build();
     }
 
-    public Cookie logoutWrapper () {
-        Cookie cookie = new Cookie("jwtToken", null);
-        cookie.setHttpOnly(true);
-        cookie.setSecure(false); // si usas HTTPS
-        cookie.setPath("/");
-        cookie.setMaxAge(0);
+    public ResponseCookie logoutWrapper () {
+        Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
+
+        ResponseCookie logoutCookie = ResponseCookie.from("jwtToken",null)
+            .httpOnly(true)
+            .secure(true)
+            .sameSite(
+                Boolean.parseBoolean(dotenv.get("SHOULD_JWT_COOKIE_BE_SECURE")) ?
+                    "None" : "Lax"
+            )
+            .path("/")
+            .maxAge(0)
+            .build();
 
         SecurityContextHolder.clearContext();
 
-        return cookie;
+        return logoutCookie;
     }
 
     /*
@@ -74,7 +87,4 @@ public class AuthenticationService {
         return usuarioService.convertirUsuarioAUsuarioView(usuario);
     }
 
-    public void logout() {
-        SecurityContextHolder.clearContext();
-    }
 }

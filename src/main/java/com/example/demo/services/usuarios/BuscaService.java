@@ -9,17 +9,29 @@ import com.example.demo.domain.usuarios.Busca;
 public interface BuscaService {
 
     Busca guardar(Busca busca);
+
     Busca guardarSinEncriptar(Busca busca);
+
     Busca guardarNuevoUsuarioFromDto(NuevoUsuarioDto dto);
+
     void borrar(Long id);
-    void borrarCuentaWrapper();
+
+    void borrarCuenta();
+
     List<Busca> obtenerTodos();
+
     Busca obtenerPorId(Long id);
+
     Busca obtenerPorNombre(String nombre);
+
     boolean esNombreRepetido(String nombre);
+
     Busca obtenerBuscaConectado();
+
     Boolean estaInscritoOferta(Long id);
+
     BuscaView convertirBuscaABuscaView(Busca busca);
+
     Busca convertirNuevoUsuarioDtoABusca(NuevoUsuarioDto dto);
 
 }

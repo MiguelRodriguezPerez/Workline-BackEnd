@@ -108,7 +108,7 @@ public class UsuarioService {
                 ofertaService.borrarBuscaDeTodasLasOfertas((Busca) usuarioConectado);
                 conocimientoService.borrarTodosPorBusca(usuarioConectado.getId());
                 experienciaService.borrarTodosPorBusca(usuarioConectado.getId());
-                buscaService.borrarCuentaWrapper();
+                buscaService.borrarCuenta();
                 break;
             case CONTRATA:
                 ofertaService.borrarTodosCandidatosTodasOfertasFromContrataId((Contrata) usuarioConectado);
@@ -118,19 +118,24 @@ public class UsuarioService {
         }
     }
 
-
-    /*Este método sirve para comprobar si la contraseña del usuario que esta logueado coincide
-    con la que el propio usuario logueado esta introduciendo. Esta función se utiliza cuando el 
-    usuario desea cambiar su contraseña*/
-    public boolean comprobarPasswordUsuarioLogueado(String comprobar){
-        /*usuarioConectado te esta devolviendo bien la contraseña encriptada. 
-        No es problema de la clase padre */
+    /*
+     * Este método sirve para comprobar si la contraseña del usuario que esta
+     * logueado coincide
+     * con la que el propio usuario logueado esta introduciendo. Esta función se
+     * utiliza cuando el
+     * usuario desea cambiar su contraseña
+     */
+    public boolean comprobarPasswordUsuarioLogueado(String comprobar) {
+        /*
+         * usuarioConectado te esta devolviendo bien la contraseña encriptada.
+         * No es problema de la clase padre
+         */
         Usuario usuarioConectado = this.obtenerUsuarioLogueado();
 
         return passwordEncoder.matches(comprobar, usuarioConectado.getPassword());
     }
 
-    public Usuario cambiarPasswordWrapper(String newPassword){
+    public Usuario cambiarPasswordWrapper(String newPassword) {
         Usuario usuarioConectado = this.obtenerUsuarioLogueado();
         usuarioConectado.setPassword(newPassword);
 
@@ -141,17 +146,23 @@ public class UsuarioService {
             case CONTRATA:
                 Contrata newContrata = contrataService.guardar((Contrata) usuarioConectado);
                 return newContrata;
-                
-            default: return null;
+
+            default:
+                return null;
         }
     }
 
-    /*Cuando enviabas tu contraseña para cambiarla, el lado cliente le añadía " al principio y final
-    del string password que provocaba que el método que comparaba las contraseñas diera como falso
-    una contraseña que se envío bien.
-    Este método sirve para quitar dichas contraseñas y que el método que comprueba si una contraseña
-    es correcta de true*/
-    public String quitarComillasPassword(String oldPassword){
+    /*
+     * Cuando enviabas tu contraseña para cambiarla, el lado cliente le añadía " al
+     * principio y final
+     * del string password que provocaba que el método que comparaba las contraseñas
+     * diera como falso
+     * una contraseña que se envío bien.
+     * Este método sirve para quitar dichas contraseñas y que el método que
+     * comprueba si una contraseña
+     * es correcta de true
+     */
+    public String quitarComillasPassword(String oldPassword) {
         return oldPassword.replace("\"", "");
     }
 
