@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.ofertas.BusquedaOferta;
@@ -26,8 +24,6 @@ import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.repositories.OfertaRepository;
 import com.example.demo.services.usuarios.BuscaService;
 import com.example.demo.services.usuarios.ContrataService;
-
-import jakarta.transaction.Transactional;
 
 @Service
 public class OfertaServiceImpl implements OfertaService {
@@ -106,16 +102,13 @@ public class OfertaServiceImpl implements OfertaService {
      */
     @Override
     public void borrarOfertaWrapper(Long id) {
-        Contrata contrata = contrataService.obtenerContrataConectado();
-        contrata.getListaOfertas().removeIf(oferta -> oferta.getId() == id);
-
         Oferta oferta = this.obtenerPorId(id);
-        oferta.setContrata(null);
 
-        contrataService.guardarSinEncriptar(contrata);
+        if (!oferta.getListaCandidatos().isEmpty())
+            repo.removeAllCandidatesFromOferta(id);
 
-        this.borrarTodosCandidatosDeUnaOferta(id);
-        this.borrarOferta(id);
+        /* No tienes que borrar ambos lados de las relaciones si usas sql "directo" */
+        repo.deleteById(id);
     }
 
     @Override

@@ -43,7 +43,7 @@ public class DemoApplication {
 	// 		// 5678MMsdddddddjfA# 
 	// 		// Iconos 24 *24
 
-	// 		contrataService.guardar(new Contrata("Construcciones García", "contacto@cgarcia.com", "Madrid", "600123456", "claveSegura123"));
+	// 		contrataService.guardar(new Contrata("Construcciones García", "contacto@cgarcia.com", "Madrid", "600123456", "claveSegura123!"));
 	// 		contrataService.guardar(new Contrata("Reformas López", "info@rlopez.es", "Barcelona", "611987654", "passReformas456"));
 	// 		contrataService.guardar(new Contrata("Obras Martínez", "obras@martinez.com", "Valencia", "622555444", "construir789"));
 

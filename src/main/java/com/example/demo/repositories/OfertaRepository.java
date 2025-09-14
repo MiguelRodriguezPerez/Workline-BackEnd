@@ -20,7 +20,7 @@ public interface OfertaRepository extends JpaRepository<Oferta, Long> {
     @Modifying
     @Transactional
     @Query(value = "DELETE FROM busca_oferta WHERE oferta_id IN ("
-            + "SELECT o.id FROM ofertas o WHERE o.contrata_id = :contrataId)", nativeQuery = true)
+            + "SELECT o.id FROM oferta o WHERE o.contrata_id = :contrataId)", nativeQuery = true)
     void deleteAllCandidatosFromContrataId(@Param("contrataId") Long contrataId);
 
     /* Este método borra todas las ofertas de un contrata. Para que funcione
@@ -30,7 +30,7 @@ public interface OfertaRepository extends JpaRepository<Oferta, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM ofertas WHERE contrata_id = :contrataId", nativeQuery = true)
+    @Query(value = "DELETE FROM oferta WHERE contrata_id = :contrataId", nativeQuery = true)
     void deleteAllOfertasByContrataId(@Param("contrataId") Long contrataId);
 
     /*Este método sirve para borrar la relación que tengan todos los busca con una
@@ -49,7 +49,7 @@ public interface OfertaRepository extends JpaRepository<Oferta, Long> {
     conocimientos y experiencias)*/
     @Modifying 
     @Transactional 
-    @Query(value = "DELETE FROM ofertas WHERE id = :id", nativeQuery = true) 
+    @Query(value = "DELETE FROM oferta WHERE id = :id", nativeQuery = true) 
     void deleteById(@Param("id") Long id);
 
     /*------------------------- Querys relacionadas con la entidad busca -------------------------------*/

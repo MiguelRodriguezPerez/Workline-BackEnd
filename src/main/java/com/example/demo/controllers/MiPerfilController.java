@@ -65,8 +65,8 @@ public class MiPerfilController {
 
     @DeleteMapping("/borrarCuentaUsuarioLogueado")
     public ResponseEntity<Void> deleteLoggedUserEndpoint() {
-        ResponseCookie jwtToken = authenticationService.logoutWrapper();
         usuarioService.borrarCuentaUsuarioLogueado();
+        ResponseCookie jwtToken = authenticationService.logoutWrapper();       
         
         return ResponseEntity
             .ok()
