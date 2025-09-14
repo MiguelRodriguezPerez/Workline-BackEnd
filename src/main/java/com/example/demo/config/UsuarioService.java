@@ -94,9 +94,10 @@ public class UsuarioService {
                 Busca busca = (Busca) currentUsuario;
                 buscaService.guardarSinEncriptar(busca);
                 return busca;
-        }
 
-        return null;
+            default:
+                throw new RuntimeException("Wrong rol processed: " + currentUsuario.getRol().toString());
+        }
 
     }
 
