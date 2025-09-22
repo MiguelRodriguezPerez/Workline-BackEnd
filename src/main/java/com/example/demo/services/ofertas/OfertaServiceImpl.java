@@ -1,13 +1,18 @@
 package com.example.demo.services.ofertas;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +29,8 @@ import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.repositories.OfertaRepository;
 import com.example.demo.services.usuarios.BuscaService;
 import com.example.demo.services.usuarios.ContrataService;
+
+import io.github.cdimascio.dotenv.Dotenv;
 
 @Service
 public class OfertaServiceImpl implements OfertaService {
@@ -131,20 +138,15 @@ public class OfertaServiceImpl implements OfertaService {
         return repo.findById(id).orElse(null);
     }
 
-    @Override
-    public List<Oferta> obtenerTodos() {
-        ArrayList<Oferta> resultado = (ArrayList<Oferta>) repo.findAll();
-        Collections.sort(resultado, (f1, f2) -> f1.getFechaPublicacion().compareTo(f2.getFechaPublicacion()));
-        return resultado;
-    }
-
-    private final Integer ofertasPorPagina = 10;
 
     @Override
     public Page<Oferta> obtenerPaginaApi(int numPag, BusquedaOferta busquedaOferta) {
-        List<Oferta> resultadosBusqueda = this.obtenerResultados(busquedaOferta);
-        if (resultadosBusqueda.isEmpty())
-            return null;
+        final Integer ofertasPorPagina = 10;
+
+        List<Oferta> resultadosBusqueda = new ArrayList<>();
+        /* Si no lo pasas a ArrayList, no podrás tener índices con los que realizar la paginación */
+        resultadosBusqueda.addAll(this.obtenerResultados(busquedaOferta));
+        if (resultadosBusqueda.isEmpty()) return null;
 
         Pageable paginable = PageRequest.of(numPag, ofertasPorPagina);
         int primeraOferta = (int) paginable.getOffset();
@@ -155,51 +157,103 @@ public class OfertaServiceImpl implements OfertaService {
         return resultado;
     }
 
+    @Value("${spring.datasource.url}")
+    private String fullRoute;
+
     @Override
-    public List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta) {
-        List<Oferta> resultado = this.obtenerTodos();
+    public Set<Oferta> obtenerResultados(BusquedaOferta busquedaOferta) {
+        /* WHERE 1=1 te permite poder añadir AND sin tener que preocuparte 
+        de que la consulta rompa si no recibe ningún criterio */
+        StringBuilder query = new StringBuilder("SELECT * FROM oferta WHERE 1=1"); 
+        Set<Oferta> resultado = new HashSet<>();
+        List<Object> params = new ArrayList<>(); 
+        Dotenv dotenv = Dotenv.configure().load();
+        
 
-        Iterator<Oferta> iterator = resultado.iterator();
-
-        while (iterator.hasNext()) {
-            Oferta ofertaIteracion = iterator.next();
-
-            if (!busquedaOferta.getPuesto().equalsIgnoreCase("")
-                    && !busquedaOferta.getPuesto().equalsIgnoreCase(ofertaIteracion.getPuesto())) {
-                iterator.remove();
-                continue;
-            }
-
-            if (!busquedaOferta.getTipoContrato().equalsIgnoreCase("")
-                    && !busquedaOferta.getTipoContrato()
-                            .equalsIgnoreCase(ofertaIteracion.getTipoContrato().toString())) {
-                iterator.remove();
-                continue;
-            }
-
-            if (!busquedaOferta.getCiudad().equalsIgnoreCase("")
-                    && !busquedaOferta.getCiudad().equalsIgnoreCase(ofertaIteracion.getCiudad())) {
-                iterator.remove();
-                continue;
-            }
-
-            if (busquedaOferta.getSalarioAnualMinimo() != null && busquedaOferta.getSalarioAnualMinimo() != 0
-                    && ofertaIteracion.getSalarioAnual() < busquedaOferta.getSalarioAnualMinimo()) {
-                iterator.remove();
-                continue;
-            }
-
-            if (!busquedaOferta.getModalidad().equalsIgnoreCase("")
-                    && !busquedaOferta.getModalidad()
-                            .equalsIgnoreCase(ofertaIteracion.getModalidadTrabajo().toString())) {
-                iterator.remove();
-            }
+        if (busquedaOferta.getPuesto() != null && !busquedaOferta.getPuesto().isEmpty()) {
+            query.append(" AND puesto = ?");
+            params.add(busquedaOferta.getPuesto());
         }
-        return resultado;
 
+        if (busquedaOferta.getTipoContrato() != null && !busquedaOferta.getTipoContrato().isEmpty()) {
+            query.append(" AND tipo_contrato = ?");
+            params.add(busquedaOferta.getTipoContrato());
+        }
+
+        if (busquedaOferta.getCiudad() != null && !busquedaOferta.getCiudad().isEmpty()) {
+            query.append(" AND ciudad = ?");
+            params.add(busquedaOferta.getCiudad());
+        }
+
+        if (busquedaOferta.getSalarioAnualMinimo() != null && busquedaOferta.getSalarioAnualMinimo() != 0) {
+            query.append(" AND salario_anual >= ?");
+            params.add(busquedaOferta.getSalarioAnualMinimo());
+        }
+
+        if (busquedaOferta.getModalidad() != null && !busquedaOferta.getModalidad().isEmpty()) {
+            query.append(" AND modalidad = ?");
+            params.add(busquedaOferta.getModalidad());
+        }
+
+        /* Conexión a la bd */
+        
+        try {
+            Connection connection = DriverManager.getConnection (
+                fullRoute, 
+                dotenv.get("MYSQLUSER"), 
+                dotenv.get("MYSQLPASSWORD")
+            );
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
+            /* Añade dinámicamente los parámetros a la query (Evita sql injection) */
+            for (int i = 0; i < params.size(); i++) {
+                preparedStatement.setObject(i + 1, params.get(i)); 
+            }
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                resultado.add(this.mapFromResultSet(resultSet));
+            }
+            
+        }
+                   
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return resultado;
     }
 
     /* TODO: Realizar este método por consulta precompilada */
+
+
+    public Oferta mapFromResultSet(ResultSet resultSet) throws SQLException {
+       try {
+            Oferta oferta = new Oferta(
+                resultSet.getString("puesto"),
+                resultSet.getString("sector"),
+                resultSet.getString("descripcion"),
+                resultSet.getString("ciudad"),
+                resultSet.getObject("salario_anual", Double.class),
+                TipoContrato.fromInt(resultSet.getInt("tipo_contrato")),
+                resultSet.getByte("horas"),
+                ModalidadTrabajo.fromInt(resultSet.getInt("modalidad_trabajo"))
+            );
+
+            // Asignamos directamente los campos adicionales
+            oferta.setId(resultSet.getLong("id"));
+            oferta.setNombreEmpresa(resultSet.getString("nombre_empresa"));
+
+            return oferta;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null; // o lanza una excepción según tu lógica
+        }
+
+        
+    }
 
     @Override
     public void cambiarPropiedadOfertas(Set<Oferta> listaOfertas, String username) {

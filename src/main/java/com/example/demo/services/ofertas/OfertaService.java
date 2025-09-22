@@ -33,11 +33,10 @@ public interface OfertaService {
 
     void borrarTodasLasOfertasDeUnContrata(Contrata contrata);
     void borrarTodosCandidatosTodasOfertasFromContrataId(Contrata contrata);
-    List<Oferta> obtenerTodos();
 
     Page<Oferta> obtenerPaginaApi(int pagina, BusquedaOferta busquedaOferta);
 
-    List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta);
+    Set<Oferta> obtenerResultados(BusquedaOferta busquedaOferta);
 
     void cambiarPropiedadOfertas(Set<Oferta> listaOfertas, String nombre);
 
