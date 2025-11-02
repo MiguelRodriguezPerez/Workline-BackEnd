@@ -7,6 +7,8 @@ import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.GeneratedValue;
@@ -57,6 +59,7 @@ public abstract class Usuario implements UserDetails{
     // @Size(min = 14, max = 30, message = "El password debe tener como minímo 14 carácteres y como máximo 30") validación fallida
     //Tiene problemas para validar la longitud, incluso si la integras en la regex
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\w\\s]).*$", message = "La contraseña debe combinar mayúsculas, minúsculas y caracteres especiales")
+    @JsonIgnore
     private String password;
 
     @NotNull

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.example.demo.domain.ofertas.Oferta;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.annotation.Nullable;
@@ -25,9 +26,9 @@ public class Contrata extends Usuario{
 
 
     // private String apiKey;
-    @JsonManagedReference("contrata_oferta")
     @OneToMany(fetch= FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "contrata")
     @Nullable
+    @JsonBackReference("contrata_oferta")
     private Set<Oferta> listaOfertas;
     
     public Contrata(String nombre, String email, String ciudad, String telefono, String password) {

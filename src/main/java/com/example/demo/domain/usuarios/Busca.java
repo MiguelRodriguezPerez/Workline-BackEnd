@@ -8,6 +8,7 @@ import com.example.demo.domain.Experiencia;
 import com.example.demo.domain.ofertas.Oferta;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -38,10 +39,9 @@ public class Busca extends Usuario {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "busca")
     private Set<Conocimiento> listaConocimientos;
  
-    @JsonBackReference("busca_oferta") 
+    @JsonManagedReference("busca_oferta") 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY) 
     @JoinTable(name = "busca_oferta", joinColumns = @JoinColumn(name = "busca_id"), inverseJoinColumns = @JoinColumn(name = "oferta_id")) 
-    @JsonIgnoreProperties("busca_id") 
     private Set<Oferta> listaOfertas;
 
     public Busca(String nombre, String email, String ciudad, String telefono, String password) {
