@@ -86,7 +86,7 @@ public class Oferta implements Comparable<Oferta> {
 
     @ManyToOne
     @JoinColumn(name = "contrata_id")
-    @JsonBackReference("contrata_oferta")
+    @JsonManagedReference("contrata_oferta")
     private Contrata contrata;
 
     @Override

@@ -18,7 +18,7 @@ public class BusquedaOferta {
     @Nullable
     private String puesto;
     @Nullable
-    private String tipoContrato;
+    private TipoContrato tipoContrato;
     @Nullable
     private String ciudad;
     // @Nullable
@@ -26,6 +26,6 @@ public class BusquedaOferta {
     @Nullable
     private Double salarioAnualMinimo;
     @Nullable
-    private String modalidad;
+    private ModalidadTrabajo modalidadTrabajo;
 
 }
