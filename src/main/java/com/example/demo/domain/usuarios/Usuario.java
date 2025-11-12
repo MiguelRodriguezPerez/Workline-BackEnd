@@ -74,21 +74,6 @@ public abstract class Usuario implements UserDetails{
         this.rol = rol;
     }
 
-    public Usuario setNombreJwt(String nombre) { 
-        this.nombre = nombre; 
-        return this; 
-    } 
-
-    public Usuario setEmail(String email) { 
-        this.email = email; 
-        return this; 
-    } 
-
-    public Usuario setPassword(String password) { 
-        this.password = password; 
-        return this; 
-    } 
-
     @Override
     public String getUsername(){
         return nombre;

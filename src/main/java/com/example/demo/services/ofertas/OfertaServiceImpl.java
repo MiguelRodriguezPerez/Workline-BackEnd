@@ -143,9 +143,6 @@ public class OfertaServiceImpl implements OfertaService {
     @Override
     public Page<Oferta> obtenerPaginaApi(int numPag, BusquedaOferta busquedaOferta) {
         List<Oferta> resultadosBusqueda = this.obtenerResultados(busquedaOferta);
-        if (resultadosBusqueda.isEmpty())
-            return null;
-
         Pageable paginable = PageRequest.of(numPag, ofertasPorPagina);
         int primeraOferta = (int) paginable.getOffset();
         int ultimaOferta = Math.min(primeraOferta + paginable.getPageSize(), resultadosBusqueda.size());
@@ -170,9 +167,8 @@ public class OfertaServiceImpl implements OfertaService {
                 continue;
             }
 
-            if (!busquedaOferta.getTipoContrato().equalsIgnoreCase("")
-                    && !busquedaOferta.getTipoContrato()
-                            .equalsIgnoreCase(ofertaIteracion.getTipoContrato().toString())) {
+            if (busquedaOferta.getTipoContrato() != null
+                    && busquedaOferta.getTipoContrato() != ofertaIteracion.getTipoContrato()) {
                 iterator.remove();
                 continue;
             }
@@ -189,9 +185,8 @@ public class OfertaServiceImpl implements OfertaService {
                 continue;
             }
 
-            if (!busquedaOferta.getModalidad().equalsIgnoreCase("")
-                    && !busquedaOferta.getModalidad()
-                            .equalsIgnoreCase(ofertaIteracion.getModalidadTrabajo().toString())) {
+            if (busquedaOferta.getModalidadTrabajo() != null 
+                && busquedaOferta.getModalidadTrabajo() != ofertaIteracion.getModalidadTrabajo()) {
                 iterator.remove();
             }
         }
