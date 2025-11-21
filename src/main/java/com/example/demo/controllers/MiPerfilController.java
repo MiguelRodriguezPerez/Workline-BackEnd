@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.config.UsuarioService;
 import com.example.demo.domain.usuarios.Usuario;
-import com.example.demo.domain.usuarios.UsuarioContext;
+import com.example.demo.domain.usuarios.UserContextInterface;
 import com.example.demo.domain.usuarios.UsuarioDto;
 import com.example.demo.services.auth.AuthenticationService;
 
@@ -25,8 +25,11 @@ import com.example.demo.services.auth.AuthenticationService;
 @RestController
 public class MiPerfilController {
 
-    /*Este controlador contiene los endpoints de acciones comunes de usuarios logueados que realizan
-    acciones sobre su propia cuenta*/
+    /*
+     * Este controlador contiene los endpoints de acciones comunes de usuarios
+     * logueados que realizan
+     * acciones sobre su propia cuenta
+     */
 
     @Autowired
     UsuarioService usuarioService;
@@ -35,9 +38,9 @@ public class MiPerfilController {
     AuthenticationService authenticationService;
 
     @GetMapping("/getCurrentUser")
-    public ResponseEntity<UsuarioContext> getLoggedUser() {
+    public ResponseEntity<UserContextInterface> getLoggedUser() {
         Usuario usuario = usuarioService.obtenerUsuarioLogueado();
-        UsuarioContext usuarioView = usuarioService.convertirUsuarioAUsuarioView(usuario);
+        UserContextInterface usuarioView = usuarioService.convertirUsuarioAUsuarioView(usuario);
 
         return new ResponseEntity<>(usuarioView, HttpStatus.OK);
     }
@@ -49,48 +52,50 @@ public class MiPerfilController {
     }
 
     @PutMapping("/updateUserData")
-    public ResponseEntity<UsuarioContext> updateUserData(@RequestBody UsuarioDto usuarioDto) {
+    public ResponseEntity<UserContextInterface> updateUserData(@RequestBody UsuarioDto usuarioDto) {
         Usuario usuario = usuarioService.guardarCambios(usuarioDto);
         ResponseCookie jwtToken = authenticationService.generateCookieToken(usuario);
-        UsuarioContext resultado = usuarioService.convertirUsuarioAUsuarioView(usuario);
+        UserContextInterface resultado = usuarioService.convertirUsuarioAUsuarioView(usuario);
         return ResponseEntity
-        /* Esta considerado una buena práctica que cuando creas o actualizas un recurso en el servidor decirle 
-         * al cliente a través de una URI en que subruta se encuentra dicho recurso. 
-         * Además spring la fuerza de todas maneras 
-        */
-            .created(URI.create("/user/getCurrentUser"))
-            .header(HttpHeaders.SET_COOKIE, jwtToken.toString())
-            .body(resultado);
+                /*
+                 * Esta considerado una buena práctica que cuando creas o actualizas un recurso
+                 * en el servidor decirle
+                 * al cliente a través de una URI en que subruta se encuentra dicho recurso.
+                 * Además spring la fuerza de todas maneras
+                 */
+                .created(URI.create("/user/getCurrentUser"))
+                .header(HttpHeaders.SET_COOKIE, jwtToken.toString())
+                .body(resultado);
     }
 
     @DeleteMapping("/borrarCuentaUsuarioLogueado")
     public ResponseEntity<Void> deleteLoggedUserEndpoint() {
         usuarioService.borrarCuentaUsuarioLogueado();
-        ResponseCookie jwtToken = authenticationService.logoutWrapper();       
-        
+        ResponseCookie jwtToken = authenticationService.logoutWrapper();
+
         return ResponseEntity
-            .ok()
-            .header(HttpHeaders.SET_COOKIE, jwtToken.toString())
-            .body(null);
+                .ok()
+                .header(HttpHeaders.SET_COOKIE, jwtToken.toString())
+                .body(null);
     }
 
     @PostMapping("/confirmarPassword")
-    public ResponseEntity<Boolean> checkPasswordEndpoint(@RequestBody String password){
+    public ResponseEntity<Boolean> checkPasswordEndpoint(@RequestBody String password) {
         password = usuarioService.quitarComillasPassword(password);
         Boolean resultado = usuarioService.comprobarPasswordUsuarioLogueado(password);
-        
+
         return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
 
     @PutMapping("/cambiarPassword")
-    public ResponseEntity<Void> changePasswordEndpoint(@RequestBody String newPassword){
+    public ResponseEntity<Void> changePasswordEndpoint(@RequestBody String newPassword) {
         newPassword = usuarioService.quitarComillasPassword(newPassword);
         Usuario newUsuario = usuarioService.cambiarPasswordWrapper(newPassword);
         ResponseCookie jwtToken = authenticationService.generateCookieToken(newUsuario);
-        
+
         return ResponseEntity
-            .ok()
-            .header(HttpHeaders.SET_COOKIE, jwtToken.toString())
-            .body(null);
+                .ok()
+                .header(HttpHeaders.SET_COOKIE, jwtToken.toString())
+                .body(null);
     }
 }

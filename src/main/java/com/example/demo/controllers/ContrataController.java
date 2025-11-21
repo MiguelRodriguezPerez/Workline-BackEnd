@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.modelView.BuscaView;
 import com.example.demo.domain.ofertas.Oferta;
-import com.example.demo.domain.ofertas.OfertaDtoApi;
+import com.example.demo.domain.ofertas.OfertaDto;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.services.ofertas.OfertaService;
 import com.example.demo.services.usuarios.BuscaService;
@@ -33,68 +33,61 @@ public class ContrataController {
     @Autowired
     OfertaService ofertaService;
 
-    /*Lo necesitas para obtener busca por nombre cuando el contrata ve el candidato */
+    /*
+     * Lo necesitas para obtener busca por nombre cuando el contrata ve el candidato
+     */
     @Autowired
     BuscaService buscaService;
 
-    @GetMapping("/ofertas/pagina/{num}")//Nota: Borraste @CookieValue(defaultValue = "no-cookie-found") String jwtToken, 
+    @GetMapping("/ofertas/pagina/{num}") // Nota: Borraste @CookieValue(defaultValue = "no-cookie-found") String
+                                         // jwtToken,
     public ResponseEntity<Page<Oferta>> getPaginaApi(@PathVariable int num) {
         Page<Oferta> resultado = contrataService.obtenerPaginaOfertasPublicadas(Integer.valueOf(num));
         return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
 
     @PostMapping("/nuevaOferta")
-    public ResponseEntity<Oferta> registrarOferta(@RequestBody OfertaDtoApi ofertaDtoApi){
-        Oferta oferta = ofertaService.convertirOfertaDtoApiAOferta(ofertaDtoApi);
-        ofertaService.guardarOfertaFromContrata(oferta);
-        return new ResponseEntity<>(oferta,HttpStatus.CREATED);
+    public ResponseEntity<OfertaDto> registrarOferta(@RequestBody OfertaDto ofertaDtoApi) {
+        OfertaDto resultado = ofertaService.guardarNuevaOferta(ofertaDtoApi);
+        return new ResponseEntity<>(resultado, HttpStatus.CREATED);
     }
 
-
     @PutMapping("/editarOferta/{id}")
-    public ResponseEntity<Oferta> actualizarOferta(@PathVariable Long id, 
-        @RequestBody OfertaDtoApi ofertaDtoApi){
-        Oferta o1 = ofertaService.convertirOfertaDtoApiAOferta(ofertaDtoApi);
-        o1.setId(id);
-        Oferta ofertaDef = ofertaService.guardarCambios(o1);
-        return new ResponseEntity<>(ofertaDef,HttpStatus.CREATED);
+    public ResponseEntity<OfertaDto> actualizarOferta(@RequestBody OfertaDto ofertaDtoApi) {
+        OfertaDto resultado = ofertaService.actualizarOferta(ofertaDtoApi);
+        return new ResponseEntity<>(resultado, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/borrarOferta/{id}")
-    public ResponseEntity<Void> borrarOferta(@PathVariable Long id){
+    public ResponseEntity<Void> borrarOferta(@PathVariable Long id) {
         ofertaService.borrarOfertaWrapper(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    /*Tuviste que diseñar un nuevo endpoint para obtener la lista de candidatos porque
-    al obtenerlos por id de la manera habitual en el método toString excluías la lista 
-    de candidatos por problemas de recursión*/
-    @GetMapping("/obtenerNumeroCandidatos/{id}")
-    public ResponseEntity<Integer> getNumberBusca(@PathVariable Long id){
-        Integer resultado = ofertaService.obtenerPorId(id).getListaCandidatos().size();
-        return new ResponseEntity<>(resultado,HttpStatus.OK);
-    }
 
     @GetMapping("/obtenerListaCandidatos/{id}")
-    public ResponseEntity<List<Busca>> getListBusca(@PathVariable Long id){
+    public ResponseEntity<List<Busca>> getListBusca(@PathVariable Long id) {
         List<Busca> resultado = ofertaService.obtenerPorId(id).getListaCandidatos();
-        if(resultado.size() == 0) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        return new ResponseEntity<>(resultado,HttpStatus.OK);
+        if (resultado.size() == 0)
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
 
     @GetMapping("/obtenerCandidato/{nombre}")
-    private ResponseEntity<BuscaView> getBuscaByNombre(@PathVariable String nombre){
+    private ResponseEntity<BuscaView> getBuscaByNombre(@PathVariable String nombre) {
         Busca busca = buscaService.obtenerPorNombre(nombre);
-        if(busca == null) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        if (busca == null)
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
         BuscaView resultado = buscaService.convertirBuscaABuscaView(busca);
-        return new ResponseEntity<>(resultado,HttpStatus.OK);
+        return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
-    
+
     @GetMapping("/obtenerBuscaPorNombre/{nombre}")
-    public ResponseEntity<Busca> getBuscaByName(@PathVariable String nombre){
+    public ResponseEntity<Busca> getBuscaByName(@PathVariable String nombre) {
         Busca resultado = buscaService.obtenerPorNombre(nombre);
-        if(resultado == null) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        return new ResponseEntity<>(resultado,HttpStatus.OK);
+        if (resultado == null)
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
 }

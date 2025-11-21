@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.config.UsuarioService;
 import com.example.demo.domain.dtos.LoginUserDto;
 import com.example.demo.domain.usuarios.Usuario;
-import com.example.demo.domain.usuarios.UsuarioContext;
+import com.example.demo.domain.usuarios.UserContextInterface;
 import com.example.demo.exceptions.loginExceptions.UsernameNoEncontradoException;
 
 import io.github.cdimascio.dotenv.Dotenv;
@@ -30,7 +30,8 @@ public class AuthenticationService {
 
     public Usuario authenticate(LoginUserDto input) {
         Usuario usuario = usuarioService.encontrarUsuarioPorNombre(input.getUsername());
-        if(usuario == null) throw new UsernameNoEncontradoException();
+        if (usuario == null)
+            throw new UsernameNoEncontradoException();
 
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -49,31 +50,30 @@ public class AuthenticationService {
                 .secure(Boolean.parseBoolean(dotenv.get("SHOULD_JWT_COOKIE_BE_SECURE")))
                 .path("/")
                 .maxAge(60 * 60)
-                /* Si la cookie es segura, significa que estas en prod. Si estas en prod
-                tienes que poner SameSite=none porque si no el navegador rechazará cookies que no 
-                van al mismo dominio del que vinieron si son secure
-                
-                Jakarta Cookie no permite esta configuración */
+                /*
+                 * Si la cookie es segura, significa que estas en prod. Si estas en prod
+                 * tienes que poner SameSite=none porque si no el navegador rechazará cookies
+                 * que no
+                 * van al mismo dominio del que vinieron si son secure
+                 * 
+                 * Jakarta Cookie no permite esta configuración
+                 */
                 .sameSite(
-                    Boolean.parseBoolean(dotenv.get("SHOULD_JWT_COOKIE_BE_SECURE")) ?
-                        "None" : "Lax"
-                )
+                        Boolean.parseBoolean(dotenv.get("SHOULD_JWT_COOKIE_BE_SECURE")) ? "None" : "Lax")
                 .build();
     }
 
-    public ResponseCookie logoutWrapper () {
+    public ResponseCookie logoutWrapper() {
         Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 
-        ResponseCookie logoutCookie = ResponseCookie.from("jwtToken",null)
-            .httpOnly(true)
-            .secure(true)
-            .sameSite(
-                Boolean.parseBoolean(dotenv.get("SHOULD_JWT_COOKIE_BE_SECURE")) ?
-                    "None" : "Lax"
-            )
-            .path("/")
-            .maxAge(0)
-            .build();
+        ResponseCookie logoutCookie = ResponseCookie.from("jwtToken", null)
+                .httpOnly(true)
+                .secure(Boolean.parseBoolean(dotenv.get("SHOULD_JWT_COOKIE_BE_SECURE")))
+                .sameSite(
+                        Boolean.parseBoolean(dotenv.get("SHOULD_JWT_COOKIE_BE_SECURE")) ? "None" : "Lax")
+                .path("/")
+                .maxAge(0)
+                .build();
 
         SecurityContextHolder.clearContext();
 
@@ -85,7 +85,7 @@ public class AuthenticationService {
      * authenticationService
      * en vez de authenticationService y usuarioService
      */
-    public UsuarioContext getUsuarioViewClientContext(Usuario usuario) {
+    public UserContextInterface getUsuarioViewClientContext(Usuario usuario) {
         return usuarioService.convertirUsuarioAUsuarioView(usuario);
     }
 

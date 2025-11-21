@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.domain.ofertas.ModalidadTrabajo;
 import com.example.demo.domain.ofertas.Oferta;
-import com.example.demo.domain.ofertas.OfertaDtoApi;
+import com.example.demo.domain.ofertas.OfertaDto;
 import com.example.demo.domain.ofertas.TipoContrato;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
@@ -46,44 +46,37 @@ public class OfertaServiceImpl implements OfertaService {
     }
 
     @Override
-    public Oferta guardarOfertaFromContrata(Oferta oferta) {
+    public OfertaDto guardarNuevaOferta(OfertaDto ofertaDto) {
+        /* Este método no mapea su relación con el usuario contrata logueado */
+        Oferta oferta = this.convertirNuevaOfertaDtoAEntidad(ofertaDto);
+        Contrata contrata = contrataService.obtenerContrataConectado();
 
-        // Sospechoso de fallar con jwt
-        Contrata contrataConectado = contrataService.obtenerContrataConectado();
-
-        oferta.setNombreEmpresa(contrataConectado.getNombre());
-        oferta.setContrata(contrataConectado);
-
-        /*
-         * Como este método sirve para guardar nuevas ofertas, pero también sirve
-         * para editar las ofertas, se comprueba si la fecha es nula para evitar que en
-         * caso de que se edite una oferta la fecha no cambie
-         */
-        if (oferta.getFechaPublicacion() == null)
-            oferta.setFechaPublicacion(LocalDate.now());
+        oferta.setContrata(contrata);
+        contrata.getListaOfertas().add(oferta);
 
         this.guardarOferta(oferta);
-        contrataConectado.getListaOfertas().add(oferta);
-        contrataService.guardarSinEncriptar(contrataConectado);
+        contrataService.guardarSinEncriptar(contrata);
 
-        return oferta;
+        return this.convertirEntidadOfertaADto(oferta);
     }
 
     @Override
-    public Oferta guardarCambios(Oferta oferta) {
-        Oferta ofertaEdit = this.obtenerPorId(oferta.getId());
+    public OfertaDto actualizarOferta(OfertaDto ofertaDto) {
+        Oferta oferta = this.obtenerPorId(ofertaDto.getId());
 
-        ofertaEdit.setPuesto(oferta.getPuesto());
-        ofertaEdit.setSector(oferta.getSector());
-        ofertaEdit.setModalidadTrabajo(oferta.getModalidadTrabajo());
-        ofertaEdit.setDescripcion(oferta.getDescripcion());
-        ofertaEdit.setSalarioAnual(oferta.getSalarioAnual());
-        ofertaEdit.setTipoContrato(oferta.getTipoContrato());
-        ofertaEdit.setHoras(oferta.getHoras());
-        ofertaEdit.setFechaPublicacion(oferta.getFechaPublicacion());
-        ofertaEdit.setCiudad(oferta.getCiudad());
+        oferta.setPuesto(oferta.getPuesto());
+        oferta.setSector(oferta.getSector());
+        oferta.setModalidadTrabajo(oferta.getModalidadTrabajo());
+        oferta.setDescripcion(oferta.getDescripcion());
+        oferta.setSalarioAnual(oferta.getSalarioAnual());
+        oferta.setTipoContrato(oferta.getTipoContrato());
+        oferta.setHoras(oferta.getHoras());
+        oferta.setFechaPublicacion(oferta.getFechaPublicacion());
+        oferta.setCiudad(oferta.getCiudad());
 
-        return this.guardarOferta(ofertaEdit);
+        this.guardarOferta(oferta);
+
+        return this.convertirEntidadOfertaADto(oferta);
     }
 
     @Override
@@ -133,21 +126,23 @@ public class OfertaServiceImpl implements OfertaService {
 
     @Override
     public List<Oferta> obtenerTodos() {
-        ArrayList<Oferta> resultado = (ArrayList<Oferta>) repo.findAll();
-        Collections.sort(resultado, (f1, f2) -> f1.getFechaPublicacion().compareTo(f2.getFechaPublicacion()));
-        return resultado;
+        return repo.findAll();
     }
 
     private final Integer ofertasPorPagina = 10;
 
     @Override
-    public Page<Oferta> obtenerPaginaApi(int numPag, BusquedaOferta busquedaOferta) {
-        List<Oferta> resultadosBusqueda = this.obtenerResultados(busquedaOferta);
+    public Page<OfertaDto> obtenerPaginaOfertas(int numPag, BusquedaOferta busquedaOferta) {
+        List<OfertaDto> resultadosBusqueda = this.obtenerResultados(busquedaOferta)
+            .stream()
+            .map(this::convertirEntidadOfertaADto)
+            .toList();
+
         Pageable paginable = PageRequest.of(numPag, ofertasPorPagina);
         int primeraOferta = (int) paginable.getOffset();
         int ultimaOferta = Math.min(primeraOferta + paginable.getPageSize(), resultadosBusqueda.size());
 
-        Page<Oferta> resultado = new PageImpl<>(resultadosBusqueda.subList(primeraOferta, ultimaOferta), paginable,
+        Page<OfertaDto> resultado = new PageImpl<>(resultadosBusqueda.subList(primeraOferta, ultimaOferta), paginable,
                 resultadosBusqueda.size());
         return resultado;
     }
@@ -185,23 +180,13 @@ public class OfertaServiceImpl implements OfertaService {
                 continue;
             }
 
-            if (busquedaOferta.getModalidadTrabajo() != null 
-                && busquedaOferta.getModalidadTrabajo() != ofertaIteracion.getModalidadTrabajo()) {
+            if (busquedaOferta.getModalidadTrabajo() != null
+                    && busquedaOferta.getModalidadTrabajo() != ofertaIteracion.getModalidadTrabajo()) {
                 iterator.remove();
             }
         }
         return resultado;
 
-    }
-
-    /* TODO: Realizar este método por consulta precompilada */
-
-    @Override
-    public void cambiarPropiedadOfertas(Set<Oferta> listaOfertas, String username) {
-        for (Oferta oferta : listaOfertas) {
-            oferta.setNombreEmpresa(username);
-            this.guardarCambios(oferta);
-        }
     }
 
     @Override
@@ -215,34 +200,45 @@ public class OfertaServiceImpl implements OfertaService {
     }
 
     @Override
-    public Oferta convertirOfertaDtoApiAOferta(OfertaDtoApi ofertaDtoApi) {
-
-        TipoContrato t1 = null;
-        ModalidadTrabajo m1 = null;
-
-        for (ModalidadTrabajo m : ModalidadTrabajo.values()) {
-            if (ofertaDtoApi.getModalidadTrabajo().equalsIgnoreCase(m.toString()))
-                m1 = m;
-        }
-
-        for (TipoContrato t : TipoContrato.values()) {
-            if (ofertaDtoApi.getTipoContrato().equalsIgnoreCase(t.toString()))
-                t1 = t;
-        }
-
-        Oferta resultado = new Oferta(ofertaDtoApi.getPuesto(),
-                ofertaDtoApi.getSector(),
-                ofertaDtoApi.getDescripcion(),
-                ofertaDtoApi.getCiudad(),
-                ofertaDtoApi.getSalarioAnual(),
-                t1,
-                ofertaDtoApi.getHoras(),
-                m1);
-
-        System.out.println(resultado + "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-
-        return resultado;
+    public OfertaDto convertirEntidadOfertaADto(Oferta oferta) {
+        return OfertaDto.builder()
+                .id(oferta.getId())
+                .puesto(oferta.getPuesto())
+                .sector(oferta.getSector())
+                .descripcion(oferta.getDescripcion())
+                .ciudad(oferta.getCiudad())
+                .salarioAnual(oferta.getSalarioAnual())
+                .tipoContrato(oferta.getTipoContrato())
+                .horas(oferta.getHoras())
+                .modalidadTrabajo(oferta.getModalidadTrabajo())
+                .contrata(oferta.getContrata())
+                .numeroCandidatos(
+                        oferta.getListaCandidatos() != null
+                                ? oferta.getListaCandidatos().size()
+                                : 0)
+                .build();
     }
+
+    /* NOTA: Su relación con el usuario contrata se mapeará en otro método */
+
+    @Override
+    public Oferta convertirNuevaOfertaDtoAEntidad(OfertaDto ofertaDto) {
+        return Oferta.builder()
+                .id(null) // normalmente esto solo se usa en UPDATE
+                .puesto(ofertaDto.getPuesto())
+                .sector(ofertaDto.getSector())
+                .descripcion(ofertaDto.getDescripcion())
+                .ciudad(ofertaDto.getCiudad())
+                .salarioAnual(ofertaDto.getSalarioAnual())
+                .tipoContrato(ofertaDto.getTipoContrato())
+                .horas(ofertaDto.getHoras())
+                .modalidadTrabajo(ofertaDto.getModalidadTrabajo())
+                .fechaPublicacion(LocalDate.now())
+                .contrata(null)
+                .listaCandidatos(null)
+                .build();
+    }
+
 
     @Override
     public void inscribirBuscaConectadoWrapper(Long id) {
@@ -267,12 +263,6 @@ public class OfertaServiceImpl implements OfertaService {
 
         this.guardarOferta(oferta);
         buscaService.guardarSinEncriptar(buscaConectado);
-    }
-
-    @Override
-    public int obtenerNumeroCandidatos(Long id) {
-        Oferta oferta = this.obtenerPorId(id);
-        return oferta.getListaCandidatos().size();
     }
 
 }
