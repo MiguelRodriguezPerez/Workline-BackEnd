@@ -49,7 +49,7 @@ public class AuthenticationService {
                 .httpOnly(true)
                 .secure(Boolean.parseBoolean(dotenv.get("SHOULD_JWT_COOKIE_BE_SECURE")))
                 .path("/")
-                .maxAge(60 * 60)
+                .maxAge(30 * 30)
                 /*
                  * Si la cookie es segura, significa que estas en prod. Si estas en prod
                  * tienes que poner SameSite=none porque si no el navegador rechazará cookies

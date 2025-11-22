@@ -1,11 +1,8 @@
 package com.example.demo.services.ofertas;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,10 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.ofertas.BusquedaOferta;
-import com.example.demo.domain.ofertas.ModalidadTrabajo;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.ofertas.OfertaDto;
-import com.example.demo.domain.ofertas.TipoContrato;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.repositories.OfertaRepository;

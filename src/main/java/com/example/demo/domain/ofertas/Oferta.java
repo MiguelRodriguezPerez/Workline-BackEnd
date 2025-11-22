@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.annotation.Nullable;
@@ -75,6 +76,7 @@ public class Oferta implements Comparable<Oferta> {
     // @Column(name = "requisito")
     // private List<String> listaRequisitos;
 
+    @JsonIgnore
     @JsonManagedReference("busca_oferta") 
     @ManyToMany(mappedBy = "listaOfertas", fetch = FetchType.LAZY) 
     private List<Busca> listaCandidatos;

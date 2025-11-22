@@ -2,8 +2,10 @@ package com.example.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +17,7 @@ import com.example.demo.domain.dtos.LoginUserDto;
 import com.example.demo.domain.usuarios.Usuario;
 import com.example.demo.domain.usuarios.UserContextInterface;
 import com.example.demo.services.auth.AuthenticationService;
+import com.example.demo.services.auth.JwtService;
 
 @RequestMapping("/auth")
 @RestController
@@ -22,6 +25,9 @@ public class AuthenticationController {
 
     @Autowired
     AuthenticationService authenticationService;
+
+    @Autowired
+    JwtService jwtService;
 
     @Autowired
     UsuarioService usuarioService;
@@ -45,5 +51,11 @@ public class AuthenticationController {
                 .ok()
                 .header(HttpHeaders.SET_COOKIE, logoutCookie.toString())
                 .body(null);
+    }
+
+    @GetMapping("/areCredentialsValid")
+    public ResponseEntity<Boolean> areCredentialsValidEndpoint(
+        @CookieValue(name = "jwtToken", required = false) String token) {
+        return ResponseEntity.ok().body(jwtService.isTokenValid(token));
     }
 }
