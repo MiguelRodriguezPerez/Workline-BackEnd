@@ -3,6 +3,7 @@ package com.example.demo.domain.usuarios;
 import java.util.Set;
 
 import com.example.demo.domain.ofertas.Oferta;
+import com.example.demo.domain.usuarios.usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.annotation.Nullable;

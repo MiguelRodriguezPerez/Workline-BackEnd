@@ -19,6 +19,7 @@ import com.example.demo.domain.modelView.BuscaView;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.ofertas.OfertaDto;
 import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.services.ofertas.OfertaMapper;
 import com.example.demo.services.ofertas.OfertaService;
 import com.example.demo.services.usuarios.BuscaService;
 import com.example.demo.services.usuarios.ContrataService;
@@ -33,6 +34,9 @@ public class ContrataController {
     @Autowired
     OfertaService ofertaService;
 
+    @Autowired
+    OfertaMapper ofertaMapper;
+
     /*
      * Lo necesitas para obtener busca por nombre cuando el contrata ve el candidato
      */
@@ -41,8 +45,8 @@ public class ContrataController {
 
     @GetMapping("/ofertas/pagina/{num}") // Nota: Borraste @CookieValue(defaultValue = "no-cookie-found") String
                                          // jwtToken,
-    public ResponseEntity<Page<Oferta>> getPaginaApi(@PathVariable int num) {
-        Page<Oferta> resultado = contrataService.obtenerPaginaOfertasPublicadas(Integer.valueOf(num));
+    public ResponseEntity<Page<OfertaDto>> getPaginaApi(@PathVariable int num) {
+        Page<OfertaDto> resultado = contrataService.obtenerPaginaOfertasPublicadas(Integer.valueOf(num));
         return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
 

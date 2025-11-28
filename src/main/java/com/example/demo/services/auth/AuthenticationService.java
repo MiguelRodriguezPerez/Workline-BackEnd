@@ -7,20 +7,23 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.config.UsuarioService;
 import com.example.demo.domain.dtos.LoginUserDto;
-import com.example.demo.domain.usuarios.Usuario;
-import com.example.demo.domain.usuarios.UserContextInterface;
+import com.example.demo.domain.usuarios.usuario.UserContextInterface;
+import com.example.demo.domain.usuarios.usuario.Usuario;
 import com.example.demo.exceptions.loginExceptions.UsernameNoEncontradoException;
+import com.example.demo.services.usuarios.usuario.UsuarioMapper;
+import com.example.demo.services.usuarios.usuario.UsuarioService;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import jakarta.servlet.http.Cookie;
 
 @Service
 public class AuthenticationService {
 
     @Autowired
     UsuarioService usuarioService;
+
+    @Autowired
+    UsuarioMapper usuarioMapper;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -86,7 +89,7 @@ public class AuthenticationService {
      * en vez de authenticationService y usuarioService
      */
     public UserContextInterface getUsuarioViewClientContext(Usuario usuario) {
-        return usuarioService.convertirUsuarioAUsuarioView(usuario);
+        return usuarioMapper.mapUsuarioEntityToUserContextInterface(usuario);
     }
 
 }

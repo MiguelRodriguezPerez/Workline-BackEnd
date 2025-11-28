@@ -1,4 +1,4 @@
-package com.example.demo.domain.usuarios;
+package com.example.demo.domain.usuarios.usuario;
 
 import java.util.Collection;
 import java.util.List;
@@ -7,6 +7,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.example.demo.domain.usuarios.Rol;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;

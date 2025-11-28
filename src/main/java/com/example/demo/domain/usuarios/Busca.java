@@ -5,6 +5,7 @@ import java.util.Set;
 import com.example.demo.domain.Conocimiento;
 import com.example.demo.domain.Experiencia;
 import com.example.demo.domain.ofertas.Oferta;
+import com.example.demo.domain.usuarios.usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

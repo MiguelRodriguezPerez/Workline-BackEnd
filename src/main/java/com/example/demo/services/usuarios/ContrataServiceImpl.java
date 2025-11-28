@@ -1,32 +1,33 @@
 package com.example.demo.services.usuarios;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.dtos.NuevoUsuarioDto;
 import com.example.demo.domain.ofertas.Oferta;
+import com.example.demo.domain.ofertas.OfertaDto;
 import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.repositories.ContrataRepository;
+import com.example.demo.services.ofertas.OfertaMapper;
 
 @Service
 public class ContrataServiceImpl implements ContrataService{
     
     @Autowired
     ContrataRepository repo;
+
+    @Autowired
+    OfertaMapper ofertaMapper;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -105,18 +106,26 @@ public class ContrataServiceImpl implements ContrataService{
     private final int ofertasPorPagina = 8;
 
     @Override
-    public Page<Oferta> obtenerPaginaOfertasPublicadas(Integer paginaElecta) {
+    public Page<OfertaDto> obtenerPaginaOfertasPublicadas(Integer paginaElecta) {
 
-        Pageable paginable = PageRequest.of(paginaElecta,ofertasPorPagina);
-        List<Oferta> listaOfertas = new ArrayList<Oferta>(this.obtenerContrataConectado().getListaOfertas());
+        Pageable paginable = PageRequest.of(paginaElecta, ofertasPorPagina);
 
+        // Obtienes la lista original
+        List<Oferta> listaOfertas = new ArrayList<>(this.obtenerContrataConectado().getListaOfertas());
+
+        // Cálculo de índices
         int inicio = (int) paginable.getOffset();
-        int fin = Math.min(inicio + paginable.getPageSize(),listaOfertas.size());
+        int fin = Math.min(inicio + paginable.getPageSize(), listaOfertas.size());
 
-        Page<Oferta> resultado = new PageImpl<>(listaOfertas.subList(inicio, fin), paginable, listaOfertas.size());
+        // Sublista solo de la página seleccionada
+        List<OfertaDto> pagina = listaOfertas.subList(inicio, fin).stream()
+                .map(ofertaMapper:: mapOfertaEntityToDto)
+                .toList();
 
-        return resultado;
+        // Devuelves la página final
+        return new PageImpl<>(pagina, paginable, listaOfertas.size());
     }
+}
 
     // @Override
     // public String generarApiKey() {
@@ -137,4 +146,4 @@ public class ContrataServiceImpl implements ContrataService{
     // }
 
 
-}
+

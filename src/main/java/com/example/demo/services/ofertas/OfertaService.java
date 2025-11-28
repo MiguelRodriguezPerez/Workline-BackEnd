@@ -21,11 +21,6 @@ public interface OfertaService {
 
     Oferta obtenerPorId(Long id);
 
-    OfertaDto convertirEntidadOfertaADto(Oferta oferta);
-
-    Oferta convertirNuevaOfertaDtoAEntidad(OfertaDto ofertaDto);
-
-
     List<Oferta> obtenerTodos();
 
     void borrarOferta(Long id);

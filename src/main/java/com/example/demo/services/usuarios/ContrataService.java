@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 
 import com.example.demo.domain.dtos.NuevoUsuarioDto;
 import com.example.demo.domain.ofertas.Oferta;
+import com.example.demo.domain.ofertas.OfertaDto;
 import com.example.demo.domain.usuarios.Contrata;
 
 public interface ContrataService {
@@ -22,7 +23,7 @@ public interface ContrataService {
     boolean esNombreRepetido(String nombre);
     String obtenerNombre();
     Contrata obtenerContrataConectado();
-    Page<Oferta> obtenerPaginaOfertasPublicadas(Integer paginaElecta);
+    Page<OfertaDto> obtenerPaginaOfertasPublicadas(Integer paginaElecta);
     // String generarApiKey();
     // void borrarApiKey();
     

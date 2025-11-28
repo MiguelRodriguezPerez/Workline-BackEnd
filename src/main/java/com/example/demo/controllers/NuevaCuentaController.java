@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.config.UsuarioService;
 import com.example.demo.domain.dtos.LoginUserDto;
 import com.example.demo.domain.dtos.NuevoUsuarioDto;
-import com.example.demo.domain.usuarios.Usuario;
-import com.example.demo.domain.usuarios.UserContextInterface;
+import com.example.demo.domain.usuarios.usuario.UserContextInterface;
+import com.example.demo.domain.usuarios.usuario.Usuario;
 import com.example.demo.services.auth.AuthenticationService;
 import com.example.demo.services.usuarios.BuscaService;
 import com.example.demo.services.usuarios.ContrataService;
+import com.example.demo.services.usuarios.usuario.UsuarioService;
 
 import jakarta.servlet.http.HttpServletResponse;
 

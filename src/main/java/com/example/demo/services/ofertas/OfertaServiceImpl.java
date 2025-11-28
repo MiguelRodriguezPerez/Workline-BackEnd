@@ -27,6 +27,9 @@ public class OfertaServiceImpl implements OfertaService {
     OfertaRepository repo;
 
     @Autowired
+    OfertaMapper ofertaMapper;
+
+    @Autowired
     ContrataService contrataService;
 
     @Autowired
@@ -42,8 +45,7 @@ public class OfertaServiceImpl implements OfertaService {
 
     @Override
     public OfertaDto guardarNuevaOferta(OfertaDto ofertaDto) {
-        /* Este método no mapea su relación con el usuario contrata logueado */
-        Oferta oferta = this.convertirNuevaOfertaDtoAEntidad(ofertaDto);
+        Oferta oferta = ofertaMapper.mapNewOfertaDtoToEntity(ofertaDto);
         Contrata contrata = contrataService.obtenerContrataConectado();
 
         oferta.setContrata(contrata);
@@ -52,7 +54,7 @@ public class OfertaServiceImpl implements OfertaService {
         this.guardarOferta(oferta);
         contrataService.guardarSinEncriptar(contrata);
 
-        return this.convertirEntidadOfertaADto(oferta);
+        return ofertaMapper.mapOfertaEntityToDto(oferta);
     }
 
     @Override
@@ -69,9 +71,9 @@ public class OfertaServiceImpl implements OfertaService {
         oferta.setFechaPublicacion(oferta.getFechaPublicacion());
         oferta.setCiudad(oferta.getCiudad());
 
-        this.guardarOferta(oferta);
+        Oferta resultado = this.guardarOferta(oferta);
 
-        return this.convertirEntidadOfertaADto(oferta);
+        return ofertaMapper.mapOfertaEntityToDto(resultado);
     }
 
     @Override
@@ -128,66 +130,41 @@ public class OfertaServiceImpl implements OfertaService {
 
     @Override
     public Page<OfertaDto> obtenerPaginaOfertas(int numPag, BusquedaOferta busquedaOferta) {
-        List<OfertaDto> resultadosBusqueda = this.obtenerResultados(busquedaOferta)
-            .stream()
-            .map(this::convertirEntidadOfertaADto)
-            .toList();
+        List<Oferta> ofertasFiltradas = this.obtenerResultados(busquedaOferta);
 
         Pageable paginable = PageRequest.of(numPag, ofertasPorPagina);
-        int primeraOferta = (int) paginable.getOffset();
-        int ultimaOferta = Math.min(primeraOferta + paginable.getPageSize(), resultadosBusqueda.size());
+        int primera = (int) paginable.getOffset();
+        int ultima = Math.min(primera + paginable.getPageSize(), ofertasFiltradas.size());
 
-        Page<OfertaDto> resultado = new PageImpl<>(resultadosBusqueda.subList(primeraOferta, ultimaOferta), paginable,
-                resultadosBusqueda.size());
-        return resultado;
+        List<Oferta> paginaSinMapear = ofertasFiltradas.subList(primera, ultima);
+
+        List<OfertaDto> paginaDto = paginaSinMapear.stream()
+                .map(ofertaMapper::mapOfertaEntityToDto)
+                .toList();
+
+        return new PageImpl<>(paginaDto, paginable, ofertasFiltradas.size());
     }
+
 
     @Override
     public List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta) {
-        List<Oferta> resultado = this.obtenerTodos();
-
-        Iterator<Oferta> iterator = resultado.iterator();
-
-        while (iterator.hasNext()) {
-            Oferta ofertaIteracion = iterator.next();
-
-            if (!busquedaOferta.getPuesto().equalsIgnoreCase("")
-                    && !busquedaOferta.getPuesto().equalsIgnoreCase(ofertaIteracion.getPuesto())) {
-                iterator.remove();
-                continue;
-            }
-
-            if (busquedaOferta.getTipoContrato() != null
-                    && busquedaOferta.getTipoContrato() != ofertaIteracion.getTipoContrato()) {
-                iterator.remove();
-                continue;
-            }
-
-            if (!busquedaOferta.getCiudad().equalsIgnoreCase("")
-                    && !busquedaOferta.getCiudad().equalsIgnoreCase(ofertaIteracion.getCiudad())) {
-                iterator.remove();
-                continue;
-            }
-
-            if (busquedaOferta.getSalarioAnualMinimo() != null && busquedaOferta.getSalarioAnualMinimo() != 0
-                    && ofertaIteracion.getSalarioAnual() < busquedaOferta.getSalarioAnualMinimo()) {
-                iterator.remove();
-                continue;
-            }
-
-<<<<<<< HEAD
-            if (busquedaOferta.getModalidadTrabajo() != null 
-                && busquedaOferta.getModalidadTrabajo() != ofertaIteracion.getModalidadTrabajo()) {
-=======
-            if (busquedaOferta.getModalidadTrabajo() != null
-                    && busquedaOferta.getModalidadTrabajo() != ofertaIteracion.getModalidadTrabajo()) {
->>>>>>> af05fa0686ab9a6d4c80853fcc22e9f90ffaab6d
-                iterator.remove();
-            }
-        }
-        return resultado;
-
+        return this.obtenerTodos().stream()
+                .filter(oferta -> busquedaOferta.getPuesto() == null 
+                        || busquedaOferta.getPuesto().isBlank()
+                        || busquedaOferta.getPuesto().equalsIgnoreCase(oferta.getPuesto()))
+                .filter(oferta -> busquedaOferta.getCiudad() == null 
+                        || busquedaOferta.getCiudad().isBlank()
+                        || busquedaOferta.getCiudad().equalsIgnoreCase(oferta.getCiudad()))
+                .filter(oferta -> busquedaOferta.getSalarioAnualMinimo() == null 
+                        || busquedaOferta.getSalarioAnualMinimo() == 0
+                        || oferta.getSalarioAnual() >= busquedaOferta.getSalarioAnualMinimo())
+                .filter(oferta -> busquedaOferta.getModalidadTrabajo() == null 
+                        || busquedaOferta.getModalidadTrabajo() == oferta.getModalidadTrabajo())
+                .filter(oferta -> busquedaOferta.getTipoContrato() == null 
+                        || busquedaOferta.getTipoContrato() == oferta.getTipoContrato())
+                .toList(); 
     }
+
 
     @Override
     public boolean estaSuscritoOferta(Long id) {
@@ -199,45 +176,10 @@ public class OfertaServiceImpl implements OfertaService {
         return false;
     }
 
-    @Override
-    public OfertaDto convertirEntidadOfertaADto(Oferta oferta) {
-        return OfertaDto.builder()
-                .id(oferta.getId())
-                .puesto(oferta.getPuesto())
-                .sector(oferta.getSector())
-                .descripcion(oferta.getDescripcion())
-                .ciudad(oferta.getCiudad())
-                .salarioAnual(oferta.getSalarioAnual())
-                .tipoContrato(oferta.getTipoContrato())
-                .horas(oferta.getHoras())
-                .modalidadTrabajo(oferta.getModalidadTrabajo())
-                .contrata(oferta.getContrata())
-                .numeroCandidatos(
-                        oferta.getListaCandidatos() != null
-                                ? oferta.getListaCandidatos().size()
-                                : 0)
-                .build();
-    }
+
 
     /* NOTA: Su relación con el usuario contrata se mapeará en otro método */
 
-    @Override
-    public Oferta convertirNuevaOfertaDtoAEntidad(OfertaDto ofertaDto) {
-        return Oferta.builder()
-                .id(null) // normalmente esto solo se usa en UPDATE
-                .puesto(ofertaDto.getPuesto())
-                .sector(ofertaDto.getSector())
-                .descripcion(ofertaDto.getDescripcion())
-                .ciudad(ofertaDto.getCiudad())
-                .salarioAnual(ofertaDto.getSalarioAnual())
-                .tipoContrato(ofertaDto.getTipoContrato())
-                .horas(ofertaDto.getHoras())
-                .modalidadTrabajo(ofertaDto.getModalidadTrabajo())
-                .fechaPublicacion(LocalDate.now())
-                .contrata(null)
-                .listaCandidatos(null)
-                .build();
-    }
 
 
     @Override

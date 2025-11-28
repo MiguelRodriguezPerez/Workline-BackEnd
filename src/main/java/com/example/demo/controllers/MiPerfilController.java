@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.config.UsuarioService;
-import com.example.demo.domain.usuarios.Usuario;
-import com.example.demo.domain.usuarios.UserContextInterface;
-import com.example.demo.domain.usuarios.UsuarioDto;
+import com.example.demo.domain.usuarios.usuario.UserContextInterface;
+import com.example.demo.domain.usuarios.usuario.Usuario;
+import com.example.demo.domain.usuarios.usuario.UsuarioSettignsDto;
 import com.example.demo.services.auth.AuthenticationService;
+import com.example.demo.services.usuarios.usuario.UsuarioMapper;
+import com.example.demo.services.usuarios.usuario.UsuarioService;
 
 @RequestMapping("/user")
 @RestController
@@ -35,27 +36,31 @@ public class MiPerfilController {
     UsuarioService usuarioService;
 
     @Autowired
+    UsuarioMapper usuarioMapper;
+
+    @Autowired
     AuthenticationService authenticationService;
 
     @GetMapping("/getCurrentUser")
     public ResponseEntity<UserContextInterface> getLoggedUser() {
         Usuario usuario = usuarioService.obtenerUsuarioLogueado();
-        UserContextInterface usuarioView = usuarioService.convertirUsuarioAUsuarioView(usuario);
+        UserContextInterface usuarioView = usuarioMapper.mapUsuarioEntityToUserContextInterface(usuario);
 
         return new ResponseEntity<>(usuarioView, HttpStatus.OK);
     }
 
     @GetMapping("/getUserData")
-    public ResponseEntity<UsuarioDto> getUserData() {
-        UsuarioDto usuarioDto = usuarioService.convertirUsuarioAUsuarioDto(usuarioService.obtenerUsuarioLogueado());
+    public ResponseEntity<UsuarioSettignsDto> getUserData() {
+        UsuarioSettignsDto usuarioDto = usuarioMapper
+                .mapUsuarioEntityToUsuarioSettignsDto(usuarioService.obtenerUsuarioLogueado());
         return new ResponseEntity<>(usuarioDto, HttpStatus.OK);
     }
 
     @PutMapping("/updateUserData")
-    public ResponseEntity<UserContextInterface> updateUserData(@RequestBody UsuarioDto usuarioDto) {
+    public ResponseEntity<UserContextInterface> updateUserData(@RequestBody UsuarioSettignsDto usuarioDto) {
         Usuario usuario = usuarioService.guardarCambios(usuarioDto);
         ResponseCookie jwtToken = authenticationService.generateCookieToken(usuario);
-        UserContextInterface resultado = usuarioService.convertirUsuarioAUsuarioView(usuario);
+        UserContextInterface resultado = usuarioMapper.mapUsuarioEntityToUserContextInterface(usuario);
         return ResponseEntity
                 /*
                  * Esta considerado una buena práctica que cuando creas o actualizas un recurso

@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.example.demo.services.usuarios.usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -6,12 +6,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.domain.Conocimiento;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
-import com.example.demo.domain.usuarios.Usuario;
-import com.example.demo.domain.usuarios.UserContextInterface;
-import com.example.demo.domain.usuarios.UsuarioDto;
+import com.example.demo.domain.usuarios.usuario.UserContextInterface;
+import com.example.demo.domain.usuarios.usuario.Usuario;
+import com.example.demo.domain.usuarios.usuario.UsuarioSettignsDto;
 import com.example.demo.services.ConocimientoService;
 import com.example.demo.services.ExperienciaService;
 import com.example.demo.services.ofertas.OfertaService;
@@ -60,13 +59,6 @@ public class UsuarioService {
         return this.encontrarUsuarioPorNombre(nombre) != null;
     }
 
-    public UserContextInterface convertirUsuarioAUsuarioView(Usuario usuario) {
-        return new UserContextInterface(usuario.getNombre(), usuario.getEmail(), usuario.getRol().toString());
-    }
-
-    public UsuarioDto convertirUsuarioAUsuarioDto(Usuario usuario) {
-        return new UsuarioDto(usuario.getNombre(), usuario.getEmail(), usuario.getTelefono(), usuario.getCiudad());
-    }
 
     public Usuario obtenerUsuarioLogueado() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -74,7 +66,7 @@ public class UsuarioService {
         return currentUsuario;
     }
 
-    public Usuario guardarCambios(UsuarioDto usuarioDto) {
+    public Usuario guardarCambios(UsuarioSettignsDto usuarioDto) {
 
         Usuario currentUsuario = this.obtenerUsuarioLogueado();
 
