@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsuarioContext {
+public class UserContextInterface {
 
-    private String nombre;
+    private String username;
     private String email;
     private String rol;
 

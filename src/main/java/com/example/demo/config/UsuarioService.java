@@ -10,7 +10,7 @@ import com.example.demo.domain.Conocimiento;
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
 import com.example.demo.domain.usuarios.Usuario;
-import com.example.demo.domain.usuarios.UsuarioContext;
+import com.example.demo.domain.usuarios.UserContextInterface;
 import com.example.demo.domain.usuarios.UsuarioDto;
 import com.example.demo.services.ConocimientoService;
 import com.example.demo.services.ExperienciaService;
@@ -60,8 +60,8 @@ public class UsuarioService {
         return this.encontrarUsuarioPorNombre(nombre) != null;
     }
 
-    public UsuarioContext convertirUsuarioAUsuarioView(Usuario usuario) {
-        return new UsuarioContext(usuario.getNombre(), usuario.getEmail(), usuario.getRol().toString());
+    public UserContextInterface convertirUsuarioAUsuarioView(Usuario usuario) {
+        return new UserContextInterface(usuario.getNombre(), usuario.getEmail(), usuario.getRol().toString());
     }
 
     public UsuarioDto convertirUsuarioAUsuarioDto(Usuario usuario) {
@@ -88,7 +88,6 @@ public class UsuarioService {
             case CONTRATA:
                 Contrata contrata = (Contrata) currentUsuario;
                 contrataService.guardarSinEncriptar(contrata);
-                ofertaService.cambiarPropiedadOfertas(contrata.getListaOfertas(), contrata.getNombre());
                 return contrata;
             case BUSCA:
                 Busca busca = (Busca) currentUsuario;

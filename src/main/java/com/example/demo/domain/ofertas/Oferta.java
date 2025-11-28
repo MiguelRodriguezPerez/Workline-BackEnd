@@ -5,13 +5,10 @@ import java.util.List;
 
 import com.example.demo.domain.usuarios.Busca;
 import com.example.demo.domain.usuarios.Contrata;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.annotation.Nullable;
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -19,16 +16,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @ToString(exclude = {"listaCandidatos", "contrata"}) // Excluir las colecciones relacionadas
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -66,8 +64,6 @@ public class Oferta implements Comparable<Oferta> {
     @NotNull
     private ModalidadTrabajo modalidadTrabajo;
 
-    private String nombreEmpresa;
-
     private LocalDate fechaPublicacion;
 
     // @ElementCollection
@@ -80,6 +76,7 @@ public class Oferta implements Comparable<Oferta> {
     // @Column(name = "requisito")
     // private List<String> listaRequisitos;
 
+    @JsonIgnore
     @JsonManagedReference("busca_oferta") 
     @ManyToMany(mappedBy = "listaOfertas", fetch = FetchType.LAZY) 
     private List<Busca> listaCandidatos;
@@ -108,7 +105,6 @@ public class Oferta implements Comparable<Oferta> {
         this.horas = horas;
         this.modalidadTrabajo = modalidadTrabajo;
         this.fechaPublicacion = LocalDate.now();
-        this.nombreEmpresa = contrata.getNombre();
         this.contrata = contrata;
     }
 
@@ -123,7 +119,6 @@ public class Oferta implements Comparable<Oferta> {
         this.horas = horas2; 
         this.modalidadTrabajo = m1; 
         this.fechaPublicacion = LocalDate.now();
-        this.nombreEmpresa = ""; 
 
         // this.listaValorables = listaValorables;
         // this.listaRequisitos = listaRequisitos;

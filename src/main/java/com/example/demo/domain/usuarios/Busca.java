@@ -1,6 +1,5 @@
 package com.example.demo.domain.usuarios;
 
-import java.util.List;
 import java.util.Set;
 
 import com.example.demo.domain.Conocimiento;
@@ -16,8 +15,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.PreRemove;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
