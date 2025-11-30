@@ -1,10 +1,10 @@
-package com.example.demo.services.usuarios;
+package com.example.demo.services.usuarios.busca;
 
 import java.util.List;
 
 import com.example.demo.domain.dtos.NuevoUsuarioDto;
 import com.example.demo.domain.modelView.BuscaView;
-import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.domain.usuarios.busca.Busca;
 
 public interface BuscaService {
 

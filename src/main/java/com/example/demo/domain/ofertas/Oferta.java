@@ -3,8 +3,8 @@ package com.example.demo.domain.ofertas;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.example.demo.domain.usuarios.Busca;
-import com.example.demo.domain.usuarios.Contrata;
+import com.example.demo.domain.usuarios.busca.Busca;
+import com.example.demo.domain.usuarios.contrata.Contrata;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 

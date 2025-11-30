@@ -6,17 +6,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.domain.usuarios.Busca;
-import com.example.demo.domain.usuarios.Contrata;
+import com.example.demo.domain.usuarios.busca.Busca;
+import com.example.demo.domain.usuarios.contrata.Contrata;
 import com.example.demo.domain.usuarios.usuario.UserContextInterface;
 import com.example.demo.domain.usuarios.usuario.Usuario;
 import com.example.demo.domain.usuarios.usuario.UsuarioSettignsDto;
-import com.example.demo.services.ConocimientoService;
-import com.example.demo.services.ExperienciaService;
 import com.example.demo.services.ofertas.OfertaService;
-import com.example.demo.services.usuarios.AdminService;
-import com.example.demo.services.usuarios.BuscaService;
-import com.example.demo.services.usuarios.ContrataService;
+import com.example.demo.services.usuarios.admin.AdminService;
+import com.example.demo.services.usuarios.busca.BuscaService;
+import com.example.demo.services.usuarios.conocimiento.ConocimientoService;
+import com.example.demo.services.usuarios.contrata.ContrataService;
+import com.example.demo.services.usuarios.experiencia.ExperienciaService;
 
 @Service
 public class UsuarioService {

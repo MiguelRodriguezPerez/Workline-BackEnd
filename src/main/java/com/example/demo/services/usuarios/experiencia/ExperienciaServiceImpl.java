@@ -1,4 +1,4 @@
-package com.example.demo.services;
+package com.example.demo.services.usuarios.experiencia;
 
 import java.util.HashSet;
 import java.util.List;
@@ -7,11 +7,11 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.domain.Experiencia;
-import com.example.demo.domain.dtos.ExperienciaDto;
-import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.domain.usuarios.busca.Busca;
+import com.example.demo.domain.usuarios.busca.experiencia.Experiencia;
+import com.example.demo.domain.usuarios.busca.experiencia.ExperienciaDto;
 import com.example.demo.repositories.ExperienciaRepository;
-import com.example.demo.services.usuarios.BuscaService;
+import com.example.demo.services.usuarios.busca.BuscaService;
 
 @Service
 public class ExperienciaServiceImpl implements ExperienciaService{

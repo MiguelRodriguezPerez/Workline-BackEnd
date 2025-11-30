@@ -1,4 +1,4 @@
-package com.example.demo.services.usuarios;
+package com.example.demo.services.usuarios.contrata;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.domain.dtos.NuevoUsuarioDto;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.ofertas.OfertaDto;
-import com.example.demo.domain.usuarios.Contrata;
+import com.example.demo.domain.usuarios.contrata.Contrata;
 import com.example.demo.repositories.ContrataRepository;
 import com.example.demo.services.ofertas.OfertaMapper;
 

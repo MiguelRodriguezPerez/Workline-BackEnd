@@ -1,6 +1,5 @@
 package com.example.demo.controllers;
 
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +14,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.domain.Conocimiento;
-import com.example.demo.domain.Experiencia;
-import com.example.demo.domain.dtos.ConocimientoDto;
-import com.example.demo.domain.dtos.ExperienciaDto;
 import com.example.demo.domain.ofertas.Oferta;
-import com.example.demo.domain.usuarios.Busca;
-import com.example.demo.services.ConocimientoService;
-import com.example.demo.services.ExperienciaService;
-import com.example.demo.services.usuarios.BuscaService;
+import com.example.demo.domain.usuarios.busca.conocimiento.Conocimiento;
+import com.example.demo.domain.usuarios.busca.conocimiento.ConocimientoDto;
+import com.example.demo.domain.usuarios.busca.experiencia.Experiencia;
+import com.example.demo.domain.usuarios.busca.experiencia.ExperienciaDto;
+import com.example.demo.services.usuarios.busca.BuscaService;
+import com.example.demo.services.usuarios.conocimiento.ConocimientoService;
+import com.example.demo.services.usuarios.experiencia.ExperienciaService;
 
 @RequestMapping("/busca/api")
 @RestController

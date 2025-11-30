@@ -1,8 +1,9 @@
-package com.example.demo.domain.usuarios;
+package com.example.demo.domain.usuarios.contrata;
 
 import java.util.Set;
 
 import com.example.demo.domain.ofertas.Oferta;
+import com.example.demo.domain.usuarios.usuario.Rol;
 import com.example.demo.domain.usuarios.usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 

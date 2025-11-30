@@ -1,6 +1,7 @@
 package com.example.demo.services.ofertas;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,7 +30,7 @@ public class OfertaMapper {
             .modalidadTrabajo(oferta.getModalidadTrabajo())
             .numeroCandidatos(oferta.getListaCandidatos().size())
             .contrata(
-                usuarioMapper.mapUsuarioEntityToUsuarioDto(oferta.getContrata())
+                usuarioMapper.mapUsuarioEntityToContrataDto(oferta.getContrata())
             )
             .build();
     }
@@ -37,7 +38,7 @@ public class OfertaMapper {
     /* NOTA: Las relaciones con otras entidades (Contrata) se mapean en el servicio */
     public Oferta mapNewOfertaDtoToEntity (OfertaDto ofertaDto) {
         return Oferta.builder()
-            .id(ofertaDto.getId())
+            .id(null)
             .puesto(ofertaDto.getPuesto())
             .sector(ofertaDto.getSector())
             .descripcion(ofertaDto.getDescripcion())
@@ -47,6 +48,7 @@ public class OfertaMapper {
             .fechaPublicacion(LocalDate.now())
             .tipoContrato(ofertaDto.getTipoContrato())
             .modalidadTrabajo(ofertaDto.getModalidadTrabajo())
+            .listaCandidatos(new ArrayList<>())
             .build();
     }
 }

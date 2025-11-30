@@ -1,10 +1,10 @@
-package com.example.demo.services;
+package com.example.demo.services.usuarios.conocimiento;
 
 import java.util.List;
 
-import com.example.demo.domain.Conocimiento;
-import com.example.demo.domain.dtos.ConocimientoDto;
-import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.domain.usuarios.busca.Busca;
+import com.example.demo.domain.usuarios.busca.conocimiento.Conocimiento;
+import com.example.demo.domain.usuarios.busca.conocimiento.ConocimientoDto;
 
 public interface ConocimientoService {
 

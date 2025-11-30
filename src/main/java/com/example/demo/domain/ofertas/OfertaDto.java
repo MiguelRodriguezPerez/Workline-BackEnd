@@ -2,8 +2,7 @@ package com.example.demo.domain.ofertas;
 
 import java.time.LocalDate;
 
-import com.example.demo.domain.usuarios.Contrata;
-import com.example.demo.domain.usuarios.usuario.UsuarioDto;
+import com.example.demo.domain.usuarios.contrata.ContrataDto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -25,6 +24,6 @@ public class OfertaDto {
     private TipoContrato tipoContrato;
     private ModalidadTrabajo modalidadTrabajo;
     private int numeroCandidatos;
-    private UsuarioDto contrata;
+    private ContrataDto contrata;
 
 }

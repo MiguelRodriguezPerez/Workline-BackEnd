@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.domain.modelView.BuscaView;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.ofertas.OfertaDto;
-import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.domain.usuarios.busca.Busca;
 import com.example.demo.services.ofertas.OfertaMapper;
 import com.example.demo.services.ofertas.OfertaService;
-import com.example.demo.services.usuarios.BuscaService;
-import com.example.demo.services.usuarios.ContrataService;
+import com.example.demo.services.usuarios.busca.BuscaService;
+import com.example.demo.services.usuarios.contrata.ContrataService;
 
 @RequestMapping("/contrata/api")
 @RestController

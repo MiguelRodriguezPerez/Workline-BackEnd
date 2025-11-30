@@ -1,4 +1,4 @@
-package com.example.demo.services.usuarios;
+package com.example.demo.services.usuarios.busca;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.domain.dtos.NuevoUsuarioDto;
 import com.example.demo.domain.modelView.BuscaView;
 import com.example.demo.domain.ofertas.Oferta;
-import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.domain.usuarios.busca.Busca;
 import com.example.demo.repositories.BuscaRepository;
 
 @Service

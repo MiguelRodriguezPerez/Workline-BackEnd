@@ -1,13 +1,13 @@
-package com.example.demo.services;
+package com.example.demo.services.usuarios.experiencia;
 
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.domain.Experiencia;
-import com.example.demo.domain.dtos.ExperienciaDto;
-import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.domain.usuarios.busca.Busca;
+import com.example.demo.domain.usuarios.busca.experiencia.Experiencia;
+import com.example.demo.domain.usuarios.busca.experiencia.ExperienciaDto;
 
 @Service
 public interface ExperienciaService  {

@@ -1,8 +1,8 @@
-package com.example.demo.domain;
+package com.example.demo.domain.usuarios.busca.conocimiento;
 
 import java.time.LocalDate;
 
-import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.domain.usuarios.busca.Busca;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;

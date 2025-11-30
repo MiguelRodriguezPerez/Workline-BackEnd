@@ -1,10 +1,11 @@
-package com.example.demo.domain.usuarios;
+package com.example.demo.domain.usuarios.busca;
 
 import java.util.Set;
 
-import com.example.demo.domain.Conocimiento;
-import com.example.demo.domain.Experiencia;
 import com.example.demo.domain.ofertas.Oferta;
+import com.example.demo.domain.usuarios.busca.conocimiento.Conocimiento;
+import com.example.demo.domain.usuarios.busca.experiencia.Experiencia;
+import com.example.demo.domain.usuarios.usuario.Rol;
 import com.example.demo.domain.usuarios.usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

@@ -1,19 +1,17 @@
-package com.example.demo.domain.dtos;
+package com.example.demo.domain.usuarios.busca.conocimiento;
+
 
 import java.time.LocalDate;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
+@Builder
 public class ConocimientoDto {
-    
+    private Long id;
     private String centroEducativo;
     private String titulo;
     private LocalDate inicioPeriodoConocimiento;
     private LocalDate finPeriodoConocimiento;
-    
 }

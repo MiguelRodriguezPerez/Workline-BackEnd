@@ -1,4 +1,4 @@
-package com.example.demo.services.usuarios;
+package com.example.demo.services.usuarios.contrata;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import com.example.demo.domain.dtos.NuevoUsuarioDto;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.ofertas.OfertaDto;
-import com.example.demo.domain.usuarios.Contrata;
+import com.example.demo.domain.usuarios.contrata.Contrata;
 
 public interface ContrataService {
     

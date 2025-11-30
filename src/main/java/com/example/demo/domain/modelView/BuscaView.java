@@ -3,8 +3,8 @@ package com.example.demo.domain.modelView;
 import java.util.List;
 import java.util.Set;
 
-import com.example.demo.domain.Conocimiento;
-import com.example.demo.domain.Experiencia;
+import com.example.demo.domain.usuarios.busca.conocimiento.Conocimiento;
+import com.example.demo.domain.usuarios.busca.experiencia.Experiencia;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

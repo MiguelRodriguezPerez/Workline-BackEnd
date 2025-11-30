@@ -1,4 +1,4 @@
-package com.example.demo.domain.usuarios;
+package com.example.demo.domain.usuarios.usuario;
 
 public enum Rol {
     ADMIN,CONTRATA,BUSCA;

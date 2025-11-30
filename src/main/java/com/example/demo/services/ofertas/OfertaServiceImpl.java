@@ -14,11 +14,11 @@ import org.springframework.stereotype.Service;
 import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.ofertas.OfertaDto;
-import com.example.demo.domain.usuarios.Busca;
-import com.example.demo.domain.usuarios.Contrata;
+import com.example.demo.domain.usuarios.busca.Busca;
+import com.example.demo.domain.usuarios.contrata.Contrata;
 import com.example.demo.repositories.OfertaRepository;
-import com.example.demo.services.usuarios.BuscaService;
-import com.example.demo.services.usuarios.ContrataService;
+import com.example.demo.services.usuarios.busca.BuscaService;
+import com.example.demo.services.usuarios.contrata.ContrataService;
 
 @Service
 public class OfertaServiceImpl implements OfertaService {

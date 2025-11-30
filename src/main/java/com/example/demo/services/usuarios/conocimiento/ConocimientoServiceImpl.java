@@ -1,17 +1,16 @@
-package com.example.demo.services;
+package com.example.demo.services.usuarios.conocimiento;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.domain.Conocimiento;
-import com.example.demo.domain.dtos.ConocimientoDto;
-import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.domain.usuarios.busca.Busca;
+import com.example.demo.domain.usuarios.busca.conocimiento.Conocimiento;
+import com.example.demo.domain.usuarios.busca.conocimiento.ConocimientoDto;
 import com.example.demo.repositories.ConocimientoRepository;
-import com.example.demo.services.usuarios.BuscaService;
+import com.example.demo.services.usuarios.busca.BuscaService;
 
 @Service
 public class ConocimientoServiceImpl implements ConocimientoService{
