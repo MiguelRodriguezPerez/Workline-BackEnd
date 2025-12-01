@@ -15,14 +15,15 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.dtos.NuevoUsuarioDto;
 import com.example.demo.domain.ofertas.Oferta;
-import com.example.demo.domain.ofertas.OfertaDto;
+import com.example.demo.domain.ofertas.OfertaDtoEmployer;
+import com.example.demo.domain.ofertas.OfertaDtoJobSearch;
 import com.example.demo.domain.usuarios.contrata.Contrata;
 import com.example.demo.repositories.ContrataRepository;
 import com.example.demo.services.ofertas.OfertaMapper;
 
 @Service
-public class ContrataServiceImpl implements ContrataService{
-    
+public class ContrataServiceImpl implements ContrataService {
+
     @Autowired
     ContrataRepository repo;
 
@@ -43,29 +44,28 @@ public class ContrataServiceImpl implements ContrataService{
         return repo.save(contrata);
     }
 
-
     @Override
-    public Contrata guardarNuevoUsuarioFromDto(NuevoUsuarioDto dto){
-        //WARNING : Contraseña sin encriptar
+    public Contrata guardarNuevoUsuarioFromDto(NuevoUsuarioDto dto) {
+        // WARNING : Contraseña sin encriptar
         Contrata contrataFromDto = this.convertirNuevoUsuarioDtoAContrata(dto);
         Contrata resultado = this.guardar(contrataFromDto);
 
-        return resultado;   
+        return resultado;
     }
 
     @Override
-    public Contrata convertirNuevoUsuarioDtoAContrata(NuevoUsuarioDto dto){
-        return new Contrata(dto.getNombre(), dto.getEmail(), 
-            dto.getCiudad(), dto.getTelefono(), dto.getPassword());
+    public Contrata convertirNuevoUsuarioDtoAContrata(NuevoUsuarioDto dto) {
+        return new Contrata(dto.getNombre(), dto.getEmail(),
+                dto.getCiudad(), dto.getTelefono(), dto.getPassword());
     }
 
     @Override
     public void borrarContrata(Long id) {
-       repo.deleteById(id);
+        repo.deleteById(id);
     }
 
     @Override
-    public void borrarContrataWrapper(){
+    public void borrarContrataWrapper() {
 
     }
 
@@ -81,18 +81,20 @@ public class ContrataServiceImpl implements ContrataService{
 
     @Override
     public Contrata obtenerPorNombre(String nombre) {
-       return repo.findByNombre(nombre);
+        return repo.findByNombre(nombre);
     }
-    
+
     @Override
-    public boolean esNombreRepetido(String nombre){
-        if(obtenerPorNombre(nombre) != null) return true;
-        else return false;
+    public boolean esNombreRepetido(String nombre) {
+        if (obtenerPorNombre(nombre) != null)
+            return true;
+        else
+            return false;
     }
 
     @Override
     public String obtenerNombre() {
-       return obtenerContrataConectado().getNombre();
+        return obtenerContrataConectado().getNombre();
     }
 
     @Override
@@ -106,7 +108,7 @@ public class ContrataServiceImpl implements ContrataService{
     private final int ofertasPorPagina = 8;
 
     @Override
-    public Page<OfertaDto> obtenerPaginaOfertasPublicadas(Integer paginaElecta) {
+    public Page<OfertaDtoEmployer> obtenerPaginaOfertasPublicadas(Integer paginaElecta) {
 
         Pageable paginable = PageRequest.of(paginaElecta, ofertasPorPagina);
 
@@ -118,8 +120,8 @@ public class ContrataServiceImpl implements ContrataService{
         int fin = Math.min(inicio + paginable.getPageSize(), listaOfertas.size());
 
         // Sublista solo de la página seleccionada
-        List<OfertaDto> pagina = listaOfertas.subList(inicio, fin).stream()
-                .map(ofertaMapper:: mapOfertaEntityToDto)
+        List<OfertaDtoEmployer> pagina = listaOfertas.subList(inicio, fin).stream()
+                .map(ofertaMapper::mapOfertaEntityToEmployerDto)
                 .toList();
 
         // Devuelves la página final
@@ -127,23 +129,20 @@ public class ContrataServiceImpl implements ContrataService{
     }
 }
 
-    // @Override
-    // public String generarApiKey() {
-    //     Contrata contrata = this.obtenerContrataConectado();
-    //     String key = UUID.randomUUID().toString();
+// @Override
+// public String generarApiKey() {
+// Contrata contrata = this.obtenerContrataConectado();
+// String key = UUID.randomUUID().toString();
 
-    //     contrata.setApiKey(passwordEncoder.encode(key));
-    //     this.guardarSinEncriptar(contrata);
+// contrata.setApiKey(passwordEncoder.encode(key));
+// this.guardarSinEncriptar(contrata);
 
-    //     return key;
-    // }
+// return key;
+// }
 
-    // @Override
-    // public void borrarApiKey() {
-    //     Contrata contrata = this.obtenerContrataConectado();
-    //     contrata.setApiKey(null);
-    //     this.guardarSinEncriptar(contrata);
-    // }
-
-
-
+// @Override
+// public void borrarApiKey() {
+// Contrata contrata = this.obtenerContrataConectado();
+// contrata.setApiKey(null);
+// this.guardarSinEncriptar(contrata);
+// }

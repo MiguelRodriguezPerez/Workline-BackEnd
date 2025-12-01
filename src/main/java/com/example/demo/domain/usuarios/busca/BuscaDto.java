@@ -18,6 +18,7 @@ public class BuscaDto {
     private String nombre;
     private String email;
     private String ciudad;
+    private String telefono;
     private Rol rol;
 
     private Set<ConocimientoDto> listaConocimientos;

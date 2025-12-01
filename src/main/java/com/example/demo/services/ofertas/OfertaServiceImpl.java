@@ -13,7 +13,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.domain.ofertas.Oferta;
-import com.example.demo.domain.ofertas.OfertaDto;
+import com.example.demo.domain.ofertas.OfertaDtoEmployer;
+import com.example.demo.domain.ofertas.OfertaDtoJobSearch;
 import com.example.demo.domain.usuarios.busca.Busca;
 import com.example.demo.domain.usuarios.contrata.Contrata;
 import com.example.demo.repositories.OfertaRepository;
@@ -44,8 +45,8 @@ public class OfertaServiceImpl implements OfertaService {
     }
 
     @Override
-    public OfertaDto guardarNuevaOferta(OfertaDto ofertaDto) {
-        Oferta oferta = ofertaMapper.mapNewOfertaDtoToEntity(ofertaDto);
+    public OfertaDtoEmployer guardarNuevaOferta(OfertaDtoEmployer ofertaDto) {
+        Oferta oferta = ofertaMapper.mapNewOfertaEmployerDtoToEntity(ofertaDto);
         Contrata contrata = contrataService.obtenerContrataConectado();
 
         oferta.setContrata(contrata);
@@ -54,11 +55,11 @@ public class OfertaServiceImpl implements OfertaService {
         this.guardarOferta(oferta);
         contrataService.guardarSinEncriptar(contrata);
 
-        return ofertaMapper.mapOfertaEntityToDto(oferta);
+        return ofertaMapper.mapOfertaEntityToEmployerDto(oferta);
     }
 
     @Override
-    public OfertaDto actualizarOferta(OfertaDto ofertaDto) {
+    public OfertaDtoEmployer actualizarOferta(OfertaDtoEmployer ofertaDto) {
         Oferta oferta = this.obtenerPorId(ofertaDto.getId());
 
         oferta.setPuesto(oferta.getPuesto());
@@ -73,7 +74,7 @@ public class OfertaServiceImpl implements OfertaService {
 
         Oferta resultado = this.guardarOferta(oferta);
 
-        return ofertaMapper.mapOfertaEntityToDto(resultado);
+        return ofertaMapper.mapOfertaEntityToEmployerDto(resultado);
     }
 
     @Override
@@ -129,7 +130,7 @@ public class OfertaServiceImpl implements OfertaService {
     private final Integer ofertasPorPagina = 10;
 
     @Override
-    public Page<OfertaDto> obtenerPaginaOfertas(int numPag, BusquedaOferta busquedaOferta) {
+    public Page<OfertaDtoJobSearch> obtenerPaginaOfertas(int numPag, BusquedaOferta busquedaOferta) {
         List<Oferta> ofertasFiltradas = this.obtenerResultados(busquedaOferta);
 
         Pageable paginable = PageRequest.of(numPag, ofertasPorPagina);
@@ -138,33 +139,31 @@ public class OfertaServiceImpl implements OfertaService {
 
         List<Oferta> paginaSinMapear = ofertasFiltradas.subList(primera, ultima);
 
-        List<OfertaDto> paginaDto = paginaSinMapear.stream()
-                .map(ofertaMapper::mapOfertaEntityToDto)
+        List<OfertaDtoJobSearch> paginaDto = paginaSinMapear.stream()
+                .map(ofertaMapper::mapOfertaEntityToJobSearchDto)
                 .toList();
 
         return new PageImpl<>(paginaDto, paginable, ofertasFiltradas.size());
     }
 
-
     @Override
     public List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta) {
         return this.obtenerTodos().stream()
-                .filter(oferta -> busquedaOferta.getPuesto() == null 
+                .filter(oferta -> busquedaOferta.getPuesto() == null
                         || busquedaOferta.getPuesto().isBlank()
                         || busquedaOferta.getPuesto().equalsIgnoreCase(oferta.getPuesto()))
-                .filter(oferta -> busquedaOferta.getCiudad() == null 
+                .filter(oferta -> busquedaOferta.getCiudad() == null
                         || busquedaOferta.getCiudad().isBlank()
                         || busquedaOferta.getCiudad().equalsIgnoreCase(oferta.getCiudad()))
-                .filter(oferta -> busquedaOferta.getSalarioAnualMinimo() == null 
+                .filter(oferta -> busquedaOferta.getSalarioAnualMinimo() == null
                         || busquedaOferta.getSalarioAnualMinimo() == 0
                         || oferta.getSalarioAnual() >= busquedaOferta.getSalarioAnualMinimo())
-                .filter(oferta -> busquedaOferta.getModalidadTrabajo() == null 
+                .filter(oferta -> busquedaOferta.getModalidadTrabajo() == null
                         || busquedaOferta.getModalidadTrabajo() == oferta.getModalidadTrabajo())
-                .filter(oferta -> busquedaOferta.getTipoContrato() == null 
+                .filter(oferta -> busquedaOferta.getTipoContrato() == null
                         || busquedaOferta.getTipoContrato() == oferta.getTipoContrato())
-                .toList(); 
+                .toList();
     }
-
 
     @Override
     public boolean estaSuscritoOferta(Long id) {
@@ -176,11 +175,7 @@ public class OfertaServiceImpl implements OfertaService {
         return false;
     }
 
-
-
     /* NOTA: Su relación con el usuario contrata se mapeará en otro método */
-
-
 
     @Override
     public void inscribirBuscaConectadoWrapper(Long id) {

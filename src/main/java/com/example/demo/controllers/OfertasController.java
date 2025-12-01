@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.entidadesApi.PaginaJobSearchRequest;
-import com.example.demo.domain.ofertas.OfertaDto;
+import com.example.demo.domain.ofertas.OfertaDtoEmployer;
+import com.example.demo.domain.ofertas.OfertaDtoJobSearch;
 import com.example.demo.services.ofertas.OfertaMapper;
 import com.example.demo.services.ofertas.OfertaService;
 
@@ -28,9 +29,10 @@ public class OfertasController {
     OfertaMapper ofertaMapper;
 
     @PostMapping("/busqueda")
-    public ResponseEntity<Page<OfertaDto>> getAllOfertas(@RequestBody PaginaJobSearchRequest paginaJobSearchRequest) {
+    public ResponseEntity<Page<OfertaDtoJobSearch>> getAllOfertas(
+            @RequestBody PaginaJobSearchRequest paginaJobSearchRequest) {
         if (paginaJobSearchRequest.getBusquedaOferta() != null) {
-            Page<OfertaDto> resultado = ofertaService.obtenerPaginaOfertas(
+            Page<OfertaDtoJobSearch> resultado = ofertaService.obtenerPaginaOfertas(
                     paginaJobSearchRequest.getPagina(),
                     paginaJobSearchRequest.getBusquedaOferta());
             return new ResponseEntity<>(resultado, HttpStatus.OK);
@@ -39,11 +41,17 @@ public class OfertasController {
 
     }
 
-    @GetMapping("/obtenerOfertaPorId/{id}")
-    public ResponseEntity<OfertaDto> getOfertaByIdApi(@PathVariable Long id) {
-        OfertaDto resultado = ofertaMapper.mapOfertaEntityToDto(
-            ofertaService.obtenerPorId(id)
-        );
+    @GetMapping("/obtenerOfertaPorId/jobSearch/{id}")
+    public ResponseEntity<OfertaDtoJobSearch> getOfertaByIdApiJobSearch(@PathVariable Long id) {
+        OfertaDtoJobSearch resultado = ofertaMapper.mapOfertaEntityToJobSearchDto(
+                ofertaService.obtenerPorId(id));
+        return new ResponseEntity<>(resultado, HttpStatus.OK);
+    }
+
+    @GetMapping("/obtenerOfertaPorId/employer/{id}")
+    public ResponseEntity<OfertaDtoEmployer> getOfertaByIdApiEmployerDto(@PathVariable Long id) {
+        OfertaDtoEmployer resultado = ofertaMapper.mapOfertaEntityToEmployerDto(
+                ofertaService.obtenerPorId(id));
         return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
 

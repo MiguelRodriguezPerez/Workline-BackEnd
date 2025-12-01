@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @Builder
-public class OfertaDto {
+public class OfertaDtoJobSearch {
 
     private Long id;
     private String puesto;

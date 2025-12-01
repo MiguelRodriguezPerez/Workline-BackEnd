@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.modelView.BuscaView;
 import com.example.demo.domain.ofertas.Oferta;
-import com.example.demo.domain.ofertas.OfertaDto;
+import com.example.demo.domain.ofertas.OfertaDtoEmployer;
+import com.example.demo.domain.ofertas.OfertaDtoJobSearch;
 import com.example.demo.domain.usuarios.busca.Busca;
 import com.example.demo.services.ofertas.OfertaMapper;
 import com.example.demo.services.ofertas.OfertaService;
@@ -45,20 +46,20 @@ public class ContrataController {
 
     @GetMapping("/ofertas/pagina/{num}") // Nota: Borraste @CookieValue(defaultValue = "no-cookie-found") String
                                          // jwtToken,
-    public ResponseEntity<Page<OfertaDto>> getPaginaApi(@PathVariable int num) {
-        Page<OfertaDto> resultado = contrataService.obtenerPaginaOfertasPublicadas(Integer.valueOf(num));
+    public ResponseEntity<Page<OfertaDtoEmployer>> getPaginaApi(@PathVariable int num) {
+        Page<OfertaDtoEmployer> resultado = contrataService.obtenerPaginaOfertasPublicadas(Integer.valueOf(num));
         return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
 
     @PostMapping("/nuevaOferta")
-    public ResponseEntity<OfertaDto> registrarOferta(@RequestBody OfertaDto ofertaDtoApi) {
-        OfertaDto resultado = ofertaService.guardarNuevaOferta(ofertaDtoApi);
+    public ResponseEntity<OfertaDtoEmployer> registrarOferta(@RequestBody OfertaDtoEmployer ofertaDtoApi) {
+        OfertaDtoEmployer resultado = ofertaService.guardarNuevaOferta(ofertaDtoApi);
         return new ResponseEntity<>(resultado, HttpStatus.CREATED);
     }
 
-    @PutMapping("/editarOferta/{id}")
-    public ResponseEntity<OfertaDto> actualizarOferta(@RequestBody OfertaDto ofertaDtoApi) {
-        OfertaDto resultado = ofertaService.actualizarOferta(ofertaDtoApi);
+    @PutMapping("/editarOferta")
+    public ResponseEntity<OfertaDtoEmployer> actualizarOferta(@RequestBody OfertaDtoEmployer ofertaDtoApi) {
+        OfertaDtoEmployer resultado = ofertaService.actualizarOferta(ofertaDtoApi);
         return new ResponseEntity<>(resultado, HttpStatus.CREATED);
     }
 
@@ -67,7 +68,6 @@ public class ContrataController {
         ofertaService.borrarOfertaWrapper(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 
     @GetMapping("/obtenerListaCandidatos/{id}")
     public ResponseEntity<List<Busca>> getListBusca(@PathVariable Long id) {

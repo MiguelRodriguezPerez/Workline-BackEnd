@@ -32,13 +32,12 @@ public class UsuarioMapper {
     }
 
 
-
     public BuscaDto mapBuscaEntityToDto(Busca busca) {
-        
         return BuscaDto.builder()
             .nombre(busca.getNombre())
             .email(busca.getEmail())
             .ciudad(busca.getCiudad())
+            .telefono(busca.getTelefono())
             .rol(busca.getRol())
             .listaConocimientos(
                 conocimientoMapper.mapConocimientoSetEntityToDto(
