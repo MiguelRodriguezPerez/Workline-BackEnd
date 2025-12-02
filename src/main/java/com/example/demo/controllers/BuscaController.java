@@ -5,6 +5,8 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.ofertas.Oferta;
+import com.example.demo.domain.usuarios.busca.BuscaDto;
 import com.example.demo.domain.usuarios.busca.conocimiento.Conocimiento;
 import com.example.demo.domain.usuarios.busca.conocimiento.ConocimientoDto;
 import com.example.demo.domain.usuarios.busca.experiencia.Experiencia;
@@ -22,6 +25,8 @@ import com.example.demo.domain.usuarios.busca.experiencia.ExperienciaDto;
 import com.example.demo.services.usuarios.busca.BuscaService;
 import com.example.demo.services.usuarios.conocimiento.ConocimientoService;
 import com.example.demo.services.usuarios.experiencia.ExperienciaService;
+import com.example.demo.services.usuarios.usuario.UsuarioMapper;
+
 
 @RequestMapping("/busca/api")
 @RestController
@@ -35,6 +40,19 @@ public class BuscaController {
 
     @Autowired
     ConocimientoService conocimientoService;
+
+    @Autowired
+    UsuarioMapper usuarioMapper;
+
+    @GetMapping("/obtenerPorId/{id}")
+    public ResponseEntity<BuscaDto> getBuscaByIdEndpoint(@PathVariable Long id) {
+        BuscaDto resultado = usuarioMapper.mapBuscaEntityToDto(
+            buscaService.obtenerPorId(id)
+        );
+
+        return new ResponseEntity<>(resultado,HttpStatus.OK);
+    }
+    
 
     @GetMapping("/misExperiencias")
     public ResponseEntity<Set<Experiencia>> getMyExperiencias(){
@@ -103,4 +121,5 @@ public class BuscaController {
         if(resultado.size() == 0) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         else return new ResponseEntity<>(resultado,HttpStatus.OK);
     }
+
 }

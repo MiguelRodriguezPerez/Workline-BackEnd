@@ -24,6 +24,7 @@ public class UsuarioMapper {
 
     public ContrataDto mapUsuarioEntityToContrataDto(Contrata contrata) {
         return ContrataDto.builder()
+                .id(contrata.getId())
                 .nombre(contrata.getNombre())
                 .email(contrata.getEmail())
                 .ciudad(contrata.getCiudad())
@@ -34,6 +35,7 @@ public class UsuarioMapper {
 
     public BuscaDto mapBuscaEntityToDto(Busca busca) {
         return BuscaDto.builder()
+            .id(busca.getId())
             .nombre(busca.getNombre())
             .email(busca.getEmail())
             .ciudad(busca.getCiudad())

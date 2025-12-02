@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter 
 @Builder
 public class ContrataDto {
+    private Long id;
     private String nombre;
     private String email;
     private String ciudad;

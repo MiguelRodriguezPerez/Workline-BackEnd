@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,6 +49,8 @@ public class ContrataController {
     @GetMapping("/ofertas/pagina/{num}") // Nota: Borraste @CookieValue(defaultValue = "no-cookie-found") String
                                          // jwtToken,
     public ResponseEntity<Page<OfertaDtoEmployer>> getPaginaApi(@PathVariable int num) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(auth.getAuthorities());
         Page<OfertaDtoEmployer> resultado = contrataService.obtenerPaginaOfertasPublicadas(Integer.valueOf(num));
         return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
