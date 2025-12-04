@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.usuarios.busca.Busca;
 import com.example.demo.domain.usuarios.contrata.Contrata;
-import com.example.demo.domain.usuarios.usuario.UserContextInterface;
+import com.example.demo.domain.usuarios.usuario.LoggedUserContext;
 import com.example.demo.domain.usuarios.usuario.Usuario;
 import com.example.demo.domain.usuarios.usuario.UsuarioSettignsDto;
 import com.example.demo.services.ofertas.OfertaService;
@@ -58,7 +58,6 @@ public class UsuarioService {
     public boolean esNombreRepetido(String nombre) {
         return this.encontrarUsuarioPorNombre(nombre) != null;
     }
-
 
     public Usuario obtenerUsuarioLogueado() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

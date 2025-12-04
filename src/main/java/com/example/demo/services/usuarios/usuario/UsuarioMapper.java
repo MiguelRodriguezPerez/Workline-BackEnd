@@ -7,7 +7,7 @@ import com.example.demo.domain.usuarios.busca.Busca;
 import com.example.demo.domain.usuarios.busca.BuscaDto;
 import com.example.demo.domain.usuarios.contrata.Contrata;
 import com.example.demo.domain.usuarios.contrata.ContrataDto;
-import com.example.demo.domain.usuarios.usuario.UserContextInterface;
+import com.example.demo.domain.usuarios.usuario.LoggedUserContext;
 import com.example.demo.domain.usuarios.usuario.Usuario;
 import com.example.demo.domain.usuarios.usuario.UsuarioSettignsDto;
 import com.example.demo.services.usuarios.conocimiento.ConocimientoMapper;
@@ -32,28 +32,22 @@ public class UsuarioMapper {
                 .build();
     }
 
-
     public BuscaDto mapBuscaEntityToDto(Busca busca) {
         return BuscaDto.builder()
-            .id(busca.getId())
-            .nombre(busca.getNombre())
-            .email(busca.getEmail())
-            .ciudad(busca.getCiudad())
-            .telefono(busca.getTelefono())
-            .rol(busca.getRol())
-            .listaConocimientos(
-                conocimientoMapper.mapConocimientoSetEntityToDto(
-                    busca.getListaConocimientos()
-                )
-            )
-            .listaExperiencias(
-                experienciaMapper.mapExperienciaSetEntityToDto(
-                    busca.getListaExperiencias()
-                )
-            )
-            .build();
+                .id(busca.getId())
+                .nombre(busca.getNombre())
+                .email(busca.getEmail())
+                .ciudad(busca.getCiudad())
+                .telefono(busca.getTelefono())
+                .rol(busca.getRol())
+                .listaConocimientos(
+                        conocimientoMapper.mapConocimientoSetEntityToDto(
+                                busca.getListaConocimientos()))
+                .listaExperiencias(
+                        experienciaMapper.mapExperienciaSetEntityToDto(
+                                busca.getListaExperiencias()))
+                .build();
     }
-
 
     public UsuarioSettignsDto mapUsuarioEntityToUsuarioSettignsDto(Usuario usuario) {
         return UsuarioSettignsDto.builder()
@@ -64,13 +58,13 @@ public class UsuarioMapper {
                 .build();
     }
 
-    public UserContextInterface mapUsuarioEntityToUserContextInterface(Usuario usuario) {
-        return UserContextInterface.builder()
+    public LoggedUserContext mapUsuarioEntityToUserContextInterface(Usuario usuario) {
+        return LoggedUserContext.builder()
                 .username(usuario.getUsername())
                 .email(usuario.getEmail())
                 // Sospechoso de fallar
                 // TODO: Verificar e implementar enum
-                .rol(usuario.getRol().toString())
+                .rol(usuario.getRol())
                 .build();
     }
 }

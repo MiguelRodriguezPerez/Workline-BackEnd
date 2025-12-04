@@ -5,10 +5,10 @@ import lombok.Data;
 
 @Data
 @Builder
-public class UserContextInterface {
+public class LoggedUserContext {
 
     private String username;
     private String email;
-    private String rol;
+    private Rol rol;
 
 }

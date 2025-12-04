@@ -2,7 +2,6 @@ package com.example.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.dtos.LoginUserDto;
-import com.example.demo.domain.usuarios.usuario.UserContextInterface;
+import com.example.demo.domain.usuarios.usuario.LoggedUserContext;
 import com.example.demo.domain.usuarios.usuario.Usuario;
 import com.example.demo.services.auth.AuthenticationService;
 import com.example.demo.services.auth.JwtService;
@@ -33,9 +32,9 @@ public class AuthenticationController {
     UsuarioService usuarioService;
 
     @PostMapping("/login")
-    public ResponseEntity<UserContextInterface> authenticate(@RequestBody LoginUserDto loginUserDto) {
+    public ResponseEntity<LoggedUserContext> authenticate(@RequestBody LoginUserDto loginUserDto) {
         Usuario authenticatedUser = authenticationService.authenticate(loginUserDto);
-        UserContextInterface usuarioView = authenticationService.getUsuarioViewClientContext(authenticatedUser);
+        LoggedUserContext usuarioView = authenticationService.getUsuarioViewClientContext(authenticatedUser);
         ResponseCookie cookie = authenticationService.generateCookieToken(authenticatedUser);
 
         return ResponseEntity
@@ -55,7 +54,7 @@ public class AuthenticationController {
 
     @GetMapping("/areCredentialsValid")
     public ResponseEntity<Boolean> areCredentialsValidEndpoint(
-        @CookieValue(name = "jwtToken", required = false) String token) {
+            @CookieValue(name = "jwtToken", required = false) String token) {
         return ResponseEntity.ok().body(jwtService.isTokenValid(token));
     }
 }

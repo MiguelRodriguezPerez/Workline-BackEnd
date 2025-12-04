@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.dtos.LoginUserDto;
-import com.example.demo.domain.usuarios.usuario.UserContextInterface;
+import com.example.demo.domain.usuarios.usuario.LoggedUserContext;
 import com.example.demo.domain.usuarios.usuario.Usuario;
 import com.example.demo.exceptions.loginExceptions.UsernameNoEncontradoException;
 import com.example.demo.services.usuarios.usuario.UsuarioMapper;
@@ -88,7 +88,7 @@ public class AuthenticationService {
      * authenticationService
      * en vez de authenticationService y usuarioService
      */
-    public UserContextInterface getUsuarioViewClientContext(Usuario usuario) {
+    public LoggedUserContext getUsuarioViewClientContext(Usuario usuario) {
         return usuarioMapper.mapUsuarioEntityToUserContextInterface(usuario);
     }
 

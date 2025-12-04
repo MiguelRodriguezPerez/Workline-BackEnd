@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.domain.usuarios.usuario.UserContextInterface;
+import com.example.demo.domain.usuarios.usuario.LoggedUserContext;
 import com.example.demo.domain.usuarios.usuario.Usuario;
 import com.example.demo.domain.usuarios.usuario.UsuarioSettignsDto;
 import com.example.demo.services.auth.AuthenticationService;
@@ -42,9 +42,9 @@ public class MiPerfilController {
     AuthenticationService authenticationService;
 
     @GetMapping("/getCurrentUser")
-    public ResponseEntity<UserContextInterface> getLoggedUser() {
+    public ResponseEntity<LoggedUserContext> getLoggedUser() {
         Usuario usuario = usuarioService.obtenerUsuarioLogueado();
-        UserContextInterface usuarioView = usuarioMapper.mapUsuarioEntityToUserContextInterface(usuario);
+        LoggedUserContext usuarioView = usuarioMapper.mapUsuarioEntityToUserContextInterface(usuario);
 
         return new ResponseEntity<>(usuarioView, HttpStatus.OK);
     }
@@ -57,10 +57,10 @@ public class MiPerfilController {
     }
 
     @PutMapping("/updateUserData")
-    public ResponseEntity<UserContextInterface> updateUserData(@RequestBody UsuarioSettignsDto usuarioDto) {
+    public ResponseEntity<LoggedUserContext> updateUserData(@RequestBody UsuarioSettignsDto usuarioDto) {
         Usuario usuario = usuarioService.guardarCambios(usuarioDto);
         ResponseCookie jwtToken = authenticationService.generateCookieToken(usuario);
-        UserContextInterface resultado = usuarioMapper.mapUsuarioEntityToUserContextInterface(usuario);
+        LoggedUserContext resultado = usuarioMapper.mapUsuarioEntityToUserContextInterface(usuario);
         return ResponseEntity
                 /*
                  * Esta considerado una buena práctica que cuando creas o actualizas un recurso
