@@ -1,5 +1,6 @@
 package com.example.demo.domain.usuarios.contrata;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.example.demo.domain.ofertas.Oferta;
@@ -28,7 +29,7 @@ public class Contrata extends Usuario {
     @JsonBackReference("contrata_oferta")
     @OneToMany(fetch= FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "contrata")
     @Nullable
-    private Set<Oferta> listaOfertas;
+    private Set<Oferta> listaOfertas = new HashSet<>();
     
     public Contrata(String nombre, String email, String ciudad, String telefono, String password) {
         super(nombre, email, ciudad, telefono, password,Rol.CONTRATA);

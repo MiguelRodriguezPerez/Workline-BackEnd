@@ -1,15 +1,21 @@
 package com.example.demo.services.usuarios.usuario;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.domain.usuarios.busca.Busca;
 import com.example.demo.domain.usuarios.busca.BuscaDto;
+import com.example.demo.domain.usuarios.busca.conocimiento.ConocimientoDto;
+import com.example.demo.domain.usuarios.busca.experiencia.ExperienciaDto;
 import com.example.demo.domain.usuarios.contrata.Contrata;
 import com.example.demo.domain.usuarios.contrata.ContrataDto;
 import com.example.demo.domain.usuarios.usuario.LoggedUserContext;
 import com.example.demo.domain.usuarios.usuario.Usuario;
 import com.example.demo.domain.usuarios.usuario.UsuarioSettignsDto;
+import com.example.demo.services.usuarios.busca.BuscaService;
 import com.example.demo.services.usuarios.conocimiento.ConocimientoMapper;
 import com.example.demo.services.usuarios.experiencia.ExperienciaMapper;
 
@@ -21,6 +27,9 @@ public class UsuarioMapper {
 
     @Autowired
     ExperienciaMapper experienciaMapper;
+
+    @Autowired
+    BuscaService buscaService;
 
     public ContrataDto mapUsuarioEntityToContrataDto(Contrata contrata) {
         return ContrataDto.builder()
@@ -59,12 +68,26 @@ public class UsuarioMapper {
     }
 
     public LoggedUserContext mapUsuarioEntityToUserContextInterface(Usuario usuario) {
+        Set<ConocimientoDto> conocimientos = new HashSet<>();
+        Set<ExperienciaDto> experiencias = new HashSet<>();
+        Busca busca = buscaService.obtenerPorNombre(usuario.getNombre());
+
+        if (busca != null) {
+                conocimientos = conocimientoMapper.mapConocimientoSetEntityToDto(
+                        busca.getListaConocimientos()
+                );
+
+                experiencias = experienciaMapper.mapExperienciaSetEntityToDto(
+                        busca.getListaExperiencias()
+                );
+        }
+
         return LoggedUserContext.builder()
                 .username(usuario.getUsername())
                 .email(usuario.getEmail())
-                // Sospechoso de fallar
-                // TODO: Verificar e implementar enum
                 .rol(usuario.getRol())
+                .conocimientos(conocimientos)
+                .experiencias(experiencias)
                 .build();
     }
 }

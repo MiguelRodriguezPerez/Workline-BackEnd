@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.dtos.LoginUserDto;
 import com.example.demo.domain.dtos.NuevoUsuarioDto;
+import com.example.demo.domain.usuarios.busca.Busca;
 import com.example.demo.domain.usuarios.usuario.LoggedUserContext;
 import com.example.demo.domain.usuarios.usuario.Usuario;
 import com.example.demo.services.auth.AuthenticationService;
 import com.example.demo.services.usuarios.busca.BuscaService;
 import com.example.demo.services.usuarios.contrata.ContrataService;
+import com.example.demo.services.usuarios.usuario.UsuarioMapper;
 import com.example.demo.services.usuarios.usuario.UsuarioService;
 
 @RestController
@@ -38,6 +40,9 @@ public class NuevaCuentaController {
 
         @Autowired
         BuscaService buscaService;
+
+        @Autowired
+        UsuarioMapper usuarioMapper;
 
         @PostMapping("/nuevoUsuario")
         public ResponseEntity<LoggedUserContext> createNewUserEndpoint(@RequestBody NuevoUsuarioDto dto) {
@@ -60,7 +65,7 @@ public class NuevaCuentaController {
                 Usuario authenticatedUser = authenticationService.authenticate(
                                 new LoginUserDto(dto.getNombre(), dto.getPassword()));
                 ResponseCookie cookie = authenticationService.generateCookieToken(authenticatedUser);
-                LoggedUserContext usuarioContext = authenticationService.getUsuarioViewClientContext(authenticatedUser);
+                LoggedUserContext usuarioContext = usuarioMapper.mapUsuarioEntityToUserContextInterface(authenticatedUser);
 
                 return ResponseEntity
                                 .created(URI.create("/user/getCurrentUser"))
@@ -73,10 +78,10 @@ public class NuevaCuentaController {
                 buscaService.guardarNuevoUsuarioFromDto(dto);
 
                 // Usas la contraseña del dto sin encriptar. La encriptada no serviría
-                Usuario authenticatedUser = authenticationService.authenticate(
+                Busca authenticatedUser = (Busca) authenticationService.authenticate(
                                 new LoginUserDto(dto.getNombre(), dto.getPassword()));
                 ResponseCookie cookie = authenticationService.generateCookieToken(authenticatedUser);
-                LoggedUserContext usuarioContext = authenticationService.getUsuarioViewClientContext(authenticatedUser);
+                LoggedUserContext usuarioContext = usuarioMapper.mapUsuarioEntityToUserContextInterface(authenticatedUser);
 
                 return ResponseEntity
                                 .created(URI.create("/user/getCurrentUser"))

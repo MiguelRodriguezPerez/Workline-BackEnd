@@ -83,13 +83,5 @@ public class AuthenticationService {
         return logoutCookie;
     }
 
-    /*
-     * Este método se hizo para que AuthenticationController solo inyectará
-     * authenticationService
-     * en vez de authenticationService y usuarioService
-     */
-    public LoggedUserContext getUsuarioViewClientContext(Usuario usuario) {
-        return usuarioMapper.mapUsuarioEntityToUserContextInterface(usuario);
-    }
 
 }

@@ -16,6 +16,7 @@ import com.example.demo.domain.usuarios.usuario.LoggedUserContext;
 import com.example.demo.domain.usuarios.usuario.Usuario;
 import com.example.demo.services.auth.AuthenticationService;
 import com.example.demo.services.auth.JwtService;
+import com.example.demo.services.usuarios.usuario.UsuarioMapper;
 import com.example.demo.services.usuarios.usuario.UsuarioService;
 
 @RequestMapping("/auth")
@@ -31,10 +32,13 @@ public class AuthenticationController {
     @Autowired
     UsuarioService usuarioService;
 
+    @Autowired
+    UsuarioMapper usuarioMapper;
+
     @PostMapping("/login")
     public ResponseEntity<LoggedUserContext> authenticate(@RequestBody LoginUserDto loginUserDto) {
         Usuario authenticatedUser = authenticationService.authenticate(loginUserDto);
-        LoggedUserContext usuarioView = authenticationService.getUsuarioViewClientContext(authenticatedUser);
+        LoggedUserContext usuarioView = usuarioMapper.mapUsuarioEntityToUserContextInterface(authenticatedUser);
         ResponseCookie cookie = authenticationService.generateCookieToken(authenticatedUser);
 
         return ResponseEntity
