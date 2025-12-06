@@ -9,15 +9,23 @@ import com.example.demo.domain.usuarios.busca.conocimiento.ConocimientoDto;
 public interface ConocimientoService {
 
     Conocimiento guardarConocimiento(Conocimiento c);
-    Conocimiento guardarConocimientoDemoApp(Busca busca,Conocimiento c);
-    Conocimiento guardarCambios(ConocimientoDto conocimientoDto, Long id);
-    Conocimiento guardarConocimientoFromContrata(Conocimiento conocimiento);
+
+    Conocimiento guardarConocimientoDemoApp(Busca busca, Conocimiento c);
+
+    Conocimiento guardarCambios(ConocimientoDto conocimientoDto);
+
+    Conocimiento guardarConocimientoFromBusca(Conocimiento conocimiento);
+
     void actualizarConocimiento(Conocimiento conocimiento);
+
     Conocimiento obtenerPorId(Long id);
+
     void borrarConocimiento(Long id);
+
     void borrarTodosPorBusca(Long id);
+
     List<Conocimiento> obtenerTodos();
+
     List<Conocimiento> obtenerTodosSet();
-    Conocimiento convertirConocimientoDtoAConocimiento(ConocimientoDto dto);
-    
+
 }

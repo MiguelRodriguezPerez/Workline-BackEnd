@@ -13,10 +13,13 @@ import com.example.demo.repositories.ConocimientoRepository;
 import com.example.demo.services.usuarios.busca.BuscaService;
 
 @Service
-public class ConocimientoServiceImpl implements ConocimientoService{
-    
+public class ConocimientoServiceImpl implements ConocimientoService {
+
     @Autowired
     ConocimientoRepository repo;
+
+    @Autowired
+    ConocimientoMapper conocimientoMapper;
 
     @Autowired
     BuscaService buscaService;
@@ -26,31 +29,24 @@ public class ConocimientoServiceImpl implements ConocimientoService{
         return repo.save(c);
     }
 
-    public Conocimiento guardarConocimientoDemoApp(Busca busca,Conocimiento c) {
+    public Conocimiento guardarConocimientoDemoApp(Busca busca, Conocimiento c) {
         c.setBusca(busca);
         busca.getListaConocimientos().add(c);
 
         this.guardarConocimiento(c);
         buscaService.guardarSinEncriptar(busca);
-        
+
         return c;
     }
 
     @Override
-    public Conocimiento guardarCambios(ConocimientoDto dto, Long id){
+    public Conocimiento guardarCambios(ConocimientoDto dto) {
 
-        Conocimiento conocimiento = this.obtenerPorId(id);
-
-        conocimiento.setCentroEducativo(dto.getCentroEducativo());
-        conocimiento.setTitulo(dto.getTitulo());
-        conocimiento.setInicioPeriodoConocimiento(dto.getInicioPeriodoConocimiento());
-        conocimiento.setFinPeriodoConocimiento(dto.getFinPeriodoConocimiento());
-
-        return this.guardarConocimiento(conocimiento);
+        return this.guardarConocimiento(conocimientoMapper.mapConocimientoDtoToEntity(dto));
     }
 
     @Override
-    public Conocimiento guardarConocimientoFromContrata(Conocimiento conocimiento){
+    public Conocimiento guardarConocimientoFromBusca(Conocimiento conocimiento) {
         Busca buscaConectado = buscaService.obtenerBuscaConectado();
         conocimiento.setBusca(buscaConectado);
         buscaConectado.getListaConocimientos().add(conocimiento);
@@ -67,7 +63,6 @@ public class ConocimientoServiceImpl implements ConocimientoService{
     public void borrarConocimiento(Long id) {
         repo.deleteById(id);
     }
-
 
     @Override
     public void borrarTodosPorBusca(Long id) {
@@ -88,7 +83,7 @@ public class ConocimientoServiceImpl implements ConocimientoService{
 
         ArrayList<Conocimiento> resultado = new ArrayList<Conocimiento>();
 
-        for(Conocimiento con: obtenerTodos()){
+        for (Conocimiento con : obtenerTodos()) {
             resultado.add(con);
         }
 
@@ -110,11 +105,5 @@ public class ConocimientoServiceImpl implements ConocimientoService{
         this.guardarConocimiento(cEditar);
     }
 
-    @Override
-    public Conocimiento convertirConocimientoDtoAConocimiento(ConocimientoDto dto) {
-       return new Conocimiento(dto.getCentroEducativo(), dto.getTitulo(), 
-            dto.getInicioPeriodoConocimiento(), dto.getFinPeriodoConocimiento());
-    }
 
-    
 }

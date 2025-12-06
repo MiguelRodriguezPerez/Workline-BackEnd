@@ -67,27 +67,26 @@ public class UsuarioMapper {
                 .build();
     }
 
-    public LoggedUserContext mapUsuarioEntityToUserContextInterface(Usuario usuario) {
-        Set<ConocimientoDto> conocimientos = new HashSet<>();
-        Set<ExperienciaDto> experiencias = new HashSet<>();
+   public LoggedUserContext mapUsuarioEntityToUserContextInterface(Usuario usuario) {
         Busca busca = buscaService.obtenerPorNombre(usuario.getNombre());
-
-        if (busca != null) {
-                conocimientos = conocimientoMapper.mapConocimientoSetEntityToDto(
-                        busca.getListaConocimientos()
-                );
-
-                experiencias = experienciaMapper.mapExperienciaSetEntityToDto(
-                        busca.getListaExperiencias()
-                );
-        }
 
         return LoggedUserContext.builder()
                 .username(usuario.getUsername())
                 .email(usuario.getEmail())
                 .rol(usuario.getRol())
-                .conocimientos(conocimientos)
-                .experiencias(experiencias)
+                .conocimientos(
+                        busca != null ? 
+                        conocimientoMapper.mapConocimientoSetEntityToDto(busca.getListaConocimientos())
+                        : 
+                        new HashSet<>()
+                )
+                .experiencias(
+                        busca != null ? 
+                        experienciaMapper.mapExperienciaSetEntityToDto(busca.getListaExperiencias())
+                        : 
+                        new HashSet<>()
+                )
                 .build();
-    }
+        }
+
 }
