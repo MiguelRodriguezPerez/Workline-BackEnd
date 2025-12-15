@@ -38,7 +38,9 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<LoggedUserContext> authenticate(@RequestBody LoginUserDto loginUserDto) {
         Usuario authenticatedUser = authenticationService.authenticate(loginUserDto);
-        LoggedUserContext usuarioView = usuarioMapper.mapUsuarioEntityToUserContextInterface(authenticatedUser);
+        LoggedUserContext usuarioView = usuarioMapper.mapUsuarioEntityToUserContextInterface(
+            usuarioService.encontrarUsuarioPorNombre(authenticatedUser.getNombre())
+        );
         ResponseCookie cookie = authenticationService.generateCookieToken(authenticatedUser);
 
         return ResponseEntity

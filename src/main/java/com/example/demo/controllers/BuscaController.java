@@ -17,14 +17,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.ofertas.Oferta;
+import com.example.demo.domain.ofertas.OfertaDtoJobSearch;
 import com.example.demo.domain.usuarios.busca.BuscaDto;
 import com.example.demo.domain.usuarios.busca.conocimiento.Conocimiento;
 import com.example.demo.domain.usuarios.busca.conocimiento.ConocimientoDto;
 import com.example.demo.domain.usuarios.busca.experiencia.Experiencia;
 import com.example.demo.domain.usuarios.busca.experiencia.ExperienciaDto;
+import com.example.demo.services.ofertas.OfertaMapper;
 import com.example.demo.services.usuarios.busca.BuscaService;
 import com.example.demo.services.usuarios.conocimiento.ConocimientoMapper;
 import com.example.demo.services.usuarios.conocimiento.ConocimientoService;
+import com.example.demo.services.usuarios.experiencia.ExperienciaMapper;
 import com.example.demo.services.usuarios.experiencia.ExperienciaService;
 import com.example.demo.services.usuarios.usuario.UsuarioMapper;
 
@@ -37,7 +40,7 @@ public class BuscaController {
 
     @Autowired
     ExperienciaService experienciaService;
-
+    
     @Autowired
     ConocimientoService conocimientoService;
 
@@ -46,6 +49,10 @@ public class BuscaController {
 
     @Autowired
     ConocimientoMapper conocimientoMapper;
+
+    @Autowired
+    ExperienciaMapper experienciaMapper;
+
 
     @GetMapping("/obtenerPorId/{id}")
     public ResponseEntity<BuscaDto> getBuscaByIdEndpoint(@PathVariable Long id) {
@@ -65,15 +72,14 @@ public class BuscaController {
 
     @PostMapping("/nuevaExperiencia")
     public ResponseEntity<Experiencia> submitNewExperiencia(@RequestBody ExperienciaDto dto) {
-        Experiencia experiencia = experienciaService.convertirExperienciaDtoAExperiencia(dto);
+        Experiencia experiencia = experienciaMapper.mapExperienciaDtoToEntity(dto);
         experienciaService.guardarExperienciaFromBusca(experiencia);
         return new ResponseEntity<>(experiencia, HttpStatus.CREATED);
     }
 
-    @PutMapping("/editarExperiencia/{id}")
-    public ResponseEntity<Experiencia> editExperienciaEndpoint(@RequestBody ExperienciaDto expRequest,
-            @PathVariable Long id) {
-        Experiencia experiencia = experienciaService.guardarCambios(expRequest, id);
+    @PutMapping("/editarExperiencia")
+    public ResponseEntity<Experiencia> editExperienciaEndpoint(@RequestBody ExperienciaDto expRequest) {
+        Experiencia experiencia = experienciaService.guardarCambios(expRequest);
         return new ResponseEntity<>(experiencia, HttpStatus.CREATED);
     }
 
@@ -118,12 +124,9 @@ public class BuscaController {
     }
 
     @GetMapping("/miListaOfertas")
-    public ResponseEntity<Set<Oferta>> getMyListOfertas() {
-        Set<Oferta> resultado = buscaService.obtenerBuscaConectado().getListaOfertas();
-        if (resultado.size() == 0)
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        else
-            return new ResponseEntity<>(resultado, HttpStatus.OK);
+    public ResponseEntity<Set<OfertaDtoJobSearch>> getMyListOfertas() {
+        Set<OfertaDtoJobSearch> resultado = buscaService.obtenerOfertasJobSearchDelConectado();
+        return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
 
 }

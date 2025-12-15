@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,13 +54,13 @@ public class OfertasController {
         return new ResponseEntity<>(resultado, HttpStatus.OK);
     }
 
-    @PutMapping("/inscribirBusca/{id}")
+    @PostMapping("/inscribirBusca/{id}")
     public ResponseEntity<Void> suscribeBuscaInOferta(@PathVariable Long id) {
         ofertaService.inscribirBuscaConectadoWrapper(id);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping("/desinscribirBusca/{id}")
+    @PostMapping("/desinscribirBusca/{id}")
     public ResponseEntity<Void> unsuscribeBuscaInOferta(@PathVariable Long id) {
         ofertaService.desinscribirBuscaConectadoWrapper(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

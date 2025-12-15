@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.modelView.BuscaView;
-import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.ofertas.OfertaDtoEmployer;
-import com.example.demo.domain.ofertas.OfertaDtoJobSearch;
 import com.example.demo.domain.usuarios.busca.Busca;
 import com.example.demo.services.ofertas.OfertaMapper;
 import com.example.demo.services.ofertas.OfertaService;

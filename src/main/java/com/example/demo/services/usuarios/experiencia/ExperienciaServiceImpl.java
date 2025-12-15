@@ -20,6 +20,9 @@ public class ExperienciaServiceImpl implements ExperienciaService{
     ExperienciaRepository repo;
 
     @Autowired
+    ExperienciaMapper experienciaMapper;
+
+    @Autowired
     BuscaService buscaService;
 
     @Override
@@ -39,15 +42,10 @@ public class ExperienciaServiceImpl implements ExperienciaService{
     }
 
     @Override
-    public Experiencia guardarCambios(ExperienciaDto experienciaDto, Long id){
-        Experiencia exp = this.obtenerPorId(id);
-
-        exp.setPuesto(experienciaDto.getPuesto());
-        exp.setEmpresa(experienciaDto.getEmpresa());
-        exp.setInicioExperiencia(experienciaDto.getInicioExperiencia());
-        exp.setFinExperiencia(experienciaDto.getFinExperiencia());
-
-        return this.guardarExperiencia(exp);
+    public Experiencia guardarCambios(ExperienciaDto experienciaDto){
+        return this.guardarExperiencia(
+            experienciaMapper.mapExperienciaDtoToEntity(experienciaDto)
+        );
     }
 
     @Override
@@ -107,13 +105,6 @@ public class ExperienciaServiceImpl implements ExperienciaService{
             resultado.add(exp);
         }
         return resultado;
-    }
-
-    @Override
-    public Experiencia convertirExperienciaDtoAExperiencia(ExperienciaDto dto) {
-        return new Experiencia(null, 
-            dto.getPuesto(), dto.getEmpresa(), 
-            dto.getInicioExperiencia(), dto.getFinExperiencia(), null);
     }
 
 }

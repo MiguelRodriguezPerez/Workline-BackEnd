@@ -1,6 +1,8 @@
 package com.example.demo.services.usuarios.busca;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -12,8 +14,10 @@ import org.springframework.stereotype.Service;
 import com.example.demo.domain.dtos.NuevoUsuarioDto;
 import com.example.demo.domain.modelView.BuscaView;
 import com.example.demo.domain.ofertas.Oferta;
+import com.example.demo.domain.ofertas.OfertaDtoJobSearch;
 import com.example.demo.domain.usuarios.busca.Busca;
 import com.example.demo.repositories.BuscaRepository;
+import com.example.demo.services.ofertas.OfertaMapper;
 
 @Service
 public class BuscaServiceImpl implements BuscaService {
@@ -23,6 +27,9 @@ public class BuscaServiceImpl implements BuscaService {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    @Autowired
+    OfertaMapper ofertaMapper;
 
     @Override
     public Busca guardar(Busca busca) {
@@ -97,12 +104,10 @@ public class BuscaServiceImpl implements BuscaService {
 
     @Override
     public Boolean estaInscritoOferta(Long id) {
-
         for (Oferta oferta : this.obtenerBuscaConectado().getListaOfertas()) {
             if (oferta.getId() == id)
                 return true;
         }
-
         return false;
     }
 
@@ -117,6 +122,14 @@ public class BuscaServiceImpl implements BuscaService {
         // Contraseña sin encriptar
         return new Busca(dto.getNombre(), dto.getEmail(),
                 dto.getCiudad(), dto.getTelefono(), dto.getPassword());
+    }
+
+    public Set<OfertaDtoJobSearch> obtenerOfertasJobSearchDelConectado() {
+        return obtenerBuscaConectado()
+                .getListaOfertas()
+                .stream()
+                .map(ofertaMapper::mapOfertaEntityToJobSearchDto)
+                .collect(Collectors.toSet());
     }
 
 }

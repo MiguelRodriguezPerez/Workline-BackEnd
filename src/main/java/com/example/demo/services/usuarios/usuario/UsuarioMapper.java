@@ -1,21 +1,17 @@
 package com.example.demo.services.usuarios.usuario;
 
 import java.util.HashSet;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.domain.usuarios.busca.Busca;
 import com.example.demo.domain.usuarios.busca.BuscaDto;
-import com.example.demo.domain.usuarios.busca.conocimiento.ConocimientoDto;
-import com.example.demo.domain.usuarios.busca.experiencia.ExperienciaDto;
 import com.example.demo.domain.usuarios.contrata.Contrata;
 import com.example.demo.domain.usuarios.contrata.ContrataDto;
 import com.example.demo.domain.usuarios.usuario.LoggedUserContext;
 import com.example.demo.domain.usuarios.usuario.Usuario;
 import com.example.demo.domain.usuarios.usuario.UsuarioSettignsDto;
-import com.example.demo.services.usuarios.busca.BuscaService;
 import com.example.demo.services.usuarios.conocimiento.ConocimientoMapper;
 import com.example.demo.services.usuarios.experiencia.ExperienciaMapper;
 
@@ -28,8 +24,6 @@ public class UsuarioMapper {
     @Autowired
     ExperienciaMapper experienciaMapper;
 
-    @Autowired
-    BuscaService buscaService;
 
     public ContrataDto mapUsuarioEntityToContrataDto(Contrata contrata) {
         return ContrataDto.builder()
@@ -58,22 +52,22 @@ public class UsuarioMapper {
                 .build();
     }
 
-    public UsuarioSettignsDto mapUsuarioEntityToUsuarioSettignsDto(Usuario usuario) {
-        return UsuarioSettignsDto.builder()
-                .nombre(usuario.getNombre())
-                .email(usuario.getEmail())
-                .telefono(usuario.getTelefono())
-                .ciudad(usuario.getCiudad())
-                .build();
-    }
+    public LoggedUserContext mapUsuarioEntityToUserContextInterface(Usuario usuario) {
+        if (usuario instanceof Busca busca) 
+                return mapUsuarioEntityToUserContextInterface(busca);
+        
+        if (usuario instanceof Contrata contrata) 
+                return mapUsuarioEntityToUserContextInterface(contrata);
 
-   public LoggedUserContext mapUsuarioEntityToUserContextInterface(Usuario usuario) {
-        Busca busca = buscaService.obtenerPorNombre(usuario.getNombre());
+        throw new IllegalArgumentException();
 
+        }
+
+        public LoggedUserContext mapUsuarioEntityToUserContextInterface(Busca busca) {
         return LoggedUserContext.builder()
-                .username(usuario.getUsername())
-                .email(usuario.getEmail())
-                .rol(usuario.getRol())
+                .username(busca.getUsername())
+                .email(busca.getEmail())
+                .rol(busca.getRol())
                 .conocimientos(
                         busca != null ? 
                         conocimientoMapper.mapConocimientoSetEntityToDto(busca.getListaConocimientos())
@@ -88,5 +82,28 @@ public class UsuarioMapper {
                 )
                 .build();
         }
+
+        public LoggedUserContext mapUsuarioEntityToUserContextInterface(Contrata contrata) {
+                return LoggedUserContext.builder()
+                        .username(contrata.getUsername())
+                        .email(contrata.getEmail())
+                        .rol(contrata.getRol())
+                        .conocimientos(null)
+                        .experiencias(null)
+                        .build();
+        }
+
+    public UsuarioSettignsDto mapUsuarioEntityToUsuarioSettignsDto(Usuario usuario) {
+        return UsuarioSettignsDto.builder()
+                .id(usuario.getId())
+                .nombre(usuario.getNombre())
+                .email(usuario.getEmail())
+                .telefono(usuario.getTelefono())
+                .ciudad(usuario.getCiudad())
+                .build();
+    }
+
+   
+
 
 }

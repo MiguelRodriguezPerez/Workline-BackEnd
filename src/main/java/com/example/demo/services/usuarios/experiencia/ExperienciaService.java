@@ -14,7 +14,7 @@ public interface ExperienciaService  {
 
     Experiencia guardarExperiencia(Experiencia ex);
     Experiencia guardarExperienciaDemoApp(Busca busca, Experiencia exp);
-    Experiencia guardarCambios(ExperienciaDto experienciaDto, Long id);
+    Experiencia guardarCambios(ExperienciaDto experienciaDto);
     Experiencia guardarExperienciaFromBusca(Experiencia experiencia);
     Experiencia obtenerPorId(Long id);
     void borrarExperiencia(Long id);
@@ -22,5 +22,4 @@ public interface ExperienciaService  {
     void borrarTodosPorBusca(Long id);
     List<Experiencia> obtenerTodos();
     Set<Experiencia> obtenerTodosSet();
-    Experiencia convertirExperienciaDtoAExperiencia(ExperienciaDto dto);
 }
