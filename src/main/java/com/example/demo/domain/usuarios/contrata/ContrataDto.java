@@ -1,23 +1,18 @@
-package com.example.demo.domain.dtos;
+package com.example.demo.domain.usuarios.contrata;
 
 import com.example.demo.domain.usuarios.usuario.Rol;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
-@AllArgsConstructor
+@Setter 
 @Builder
-public class NuevoUsuarioDto {
-
+public class ContrataDto {
+    private Long id;
     private String nombre;
     private String email;
-    private String telefono;
     private String ciudad;
-    private String password;
     private Rol rol;
-
 }

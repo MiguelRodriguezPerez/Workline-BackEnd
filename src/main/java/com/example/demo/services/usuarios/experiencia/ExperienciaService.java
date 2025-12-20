@@ -1,20 +1,20 @@
-package com.example.demo.services;
+package com.example.demo.services.usuarios.experiencia;
 
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.domain.Experiencia;
-import com.example.demo.domain.dtos.ExperienciaDto;
-import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.domain.usuarios.busca.Busca;
+import com.example.demo.domain.usuarios.busca.experiencia.Experiencia;
+import com.example.demo.domain.usuarios.busca.experiencia.ExperienciaDto;
 
 @Service
 public interface ExperienciaService  {
 
     Experiencia guardarExperiencia(Experiencia ex);
     Experiencia guardarExperienciaDemoApp(Busca busca, Experiencia exp);
-    Experiencia guardarCambios(ExperienciaDto experienciaDto, Long id);
+    Experiencia guardarCambios(ExperienciaDto experienciaDto);
     Experiencia guardarExperienciaFromBusca(Experiencia experiencia);
     Experiencia obtenerPorId(Long id);
     void borrarExperiencia(Long id);
@@ -22,5 +22,4 @@ public interface ExperienciaService  {
     void borrarTodosPorBusca(Long id);
     List<Experiencia> obtenerTodos();
     Set<Experiencia> obtenerTodosSet();
-    Experiencia convertirExperienciaDtoAExperiencia(ExperienciaDto dto);
 }

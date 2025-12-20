@@ -1,4 +1,4 @@
-package com.example.demo.domain.usuarios;
+package com.example.demo.domain.usuarios.usuario;
 
 import java.util.Collection;
 import java.util.List;
@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
@@ -51,8 +53,10 @@ public abstract class Usuario implements UserDetails{
     @Nullable
     @Pattern(regexp = "^(6|7|8|9)\\d{8}$", message = "El número de teléfono debe comenzar con 6, 7, 8 o 9 y contener solo dígitos")
     @Size(min = 9, max = 9, message = "El número de teléfono debe tener exactamente 9 dígitos")
+    @JsonIgnore
     private String telefono;
 
+    @JsonIgnore
     @NotNull
     // @Size(min = 14, max = 30, message = "El password debe tener como minímo 14 carácteres y como máximo 30") validación fallida
     //Tiene problemas para validar la longitud, incluso si la integras en la regex
@@ -80,6 +84,7 @@ public abstract class Usuario implements UserDetails{
     }
 
     @Override 
+
     public Collection<? extends GrantedAuthority> getAuthorities() { 
         return List.of(); 
     } 

@@ -1,11 +1,8 @@
 package com.example.demo.services.ofertas;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,21 +12,23 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.ofertas.BusquedaOferta;
-import com.example.demo.domain.ofertas.ModalidadTrabajo;
 import com.example.demo.domain.ofertas.Oferta;
-import com.example.demo.domain.ofertas.OfertaDtoApi;
-import com.example.demo.domain.ofertas.TipoContrato;
-import com.example.demo.domain.usuarios.Busca;
-import com.example.demo.domain.usuarios.Contrata;
+import com.example.demo.domain.ofertas.OfertaDtoEmployer;
+import com.example.demo.domain.ofertas.OfertaDtoJobSearch;
+import com.example.demo.domain.usuarios.busca.Busca;
+import com.example.demo.domain.usuarios.contrata.Contrata;
 import com.example.demo.repositories.OfertaRepository;
-import com.example.demo.services.usuarios.BuscaService;
-import com.example.demo.services.usuarios.ContrataService;
+import com.example.demo.services.usuarios.busca.BuscaService;
+import com.example.demo.services.usuarios.contrata.ContrataService;
 
 @Service
 public class OfertaServiceImpl implements OfertaService {
 
     @Autowired
     OfertaRepository repo;
+
+    @Autowired
+    OfertaMapper ofertaMapper;
 
     @Autowired
     ContrataService contrataService;
@@ -46,44 +45,36 @@ public class OfertaServiceImpl implements OfertaService {
     }
 
     @Override
-    public Oferta guardarOfertaFromContrata(Oferta oferta) {
+    public OfertaDtoEmployer guardarNuevaOferta(OfertaDtoEmployer ofertaDto) {
+        Oferta oferta = ofertaMapper.mapNewOfertaEmployerDtoToEntity(ofertaDto);
+        Contrata contrata = contrataService.obtenerContrataConectado();
 
-        // Sospechoso de fallar con jwt
-        Contrata contrataConectado = contrataService.obtenerContrataConectado();
-
-        oferta.setNombreEmpresa(contrataConectado.getNombre());
-        oferta.setContrata(contrataConectado);
-
-        /*
-         * Como este método sirve para guardar nuevas ofertas, pero también sirve
-         * para editar las ofertas, se comprueba si la fecha es nula para evitar que en
-         * caso de que se edite una oferta la fecha no cambie
-         */
-        if (oferta.getFechaPublicacion() == null)
-            oferta.setFechaPublicacion(LocalDate.now());
+        oferta.setContrata(contrata);
+        contrata.getListaOfertas().add(oferta);
 
         this.guardarOferta(oferta);
-        contrataConectado.getListaOfertas().add(oferta);
-        contrataService.guardarSinEncriptar(contrataConectado);
+        contrataService.guardarSinEncriptar(contrata);
 
-        return oferta;
+        return ofertaMapper.mapOfertaEntityToEmployerDto(oferta);
     }
 
     @Override
-    public Oferta guardarCambios(Oferta oferta) {
-        Oferta ofertaEdit = this.obtenerPorId(oferta.getId());
+    public OfertaDtoEmployer actualizarOferta(OfertaDtoEmployer ofertaDto) {
+        Oferta oferta = this.obtenerPorId(ofertaDto.getId());
 
-        ofertaEdit.setPuesto(oferta.getPuesto());
-        ofertaEdit.setSector(oferta.getSector());
-        ofertaEdit.setModalidadTrabajo(oferta.getModalidadTrabajo());
-        ofertaEdit.setDescripcion(oferta.getDescripcion());
-        ofertaEdit.setSalarioAnual(oferta.getSalarioAnual());
-        ofertaEdit.setTipoContrato(oferta.getTipoContrato());
-        ofertaEdit.setHoras(oferta.getHoras());
-        ofertaEdit.setFechaPublicacion(oferta.getFechaPublicacion());
-        ofertaEdit.setCiudad(oferta.getCiudad());
+        oferta.setPuesto(oferta.getPuesto());
+        oferta.setSector(oferta.getSector());
+        oferta.setModalidadTrabajo(oferta.getModalidadTrabajo());
+        oferta.setDescripcion(oferta.getDescripcion());
+        oferta.setSalarioAnual(oferta.getSalarioAnual());
+        oferta.setTipoContrato(oferta.getTipoContrato());
+        oferta.setHoras(oferta.getHoras());
+        oferta.setFechaPublicacion(oferta.getFechaPublicacion());
+        oferta.setCiudad(oferta.getCiudad());
 
-        return this.guardarOferta(ofertaEdit);
+        Oferta resultado = this.guardarOferta(oferta);
+
+        return ofertaMapper.mapOfertaEntityToEmployerDto(resultado);
     }
 
     @Override
@@ -133,75 +124,45 @@ public class OfertaServiceImpl implements OfertaService {
 
     @Override
     public List<Oferta> obtenerTodos() {
-        ArrayList<Oferta> resultado = (ArrayList<Oferta>) repo.findAll();
-        Collections.sort(resultado, (f1, f2) -> f1.getFechaPublicacion().compareTo(f2.getFechaPublicacion()));
-        return resultado;
+        return repo.findAll();
     }
 
     private final Integer ofertasPorPagina = 10;
 
     @Override
-    public Page<Oferta> obtenerPaginaApi(int numPag, BusquedaOferta busquedaOferta) {
-        List<Oferta> resultadosBusqueda = this.obtenerResultados(busquedaOferta);
-        Pageable paginable = PageRequest.of(numPag, ofertasPorPagina);
-        int primeraOferta = (int) paginable.getOffset();
-        int ultimaOferta = Math.min(primeraOferta + paginable.getPageSize(), resultadosBusqueda.size());
+    public Page<OfertaDtoJobSearch> obtenerPaginaOfertas(int numPag, BusquedaOferta busquedaOferta) {
+        List<Oferta> ofertasFiltradas = this.obtenerResultados(busquedaOferta);
 
-        Page<Oferta> resultado = new PageImpl<>(resultadosBusqueda.subList(primeraOferta, ultimaOferta), paginable,
-                resultadosBusqueda.size());
-        return resultado;
+        Pageable paginable = PageRequest.of(numPag, ofertasPorPagina);
+        int primera = (int) paginable.getOffset();
+        int ultima = Math.min(primera + paginable.getPageSize(), ofertasFiltradas.size());
+
+        List<Oferta> paginaSinMapear = ofertasFiltradas.subList(primera, ultima);
+
+        List<OfertaDtoJobSearch> paginaDto = paginaSinMapear.stream()
+                .map(ofertaMapper::mapOfertaEntityToJobSearchDto)
+                .toList();
+
+        return new PageImpl<>(paginaDto, paginable, ofertasFiltradas.size());
     }
 
     @Override
     public List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta) {
-        List<Oferta> resultado = this.obtenerTodos();
-
-        Iterator<Oferta> iterator = resultado.iterator();
-
-        while (iterator.hasNext()) {
-            Oferta ofertaIteracion = iterator.next();
-
-            if (!busquedaOferta.getPuesto().equalsIgnoreCase("")
-                    && !busquedaOferta.getPuesto().equalsIgnoreCase(ofertaIteracion.getPuesto())) {
-                iterator.remove();
-                continue;
-            }
-
-            if (busquedaOferta.getTipoContrato() != null
-                    && busquedaOferta.getTipoContrato() != ofertaIteracion.getTipoContrato()) {
-                iterator.remove();
-                continue;
-            }
-
-            if (!busquedaOferta.getCiudad().equalsIgnoreCase("")
-                    && !busquedaOferta.getCiudad().equalsIgnoreCase(ofertaIteracion.getCiudad())) {
-                iterator.remove();
-                continue;
-            }
-
-            if (busquedaOferta.getSalarioAnualMinimo() != null && busquedaOferta.getSalarioAnualMinimo() != 0
-                    && ofertaIteracion.getSalarioAnual() < busquedaOferta.getSalarioAnualMinimo()) {
-                iterator.remove();
-                continue;
-            }
-
-            if (busquedaOferta.getModalidadTrabajo() != null 
-                && busquedaOferta.getModalidadTrabajo() != ofertaIteracion.getModalidadTrabajo()) {
-                iterator.remove();
-            }
-        }
-        return resultado;
-
-    }
-
-    /* TODO: Realizar este método por consulta precompilada */
-
-    @Override
-    public void cambiarPropiedadOfertas(Set<Oferta> listaOfertas, String username) {
-        for (Oferta oferta : listaOfertas) {
-            oferta.setNombreEmpresa(username);
-            this.guardarCambios(oferta);
-        }
+        return this.obtenerTodos().stream()
+                .filter(oferta -> busquedaOferta.getPuesto() == null
+                        || busquedaOferta.getPuesto().isBlank()
+                        || busquedaOferta.getPuesto().equalsIgnoreCase(oferta.getPuesto()))
+                .filter(oferta -> busquedaOferta.getCiudad() == null
+                        || busquedaOferta.getCiudad().isBlank()
+                        || busquedaOferta.getCiudad().equalsIgnoreCase(oferta.getCiudad()))
+                .filter(oferta -> busquedaOferta.getSalarioAnualMinimo() == null
+                        || busquedaOferta.getSalarioAnualMinimo() == 0
+                        || oferta.getSalarioAnual() >= busquedaOferta.getSalarioAnualMinimo())
+                .filter(oferta -> busquedaOferta.getModalidadTrabajo() == null
+                        || busquedaOferta.getModalidadTrabajo() == oferta.getModalidadTrabajo())
+                .filter(oferta -> busquedaOferta.getTipoContrato() == null
+                        || busquedaOferta.getTipoContrato() == oferta.getTipoContrato())
+                .toList();
     }
 
     @Override
@@ -214,35 +175,7 @@ public class OfertaServiceImpl implements OfertaService {
         return false;
     }
 
-    @Override
-    public Oferta convertirOfertaDtoApiAOferta(OfertaDtoApi ofertaDtoApi) {
-
-        TipoContrato t1 = null;
-        ModalidadTrabajo m1 = null;
-
-        for (ModalidadTrabajo m : ModalidadTrabajo.values()) {
-            if (ofertaDtoApi.getModalidadTrabajo().equalsIgnoreCase(m.toString()))
-                m1 = m;
-        }
-
-        for (TipoContrato t : TipoContrato.values()) {
-            if (ofertaDtoApi.getTipoContrato().equalsIgnoreCase(t.toString()))
-                t1 = t;
-        }
-
-        Oferta resultado = new Oferta(ofertaDtoApi.getPuesto(),
-                ofertaDtoApi.getSector(),
-                ofertaDtoApi.getDescripcion(),
-                ofertaDtoApi.getCiudad(),
-                ofertaDtoApi.getSalarioAnual(),
-                t1,
-                ofertaDtoApi.getHoras(),
-                m1);
-
-        System.out.println(resultado + "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-
-        return resultado;
-    }
+    /* NOTA: Su relación con el usuario contrata se mapeará en otro método */
 
     @Override
     public void inscribirBuscaConectadoWrapper(Long id) {
@@ -267,12 +200,6 @@ public class OfertaServiceImpl implements OfertaService {
 
         this.guardarOferta(oferta);
         buscaService.guardarSinEncriptar(buscaConectado);
-    }
-
-    @Override
-    public int obtenerNumeroCandidatos(Long id) {
-        Oferta oferta = this.obtenerPorId(id);
-        return oferta.getListaCandidatos().size();
     }
 
 }

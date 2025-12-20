@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.domain.Experiencia;
+import com.example.demo.domain.usuarios.busca.experiencia.Experiencia;
 
 public interface ExperienciaRepository extends JpaRepository<Experiencia,Long> {
 

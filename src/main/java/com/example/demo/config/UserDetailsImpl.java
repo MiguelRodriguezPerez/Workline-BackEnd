@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.domain.usuarios.Admin;
-import com.example.demo.domain.usuarios.Busca;
-import com.example.demo.domain.usuarios.Contrata;
+import com.example.demo.domain.usuarios.busca.Busca;
+import com.example.demo.domain.usuarios.contrata.Contrata;
 import com.example.demo.repositories.AdminRepository;
 import com.example.demo.repositories.BuscaRepository;
 import com.example.demo.repositories.ContrataRepository;

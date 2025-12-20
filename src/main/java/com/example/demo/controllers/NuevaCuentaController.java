@@ -14,84 +14,84 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.config.UsuarioService;
 import com.example.demo.domain.dtos.LoginUserDto;
 import com.example.demo.domain.dtos.NuevoUsuarioDto;
-import com.example.demo.domain.usuarios.Usuario;
-import com.example.demo.domain.usuarios.UsuarioContext;
+import com.example.demo.domain.usuarios.busca.Busca;
+import com.example.demo.domain.usuarios.usuario.LoggedUserContext;
+import com.example.demo.domain.usuarios.usuario.Usuario;
 import com.example.demo.services.auth.AuthenticationService;
-import com.example.demo.services.usuarios.BuscaService;
-import com.example.demo.services.usuarios.ContrataService;
-
-import jakarta.servlet.http.HttpServletResponse;
-
+import com.example.demo.services.usuarios.busca.BuscaService;
+import com.example.demo.services.usuarios.contrata.ContrataService;
+import com.example.demo.services.usuarios.usuario.UsuarioMapper;
+import com.example.demo.services.usuarios.usuario.UsuarioService;
 
 @RestController
 @RequestMapping("/nuevaCuenta/api")
 public class NuevaCuentaController {
 
-    @Autowired
-    AuthenticationService authenticationService;
+        @Autowired
+        AuthenticationService authenticationService;
 
-    @Autowired
-    UsuarioService usuarioService;
+        @Autowired
+        UsuarioService usuarioService;
 
-    @Autowired
-    ContrataService contrataService;
+        @Autowired
+        ContrataService contrataService;
 
-    @Autowired
-    BuscaService buscaService;
+        @Autowired
+        BuscaService buscaService;
 
+        @Autowired
+        UsuarioMapper usuarioMapper;
 
-    @GetMapping("/esNombreRepetido/{nombre}")
-    public ResponseEntity<Boolean> isUserRepeated(@PathVariable String nombre){
-        //Sospechoso de fallar
-        Boolean resultado = usuarioService.esNombreRepetido(nombre);
-        return new ResponseEntity<>(resultado,HttpStatus.OK);
-    }
-    
+        @PostMapping("/nuevoUsuario")
+        public ResponseEntity<LoggedUserContext> createNewUserEndpoint(@RequestBody NuevoUsuarioDto dto) {
+                switch (dto.getRol()) {
+                        case BUSCA:
+                                return createNewBuscaEndpoint(dto);
+                        case CONTRATA:
+                                return createNewContrataEndpoint(dto);
+                        default:
+                                return ResponseEntity.badRequest()
+                                                .body(null);
+                }
+        }
 
-    //Discutiblemente podría ser PutMapping
-    @PostMapping("/nuevoContrata")
-    public ResponseEntity<UsuarioContext> createNewContrataEndpoint(@RequestBody NuevoUsuarioDto dto) {
+        @PostMapping("/nuevoContrata")
+        public ResponseEntity<LoggedUserContext> createNewContrataEndpoint(@RequestBody NuevoUsuarioDto dto) {
+                contrataService.guardarNuevoUsuarioFromDto(dto);
 
-        contrataService.guardarNuevoUsuarioFromDto(dto);
-        //Asumiendo que todo vaya bien
-        //Usas la contraseña del dto sin encriptar. La encriptada no serviría
-        Usuario authenticatedUser = authenticationService.authenticate( 
-            new LoginUserDto(dto.getNombre(), dto.getPassword())
-        );
-        ResponseCookie cookie = authenticationService.generateCookieToken(authenticatedUser);
-        UsuarioContext usuarioContext = authenticationService.getUsuarioViewClientContext(authenticatedUser);
-        
-        /* TODO: Averiguar si tendría que existir un enpoint específico para cada usuario para indicar en el URI
-        Ejemplo: /contrata/user/1 */
+                // Usas la contraseña del dto sin encriptar. La encriptada no serviría
+                Usuario authenticatedUser = authenticationService.authenticate(
+                                new LoginUserDto(dto.getNombre(), dto.getPassword()));
+                ResponseCookie cookie = authenticationService.generateCookieToken(authenticatedUser);
+                LoggedUserContext usuarioContext = usuarioMapper.mapUsuarioEntityToUserContextInterface(authenticatedUser);
 
-        return ResponseEntity
-                .created(URI.create("/user/getCurrentUser"))
-                .header(HttpHeaders.SET_COOKIE, cookie.toString())
-                .body(usuarioContext);
-    }
+                return ResponseEntity
+                                .created(URI.create("/user/getCurrentUser"))
+                                .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                                .body(usuarioContext);
+        }
 
-    //Discutiblemente podría ser PutMapping
-    @PostMapping("/nuevoBusca")
-    public ResponseEntity<UsuarioContext> createNewBuscaEndpoint(@RequestBody NuevoUsuarioDto dto, HttpServletResponse response) {
-        buscaService.guardarNuevoUsuarioFromDto(dto);
-        //Asumiendo que todo vaya bien
-        //Usas la contraseña del dto sin encriptar. La encriptada no serviría
-        Usuario authenticatedUser = authenticationService.authenticate( 
-            new LoginUserDto(dto.getNombre(), dto.getPassword())
-        );
-        ResponseCookie cookie = authenticationService.generateCookieToken(authenticatedUser);
-        UsuarioContext usuarioContext = authenticationService.getUsuarioViewClientContext(authenticatedUser);
-        
-        /* TODO: Averiguar si tendría que existir un enpoint específico para cada usuario para indicar en el URI
-        Ejemplo: /contrata/user/1 */
+        @PostMapping("/nuevoBusca")
+        public ResponseEntity<LoggedUserContext> createNewBuscaEndpoint(@RequestBody NuevoUsuarioDto dto) {
+                buscaService.guardarNuevoUsuarioFromDto(dto);
 
-        return ResponseEntity
-                .created(URI.create("/user/getCurrentUser"))
-                .header(HttpHeaders.SET_COOKIE, cookie.toString())
-                .body(usuarioContext);
-    }
-    
+                // Usas la contraseña del dto sin encriptar. La encriptada no serviría
+                Busca authenticatedUser = (Busca) authenticationService.authenticate(
+                                new LoginUserDto(dto.getNombre(), dto.getPassword()));
+                ResponseCookie cookie = authenticationService.generateCookieToken(authenticatedUser);
+                LoggedUserContext usuarioContext = usuarioMapper.mapUsuarioEntityToUserContextInterface(authenticatedUser);
+
+                return ResponseEntity
+                                .created(URI.create("/user/getCurrentUser"))
+                                .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                                .body(usuarioContext);
+        }
+
+        @GetMapping("/esNombreRepetido/{nombre}")
+        public ResponseEntity<Boolean> isUserRepeated(@PathVariable String nombre) {
+                return new ResponseEntity<>(usuarioService.esNombreRepetido(nombre), HttpStatus.OK);
+        }
+
 }
