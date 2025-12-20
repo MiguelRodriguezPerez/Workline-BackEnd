@@ -1,10 +1,12 @@
-package com.example.demo.services.usuarios;
+package com.example.demo.services.usuarios.busca;
 
 import java.util.List;
+import java.util.Set;
 
 import com.example.demo.domain.dtos.NuevoUsuarioDto;
 import com.example.demo.domain.modelView.BuscaView;
-import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.domain.ofertas.OfertaDtoJobSearch;
+import com.example.demo.domain.usuarios.busca.Busca;
 
 public interface BuscaService {
 
@@ -33,5 +35,7 @@ public interface BuscaService {
     BuscaView convertirBuscaABuscaView(Busca busca);
 
     Busca convertirNuevoUsuarioDtoABusca(NuevoUsuarioDto dto);
+
+    Set<OfertaDtoJobSearch> obtenerOfertasJobSearchDelConectado();
 
 }

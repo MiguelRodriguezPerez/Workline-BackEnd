@@ -7,21 +7,22 @@ import org.springframework.data.domain.Page;
 
 import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.domain.ofertas.Oferta;
-import com.example.demo.domain.ofertas.OfertaDtoApi;
-import com.example.demo.domain.usuarios.Busca;
-import com.example.demo.domain.usuarios.Contrata;
+import com.example.demo.domain.ofertas.OfertaDtoEmployer;
+import com.example.demo.domain.ofertas.OfertaDtoJobSearch;
+import com.example.demo.domain.usuarios.busca.Busca;
+import com.example.demo.domain.usuarios.contrata.Contrata;
 
 public interface OfertaService {
 
     Oferta guardarOferta(Oferta oferta);
 
-    Oferta guardarOfertaFromContrata(Oferta oferta);
+    OfertaDtoEmployer guardarNuevaOferta(OfertaDtoEmployer ofertaDto);
 
-    Oferta guardarCambios(Oferta oferta);
+    OfertaDtoEmployer actualizarOferta(OfertaDtoEmployer ofertaDto);
 
     Oferta obtenerPorId(Long id);
 
-    Oferta convertirOfertaDtoApiAOferta(OfertaDtoApi ofertaDtoApi);
+    List<Oferta> obtenerTodos();
 
     void borrarOferta(Long id);
 
@@ -32,21 +33,17 @@ public interface OfertaService {
     void borrarBuscaDeTodasLasOfertas(Busca busca);
 
     void borrarTodasLasOfertasDeUnContrata(Contrata contrata);
-    void borrarTodosCandidatosTodasOfertasFromContrataId(Contrata contrata);
-    List<Oferta> obtenerTodos();
 
-    Page<Oferta> obtenerPaginaApi(int pagina, BusquedaOferta busquedaOferta);
+    void borrarTodosCandidatosTodasOfertasFromContrataId(Contrata contrata);
+
+    Page<OfertaDtoJobSearch> obtenerPaginaOfertas(int pagina, BusquedaOferta busquedaOferta);
 
     List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta);
-
-    void cambiarPropiedadOfertas(Set<Oferta> listaOfertas, String nombre);
 
     boolean estaSuscritoOferta(Long id);
 
     void inscribirBuscaConectadoWrapper(Long id);
 
     void desinscribirBuscaConectadoWrapper(Long id);
-
-    int obtenerNumeroCandidatos(Long id);
 
 }

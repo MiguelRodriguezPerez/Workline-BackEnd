@@ -1,4 +1,4 @@
-package com.example.demo.services.usuarios;
+package com.example.demo.services.usuarios.admin;
 
 import java.util.List;
 

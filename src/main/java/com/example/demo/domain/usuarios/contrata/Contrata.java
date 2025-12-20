@@ -1,18 +1,18 @@
-package com.example.demo.domain.usuarios;
+package com.example.demo.domain.usuarios.contrata;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 import com.example.demo.domain.ofertas.Oferta;
+import com.example.demo.domain.usuarios.usuario.Rol;
+import com.example.demo.domain.usuarios.usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -29,7 +29,7 @@ public class Contrata extends Usuario {
     @JsonBackReference("contrata_oferta")
     @OneToMany(fetch= FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "contrata")
     @Nullable
-    private Set<Oferta> listaOfertas;
+    private Set<Oferta> listaOfertas = new HashSet<>();
     
     public Contrata(String nombre, String email, String ciudad, String telefono, String password) {
         super(nombre, email, ciudad, telefono, password,Rol.CONTRATA);

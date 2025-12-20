@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.example.demo.domain.usuarios.Contrata;
+import com.example.demo.domain.usuarios.contrata.Contrata;
 
 import jakarta.transaction.Transactional;
 

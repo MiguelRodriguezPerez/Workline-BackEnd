@@ -1,8 +1,8 @@
-package com.example.demo.domain;
+package com.example.demo.domain.usuarios.busca.conocimiento;
 
 import java.time.LocalDate;
 
-import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.domain.usuarios.busca.Busca;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
@@ -14,12 +14,14 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @EqualsAndHashCode(of = "id")
+@Builder
 @Data
 @ToString(exclude = "busca")
 @NoArgsConstructor

@@ -1,4 +1,4 @@
-package com.example.demo.services;
+package com.example.demo.services.usuarios.experiencia;
 
 import java.util.HashSet;
 import java.util.List;
@@ -7,17 +7,20 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.domain.Experiencia;
-import com.example.demo.domain.dtos.ExperienciaDto;
-import com.example.demo.domain.usuarios.Busca;
+import com.example.demo.domain.usuarios.busca.Busca;
+import com.example.demo.domain.usuarios.busca.experiencia.Experiencia;
+import com.example.demo.domain.usuarios.busca.experiencia.ExperienciaDto;
 import com.example.demo.repositories.ExperienciaRepository;
-import com.example.demo.services.usuarios.BuscaService;
+import com.example.demo.services.usuarios.busca.BuscaService;
 
 @Service
 public class ExperienciaServiceImpl implements ExperienciaService{
 
     @Autowired
     ExperienciaRepository repo;
+
+    @Autowired
+    ExperienciaMapper experienciaMapper;
 
     @Autowired
     BuscaService buscaService;
@@ -39,15 +42,10 @@ public class ExperienciaServiceImpl implements ExperienciaService{
     }
 
     @Override
-    public Experiencia guardarCambios(ExperienciaDto experienciaDto, Long id){
-        Experiencia exp = this.obtenerPorId(id);
-
-        exp.setPuesto(experienciaDto.getPuesto());
-        exp.setEmpresa(experienciaDto.getEmpresa());
-        exp.setInicioExperiencia(experienciaDto.getInicioExperiencia());
-        exp.setFinExperiencia(experienciaDto.getFinExperiencia());
-
-        return this.guardarExperiencia(exp);
+    public Experiencia guardarCambios(ExperienciaDto experienciaDto){
+        return this.guardarExperiencia(
+            experienciaMapper.mapExperienciaDtoToEntity(experienciaDto)
+        );
     }
 
     @Override
@@ -107,13 +105,6 @@ public class ExperienciaServiceImpl implements ExperienciaService{
             resultado.add(exp);
         }
         return resultado;
-    }
-
-    @Override
-    public Experiencia convertirExperienciaDtoAExperiencia(ExperienciaDto dto) {
-        return new Experiencia(null, 
-            dto.getPuesto(), dto.getEmpresa(), 
-            dto.getInicioExperiencia(), dto.getFinExperiencia(), null);
     }
 
 }

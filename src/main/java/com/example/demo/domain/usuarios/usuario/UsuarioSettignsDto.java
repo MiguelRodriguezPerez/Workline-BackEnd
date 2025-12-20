@@ -1,14 +1,15 @@
-package com.example.demo.domain.usuarios;
+package com.example.demo.domain.usuarios.usuario;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-public class UsuarioDto {
-    
+@Builder
+public class UsuarioSettignsDto {
+
+    private Long id;
     private String nombre;
     private String email;
     private String telefono;

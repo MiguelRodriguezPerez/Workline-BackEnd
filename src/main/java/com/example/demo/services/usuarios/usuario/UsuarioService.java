@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.example.demo.services.usuarios.usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -6,18 +6,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.domain.Conocimiento;
-import com.example.demo.domain.usuarios.Busca;
-import com.example.demo.domain.usuarios.Contrata;
-import com.example.demo.domain.usuarios.Usuario;
-import com.example.demo.domain.usuarios.UsuarioContext;
-import com.example.demo.domain.usuarios.UsuarioDto;
-import com.example.demo.services.ConocimientoService;
-import com.example.demo.services.ExperienciaService;
+import com.example.demo.domain.usuarios.busca.Busca;
+import com.example.demo.domain.usuarios.contrata.Contrata;
+import com.example.demo.domain.usuarios.usuario.LoggedUserContext;
+import com.example.demo.domain.usuarios.usuario.Usuario;
+import com.example.demo.domain.usuarios.usuario.UsuarioSettignsDto;
 import com.example.demo.services.ofertas.OfertaService;
-import com.example.demo.services.usuarios.AdminService;
-import com.example.demo.services.usuarios.BuscaService;
-import com.example.demo.services.usuarios.ContrataService;
+import com.example.demo.services.usuarios.admin.AdminService;
+import com.example.demo.services.usuarios.busca.BuscaService;
+import com.example.demo.services.usuarios.conocimiento.ConocimientoService;
+import com.example.demo.services.usuarios.contrata.ContrataService;
+import com.example.demo.services.usuarios.experiencia.ExperienciaService;
 
 @Service
 public class UsuarioService {
@@ -60,21 +59,13 @@ public class UsuarioService {
         return this.encontrarUsuarioPorNombre(nombre) != null;
     }
 
-    public UsuarioContext convertirUsuarioAUsuarioView(Usuario usuario) {
-        return new UsuarioContext(usuario.getNombre(), usuario.getEmail(), usuario.getRol().toString());
-    }
-
-    public UsuarioDto convertirUsuarioAUsuarioDto(Usuario usuario) {
-        return new UsuarioDto(usuario.getNombre(), usuario.getEmail(), usuario.getTelefono(), usuario.getCiudad());
-    }
-
     public Usuario obtenerUsuarioLogueado() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Usuario currentUsuario = this.encontrarUsuarioPorNombre(authentication.getName());
         return currentUsuario;
     }
 
-    public Usuario guardarCambios(UsuarioDto usuarioDto) {
+    public Usuario guardarCambios(UsuarioSettignsDto usuarioDto) {
 
         Usuario currentUsuario = this.obtenerUsuarioLogueado();
 
@@ -88,7 +79,6 @@ public class UsuarioService {
             case CONTRATA:
                 Contrata contrata = (Contrata) currentUsuario;
                 contrataService.guardarSinEncriptar(contrata);
-                ofertaService.cambiarPropiedadOfertas(contrata.getListaOfertas(), contrata.getNombre());
                 return contrata;
             case BUSCA:
                 Busca busca = (Busca) currentUsuario;

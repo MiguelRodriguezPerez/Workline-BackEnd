@@ -1,5 +1,8 @@
 package com.example.demo.domain.usuarios;
 
+import com.example.demo.domain.usuarios.usuario.Rol;
+import com.example.demo.domain.usuarios.usuario.Usuario;
+
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 
