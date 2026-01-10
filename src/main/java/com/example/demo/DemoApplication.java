@@ -23,7 +23,17 @@ import com.example.demo.services.usuarios.contrata.ContrataService;
 import com.example.demo.services.usuarios.experiencia.ExperienciaService;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.servers.Server;
 
+@OpenAPIDefinition(
+	info = @Info(title = "Workline Api", version = "1.0.0"),
+	servers = {
+		@Server(url = "localhost:9001"),
+		@Server(url = "http://www.worklinejobs.com/")
+	}
+)
 @SpringBootApplication
 public class DemoApplication {
 

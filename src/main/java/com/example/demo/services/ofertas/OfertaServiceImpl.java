@@ -11,12 +11,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.domain.entidadesApi.PaginaJobSearchRequest;
 import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.ofertas.OfertaDtoEmployer;
 import com.example.demo.domain.ofertas.OfertaDtoJobSearch;
 import com.example.demo.domain.usuarios.busca.Busca;
 import com.example.demo.domain.usuarios.contrata.Contrata;
+import com.example.demo.exceptions.ofertaExceptions.OfertaPageIndexException;
 import com.example.demo.repositories.OfertaRepository;
 import com.example.demo.services.usuarios.busca.BuscaService;
 import com.example.demo.services.usuarios.contrata.ContrataService;
@@ -130,20 +132,26 @@ public class OfertaServiceImpl implements OfertaService {
     private final Integer ofertasPorPagina = 10;
 
     @Override
-    public Page<OfertaDtoJobSearch> obtenerPaginaOfertas(int numPag, BusquedaOferta busquedaOferta) {
-        List<Oferta> ofertasFiltradas = this.obtenerResultados(busquedaOferta);
+    public Page<OfertaDtoJobSearch> obtenerPaginaOfertas(PaginaJobSearchRequest request) {
+        List<Oferta> ofertasFiltradas = this.obtenerResultados(request.getBusquedaOferta());
 
-        Pageable paginable = PageRequest.of(numPag, ofertasPorPagina);
+        Pageable paginable = PageRequest.of(request.getPagina(), ofertasPorPagina);
         int primera = (int) paginable.getOffset();
         int ultima = Math.min(primera + paginable.getPageSize(), ofertasFiltradas.size());
 
-        List<Oferta> paginaSinMapear = ofertasFiltradas.subList(primera, ultima);
-
-        List<OfertaDtoJobSearch> paginaDto = paginaSinMapear.stream()
+        /* Si el número de página requerida no existe, lanzará un IllegalArgumentException. 
+        La idea es atraparlo y lanzar una excepción personalizada que derive en la devolución de un 404 */
+        try {
+            List<Oferta> paginaSinMapear = ofertasFiltradas.subList(primera, ultima);
+            List<OfertaDtoJobSearch> paginaDto = paginaSinMapear.stream()
                 .map(ofertaMapper::mapOfertaEntityToJobSearchDto)
                 .toList();
 
-        return new PageImpl<>(paginaDto, paginable, ofertasFiltradas.size());
+            return new PageImpl<>(paginaDto, paginable, ofertasFiltradas.size());
+        } catch (IllegalArgumentException ex) {
+            throw new OfertaPageIndexException(request);
+        }
+        
     }
 
     @Override

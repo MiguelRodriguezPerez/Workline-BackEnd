@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.springframework.data.domain.Page;
 
+import com.example.demo.domain.entidadesApi.PaginaJobSearchRequest;
 import com.example.demo.domain.ofertas.BusquedaOferta;
 import com.example.demo.domain.ofertas.Oferta;
 import com.example.demo.domain.ofertas.OfertaDtoEmployer;
@@ -36,7 +37,7 @@ public interface OfertaService {
 
     void borrarTodosCandidatosTodasOfertasFromContrataId(Contrata contrata);
 
-    Page<OfertaDtoJobSearch> obtenerPaginaOfertas(int pagina, BusquedaOferta busquedaOferta);
+    Page<OfertaDtoJobSearch> obtenerPaginaOfertas(PaginaJobSearchRequest request);
 
     List<Oferta> obtenerResultados(BusquedaOferta busquedaOferta);
 
