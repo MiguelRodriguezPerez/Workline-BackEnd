@@ -9,13 +9,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.demo.exceptions.WorklineErrorResponse;
+import com.example.demo.exceptions.ofertaExceptions.NoOfertaResultsFoundException;
+import com.example.demo.exceptions.ofertaExceptions.OfertaIdNotFoundException;
 import com.example.demo.exceptions.ofertaExceptions.OfertaPageIndexException;
 
 @RestControllerAdvice
 public class OfertasExceptionController {
     
     @ExceptionHandler({
-        OfertaPageIndexException.class
+        OfertaPageIndexException.class,
+        NoOfertaResultsFoundException.class,
+        OfertaIdNotFoundException.class
     })
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<WorklineErrorResponse> handleOfertasBusquedaExceptions(RuntimeException ex) {

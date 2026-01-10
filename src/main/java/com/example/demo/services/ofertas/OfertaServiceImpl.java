@@ -1,7 +1,5 @@
 package com.example.demo.services.ofertas;
 
-import java.time.LocalDate;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,8 @@ import com.example.demo.domain.ofertas.OfertaDtoEmployer;
 import com.example.demo.domain.ofertas.OfertaDtoJobSearch;
 import com.example.demo.domain.usuarios.busca.Busca;
 import com.example.demo.domain.usuarios.contrata.Contrata;
+import com.example.demo.exceptions.ofertaExceptions.NoOfertaResultsFoundException;
+import com.example.demo.exceptions.ofertaExceptions.OfertaIdNotFoundException;
 import com.example.demo.exceptions.ofertaExceptions.OfertaPageIndexException;
 import com.example.demo.repositories.OfertaRepository;
 import com.example.demo.services.usuarios.busca.BuscaService;
@@ -121,7 +121,7 @@ public class OfertaServiceImpl implements OfertaService {
 
     @Override
     public Oferta obtenerPorId(Long id) {
-        return repo.findById(id).orElse(null);
+        return repo.findById(id).orElseThrow(() -> new OfertaIdNotFoundException(id));
     }
 
     @Override
@@ -143,6 +143,9 @@ public class OfertaServiceImpl implements OfertaService {
         La idea es atraparlo y lanzar una excepción personalizada que derive en la devolución de un 404 */
         try {
             List<Oferta> paginaSinMapear = ofertasFiltradas.subList(primera, ultima);
+
+            if (paginaSinMapear.size() == 0) throw new NoOfertaResultsFoundException(request.getBusquedaOferta());
+
             List<OfertaDtoJobSearch> paginaDto = paginaSinMapear.stream()
                 .map(ofertaMapper::mapOfertaEntityToJobSearchDto)
                 .toList();
