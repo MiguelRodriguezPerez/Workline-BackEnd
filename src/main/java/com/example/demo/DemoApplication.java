@@ -53,15 +53,6 @@ public class DemoApplication {
 	// 		buscaService.guardar(new Busca("María López", "maria.lopez@mail.com", "Barcelona", "611333444", "claveMaria456"));
 	// 		buscaService.guardar(new Busca("Carlos Sánchez", "carlos.sanchez@mail.com", "Valencia", "622555666", "passCarlos789"));
 
-
-	// 		// contrataService.guardar(new Contrata("TechCorp", "techcorp@gmail.com", "Madrid", "623456789", "1234kasdddddddjfA#"));
-	// 		// contrataService.guardar(new Contrata("InnovateCo", "innovateco@gmail.com", "Barcelona", "624567890", "1234kasdddddddjfA#"));
-	// 		// contrataService.guardar(new Contrata("BuildIt", "buildit@gmail.com", "Sevilla", "625678901", "1234kasdddddddjfA#"));
-	// 		// contrataService.guardar(new Contrata("GreenTech", "greentech@gmail.com", "Valencia", "626789012", "1234kasdddddddjfA#"));
-
-	// 		// buscaService.guardar(new Busca("roberto","manuel@gmail.com","Cordoba","654344512","1234kasdddddddjfA#"));
-	// 		// buscaService.guardar(new Busca("manuel","manuel@gmail.com","Soria","654344512","1234kasdddddddjfA#"));
-
 	// 	};
 	// }
 

@@ -90,7 +90,8 @@ public class SecurityConfig {
             "/ofertas/api/desinscribirBusca/**").hasRole("BUSCA")
             .requestMatchers("/user/**").authenticated()
             .requestMatchers("/", "/nuevaCuenta/**",
-            "/ofertas/api/**","/auth/**", "/get-csrf-token").permitAll()
+            "/ofertas/api/**","/auth/**", "/get-csrf-token",
+            "/swagger-ui/**","/v3/api-docs/**","/v3/api-docs.yaml","/swagger-ui.html").permitAll()
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
             .anyRequest().authenticated());
 
