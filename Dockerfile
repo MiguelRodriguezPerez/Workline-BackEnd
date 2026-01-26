@@ -1,0 +1,10 @@
+FROM maven:4.0.0-rc-5-eclipse-temurin-21-noble AS build
+WORKDIR /app
+COPY . .
+RUN mvn clean package -D skipTests
+
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+# Copiamos el jar compilado del stage anterior
+COPY --from=build /app/target/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
