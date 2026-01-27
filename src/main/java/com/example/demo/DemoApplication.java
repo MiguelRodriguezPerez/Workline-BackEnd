@@ -28,10 +28,11 @@ import io.github.cdimascio.dotenv.Dotenv;
 public class DemoApplication {
 
 	public static void main(String[] args) {
-		System.out.println(
-			System.getenv("CLIENT_ALLOWED")
-		);
-		System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+		/* NOTA: Extrañamente System.getenv("WHATEVER") funciona en prod, pero no en dev
+		Necesitas Dotenv */
+		Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
+        dotenv.entries().forEach(entry -> System.setProperty(entry.getKey(), entry.getValue()));
+
 		SpringApplication.run(DemoApplication.class, args);
 	}
 

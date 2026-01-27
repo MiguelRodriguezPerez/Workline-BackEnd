@@ -25,6 +25,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 
 @Configuration
 @EnableWebSecurity
@@ -57,8 +59,11 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {        
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedOrigins(Arrays.asList(System.getenv("CLIENT_ALLOWED")));
+        Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
+
+        corsConfiguration.setAllowedOrigins(Arrays.asList(dotenv.get("CLIENT_ALLOWED")));
         corsConfiguration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTIONS"));
+
         /* TODO: Decidir jwt token en cookies o headers*/ 
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setAllowedHeaders(Arrays.asList("Authorization","Content-Type"));
